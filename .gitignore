@@ -1,0 +1,18 @@
+.vs/
+
+*.suo
+*.user
+
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+[Aa]rtifacts/
+
+*.sln.DotSettings
+
+# exclude everything
+db/*
+
+# exception to the rule
+!db/.gitkeep 
