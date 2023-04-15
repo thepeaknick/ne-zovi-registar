@@ -1,2 +1,2 @@
-# NeZovi
+# Ne zovi registar
 ne zovi me breee.....
