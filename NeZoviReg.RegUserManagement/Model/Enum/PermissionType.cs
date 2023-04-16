@@ -2,11 +2,11 @@
 
 public enum PermissionType
 {
-    All = 0,
+    All = 1,
 
-    Write = 1,
+    Write,
 
-    Delete = 2,
+    Delete,
 
     Read,
 

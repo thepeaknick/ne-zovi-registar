@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using NeZoviReg.Auth.Model;
 
 namespace NeZoviReg.Auth;
 

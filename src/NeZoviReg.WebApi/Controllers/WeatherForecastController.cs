@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Auth;
 using NeZoviReg.Auth.Model.Enum;
 
-namespace NeZovi.WebApi.Controllers
+namespace NeZoviReg.WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]

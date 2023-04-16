@@ -1,4 +1,4 @@
-namespace NeZovi.WebApi
+namespace NeZoviReg.WebApi
 {
     public class WeatherForecast
     {
