@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Auth;
-using NeZoviReg.Auth.Model;
 using NeZoviReg.Auth.Model.Enum;
 
 namespace NeZovi.WebApi.Controllers
@@ -22,7 +21,7 @@ namespace NeZovi.WebApi.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        [RoleAuthorization(RoleType.Admin)]
+        [PermissionAuthorization(PermissionType.All)]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

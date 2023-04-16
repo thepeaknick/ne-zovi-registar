@@ -18,8 +18,9 @@ public class NeZoviRegAuthorizationService : DefaultAuthorizationService, INeZov
     {
     }
 
-    public Task<bool> HasRole(ClaimsPrincipal user, RoleType roleType, CancellationToken token = default)
+    public Task<bool> HasPermission(ClaimsPrincipal user, string permission, CancellationToken token = default)
     {
+        //read from Db and cache each user permissions
         return Task.FromResult(true);
     }
 }

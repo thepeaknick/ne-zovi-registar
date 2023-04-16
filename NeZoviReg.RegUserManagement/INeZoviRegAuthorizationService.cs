@@ -6,5 +6,5 @@ namespace NeZoviReg.Auth;
 
 public interface INeZoviRegAuthorizationService : IAuthorizationService
 {
-    Task<bool> HasRole(ClaimsPrincipal user, RoleType roleType, CancellationToken token = default);
+    Task<bool> HasPermission(ClaimsPrincipal user, string permission, CancellationToken token = default);
 }

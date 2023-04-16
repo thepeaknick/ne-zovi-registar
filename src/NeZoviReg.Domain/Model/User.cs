@@ -16,6 +16,8 @@ public class User : Entity
 
     public string LastName { get; private set; }
 
+    public string PhoneNumber { get; private set; }
+
     public string FullName => $"{FirstName} {LastName}";
 
     public string Jmbg { get; private set; }

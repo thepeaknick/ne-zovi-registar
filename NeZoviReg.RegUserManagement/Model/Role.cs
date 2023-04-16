@@ -1,18 +1,18 @@
-﻿using NeZoviReg.Auth.Model;
-using NeZoviReg.Auth.Model.Enum;
-using NeZoviReg.Domain;
+﻿using NeZoviReg.Domain;
+using NeZoviReg.Domain.Model;
 
 namespace NeZoviReg.Auth.Model;
 
-public class Role : Entity
+public class Role : EnumerationEntity
 {
-    public Role(string name, RoleType type)
+    public Role(int id, string name):
+        base(id, name)
     {
-        Name = name;
-        Type = type;
     }
 
-    public RoleType Type { get; private set; }
+    private readonly List<RegUser> _users = new();
+    public IReadOnlyCollection<RegUser> Users => _users;
 
-    public string Name { get; private set; }
+    private readonly List<Permission> _permissions = new();
+    public IReadOnlyCollection<Permission> Permissions => _permissions;
 }

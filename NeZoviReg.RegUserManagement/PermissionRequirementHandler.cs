@@ -3,19 +3,19 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace NeZoviReg.Auth;
 
-public class RoleRequirementHandler : AuthorizationHandler<RoleRequirement>
+public class PermissionRequirementHandler : AuthorizationHandler<PermissionRequirement>
 {
     private readonly IServiceProvider _serviceProvider;
 
-    public RoleRequirementHandler(IServiceProvider serviceProvider)
+    public PermissionRequirementHandler(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
     }
 
-    protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, RoleRequirement requirement)
+    protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
     {
         var authService = _serviceProvider.GetRequiredService<INeZoviRegAuthorizationService>();
-        if (await authService.HasRole(context.User, requirement.Role))
+        if (await authService.HasPermission(context.User, requirement.Permission))
             context.Succeed(requirement);
     }
 }

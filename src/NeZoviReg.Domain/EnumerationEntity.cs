@@ -1,13 +1,18 @@
 ﻿#pragma warning disable CS8618
+using NeZoviReg.Domain.Abstractions;
+
 namespace NeZoviReg.Domain;
 
 /// <summary>
 /// Base aggregate root.
 /// Abstract class, defines for inheritance.
 /// </summary>
-public abstract class Entity : IEntity, IAuditingEntity
+public abstract class EnumerationEntity : Enumeration<EnumerationEntity>, IEntity, IAuditingEntity
 {
-    public int Id { get; protected set; }
+    protected EnumerationEntity(int id, string name):
+        base(id, name)
+    {
+    }
 
     public string CreatedBy { get; protected set; }
 

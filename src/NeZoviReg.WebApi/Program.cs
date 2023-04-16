@@ -10,8 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IAuthorizationHandler, RoleRequirementHandler>();
-builder.Services.AddSingleton<IAuthorizationPolicyProvider, RolePolicyProvider>();
+builder.Services.AddSingleton<IAuthorizationHandler, PermissionRequirementHandler>();
+builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
 builder.Services.AddTransient<INeZoviRegAuthorizationService, NeZoviRegAuthorizationService>();
 
 var app = builder.Build();

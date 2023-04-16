@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
+using NeZoviReg.Auth.Model;
 using NeZoviReg.Auth.Model.Enum;
 #pragma warning disable CS8613
 
 namespace NeZoviReg.Auth;
 
-public class RolePolicyProvider : IAuthorizationPolicyProvider
+public class PermissionPolicyProvider : IAuthorizationPolicyProvider
 {
-    public RolePolicyProvider(IOptions<AuthorizationOptions> options)
+    public PermissionPolicyProvider(IOptions<AuthorizationOptions> options)
     {
         FallbackPolicyProvider = new DefaultAuthorizationPolicyProvider(options);
     }
@@ -16,12 +17,12 @@ public class RolePolicyProvider : IAuthorizationPolicyProvider
 
     public Task<AuthorizationPolicy> GetPolicyAsync(string policyName)
     {
-        if (policyName.StartsWith(RoleAuthorizationAttribute.PolicyPrefix))
+        if (policyName.StartsWith(PermissionAuthorizationAttribute.PolicyPrefix))
         {
-            var role = policyName.Substring(RoleAuthorizationAttribute.PolicyPrefix.Length);
+            var permission = policyName.Substring(PermissionAuthorizationAttribute.PolicyPrefix.Length);
 
             var policy = new AuthorizationPolicyBuilder()
-                .AddRequirements(new RoleRequirement(Enum.Parse<RoleType>(role)))
+                .AddRequirements(new PermissionRequirement(permission))
                 .Build();
 
             return Task.FromResult<AuthorizationPolicy>(policy);
