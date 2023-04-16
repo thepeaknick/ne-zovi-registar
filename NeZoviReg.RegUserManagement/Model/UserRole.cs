@@ -1,4 +1,6 @@
-﻿namespace NeZoviReg.Domain.Model.Auth;
+﻿using NeZoviReg.Domain;
+
+namespace NeZoviReg.Auth.Model;
 
 public class UserRole  : Entity
 {

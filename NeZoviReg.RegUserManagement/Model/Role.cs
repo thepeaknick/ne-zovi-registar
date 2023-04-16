@@ -1,6 +1,8 @@
-﻿using NeZoviReg.Domain.Model.Auth.Enum;
+﻿using NeZoviReg.Auth.Model;
+using NeZoviReg.Auth.Model.Enum;
+using NeZoviReg.Domain;
 
-namespace NeZoviReg.Domain.Model.Auth;
+namespace NeZoviReg.Auth.Model;
 
 public class Role : Entity
 {

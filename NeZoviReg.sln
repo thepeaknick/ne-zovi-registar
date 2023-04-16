@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.IntegrationTests"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.UnitTests", "test\NeZoviReg.UnitTests\NeZoviReg.UnitTests.csproj", "{08E3EE24-E7B8-499C-B475-F093163E24B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeZoviReg.Auth", "NeZoviReg.RegUserManagement\NeZoviReg.Auth.csproj", "{49D36EC1-2813-46A0-A82C-24E757EB362A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{08E3EE24-E7B8-499C-B475-F093163E24B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08E3EE24-E7B8-499C-B475-F093163E24B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08E3EE24-E7B8-499C-B475-F093163E24B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49D36EC1-2813-46A0-A82C-24E757EB362A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49D36EC1-2813-46A0-A82C-24E757EB362A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49D36EC1-2813-46A0-A82C-24E757EB362A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49D36EC1-2813-46A0-A82C-24E757EB362A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +89,7 @@ Global
 		{A4681103-5446-48BB-B5D8-AF9B6D3F0881} = {A2BD3D0F-5FF9-410C-95F6-DAD884527E32}
 		{65A0C15F-02B4-4DF6-A81F-F463AFBCB7A1} = {906A835F-FB79-4049-80FD-E2034DBABAFC}
 		{08E3EE24-E7B8-499C-B475-F093163E24B6} = {906A835F-FB79-4049-80FD-E2034DBABAFC}
+		{49D36EC1-2813-46A0-A82C-24E757EB362A} = {731EF08D-5244-409A-93EB-0800C46793F5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {86387C1F-A172-4F06-9570-BA1BC8EFB8FC}

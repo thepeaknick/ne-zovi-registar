@@ -10,11 +10,12 @@ public abstract class Entity : IEntity, IAuditingEntity
     protected Entity()
     {
         CreatedOn = DateTime.Now;
+        CreatedBy = "Admin";
     }
 
     public int Id { get; protected set; }
 
-    public string? CreatedBy { get; protected set; }
+    public string CreatedBy { get; protected set; }
 
     public string? ModifiedBy { get; protected set; }
 
@@ -33,7 +34,6 @@ public abstract class Entity : IEntity, IAuditingEntity
 
     public IAuditingEntity AddAuditing(IAuditingEntity entity, string user)
     {
-        CreatedBy ??= user;
         ModifiedOn = DateTime.Now;
         ModifiedBy = user;
 
