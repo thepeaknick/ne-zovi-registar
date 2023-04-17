@@ -7,13 +7,13 @@ public abstract class Enumeration<TEnum> : IEquatable<Enumeration<TEnum>>
 {
     protected Enumeration(int id, string name)
     {
-        Id = id;
+        Value = id;
         Name = name;
     }
 
     private static Dictionary<int, TEnum> _enumerations = CreateEnumerations();
 
-    public int Id { get; protected set; }
+    public int Value { get; protected set; }
 
     public string Name { get; protected set; }
 
@@ -38,7 +38,7 @@ public abstract class Enumeration<TEnum> : IEquatable<Enumeration<TEnum>>
     {
         if (other is null)
             return false;
-        return GetType() == other.GetType() && Id == other.Id;
+        return GetType() == other.GetType() && Value == other.Value;
     }
 
     public override bool Equals(object? obj)
@@ -48,7 +48,7 @@ public abstract class Enumeration<TEnum> : IEquatable<Enumeration<TEnum>>
 
     public override int GetHashCode()
     {
-        return Id.GetHashCode();
+        return Value.GetHashCode();
     }
 
 
@@ -60,6 +60,6 @@ public abstract class Enumeration<TEnum> : IEquatable<Enumeration<TEnum>>
             .Where(fi => enumType.IsAssignableFrom(fi.FieldType))
             .Select(fi => (TEnum)fi.GetValue(default)!);
 
-        return fieldTypes.ToDictionary(x => x.Id);
+        return fieldTypes.ToDictionary(x => x.Value);
     }
 }

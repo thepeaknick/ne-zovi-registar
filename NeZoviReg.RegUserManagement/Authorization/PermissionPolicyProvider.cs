@@ -4,7 +4,7 @@ using NeZoviReg.Auth.Model;
 using NeZoviReg.Auth.Model.Enum;
 #pragma warning disable CS8613
 
-namespace NeZoviReg.Auth;
+namespace NeZoviReg.Auth.Authorization;
 
 public class PermissionPolicyProvider : IAuthorizationPolicyProvider
 {

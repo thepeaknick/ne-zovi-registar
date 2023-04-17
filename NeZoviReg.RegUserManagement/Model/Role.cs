@@ -5,8 +5,8 @@ namespace NeZoviReg.Auth.Model;
 
 public class Role : EnumerationEntity
 {
-    public Role(int id, string name):
-        base(id, name)
+    public Role(int id, int code, string name):
+        base(id, code, name)
     {
     }
 

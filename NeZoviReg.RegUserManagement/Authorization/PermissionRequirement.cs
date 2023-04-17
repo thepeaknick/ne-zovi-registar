@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
-namespace NeZoviReg.Auth;
+namespace NeZoviReg.Auth.Authorization;
 
 public class PermissionRequirement: IAuthorizationRequirement
 {

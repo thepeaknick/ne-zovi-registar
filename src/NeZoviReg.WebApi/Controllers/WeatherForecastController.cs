@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Auth;
+using NeZoviReg.Auth.Authorization;
 using NeZoviReg.Auth.Model.Enum;
 
 namespace NeZoviReg.WebApi.Controllers
@@ -21,6 +23,7 @@ namespace NeZoviReg.WebApi.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
+        //[AllowAnonymous]
         [PermissionAuthorization(PermissionType.All)]
         public IEnumerable<WeatherForecast> Get()
         {

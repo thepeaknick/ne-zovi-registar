@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NeZoviReg.Auth.Model.Enum;
 
-namespace NeZoviReg.Auth;
+namespace NeZoviReg.Auth.Authorization;
 
 public class NeZoviRegAuthorizationService : DefaultAuthorizationService, INeZoviRegAuthorizationService
 {

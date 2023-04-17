@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using NeZoviReg.Auth.Model.Enum;
 
-namespace NeZoviReg.Auth;
+namespace NeZoviReg.Auth.Authorization;
 
 public interface INeZoviRegAuthorizationService : IAuthorizationService
 {

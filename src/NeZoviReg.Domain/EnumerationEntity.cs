@@ -9,10 +9,13 @@ namespace NeZoviReg.Domain;
 /// </summary>
 public abstract class EnumerationEntity : Enumeration<EnumerationEntity>, IEntity, IAuditingEntity
 {
-    protected EnumerationEntity(int id, string name):
-        base(id, name)
+    protected EnumerationEntity(int id, int code, string name):
+        base(code, name)
     {
+        Id = id;
     }
+
+    public int Id { get; private set; }
 
     public string CreatedBy { get; private set; }
 

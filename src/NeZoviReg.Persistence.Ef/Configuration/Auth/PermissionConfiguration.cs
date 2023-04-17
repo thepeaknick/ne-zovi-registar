@@ -17,6 +17,19 @@ public class PermissionConfiguration : IEntityTypeConfiguration<Permission>
             .IsRequired()
             .HasMaxLength(100);
 
-        builder.HasData(Permission.GetValues());
+        builder.HasData(Create());
+    }
+
+    private static List<Permission> Create()
+    {
+        var roles = Permission.GetValues();
+
+        for (int i = 0; i < roles.Count; i++)
+        {
+            var role = roles[i];
+            role.AddIdentity(++i);
+        }
+
+        return roles.Select(r => new Permission(r.Id, r.Value, r.Name)).ToList();
     }
 }

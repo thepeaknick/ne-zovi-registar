@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace NeZoviReg.Auth;
+namespace NeZoviReg.Auth.Authorization;
 
 public class PermissionRequirementHandler : AuthorizationHandler<PermissionRequirement>
 {
