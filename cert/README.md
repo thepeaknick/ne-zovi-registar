@@ -1,6 +1,7 @@
 
 links:
 https://www.c-sharpcorner.com/article/using-certificates-for-api-authentication-in-net-5/
+https://damienbod.com/2021/11/22/implement-certificate-authentication-in-asp-net-core-for-an-azure-b2c-api-connector/
 https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate?view=windowsserver2022-ps
 
 Open PowerShell as admin
