@@ -1,4 +1,4 @@
-﻿namespace NeZoviReg.Auth.Model.Enum;
+﻿namespace NeZoviReg.Auth.Enum;
 
 public enum PermissionType
 {

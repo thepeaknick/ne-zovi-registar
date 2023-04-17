@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NeZoviReg.Auth.Model;
-using NeZoviReg.Auth.Model.Enum;
-using System.Collections.Generic;
-using System.Linq;
+using NeZoviReg.Domain.Auth;
 
 namespace NeZoviReg.Persistence.Ef.Configuration.Auth;
 
@@ -30,6 +27,12 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
             .UsingEntity<RolePermission>();
 
         builder.HasData(Create());
+
+        builder.Navigation(n => n.Permissions)
+            .UsePropertyAccessMode(PropertyAccessMode.Field);
+
+        builder.Navigation(n => n.Users)
+            .UsePropertyAccessMode(PropertyAccessMode.Field);
 
     }
 

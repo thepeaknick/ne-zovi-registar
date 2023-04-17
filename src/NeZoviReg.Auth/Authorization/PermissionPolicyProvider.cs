@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
-using NeZoviReg.Auth.Model;
-using NeZoviReg.Auth.Model.Enum;
+
 #pragma warning disable CS8613
 
 namespace NeZoviReg.Auth.Authorization;

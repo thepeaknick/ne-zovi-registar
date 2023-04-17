@@ -13,21 +13,20 @@ public static class Startup
             .AddCertificate(options =>
             {
                 options.AllowedCertificateTypes = CertificateTypes.SelfSigned;
+                //options.ChainTrustValidationMode = X509ChainTrustMode.CustomRootTrust;
                 options.Events = new CertificateAuthenticationEvents
                 {
                     OnCertificateValidated = context =>
                     {
                         var validationService =
                             context.HttpContext.RequestServices.GetService<ICertValidationService>();
-                        if (validationService.ValidateCertificate(context.ClientCertificate))
+
+                        var userId = validationService?.ValidateCertificateWithUserId(context.ClientCertificate);
+                        if (userId != default)
                         {
                             var claims = new[]
                             {
-                                new Claim(ClaimTypes.NameIdentifier, context.ClientCertificate.Subject,
-                                    ClaimValueTypes.String,
-                                    context.Options.ClaimsIssuer),
-                                new Claim(ClaimTypes.Name, context.ClientCertificate.Subject, ClaimValueTypes.String,
-                                    context.Options.ClaimsIssuer)
+                                new Claim(ClaimTypes.NameIdentifier, userId.ToString()!)
                             };
 
                             context.Principal = new ClaimsPrincipal(new ClaimsIdentity(claims, context.Scheme.Name));
@@ -35,14 +34,14 @@ public static class Startup
                         }
                         else
                         {
-                            context.Fail("Invalid certificate");
+                            context.Fail("Nevalidan sertifikat!");
                         }
 
                         return Task.CompletedTask;
                     },
                     OnAuthenticationFailed = context =>
                     {
-                        context.Fail("Invalid certificate");
+                        context.Fail("Nevalidan sertifikat!");
                         return Task.CompletedTask;
                     }
                 };

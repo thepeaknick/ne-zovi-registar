@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NeZoviReg.Auth.Model.Enum;
 
 namespace NeZoviReg.Auth.Authorization;
 
@@ -20,7 +19,9 @@ public class NeZoviRegAuthorizationService : DefaultAuthorizationService, INeZov
 
     public Task<bool> HasPermission(ClaimsPrincipal user, string permission, CancellationToken token = default)
     {
-        //read from Db and cache each user permissions
+        // 1. Get userId from the ClaimsPrincipam claims
+        //2. get the user permissions and cache
+        //3. check of the user has given requirement permission
         return Task.FromResult(true);
     }
 }

@@ -12,11 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\NeZoviReg.Domain\NeZoviReg.Domain.csproj" PrivateAssets="All" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Model\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\" />
+    <ProjectReference Include="..\NeZoviReg.Domain\NeZoviReg.Domain.csproj" />
   </ItemGroup>
 
 </Project>

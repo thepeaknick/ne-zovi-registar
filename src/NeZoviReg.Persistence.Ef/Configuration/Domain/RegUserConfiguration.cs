@@ -24,5 +24,15 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
             .IsRequired()
             .HasMaxLength(100);
 
+        builder.Property(x => x.ThumbPrint)
+            .IsRequired()
+            .HasMaxLength(100);
+
+        builder.HasMany(x => x.Roles)
+            .WithOne();
+
+        builder.Navigation(n => n.Roles)
+            .UsePropertyAccessMode(PropertyAccessMode.Field);
+
     }
 }

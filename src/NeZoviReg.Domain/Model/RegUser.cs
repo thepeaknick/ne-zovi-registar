@@ -1,4 +1,6 @@
-﻿namespace NeZoviReg.Domain.Model;
+﻿using NeZoviReg.Domain.Auth;
+
+namespace NeZoviReg.Domain.Model;
 
 /// <summary>
 /// Users of the 'Ne_zovi' registry.
@@ -19,4 +21,9 @@ public class RegUser: Entity
     public string FullName => $"{FirstName} {LastName}";
 
     public string Email { get; private set; }
+
+    public string ThumbPrint { get; private set; }
+
+    private readonly List<Role> _roles = new();
+    public IReadOnlyCollection<Role> Roles => _roles;
 }

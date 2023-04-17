@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NeZoviReg.Auth.Model;
-using NeZoviReg.Auth.Model.Enum;
+using NeZoviReg.Domain.Auth;
 
 namespace NeZoviReg.Persistence.Ef.Configuration.Auth;
 

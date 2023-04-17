@@ -4,8 +4,8 @@ using System.Diagnostics;
 try
 {
     /*throw new AccessViolationException("Use Package Manager Console tools for now. " + Environment.NewLine +
-                                       "1. Add-Migration -StartupProject NeZoviReg.Migrations.Ef -Project NeZoviReg.Migrations.Ef InitMigration" + Environment.NewLine +
-                                       "2. Update-Database -StartupProject NeZoviReg.Migrations.Ef -Project NeZoviReg.Migrations.Ef");*/
+                                       "1. Add-Migration -StartupProject Idis.Dpn.Ef.Migrations -Project Idis.Dpn.Ef.Migrations InitMigration" + Environment.NewLine +
+                                       "2. Update-Database -StartupProject Idis.Dpn.Ef.Migrations -Project Idis.Dpn.Ef.Migrations");*/
 
     Console.WriteLine("-->Staring migration!");
     Stopwatch sw = Stopwatch.StartNew();

@@ -1,7 +1,6 @@
-﻿using NeZoviReg.Domain;
-using NeZoviReg.Domain.Model;
+﻿using NeZoviReg.Domain.Model;
 
-namespace NeZoviReg.Auth.Model;
+namespace NeZoviReg.Domain.Auth;
 
 public class Role : EnumerationEntity
 {

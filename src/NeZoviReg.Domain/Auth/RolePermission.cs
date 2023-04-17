@@ -1,6 +1,4 @@
-﻿using NeZoviReg.Domain;
-
-namespace NeZoviReg.Auth.Model;
+﻿namespace NeZoviReg.Domain.Auth;
 
 public class RolePermission : Entity
 {

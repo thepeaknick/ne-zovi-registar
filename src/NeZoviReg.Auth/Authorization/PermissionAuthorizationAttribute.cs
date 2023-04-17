@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using NeZoviReg.Auth.Model.Enum;
+using NeZoviReg.Auth.Enum;
 
 namespace NeZoviReg.Auth.Authorization;
 

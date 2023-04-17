@@ -1,8 +1,6 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NeZoviReg.Auth;
 using NeZoviReg.Auth.Authorization;
-using NeZoviReg.Auth.Model.Enum;
+using NeZoviReg.Auth.Enum;
 
 namespace NeZoviReg.WebApi.Controllers
 {
