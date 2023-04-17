@@ -2,10 +2,10 @@
 
 internal sealed class TableNames
 {
-    public static string RegUsers => "RegUser";
-    public static string Roles => "Role";
-    public static string RolePermissions => "RolePermission";
-    public static string Permissions => "Permission";
-    public static string Users => "User";
+    internal static string RegUsers => "RegUser";
+    internal static string Roles => "Role";
+    internal static string RolePermissions => "RolePermission";
+    internal static string Permissions => "Permission";
+    internal static string Users => "User";
 
 }

@@ -7,15 +7,16 @@ namespace NeZoviReg.Domain;
 /// Base aggregate root.
 /// Abstract class, defines for inheritance.
 /// </summary>
-public abstract class EnumerationEntity : Enumeration<EnumerationEntity>, IEntity, IAuditingEntity
+public abstract class EnumerationEntity : Enumeration<EnumerationEntity>, IEntity
 {
-    protected EnumerationEntity(int id, int code, string name):
-        base(code, name)
+    protected EnumerationEntity()
     {
-        Id = id;
     }
 
-    public int Id { get; private set; }
+    protected EnumerationEntity(int id, string name):
+        base(id, name)
+    {
+    }
 
     public string CreatedBy { get; private set; }
 
@@ -27,26 +28,15 @@ public abstract class EnumerationEntity : Enumeration<EnumerationEntity>, IEntit
 
     public byte[] Rowversion { get; private set; }
 
-    public IEntity AddIdentity(int id)
-    {
-        Id = id;
-
-        return this;
-    }
-
-    public IAuditingEntity AddCreation(IAuditingEntity entity, string user)
+    public void AddCreation(string user)
     {
         CreatedOn = DateTime.Now;
         CreatedBy = user;
-
-        return this;
     }
 
-    public IAuditingEntity AddModification(IAuditingEntity entity, string user)
+    public void AddModification(string user)
     {
         ModifiedOn = DateTime.Now;
         ModifiedBy = user;
-
-        return this;
     }
 }

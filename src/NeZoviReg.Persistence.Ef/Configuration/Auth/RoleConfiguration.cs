@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using NeZoviReg.Auth.Enum;
+using NeZoviReg.Domain;
 using NeZoviReg.Domain.Auth;
 
 namespace NeZoviReg.Persistence.Ef.Configuration.Auth;
@@ -10,17 +12,14 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
     {
         builder.ToTable(TableNames.Roles);
 
-        builder.HasKey(x => x.Id);
-
-        builder.Property(x => x.Value)
-            .IsRequired();
+        builder.ConfigureEntity();
 
         builder.Property(x => x.Name)
             .IsRequired()
             .HasMaxLength(100);
 
         builder.HasMany(x => x.Users)
-            .WithMany();
+            .WithMany(x=>x.Roles);
 
         builder.HasMany(x => x.Permissions)
             .WithMany()
@@ -38,14 +37,14 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
 
     private static List<Role> Create()
     {
-        var roles = Role.GetValues();
+        var roles = Enum.GetValues<RoleType>();
 
-        for (int i = 0; i < roles.Count; i++)
+        return roles.Select(r =>
         {
-            var role = roles[i];
-            role.AddIdentity(++i);
-        }
+            var role = new Role((int) r, r.ToString());
+            role.AddCreation("test");
 
-        return roles.Select(r => new Role(r.Id, r.Value, r.Name)).ToList();
+            return role;
+        }).ToList();
     }
 }

@@ -1,9 +1,16 @@
 ﻿namespace NeZoviReg.Domain.Auth;
 
-public class Permission : EnumerationEntity
+public class Permission : Entity
 {
-    public Permission(int id, int code, string name)
-        :base(id, code, name)
+    public Permission()
     {
     }
+
+    public Permission(int id, string name)
+        :base(id)
+    {
+        Name = name;
+    }
+
+    public string Name { get; private set; } = string.Empty;
 }

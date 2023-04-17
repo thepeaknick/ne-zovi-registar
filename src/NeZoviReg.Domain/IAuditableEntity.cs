@@ -13,7 +13,7 @@ public interface IAuditingEntity
 
     DateTime? ModifiedOn { get; }
 
-    IAuditingEntity AddCreation(IAuditingEntity entity, string user);
+    void AddCreation(string user);
 
-    IAuditingEntity AddModification(IAuditingEntity entity, string user);
+    void AddModification(string user);
 }

@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using NeZoviReg.Domain.Auth;
+using NeZoviReg.Domain.Extensions;
 using NeZoviReg.Domain.Model;
 
 namespace NeZoviReg.Persistence.Ef.Configuration.Domain;
@@ -10,7 +12,7 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
     {
         builder.ToTable(TableNames.RegUsers);
 
-        builder.HasKey(x => x.Id);
+        builder.ConfigureEntity();
 
         builder.Property(x => x.FirstName)
             .IsRequired()
@@ -28,11 +30,20 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
             .IsRequired()
             .HasMaxLength(100);
 
-        builder.HasMany(x => x.Roles)
-            .WithOne();
+        builder.HasIndex(x => x.Email).IsUnique();
 
         builder.Navigation(n => n.Roles)
-            .UsePropertyAccessMode(PropertyAccessMode.Field);
+             .UsePropertyAccessMode(PropertyAccessMode.Field);
 
+        builder.HasData(Create("Petar", "Petrovic", "markobubulj@mts.rs"));
+
+    }
+
+    private static RegUser Create(string firstName, string lastName, string email)
+    {
+        var rp = new RegUser(1, firstName, lastName, email);
+        rp.AddCreation("test");
+
+        return rp;
     }
 }

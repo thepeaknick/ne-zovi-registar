@@ -2,12 +2,19 @@
 
 namespace NeZoviReg.Domain.Auth;
 
-public class Role : EnumerationEntity
+public class Role : Entity
 {
-    public Role(int id, int code, string name):
-        base(id, code, name)
+    public Role()
     {
     }
+
+    public Role(int id, string name):
+        base(id)
+    {
+        Name = name;
+    }
+
+    public string Name { get; private set; } = string.Empty;
 
     private readonly List<RegUser> _users = new();
     public IReadOnlyCollection<RegUser> Users => _users;

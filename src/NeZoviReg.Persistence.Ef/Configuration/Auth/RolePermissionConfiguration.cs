@@ -11,9 +11,9 @@ public class RolePermissionConfiguration : IEntityTypeConfiguration<RolePermissi
     {
         builder.ToTable(TableNames.RolePermissions);
 
-        builder.HasKey(x => new {x.RoleId, x.PermissionId});
+        builder.HasKey(x => new { x.RoleId, x.PermissionId });
 
-        builder.Ignore(x => x.Id);
+        builder.ConfigureEntity(hasDefaultId: false);
 
         builder.HasData(Create(RoleType.Admin, PermissionType.All),
                         Create(RoleType.Obveznik, PermissionType.Read),
@@ -27,6 +27,9 @@ public class RolePermissionConfiguration : IEntityTypeConfiguration<RolePermissi
 
     private static RolePermission Create(RoleType role, PermissionType permission)
     {
-        return new RolePermission((int)role, (int)permission);
+        var rp = new RolePermission((int)role, (int)permission);
+        rp.AddCreation("test");
+
+        return rp;
     }
 }

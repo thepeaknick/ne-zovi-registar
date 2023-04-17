@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using NeZoviReg.Auth.Enum;
+using NeZoviReg.Domain;
 using NeZoviReg.Domain.Auth;
+using System.Collections.Generic;
 
 namespace NeZoviReg.Persistence.Ef.Configuration.Auth;
 
@@ -10,7 +13,7 @@ public class PermissionConfiguration : IEntityTypeConfiguration<Permission>
     {
         builder.ToTable(TableNames.Permissions);
 
-        builder.HasKey(x => x.Id);
+        builder.ConfigureEntity();
 
         builder.Property(x => x.Name)
             .IsRequired()
@@ -21,14 +24,14 @@ public class PermissionConfiguration : IEntityTypeConfiguration<Permission>
 
     private static List<Permission> Create()
     {
-        var roles = Permission.GetValues();
+        var permissions = Enum.GetValues<PermissionType>();
 
-        for (int i = 0; i < roles.Count; i++)
+        return permissions.Select(r =>
         {
-            var role = roles[i];
-            role.AddIdentity(++i);
-        }
+            var permission = new Permission((int) r, r.ToString());
+            permission.AddCreation("test");
 
-        return roles.Select(r => new Permission(r.Id, r.Value, r.Name)).ToList();
+            return permission;
+        }).ToList();
     }
 }

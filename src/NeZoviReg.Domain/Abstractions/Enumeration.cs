@@ -5,40 +5,45 @@ namespace NeZoviReg.Domain.Abstractions;
 public abstract class Enumeration<TEnum> : IEquatable<Enumeration<TEnum>>
             where TEnum : Enumeration<TEnum>
 {
-    protected Enumeration(int id, string name)
+    protected Enumeration()
     {
-        Value = id;
+    }
+
+    protected Enumeration(int id, string name)
+       :this()
+    {
+        Id = id;
         Name = name;
     }
 
-    private static Dictionary<int, TEnum> _enumerations = CreateEnumerations();
+    private static readonly Lazy<Dictionary<int, TEnum>> _enumerationsDictionary =
+        new(() => CreateEnumerationDictionary(typeof(TEnum)));
 
-    public int Value { get; protected set; }
+    public int Id { get; protected set; }
 
     public string Name { get; protected set; }
 
     public static TEnum? FromValue(int value)
     {
-        return _enumerations.TryGetValue(value, out TEnum enumeration)
+        return _enumerationsDictionary.Value.TryGetValue(value, out TEnum enumeration)
                 ? enumeration
                 : default;
     }
 
     public static TEnum? FromName(string name)
     {
-        return _enumerations.Values.SingleOrDefault(val => val.Name == name);
+        return _enumerationsDictionary.Value.Values.SingleOrDefault(val => val.Name == name);
     }
 
-    public static List<TEnum> GetValues()
-    {
-        return _enumerations.Values.ToList();
-    }
+    public static bool Contains(int id) => _enumerationsDictionary.Value.ContainsKey(id);
+
+    public static IList<TEnum> GetValues() => _enumerationsDictionary.Value.Values.ToList();
 
     public bool Equals(Enumeration<TEnum>? other)
     {
         if (other is null)
             return false;
-        return GetType() == other.GetType() && Value == other.Value;
+        return GetType() == other.GetType() && Id == other.Id;
     }
 
     public override bool Equals(object? obj)
@@ -48,18 +53,14 @@ public abstract class Enumeration<TEnum> : IEquatable<Enumeration<TEnum>>
 
     public override int GetHashCode()
     {
-        return Value.GetHashCode();
+        return Id.GetHashCode() * 37;
     }
 
 
-    private static Dictionary<int, TEnum> CreateEnumerations()
-    {
-        var enumType = typeof(TEnum);
+    private static Dictionary<int, TEnum> CreateEnumerationDictionary(Type enumType) => GetFieldsForType(enumType).ToDictionary(t => t.Id);
 
-        var fieldTypes = enumType.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
-            .Where(fi => enumType.IsAssignableFrom(fi.FieldType))
-            .Select(fi => (TEnum)fi.GetValue(default)!);
-
-        return fieldTypes.ToDictionary(x => x.Value);
-    }
+    private static IEnumerable<TEnum> GetFieldsForType(Type enumType) =>
+        enumType.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
+            .Where(fieldInfo => enumType.IsAssignableFrom(fieldInfo.FieldType))
+            .Select(fieldInfo => (TEnum)fieldInfo.GetValue(default)!);
 }

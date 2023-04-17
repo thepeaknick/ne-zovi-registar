@@ -5,12 +5,23 @@
 /// </summary>
 public class User : Entity
 {
-    public User(string firstName, string lastName, string jmbg)
+    public User(string firstName, string lastName, string phoneNumber, string jmbg)
     {
         FirstName = firstName;
         LastName = lastName;
+        PhoneNumber = phoneNumber;
         Jmbg = jmbg;
     }
+
+    public User(int id, string firstName, string lastName, string phoneNumber, string jmbg)
+        :base(id)
+    {
+        FirstName = firstName;
+        LastName = lastName;
+        PhoneNumber = phoneNumber;
+        Jmbg = jmbg;
+    }
+
 
     public string FirstName { get; private set; }
 

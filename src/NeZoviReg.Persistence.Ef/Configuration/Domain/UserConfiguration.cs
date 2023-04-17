@@ -10,7 +10,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         builder.ToTable(TableNames.Users);
 
-        builder.HasKey(x => x.Id);
+        builder.ConfigureEntity();
 
         builder.Property(x => x.FirstName)
             .IsRequired()
@@ -27,5 +27,15 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(x => x.Jmbg)
             .IsRequired()
             .HasMaxLength(100);
+
+        builder.HasData(Create("Marko", "Bubulj", "1234", "012345567"));
+    }
+
+    private static User Create(string firstName, string lastName, string phone, string jmbg)
+    {
+        var user = new User(1, firstName, lastName, phone, jmbg);
+        user.AddCreation("test");
+
+        return user;
     }
 }
