@@ -1,4 +1,4 @@
-﻿namespace NeZoviReg.Domain.Shared;
+﻿namespace NeZoviReg.Abstractions.Shared;
 
 public static class ResultExtensions
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NeZoviReg.Auth.Infrastructure;
-using NeZoviReg.Domain.Model;
+using NeZoviReg.Domain.Model.Domain;
 
 namespace NeZoviReg.Persistence.Ef.Auth;
 

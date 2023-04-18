@@ -1,4 +1,4 @@
-﻿namespace NeZoviReg.Domain.Model;
+﻿namespace NeZoviReg.Domain.Model.Domain;
 
 /// <summary>
 /// End user, mobile number owner.
@@ -14,7 +14,7 @@ public class User : Entity
     }
 
     public User(int id, string firstName, string lastName, string phoneNumber, string jmbg)
-        :base(id)
+        : base(id)
     {
         FirstName = firstName;
         LastName = lastName;

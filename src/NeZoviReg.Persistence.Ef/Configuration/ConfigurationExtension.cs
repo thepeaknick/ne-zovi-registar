@@ -34,6 +34,35 @@ public static class ConfigurationExtension
         }
     }
 
+    public static void ConfigureEnumerationEntity<T>(this EntityTypeBuilder<T> configuration, bool hasDefaultId = true, bool configConcurrent = true)
+        where T : EnumerationEntity<T>
+    {
+        if (hasDefaultId)
+        {
+            configuration.HasKey(ct => ct.Id);
+            /*configuration.Property(i => i.Id)
+                .ValueGeneratedOnAdd();*/
+        }
+        else
+        {
+            configuration.Ignore(i => i.Id);
+        }
+
+        configuration.ConfigureAuditable();
+
+        if (configConcurrent)
+        {
+            configuration.Property(i => i.Rowversion)
+                .HasColumnType("timestamp")
+                .HasMaxLength(8)
+                .IsRowVersion();
+        }
+        else
+        {
+            configuration.Ignore(i => i.Rowversion);
+        }
+    }
+
     public static EntityTypeBuilder<T> ConfigureAuditable<T>(this EntityTypeBuilder<T> builder)
         where T : class, IAuditingEntity
     {

@@ -1,11 +1,11 @@
-﻿using NeZoviReg.Domain.Auth;
+﻿using NeZoviReg.Domain.Model.Auth;
 
-namespace NeZoviReg.Domain.Model;
+namespace NeZoviReg.Domain.Model.Domain;
 
 /// <summary>
 /// Users of the 'Ne_zovi' registry.
 /// </summary>
-public class RegUser: Entity
+public class RegUser : Entity
 {
     public RegUser(string firstName, string lastName, string email)
     {
@@ -15,7 +15,7 @@ public class RegUser: Entity
     }
 
     public RegUser(int id, string firstName, string lastName, string email)
-               :base(id)
+               : base(id)
     {
         FirstName = firstName;
         LastName = lastName;
@@ -35,6 +35,20 @@ public class RegUser: Entity
     private readonly List<Role> _roles = new();
     public IReadOnlyCollection<Role> Roles => _roles;
 
+
+    public RegUser AddRole(Role role)
+    {
+        _roles.Add(role);
+
+        return this;
+    }
+
+    public RegUser AddRoles(List<Role> roles)
+    {
+        _roles.AddRange(roles);
+
+        return this;
+    }
 
 
 }

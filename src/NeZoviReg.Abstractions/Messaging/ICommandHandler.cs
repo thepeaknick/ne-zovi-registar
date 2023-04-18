@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using NeZoviReg.Domain.Shared;
+using NeZoviReg.Abstractions.Shared;
 
 namespace NeZoviReg.Abstractions.Messaging;
 

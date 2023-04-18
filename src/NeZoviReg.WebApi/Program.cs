@@ -1,12 +1,5 @@
-using System.Reflection;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Server.Kestrel.Https;
-using Microsoft.OpenApi.Models;
-using NeZoviReg.Auth.Authentication.Cert;
-using NeZoviReg.Auth.Authorization;
-using NeZoviReg.Auth.Extensions;
 using NeZoviReg.Composition;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +17,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddOptions();
+
+builder.Host.UseSerilog((ctx, lc)
+    => lc.ReadFrom.Configuration(ctx.Configuration));
 
 builder.Services.ConfigureNeZoviRegApp(builder.Configuration);
 

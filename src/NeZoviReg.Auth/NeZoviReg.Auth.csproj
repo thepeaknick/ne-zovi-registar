@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Certificate" Version="7.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
@@ -22,8 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NeZoviReg.Abstractions\NeZoviReg.Abstractions.csproj" />
-    <ProjectReference Include="..\NeZoviReg.Domain\NeZoviReg.Domain.csproj" />
+    <ProjectReference Include="..\NeZoviReg.Abstractions\NeZoviReg.Abstractions.csproj" PrivateAssets="All" />
+    <ProjectReference Include="..\NeZoviReg.Domain\NeZoviReg.Domain.csproj" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>

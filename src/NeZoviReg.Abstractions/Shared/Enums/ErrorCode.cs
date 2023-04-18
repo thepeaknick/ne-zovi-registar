@@ -1,4 +1,4 @@
-﻿namespace NeZoviReg.Domain.Shared.Enums;
+﻿namespace NeZoviReg.Abstractions.Shared.Enums;
 
 public enum ErrorCode
 {

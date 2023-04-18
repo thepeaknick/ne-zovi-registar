@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using NeZoviReg.Domain.Shared;
+using NeZoviReg.Abstractions.Shared;
 
 namespace NeZoviReg.WebApi.Controllers;
 
@@ -8,8 +8,13 @@ namespace NeZoviReg.WebApi.Controllers;
 public class NeZoviRegBaseController: ControllerBase
 {
     protected readonly ISender Sender;
+    protected readonly ILogger<NeZoviRegBaseController> Logger;
 
-    protected NeZoviRegBaseController(ISender sender) => Sender = sender;
+    protected NeZoviRegBaseController(ISender sender, ILogger<NeZoviRegBaseController> logger)
+    {
+        Sender = sender;
+        Logger = logger;
+    } 
 
     protected IActionResult HandleFailure(Result result) =>
         result switch

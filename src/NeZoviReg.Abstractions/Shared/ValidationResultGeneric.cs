@@ -1,4 +1,4 @@
-﻿namespace NeZoviReg.Domain.Shared;
+﻿namespace NeZoviReg.Abstractions.Shared;
 
 public sealed class ValidationResult<TValue> : Result<TValue>, IValidationResult
 {

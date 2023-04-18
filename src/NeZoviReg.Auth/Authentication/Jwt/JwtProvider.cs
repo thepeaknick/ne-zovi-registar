@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using NeZoviReg.Auth.Authentication.Services;
 using NeZoviReg.Auth.Infrastructure;
-using NeZoviReg.Domain.Model;
+using NeZoviReg.Domain.Model.Domain;
 
 namespace NeZoviReg.Auth.Authentication.Jwt;
 

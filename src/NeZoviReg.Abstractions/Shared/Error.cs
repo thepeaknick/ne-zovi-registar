@@ -1,6 +1,6 @@
-﻿using NeZoviReg.Domain.Shared.Enums;
+﻿using NeZoviReg.Abstractions.Shared.Enums;
 
-namespace NeZoviReg.Domain.Shared;
+namespace NeZoviReg.Abstractions.Shared;
 
 public class Error : IEquatable<Error>
 {

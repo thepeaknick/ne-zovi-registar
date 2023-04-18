@@ -1,9 +1,8 @@
-﻿using NeZoviReg.Domain.Shared;
-using NeZoviReg.Domain.Shared.Enums;
+﻿using NeZoviReg.Abstractions.Shared.Enums;
 
-namespace NeZoviReg.Domain.Errors;
+namespace NeZoviReg.Abstractions.Shared.Errors;
 
-public static class DomainErrors
+public static class ValidationErrors
 {
     public static class RegUser
     {

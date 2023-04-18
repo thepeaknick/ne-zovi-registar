@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NeZoviReg.Application.Extensions;
 using NeZoviReg.Auth.Extensions;
+using NeZoviReg.Migrations.Ef;
 using NeZoviReg.Persistence.Ef.Extensions;
 
 namespace NeZoviReg.Composition;

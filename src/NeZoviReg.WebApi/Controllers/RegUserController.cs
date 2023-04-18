@@ -8,8 +8,8 @@ namespace NeZoviReg.WebApi.Controllers;
 
 public class RegUserController : NeZoviRegBaseController
 {
-    public RegUserController(ISender sender)
-    :base(sender)
+    public RegUserController(ISender sender, ILogger<RegUserController> logger)
+    :base(sender, logger)
     {
     }
 
