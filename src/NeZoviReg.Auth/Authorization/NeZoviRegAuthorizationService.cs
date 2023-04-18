@@ -10,11 +10,11 @@ namespace NeZoviReg.Auth.Authorization;
 public class NeZoviRegAuthorizationService : DefaultAuthorizationService, INeZoviRegAuthorizationService
 {
     private readonly IAuthDataStore _authDataStore;
-
+    private readonly ILogger<NeZoviRegAuthorizationService> _logger;
     public NeZoviRegAuthorizationService(IAuthorizationPolicyProvider policyProvider,
-        IAuthorizationHandlerProvider handlers, 
-        ILogger<DefaultAuthorizationService> logger,
-        IAuthorizationHandlerContextFactory contextFactory, 
+        IAuthorizationHandlerProvider handlers,
+        ILogger<NeZoviRegAuthorizationService> logger,
+        IAuthorizationHandlerContextFactory contextFactory,
         IAuthorizationEvaluator evaluator,
         IOptions<AuthorizationOptions> options,
         IAuthDataStore authDataStore)
@@ -22,6 +22,7 @@ public class NeZoviRegAuthorizationService : DefaultAuthorizationService, INeZov
         options)
     {
         _authDataStore = authDataStore;
+        _logger = logger;
     }
 
     public async Task<bool> HasPermission(ClaimsPrincipal user, string permission, CancellationToken cancellationToken = default)
@@ -32,7 +33,8 @@ public class NeZoviRegAuthorizationService : DefaultAuthorizationService, INeZov
 
         if (!int.TryParse(regUserId, out var regId))
         {
-            //TODO logging
+            _logger.LogWarning($"ClaimsPrincipal.Claims.RegUser={regUserId} is not integer.");
+
             return false;
         }
 
