@@ -31,12 +31,12 @@ internal sealed class JwtProvider : IJwtProvider
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)),
                                      SecurityAlgorithms.HmacSha256);
 
-        var permissions = await _authDataStore.GetUserPermissionsAsync(user.Id, cancellationToken);
+        /*var permissions = await _authDataStore.GetUserPermissionsAsync(user.Id, cancellationToken);
 
         foreach (string permission in permissions)
         {
             claims.Add(new(CustomClaims.Permissions, permission));
-        }
+        }*/
 
         var token = new JwtSecurityToken(
             _options.Issuer,

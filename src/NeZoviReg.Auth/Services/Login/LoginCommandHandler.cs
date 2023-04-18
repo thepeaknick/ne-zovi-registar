@@ -22,8 +22,6 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, string
 
     public async Task<Result<string>> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        var t = Role.GetValues();
-
         var regUser = await _authDataStore.GetRegUserByEmailAsync(request.Email, cancellationToken);
 
         if (regUser is null)
