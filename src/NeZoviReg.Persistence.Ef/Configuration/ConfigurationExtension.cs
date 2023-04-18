@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using NeZoviReg.Domain;
-using System.Linq.Expressions;
 
 namespace NeZoviReg.Persistence.Ef.Configuration;
 

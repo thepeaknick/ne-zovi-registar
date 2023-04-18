@@ -6,9 +6,9 @@ namespace NeZoviReg.Persistence.Ef.Auth;
 
 public class AuthDataStore: IAuthDataStore
 {
-    private readonly SqlLiteDbContext _context;
+    private readonly NeZoviRegDataContext _context;
 
-    public AuthDataStore(SqlLiteDbContext context)
+    public AuthDataStore(NeZoviRegDataContext context)
     {
         _context = context;
     }
@@ -26,5 +26,11 @@ public class AuthDataStore: IAuthDataStore
             .Select(p => p.Name)
             .ToList();
 
+    }
+
+    public async Task<RegUser?> GetRegUserByEmailAsync(string email, CancellationToken cancellationToken)
+    {
+        return await _context.Set<RegUser>()
+            .FirstOrDefaultAsync(ru => ru.Email == email);
     }
 }

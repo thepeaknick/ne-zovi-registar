@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 
-namespace NeZoviReg.Auth.Authentication;
+namespace NeZoviReg.Auth.Authentication.Cert;
 
 public interface ICertValidationService
 {

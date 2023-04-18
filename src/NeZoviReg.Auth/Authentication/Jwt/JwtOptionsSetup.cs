@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
-namespace NeZoviReg.Auth.Authentication;
+namespace NeZoviReg.Auth.Authentication.Jwt;
 
 public class JwtOptionsSetup : IConfigureOptions<JwtOptions>
 {

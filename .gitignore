@@ -16,3 +16,4 @@ db/*
 
 # exception to the rule
 !db/.gitkeep 
+/src/NeZoviReg.Migrations.Ef/appsettings.my.json

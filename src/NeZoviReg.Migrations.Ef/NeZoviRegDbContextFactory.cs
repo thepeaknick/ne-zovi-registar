@@ -5,23 +5,24 @@ using NeZoviReg.Persistence.Ef;
 
 namespace NeZoviReg.Migrations.Ef;
 
-public class NeZoviRegDbContextFactory : IDesignTimeDbContextFactory<SqlServerDbContext>
+public class NeZoviRegDbContextFactory : IDesignTimeDbContextFactory<NeZoviRegDataContext>
 {
-    public SqlServerDbContext CreateDbContext(string[] args)
+    public NeZoviRegDataContext CreateDbContext(string[] args)
     {
         IConfigurationRoot configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json")
+            .AddJsonFile("appsettings.json", optional:false, true)
+            .AddJsonFile("appsettings.my.json", optional:true, reloadOnChange:true)
             .Build();
 
         var connectionString = configuration.GetConnectionString("SqlServerDatabase");
 
-        var builder = new DbContextOptionsBuilder<SqlServerDbContext>()
+        var builder = new DbContextOptionsBuilder<NeZoviRegDataContext>()
             .UseSqlServer(connectionString, o =>
             {
                 o.MigrationsAssembly("NeZoviReg.Migrations.Ef");
             });
-        
-        return new SqlServerDbContext(builder.Options);
+
+        return new NeZoviRegDataContext(builder.Options);
     }
 }

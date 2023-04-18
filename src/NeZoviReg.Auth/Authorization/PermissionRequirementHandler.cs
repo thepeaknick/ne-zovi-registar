@@ -1,22 +1,24 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.DependencyInjection;
-using NeZoviReg.Domain.Auth;
+using NeZoviReg.Auth.Authentication.Services;
 
 namespace NeZoviReg.Auth.Authorization;
 
 public class PermissionRequirementHandler : AuthorizationHandler<PermissionRequirement>
 {
-    private readonly IServiceProvider _serviceProvider;
-
-    public PermissionRequirementHandler(IServiceProvider serviceProvider)
+   protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
     {
-        _serviceProvider = serviceProvider;
-    }
+        var permissions = context
+            .User
+            .Claims
+            .Where(x => x.Type == CustomClaims.Permissions)
+            .Select(x => x.Value)
+            .ToHashSet();
 
-    protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
-    {
-        var authService = _serviceProvider.GetRequiredService<INeZoviRegAuthorizationService>();
-        if (await authService.HasPermission(context.User, requirement.Permission))
+        if (permissions.Contains(requirement.Permission))
+        {
             context.Succeed(requirement);
+        }
+
+        return Task.CompletedTask;
     }
 }

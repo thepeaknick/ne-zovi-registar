@@ -2,10 +2,11 @@
 using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using NeZoviReg.Auth.Authentication.Jwt;
 
-namespace NeZoviReg.Auth.Authentication;
+namespace NeZoviReg.Auth.Authentication.Cert;
 
-public class NeZoviRegCertAuthenticationOptionsSetup : IConfigureOptions<CertificateAuthenticationOptions>
+public class NeZoviRegCertAuthenticationOptionsSetup : IPostConfigureOptions<CertificateAuthenticationOptions>
 {
     private readonly JwtOptions _options;
 
@@ -14,7 +15,7 @@ public class NeZoviRegCertAuthenticationOptionsSetup : IConfigureOptions<Certifi
         _options = options.Value;
     }
 
-    public void Configure(CertificateAuthenticationOptions options)
+    public void PostConfigure(string? name, CertificateAuthenticationOptions options)
     {
         options.AllowedCertificateTypes = CertificateTypes.SelfSigned;
         options.Events = new CertificateAuthenticationEvents
@@ -50,4 +51,5 @@ public class NeZoviRegCertAuthenticationOptionsSetup : IConfigureOptions<Certifi
             }
         };
     }
+
 }

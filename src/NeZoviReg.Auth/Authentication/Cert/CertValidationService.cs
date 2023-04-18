@@ -1,10 +1,11 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 
-namespace NeZoviReg.Auth.Authentication;
+namespace NeZoviReg.Auth.Authentication.Cert;
 
 public class CertValidationService : ICertValidationService
 {
-    public bool ValidateCertificate(X509Certificate2 clientCertificate) {
+    public bool ValidateCertificate(X509Certificate2 clientCertificate)
+    {
         string[] allowedThumbprints = { //TODO read from appsettings.json, or db
             "FC2A6F7D627E08FDAB50F194FEC535C7E21824C3"
             /*"D9B889793C876CF81307F9D2BA6F53C1D87E7EEE"*/
@@ -12,7 +13,8 @@ public class CertValidationService : ICertValidationService
         return allowedThumbprints.Contains(clientCertificate.Thumbprint);
     }
 
-    public int? ValidateCertificateWithUserId(X509Certificate2 clientCertificate) {
+    public int? ValidateCertificateWithUserId(X509Certificate2 clientCertificate)
+    {
         string[] allowedThumbprints = { //TODO read from appsettings.json, or db
             "FC2A6F7D627E08FDAB50F194FEC535C7E21824C3"
             /*"D9B889793C876CF81307F9D2BA6F53C1D87E7EEE"*/

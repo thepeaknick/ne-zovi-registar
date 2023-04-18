@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using NeZoviReg.Domain.Auth;
+﻿using NeZoviReg.Domain.Auth;
 
 namespace NeZoviReg.Domain.Model;
 

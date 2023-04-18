@@ -13,7 +13,7 @@ public class RolePermissionConfiguration : IEntityTypeConfiguration<RolePermissi
 
         builder.HasKey(x => new { x.RoleId, x.PermissionId });
 
-        builder.ConfigureEntity(hasDefaultId: false);
+        builder.ConfigureEntity(false);
 
         builder.HasData(Create(RoleType.Admin, PermissionType.All),
                         Create(RoleType.Obveznik, PermissionType.Read),

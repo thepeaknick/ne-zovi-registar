@@ -1,23 +1,31 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NeZoviReg.Abstractions.Infrastructure;
+using NeZoviReg.Auth.Infrastructure;
+using NeZoviReg.Persistence.Ef.Auth;
+using NeZoviReg.Persistence.Ef.DataStores;
 
 namespace NeZoviReg.Persistence.Ef.Extensions;
 
 public static class Startup
 {
-    public static IServiceCollection ConfigureDataStore(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection ConfigurePersistence(this IServiceCollection services, IConfiguration configuration)
     {
         return services
-            /*.AddDbContext<SqlLiteDbContext>(op =>
-            {
-                op.UseSqlite(configuration.GetConnectionString("SqlLiteDatabase"))
-                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-            });*/
-            .AddDbContext<SqlServerDbContext>(op =>
+            .AddDbContext<NeZoviRegDataContext>(op =>
         {
-            op.UseSqlite(configuration.GetConnectionString("SqlServerDatabase"))
+            op.UseSqlServer(configuration.GetConnectionString("SqlServerDatabase"))
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-        });
+        })
+            .AddPersistenceServices(configuration);
+    }
+
+    private static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddSingleton<IDataStoreFactory, DataStoreFactory>();
+        services.AddScoped<IAuthDataStore, AuthDataStore>();
+
+        return services;
     }
 }

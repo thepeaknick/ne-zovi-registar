@@ -1,14 +1,18 @@
+using System.Reflection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Server.Kestrel.Https;
-using NeZoviReg.Auth.Authentication;
+using Microsoft.OpenApi.Models;
+using NeZoviReg.Auth.Authentication.Cert;
 using NeZoviReg.Auth.Authorization;
 using NeZoviReg.Auth.Extensions;
+using NeZoviReg.Composition;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.WebHost.ConfigureKestrel(o =>
 {
-    o.ConfigureHttpsDefaults(m => m.ClientCertificateMode = ClientCertificateMode.RequireCertificate);
+    /*o.ConfigureHttpsDefaults(m => m.ClientCertificateMode = ClientCertificateMode.AllowCertificate);*/
 });
 
 // Add services to the container.
@@ -21,13 +25,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddOptions();
 
-builder.Services.AddNeZoviRegAuthentication();
-/*builder.Services.ConfigureOptions<JwtOptionsSetup>();
-builder.Services.ConfigureOptions<NeZoviRegCertAuthenticationOptionsSetup>();*/
-builder.Services.AddSingleton<IAuthorizationHandler, PermissionRequirementHandler>();
-builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
-builder.Services.AddTransient<INeZoviRegAuthorizationService, NeZoviRegAuthorizationService>();
-builder.Services.AddTransient<ICertValidationService, CertValidationService>();
+builder.Services.ConfigureNeZoviRegApp(builder.Configuration);
 
 var app = builder.Build();
 

@@ -149,45 +149,45 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "ModifiedBy", "ModifiedOn", "Name" },
                 values: new object[,]
                 {
-                    { 1, "test", new DateTime(2023, 4, 17, 22, 4, 15, 696, DateTimeKind.Local).AddTicks(8991), null, null, "All" },
-                    { 2, "test", new DateTime(2023, 4, 17, 22, 4, 15, 696, DateTimeKind.Local).AddTicks(9032), null, null, "Write" },
-                    { 3, "test", new DateTime(2023, 4, 17, 22, 4, 15, 696, DateTimeKind.Local).AddTicks(9034), null, null, "Delete" },
-                    { 4, "test", new DateTime(2023, 4, 17, 22, 4, 15, 696, DateTimeKind.Local).AddTicks(9035), null, null, "Read" },
-                    { 5, "test", new DateTime(2023, 4, 17, 22, 4, 15, 696, DateTimeKind.Local).AddTicks(9037), null, null, "ReadAll" }
+                    { 1, "test", new DateTime(2023, 4, 18, 15, 55, 27, 779, DateTimeKind.Local).AddTicks(4589), null, null, "All" },
+                    { 2, "test", new DateTime(2023, 4, 18, 15, 55, 27, 779, DateTimeKind.Local).AddTicks(4639), null, null, "Write" },
+                    { 3, "test", new DateTime(2023, 4, 18, 15, 55, 27, 779, DateTimeKind.Local).AddTicks(4641), null, null, "Delete" },
+                    { 4, "test", new DateTime(2023, 4, 18, 15, 55, 27, 779, DateTimeKind.Local).AddTicks(4643), null, null, "Read" },
+                    { 5, "test", new DateTime(2023, 4, 18, 15, 55, 27, 779, DateTimeKind.Local).AddTicks(4645), null, null, "ReadAll" }
                 });
 
             migrationBuilder.InsertData(
                 table: "RegUser",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "Email", "FirstName", "LastName", "ModifiedBy", "ModifiedOn", "ThumbPrint" },
-                values: new object[] { 1, "test", new DateTime(2023, 4, 17, 22, 4, 15, 710, DateTimeKind.Local).AddTicks(2194), "markobubulj@mts.rs", "Petar", "Petrovic", null, null, "" });
+                values: new object[] { 1, "test", new DateTime(2023, 4, 18, 15, 55, 27, 796, DateTimeKind.Local).AddTicks(7468), "markobubulj@mts.rs", "Petar", "Petrovic", null, null, "" });
 
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "ModifiedBy", "ModifiedOn", "Name" },
                 values: new object[,]
                 {
-                    { 1, "test", new DateTime(2023, 4, 17, 22, 4, 15, 709, DateTimeKind.Local).AddTicks(3217), null, null, "Admin" },
-                    { 2, "test", new DateTime(2023, 4, 17, 22, 4, 15, 709, DateTimeKind.Local).AddTicks(3256), null, null, "Trgovac" },
-                    { 3, "test", new DateTime(2023, 4, 17, 22, 4, 15, 709, DateTimeKind.Local).AddTicks(3259), null, null, "Obveznik" },
-                    { 4, "test", new DateTime(2023, 4, 17, 22, 4, 15, 709, DateTimeKind.Local).AddTicks(3261), null, null, "Potrosac" }
+                    { 1, "test", new DateTime(2023, 4, 18, 15, 55, 27, 795, DateTimeKind.Local).AddTicks(5393), null, null, "Admin" },
+                    { 2, "test", new DateTime(2023, 4, 18, 15, 55, 27, 795, DateTimeKind.Local).AddTicks(5439), null, null, "Trgovac" },
+                    { 3, "test", new DateTime(2023, 4, 18, 15, 55, 27, 795, DateTimeKind.Local).AddTicks(5442), null, null, "Obveznik" },
+                    { 4, "test", new DateTime(2023, 4, 18, 15, 55, 27, 795, DateTimeKind.Local).AddTicks(5444), null, null, "Potrosac" }
                 });
 
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "FirstName", "Jmbg", "LastName", "ModifiedBy", "ModifiedOn", "PhoneNumber" },
-                values: new object[] { 1, "test", new DateTime(2023, 4, 17, 22, 4, 15, 711, DateTimeKind.Local).AddTicks(2514), "Marko", "012345567", "Bubulj", null, null, "1234" });
+                values: new object[] { 1, "test", new DateTime(2023, 4, 18, 15, 55, 27, 797, DateTimeKind.Local).AddTicks(9875), "Marko", "012345567", "Bubulj", null, null, "1234" });
 
             migrationBuilder.InsertData(
                 table: "RolePermission",
                 columns: new[] { "PermissionId", "RoleId", "CreatedBy", "CreatedOn", "ModifiedBy", "ModifiedOn" },
                 values: new object[,]
                 {
-                    { 1, 1, "test", new DateTime(2023, 4, 17, 22, 4, 15, 709, DateTimeKind.Local).AddTicks(9011), null, null },
-                    { 4, 2, "test", new DateTime(2023, 4, 17, 22, 4, 15, 709, DateTimeKind.Local).AddTicks(9030), null, null },
-                    { 5, 2, "test", new DateTime(2023, 4, 17, 22, 4, 15, 709, DateTimeKind.Local).AddTicks(9031), null, null },
-                    { 3, 3, "test", new DateTime(2023, 4, 17, 22, 4, 15, 709, DateTimeKind.Local).AddTicks(9028), null, null },
-                    { 4, 3, "test", new DateTime(2023, 4, 17, 22, 4, 15, 709, DateTimeKind.Local).AddTicks(9026), null, null },
-                    { 4, 4, "test", new DateTime(2023, 4, 17, 22, 4, 15, 709, DateTimeKind.Local).AddTicks(9033), null, null }
+                    { 1, 1, "test", new DateTime(2023, 4, 18, 15, 55, 27, 796, DateTimeKind.Local).AddTicks(2189), null, null },
+                    { 4, 2, "test", new DateTime(2023, 4, 18, 15, 55, 27, 796, DateTimeKind.Local).AddTicks(2209), null, null },
+                    { 5, 2, "test", new DateTime(2023, 4, 18, 15, 55, 27, 796, DateTimeKind.Local).AddTicks(2210), null, null },
+                    { 3, 3, "test", new DateTime(2023, 4, 18, 15, 55, 27, 796, DateTimeKind.Local).AddTicks(2207), null, null },
+                    { 4, 3, "test", new DateTime(2023, 4, 18, 15, 55, 27, 796, DateTimeKind.Local).AddTicks(2205), null, null },
+                    { 4, 4, "test", new DateTime(2023, 4, 18, 15, 55, 27, 796, DateTimeKind.Local).AddTicks(2212), null, null }
                 });
 
             migrationBuilder.CreateIndex(

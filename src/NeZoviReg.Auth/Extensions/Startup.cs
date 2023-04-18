@@ -1,53 +1,56 @@
-﻿using System.Security.Claims;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authentication.Certificate;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
-using NeZoviReg.Auth.Authentication;
+using NeZoviReg.Auth.Authentication.Cert;
+using NeZoviReg.Auth.Authentication.Jwt;
+using NeZoviReg.Auth.Authorization;
 
 namespace NeZoviReg.Auth.Extensions;
 
 public static class Startup
 {
-    public static IServiceCollection AddNeZoviRegAuthentication(this IServiceCollection services)
+    public static IServiceCollection ConfigureAuth(this IServiceCollection services)
     {
+        return services
+            //.AddNeZoviRegCertAuthentication()
+            .AddNeZoviRegJwtAuthentication()
+            .AddAuthorizationServices()
+            .AddMediatR(typeof(Startup).Assembly);
+
+
+    }
+
+    private static IServiceCollection AddNeZoviRegCertAuthentication(this IServiceCollection services)
+    {
+        services.ConfigureOptions<NeZoviRegCertAuthenticationOptionsSetup>();
+        services.AddScoped<ICertValidationService, CertValidationService>();
         services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme)
-            .AddCertificate(options =>
-            {
-                options.AllowedCertificateTypes = CertificateTypes.SelfSigned;
-                //options.ChainTrustValidationMode = X509ChainTrustMode.CustomRootTrust;
-                options.Events = new CertificateAuthenticationEvents
-                {
-                    OnCertificateValidated = context =>
-                    {
-                        var validationService =
-                            context.HttpContext.RequestServices.GetService<ICertValidationService>();
-
-                        var userId = validationService?.ValidateCertificateWithUserId(context.ClientCertificate);
-                        if (userId != default)
-                        {
-                            var claims = new[]
-                            {
-                                new Claim(ClaimTypes.NameIdentifier, userId.ToString()!)
-                            };
-
-                            context.Principal = new ClaimsPrincipal(new ClaimsIdentity(claims, context.Scheme.Name));
-                            context.Success();
-                        }
-                        else
-                        {
-                            context.Fail("Nevalidan sertifikat!");
-                        }
-
-                        return Task.CompletedTask;
-                    },
-                    OnAuthenticationFailed = context =>
-                    {
-                        context.Fail("Nevalidan sertifikat!");
-                        return Task.CompletedTask;
-                    }
-                };
-            });
+            .AddCertificate();
 
         return services;
     }
 
+    private static IServiceCollection AddNeZoviRegJwtAuthentication(this IServiceCollection services)
+    {
+        services.ConfigureOptions<JwtOptionsSetup>();
+        services.ConfigureOptions<JwtBearerOptionsSetup>();
+        services.ConfigureOptions<SwaggerGenOptionsSetup>();
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer();
+
+        services.AddScoped<IJwtProvider, JwtProvider>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddAuthorizationServices(this IServiceCollection services)
+    {
+        services.AddSingleton<IAuthorizationHandler, PermissionRequirementHandler>();
+        services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+        services.AddScoped<INeZoviRegAuthorizationService, NeZoviRegAuthorizationService>();
+
+        return services;
+    }
 }
