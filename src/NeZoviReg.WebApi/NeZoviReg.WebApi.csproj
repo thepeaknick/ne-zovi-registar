@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Model\Login\" />
+    <Folder Include="Model\Account\" />
   </ItemGroup>
 
 </Project>

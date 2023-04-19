@@ -22,7 +22,7 @@ namespace NeZoviReg.WebApi.Controllers
 
         [HttpGet(Name = "GetWeatherForecast")]
         //[AllowAnonymous]
-        [PermissionAuthorization(PermissionType.All)]
+        [HasPermission(PermissionType.All)]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

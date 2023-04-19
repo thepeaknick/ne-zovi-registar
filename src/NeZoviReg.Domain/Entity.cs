@@ -18,11 +18,11 @@ public abstract class Entity : IEntity
 
     public int Id { get; private set; }
 
-    public string CreatedBy { get; private set; }
+    public string CreatedBy { get; private set; } = string.Empty;
 
     public string? ModifiedBy { get; private set; }
 
-    public DateTime CreatedOn { get; private set; }
+    public DateTime CreatedOn { get; private set; } = DateTime.Now;
 
     public DateTime? ModifiedOn { get; private set; }
 

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 try
 {
-    Console.WriteLine("-->Staring migration!");
+    Console.WriteLine("-->Starting migration!");
     var sw = Stopwatch.StartNew();
 
     var f = new NeZoviRegDbContextFactory();

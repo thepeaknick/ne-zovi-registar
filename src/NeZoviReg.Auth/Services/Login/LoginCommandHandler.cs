@@ -3,7 +3,6 @@ using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Auth.Authentication.Jwt;
 using NeZoviReg.Auth.Infrastructure;
-using NeZoviReg.Domain.Model.Auth;
 
 namespace NeZoviReg.Auth.Services.Login;
 

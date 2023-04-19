@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
-using NeZoviReg.Auth.Authentication.Services;
 
 namespace NeZoviReg.Auth.Authorization;
 

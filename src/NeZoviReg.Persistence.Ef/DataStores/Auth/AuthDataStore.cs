@@ -2,20 +2,20 @@
 using NeZoviReg.Auth.Infrastructure;
 using NeZoviReg.Domain.Model.Domain;
 
-namespace NeZoviReg.Persistence.Ef.Auth;
+namespace NeZoviReg.Persistence.Ef.DataStores.Auth;
 
-public class AuthDataStore: IAuthDataStore
+public class AuthDataStore : IAuthDataStore
 {
-    private readonly NeZoviRegDataContext _context;
+    private readonly NeZoviRegDataContext _dbContext;
 
     public AuthDataStore(NeZoviRegDataContext context)
     {
-        _context = context;
+        _dbContext = context;
     }
 
     public async Task<List<string>> GetUserPermissionsAsync(int regUserId, CancellationToken cancellationToken)
     {
-        var roles = await _context.Set<RegUser>()
+        var roles = await _dbContext.Set<RegUser>()
             .Include(ru => ru.Roles)
             .ThenInclude(r => r.Permissions)
             .Where(ru => ru.Id == regUserId)
@@ -29,8 +29,6 @@ public class AuthDataStore: IAuthDataStore
     }
 
     public async Task<RegUser?> GetRegUserByEmailAsync(string email, CancellationToken cancellationToken)
-    {
-        return await _context.Set<RegUser>()
+    => await _dbContext.Set<RegUser>()
             .FirstOrDefaultAsync(ru => ru.Email == email);
-    }
 }

@@ -11,10 +11,6 @@ public sealed class Permission : EnumerationEntity<Permission>
     public static readonly Permission Write = new ((int)PermissionType.Write, PermissionType.Write.ToString());
 
 
-    public Permission()
-    {
-    }
-
     public Permission(int id, string name)
         :base(id, name)
     {

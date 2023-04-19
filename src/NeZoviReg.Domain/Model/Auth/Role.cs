@@ -10,10 +10,6 @@ public sealed class Role : EnumerationEntity<Role>
     public static readonly Role Trgovac = new ((int)RoleType.Trgovac, RoleType.Trgovac.ToString());
     public static readonly Role Potrosac = new ((int)RoleType.Potrosac, RoleType.Potrosac.ToString());
 
-    public Role()
-    {
-    }
-
     public Role(int id, string name):
         base(id, name)
     {

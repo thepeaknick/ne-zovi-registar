@@ -16,9 +16,9 @@ public class PermissionPolicyProvider : IAuthorizationPolicyProvider
 
     public Task<AuthorizationPolicy> GetPolicyAsync(string policyName)
     {
-        if (policyName.StartsWith(PermissionAuthorizationAttribute.PolicyPrefix))
+        if (policyName.StartsWith(HasPermissionAttribute.PolicyPrefix))
         {
-            var permission = policyName.Substring(PermissionAuthorizationAttribute.PolicyPrefix.Length);
+            var permission = policyName.Substring(HasPermissionAttribute.PolicyPrefix.Length);
 
             var policy = new AuthorizationPolicyBuilder()
                 .AddRequirements(new PermissionRequirement(permission))

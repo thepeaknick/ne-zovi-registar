@@ -1,8 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NeZoviReg.Application.Services.RegUser;
+using NeZoviReg.Auth.Authorization;
+using NeZoviReg.Auth.Enum;
 using NeZoviReg.Auth.Services.Login;
-using NeZoviReg.WebApi.Model.Login;
+using NeZoviReg.WebApi.Model.Account;
 
 namespace NeZoviReg.WebApi.Controllers;
 
@@ -21,12 +24,17 @@ public class RegUserController : NeZoviRegBaseController
 
         var tokenResult = await Sender.Send(command, cancellationToken);
 
-        if (tokenResult.IsFailure)
-        {
-            return HandleFailure(tokenResult);
-        }
+        return tokenResult.IsFailure ? HandleFailure(tokenResult) : Ok(tokenResult.Value);
+    }
 
-        return Ok(tokenResult.Value);
+    [HttpPost("register")]
+    [HasPermission(PermissionType.All)]
+    public async Task<IActionResult> RegisterRegUser([FromBody] RegisterRegUserRequest request, CancellationToken cancellationToken)
+    {
+        var command = new CreateRegUserCommand(request.Email, request.UserName, request.Password);
 
+        var tokenResult = await Sender.Send(command, cancellationToken);
+
+        return tokenResult.IsFailure ? HandleFailure(tokenResult) : Ok(tokenResult.Value);
     }
 }

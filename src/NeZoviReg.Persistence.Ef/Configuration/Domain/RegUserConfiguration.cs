@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NeZoviReg.Domain.Model.Auth;
-using NeZoviReg.Domain.Model.Auth.Enum;
 using NeZoviReg.Domain.Model.Domain;
 
 namespace NeZoviReg.Persistence.Ef.Configuration.Domain;
@@ -15,20 +13,28 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
         builder.ConfigureEntity();
 
         builder.Property(x => x.FirstName)
-            .IsRequired()
-            .HasMaxLength(100);
+            .IsRequired(false)
+            .HasMaxLength(RegUser.FirstNameMaxLength);
 
         builder.Property(x => x.LastName)
+            .IsRequired(false)
+            .HasMaxLength(RegUser.LastNameMaxLength);
+
+        builder.Property(x => x.Username)
             .IsRequired()
-            .HasMaxLength(100);
+            .HasMaxLength(RegUser.UsernameMaxLength);
+
+        builder.Property(x => x.Password)
+            .IsRequired()
+            .HasMaxLength(RegUser.PasswordMaxLength);
 
         builder.Property(x => x.Email)
             .IsRequired()
-            .HasMaxLength(100);
+            .HasMaxLength(RegUser.EmailMaxLength);
 
         builder.Property(x => x.ThumbPrint)
-            .IsRequired()
-            .HasMaxLength(100);
+            .IsRequired(false)
+            .HasMaxLength(RegUser.ThumbprintMaxLength);
 
         builder.HasIndex(x => x.Email).IsUnique();
 
@@ -42,14 +48,19 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
         builder.Navigation(n => n.Roles)
              .UsePropertyAccessMode(PropertyAccessMode.Field);
 
-        builder.HasData(Create("Petar", "Petrovic", "petar.petrovic@mts.rs"));
+        builder.HasData(Create("Petar", "Petrovic", "pPetrovic", "test123", "petar.petrovic@mts.rs"));
 
     }
 
-    private static RegUser Create(string firstName, string lastName, string email)
+    private static RegUser Create(string firstName, string lastName, string userName, string password, string email)
     {
-        var regUser = new RegUser(1, firstName, lastName, email);
+        var regUser = new RegUser(1, userName, email)
+            .AddFirstName(firstName)
+            .AddLastName(lastName)
+            .AddPassword(password);
+
         regUser.AddCreation("test");
+
         return regUser;
     }
 }

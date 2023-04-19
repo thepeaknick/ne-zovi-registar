@@ -3,8 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NeZoviReg.Abstractions.Infrastructure;
 using NeZoviReg.Auth.Infrastructure;
-using NeZoviReg.Persistence.Ef.Auth;
 using NeZoviReg.Persistence.Ef.DataStores;
+using NeZoviReg.Persistence.Ef.DataStores.Auth;
 
 namespace NeZoviReg.Persistence.Ef.Extensions;
 

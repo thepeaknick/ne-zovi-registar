@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿#pragma warning disable CS8618
+using System.Reflection;
 
 namespace NeZoviReg.Domain;
 
@@ -18,19 +19,10 @@ public abstract class EnumerationEntity<TEnum> : IEquatable<EnumerationEntity<TE
     /// <param name="id">The enumeration identifier.</param>
     /// <param name="name">The enumeration name.</param>
     protected EnumerationEntity(int id, string name)
-        : this()
     {
         Id = id;
         Name = name;
     }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="EnumerationEntity{TEnum}"/> class.
-    /// </summary>
-    /// <remarks>
-    /// Required for deserialization.
-    /// </remarks>
-    protected EnumerationEntity() => Name = string.Empty;
 
     /// <summary>
     /// Gets the identifier.
@@ -43,11 +35,11 @@ public abstract class EnumerationEntity<TEnum> : IEquatable<EnumerationEntity<TE
     public string Name { get; protected init; }
 
 
-    public string CreatedBy { get; private set; }
+    public string CreatedBy { get; private set; } = string.Empty;
 
     public string? ModifiedBy { get; private set; }
 
-    public DateTime CreatedOn { get; private set; }
+    public DateTime CreatedOn { get; private set; } = DateTime.Now;
 
     public DateTime? ModifiedOn { get; private set; }
 
