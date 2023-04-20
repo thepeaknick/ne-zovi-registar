@@ -3,7 +3,7 @@
 /// <summary>
 /// Defines an auditing options
 /// </summary>
-public interface IAuditingEntity
+public interface IAuditableEntity
 {
     string CreatedBy { get; }
 

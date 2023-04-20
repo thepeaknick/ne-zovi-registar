@@ -50,6 +50,13 @@ public class RegUser : Entity
     private readonly List<Role> _roles = new();
     public IReadOnlyCollection<Role> Roles => _roles;
 
+    public RegUser AddName(string firstName, string lastName)
+    {
+        FirstName = firstName;
+        LastName = lastName;
+
+        return this;
+    }
     public RegUser AddFirstName(string firstName)
     {
         FirstName = firstName;

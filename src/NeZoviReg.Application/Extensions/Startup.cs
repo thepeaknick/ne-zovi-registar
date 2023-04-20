@@ -11,7 +11,16 @@ public static class Startup
     {
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
 
-        return services.AddMediatR(typeof(Startup).Assembly);
+        return services
+            .AddMediatR(typeof(Startup).Assembly)
+            .AddApplicationServices(configuration);
 
+    }
+
+    private static IServiceCollection AddApplicationServices(this IServiceCollection services,
+        IConfiguration configuration)
+    {
+
+        return services;
     }
 }

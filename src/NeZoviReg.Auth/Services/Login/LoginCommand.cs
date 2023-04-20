@@ -2,5 +2,5 @@
 
 namespace NeZoviReg.Auth.Services.Login;
 
-public record LoginCommand(string Email) : ICommand<string>;
+public record LoginCommand(string Email) : BaseCommand<string>;
     

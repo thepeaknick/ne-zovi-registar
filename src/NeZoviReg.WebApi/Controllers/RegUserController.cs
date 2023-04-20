@@ -31,7 +31,8 @@ public class RegUserController : NeZoviRegBaseController
     [HasPermission(PermissionType.All)]
     public async Task<IActionResult> RegisterRegUser([FromBody] RegisterRegUserRequest request, CancellationToken cancellationToken)
     {
-        var command = new CreateRegUserCommand(request.Email, request.UserName, request.Password);
+        var command = new CreateRegUserCommand(request.Email, request.UserName, request.Password, request.FirstName, request.LastName)
+            .AddAppUser(AppUser);
 
         var tokenResult = await Sender.Send(command, cancellationToken);
 

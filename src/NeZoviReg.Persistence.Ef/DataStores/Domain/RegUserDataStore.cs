@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NeZoviReg.Application.Infrastructure;
+using NeZoviReg.Application.Infrastructure.DataStores;
 using NeZoviReg.Domain.Model.Domain;
 
 namespace NeZoviReg.Persistence.Ef.DataStores.Domain;
@@ -17,4 +17,10 @@ public class RegUserDataStore : IRegUserDataStore
         => !await _dbContext
             .Set<RegUser>()
             .AnyAsync(user => user.Email == email, cancellationToken);
+
+    public void Add(RegUser regUser) =>
+        _dbContext.Set<RegUser>().Add(regUser);
+
+    public void Update(RegUser regUser)=>
+        _dbContext.Set<RegUser>().Update(regUser);
 }

@@ -64,7 +64,7 @@ public static class ConfigurationExtension
     }
 
     public static EntityTypeBuilder<T> ConfigureAuditable<T>(this EntityTypeBuilder<T> builder)
-        where T : class, IAuditingEntity
+        where T : class, IAuditableEntity
     {
         builder.Property(i => i.CreatedBy)
             .HasMaxLength(100)

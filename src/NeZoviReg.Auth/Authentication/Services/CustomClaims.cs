@@ -1,7 +1,8 @@
 ﻿namespace NeZoviReg.Auth.Authentication.Services;
 
-internal static class CustomClaims
+public static class CustomClaims
 {
-    internal const string RegUserId = "reg_user";
-    internal const string Permissions = "permissions";
+    public const string RegUserId = "reg_user_id";
+    public const string RegUserName = "reg_user_name";
+    public const string Permissions = "permissions";
 }

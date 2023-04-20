@@ -3,7 +3,7 @@
 /// <summary>
 /// Defines aggregate root
 /// </summary>
-public interface IEntity : IAuditingEntity
+public interface IEntity : IAuditableEntity
 {
     int Id { get; }
 

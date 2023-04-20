@@ -24,7 +24,8 @@ internal sealed class JwtProvider : IJwtProvider
     {
         var claims = new List<Claim>
         {
-            new(CustomClaims.RegUserId, user.Id.ToString())
+            new(CustomClaims.RegUserId, user.Id.ToString()),
+            new(CustomClaims.RegUserName, user.Username)
         };
 
         var signingCredentials = new SigningCredentials(
