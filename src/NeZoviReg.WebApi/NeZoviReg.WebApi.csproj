@@ -26,8 +26,4 @@
     <ProjectReference Include="..\NeZoviReg.Composition\NeZoviReg.Composition.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Model\Account\" />
-  </ItemGroup>
-
 </Project>

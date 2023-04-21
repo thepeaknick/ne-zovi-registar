@@ -20,7 +20,7 @@ internal sealed class JwtProvider : IJwtProvider
         _options = options.Value;
     }
 
-    public async Task<string> GenerateAsync(RegUser user, CancellationToken cancellationToken)
+    public Task<string> GenerateAsync(RegUser user, CancellationToken cancellationToken)
     {
         var claims = new List<Claim>
         {
@@ -50,6 +50,6 @@ internal sealed class JwtProvider : IJwtProvider
         var tokenValue = new JwtSecurityTokenHandler()
             .WriteToken(token);
 
-        return tokenValue;
+        return Task.FromResult(tokenValue);
     }
 }
