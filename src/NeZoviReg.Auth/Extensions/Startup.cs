@@ -17,6 +17,7 @@ public static class Startup
             //.AddNeZoviRegCertAuthentication()
             .AddNeZoviRegJwtAuthentication()
             .AddAuthorizationServices()
+            .AddMemoryCache()
             .AddMediatR(typeof(Startup).Assembly);
 
 
