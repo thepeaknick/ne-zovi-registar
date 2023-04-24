@@ -11,6 +11,6 @@ public class LoginCommandValidator : AbstractValidator<LoginCommand>
         RuleFor(x => x.Email)
             .NotEmpty<LoginCommand, string, string>(Email.Empty.Message)
             .MaximumLength<LoginCommand, string>(Domain.Model.Domain.RegUser.EmailMaxLength, Email.TooLong.Message)
-            .InvalidFormat<LoginCommand, string, string>(Email.InvalidFormat.Message, email => email.Split('@').Length == 2);
+            .RegexFormat<LoginCommand, string>(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", Email.InvalidFormat.Message);
     }
 }

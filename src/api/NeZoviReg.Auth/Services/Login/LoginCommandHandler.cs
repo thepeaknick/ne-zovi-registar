@@ -29,7 +29,7 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, string
 
         if (regUser is null)
         {
-            return Result.Failure<string>(ValidationErrors.RegUser.InvalidCredentials);
+            return Result.Failure<string>(ValidationErrors.RegUser.NotFound(request.Email));
         }
 
         var token = await _jwtProvider.GenerateAsync(regUser, cancellationToken);

@@ -53,4 +53,36 @@ public static class ValidationExtensions
             .WithErrorCode(ErrorCode.InvalidFormat.ToString())
             .WithMessage(message);
     }
+
+    public static IRuleBuilderOptions<TObjType, string> EmailFormat<TObjType, TCommandReturnType>(this IRuleBuilder<TObjType, string> ruleBuilder, string message)
+        where TObjType : ICommand<TCommandReturnType>
+    {
+        return ruleBuilder.EmailAddress()
+            .WithErrorCode(ErrorCode.InvalidFormat.ToString())
+            .WithMessage(message);
+    }
+
+    public static IRuleBuilderOptions<TObjType, string> EmailFormat<TObjType>(this IRuleBuilder<TObjType, string> ruleBuilder, string message)
+        where TObjType : ICommand
+    {
+        return ruleBuilder.EmailAddress()
+            .WithErrorCode(ErrorCode.InvalidFormat.ToString())
+            .WithMessage(message);
+    }
+
+    public static IRuleBuilderOptions<TObjType, string> RegexFormat<TObjType, TCommandReturnType>(this IRuleBuilder<TObjType, string> ruleBuilder, string regex, string message)
+        where TObjType : ICommand<TCommandReturnType>
+    {
+        return ruleBuilder.Matches(regex)
+            .WithErrorCode(ErrorCode.InvalidFormat.ToString())
+            .WithMessage(message);
+    }
+
+    public static IRuleBuilderOptions<TObjType, string> RegexFormat<TObjType>(this IRuleBuilder<TObjType, string> ruleBuilder, string regex, string message)
+        where TObjType : ICommand
+    {
+        return ruleBuilder.Matches(regex)
+            .WithErrorCode(ErrorCode.InvalidFormat.ToString())
+            .WithMessage(message);
+    }
 }

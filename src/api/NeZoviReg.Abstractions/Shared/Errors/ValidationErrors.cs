@@ -10,9 +10,9 @@ public static class ValidationErrors
             ErrorCode.EmailAlreadyInUse,
             $"E-mail adresa '{email}' je već u upotrebi.");
 
-        public static readonly Func<int, Error> NotFound = id => new Error(
+        public static readonly Func<dynamic, Error> NotFound = identificator => new Error(
             ErrorCode.NotFound,
-            $"Korisnik {id} nije pronađen.");
+            $"Korisnik '{identificator}' nije pronađen.");
 
         public static readonly Error InvalidCredentials = new(
             ErrorCode.InvalidCredentials,

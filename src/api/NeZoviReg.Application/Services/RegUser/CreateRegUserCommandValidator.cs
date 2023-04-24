@@ -13,8 +13,8 @@ public class CreateRegUserCommandValidator : AbstractValidator<CreateRegUserComm
     {
         RuleFor(x => x.Email)
             .NotEmpty<CreateRegUserCommand, string, string>(Email.Empty.Message)
-            .MaximumLength<CreateRegUserCommand, string>(Domain.Model.Domain.RegUser.EmailMaxLength,
-                Email.TooLong.Message);
+            .MaximumLength<CreateRegUserCommand, string>(Domain.Model.Domain.RegUser.EmailMaxLength, Email.TooLong.Message)
+            .RegexFormat<CreateRegUserCommand, string>(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", Email.InvalidFormat.Message);
         RuleFor(x => x.UserName)
             .NotEmpty<CreateRegUserCommand, string, string>(ValidationErrors.RegUser.UserNameTooLong.Message)
             .MaximumLength<CreateRegUserCommand, string>(Domain.Model.Domain.RegUser.UsernameMaxLength,
