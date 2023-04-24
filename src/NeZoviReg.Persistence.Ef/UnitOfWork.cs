@@ -30,6 +30,11 @@ internal sealed class UnitOfWork : IUnitOfWork
 
         foreach (EntityEntry<IAuditableEntity> entityEntry in entries)
         {
+            if (string.IsNullOrEmpty(user))
+            {
+                throw new InvalidOperationException($"User is mandatory for saving, appUser={user}.");
+            }
+
             if (entityEntry.State == EntityState.Added)
             {
                 entityEntry.Entity.AddCreation(user);

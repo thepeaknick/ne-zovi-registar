@@ -9,7 +9,7 @@ public record BaseCommand : ICommand
         return this;
     }
 
-    public string AppUser { get; protected set; } = string.Empty;
+    public string AppUser { get; private set; } = string.Empty;
 }
 
 public record BaseCommand<TResult> : ICommand<TResult>
@@ -21,5 +21,5 @@ public record BaseCommand<TResult> : ICommand<TResult>
         return this;
     }
 
-    public string AppUser { get; protected set; } = string.Empty;
+    public string AppUser { get; private set; } = string.Empty;
 }

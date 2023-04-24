@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -18,7 +19,8 @@ public static class Startup
             .AddNeZoviRegJwtAuthentication()
             .AddAuthorizationServices()
             .AddMemoryCache()
-            .AddMediatR(typeof(Startup).Assembly);
+            .AddMediatR(typeof(Startup).Assembly)
+            .AddValidatorsFromAssembly(typeof(Startup).Assembly);
 
 
     }

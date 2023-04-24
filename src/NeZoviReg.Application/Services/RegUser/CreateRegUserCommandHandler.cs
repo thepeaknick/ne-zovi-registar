@@ -22,10 +22,10 @@ internal sealed class CreateRegUserCommandHandler : ICommandHandler<CreateRegUse
 
     public async Task<Result<string>> Handle(CreateRegUserCommand request, CancellationToken cancellationToken)
     {
-        if (!await _regUserDataStore.IsEmailUniqueAsync(request.Email, cancellationToken))
+        /*if (!await _regUserDataStore.IsEmailUniqueAsync(request.Email, cancellationToken))
         {
             return Result.Failure<string>(ValidationErrors.RegUser.EmailAlreadyInUse(request.Email));
-        }
+        }*/
 
         var regUser = new Domain.Model.Domain.RegUser(request.UserName, request.Email)
             .AddPassword(request.Password)

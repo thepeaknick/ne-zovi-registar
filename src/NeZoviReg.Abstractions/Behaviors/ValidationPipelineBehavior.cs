@@ -15,29 +15,28 @@ public class ValidationPipelineBehavior<TRequest, TResponse>
     public ValidationPipelineBehavior(IEnumerable<IValidator<TRequest>> validators) =>
         _validators = validators;
 
-    public async Task<TResponse> Handle(
-        TRequest request,
-        RequestHandlerDelegate<TResponse> next,
-        CancellationToken cancellationToken)
+    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
         if (!_validators.Any())
         {
             return await next();
         }
 
-        Error[] errors = _validators
-            .Select(validator => validator.Validate(request))
-            .SelectMany(validationResult => validationResult.Errors)
-            .Where(validationFailure => validationFailure is not null)
-            .Select(failure => new Error(
-                Enum.TryParse(failure.ErrorCode, out ErrorCode code) ? code : ErrorCode.Unknown,
-                failure.ErrorMessage))
-            .Distinct()
-            .ToArray();
+        var errors = new List<Error>();
 
+        foreach (var validator in _validators)
+        {
+            var res = await validator.ValidateAsync(request, cancellationToken);
+            errors.AddRange(res.Errors.Where(e => e is not null)
+                .Select(failure => new Error(
+                    Enum.TryParse(failure.ErrorCode, out ErrorCode code) ? code : ErrorCode.Unknown,
+                    failure.ErrorMessage))
+                .Distinct()
+                .ToList());
+        }
         if (errors.Any())
         {
-            return CreateValidationResult<TResponse>(errors);
+            return CreateValidationResult<TResponse>(errors.ToArray());
         }
 
         return await next();

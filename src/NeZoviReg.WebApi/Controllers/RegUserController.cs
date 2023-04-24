@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Application.Services.RegUser;
 using NeZoviReg.Auth.Authorization;
-using NeZoviReg.Auth.Enum;
+using NeZoviReg.Auth.Model.Enum;
 using NeZoviReg.Auth.Services.Login;
 using NeZoviReg.WebApi.Model.Account;
 
@@ -22,9 +22,9 @@ public class RegUserController : NeZoviRegBaseController
     {
         var command = new LoginCommand(request.Email);
 
-        var tokenResult = await Sender.Send(command, cancellationToken);
+        var result = await Sender.Send(command, cancellationToken);
 
-        return tokenResult.IsFailure ? HandleFailure(tokenResult) : Ok(tokenResult.Value);
+        return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
     [HttpPost("register")]
@@ -32,10 +32,10 @@ public class RegUserController : NeZoviRegBaseController
     public async Task<IActionResult> RegisterRegUser([FromBody] RegisterRegUserRequest request, CancellationToken cancellationToken)
     {
         var command = new CreateRegUserCommand(request.Email, request.UserName, request.Password, request.FirstName, request.LastName)
-            .AddAppUser(AppUser);
+                         .AddAppUser(AppUser);
 
-        var tokenResult = await Sender.Send(command, cancellationToken);
+        var result = await Sender.Send(command, cancellationToken);
 
-        return tokenResult.IsFailure ? HandleFailure(tokenResult) : Ok(tokenResult.Value);
+        return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 }

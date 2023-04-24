@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NeZoviReg.Abstractions.Behaviors;
@@ -9,10 +10,10 @@ public static class Startup
 {
     public static IServiceCollection ConfigureApplication(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
-
         return services
             .AddMediatR(typeof(Startup).Assembly)
+            .AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>))
+            .AddValidatorsFromAssembly(typeof(Startup).Assembly)
             .AddApplicationServices(configuration);
 
     }
@@ -20,7 +21,6 @@ public static class Startup
     private static IServiceCollection AddApplicationServices(this IServiceCollection services,
         IConfiguration configuration)
     {
-
         return services;
     }
 }

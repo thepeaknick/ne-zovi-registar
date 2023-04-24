@@ -1,4 +1,4 @@
-﻿namespace NeZoviReg.Auth.Enum;
+﻿namespace NeZoviReg.Auth.Model.Enum;
 
 public enum RoleType
 {
