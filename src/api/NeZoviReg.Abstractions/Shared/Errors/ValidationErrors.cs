@@ -10,14 +10,6 @@ public static class ValidationErrors
             ErrorCode.EmailAlreadyInUse,
             $"E-mail adresa '{email}' je već u upotrebi.");
 
-        public static readonly Error EmailEmpty =  new(
-            ErrorCode.Empty,
-            "E-mail adresa je prazna.");
-
-        public static readonly Func<int, Error> EmailMaxLength = length =>  new(
-            ErrorCode.EmailAlreadyInUse,
-            $"Maksimalna dužina e-mail adresa je {length} karaktera.");
-
         public static readonly Func<int, Error> NotFound = id => new Error(
             ErrorCode.NotFound,
             $"Korisnik {id} nije pronađen.");
@@ -25,6 +17,14 @@ public static class ValidationErrors
         public static readonly Error InvalidCredentials = new(
             ErrorCode.InvalidCredentials,
             "Korisničko ime/lozinka nisu ispravni.");
+
+        public static readonly Error UserNameTooLong = new(
+            ErrorCode.TooLong,
+            "Korisničko ime je predugačko.");
+
+        public static readonly Error PasswordTooLong = new(
+            ErrorCode.TooLong,
+            "Lozinka je predugačka.");
     }
 
     public static class Email

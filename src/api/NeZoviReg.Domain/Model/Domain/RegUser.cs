@@ -10,7 +10,7 @@ public class RegUser : Entity
 {
     public static int FirstNameMaxLength = 100;
     public static int LastNameMaxLength = 100;
-    public static int EmailMaxLength = 10;
+    public static int EmailMaxLength = 100;
     public static int PasswordMaxLength = 255;
     public static int UsernameMaxLength = 255;
     public static int ThumbprintMaxLength = 100;

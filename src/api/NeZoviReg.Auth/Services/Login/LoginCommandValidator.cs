@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
-using NeZoviReg.Abstractions.Shared.Enums;
 using static NeZoviReg.Abstractions.Shared.Errors.ValidationErrors;
+using NeZoviReg.Abstractions.Extensions;
 
 namespace NeZoviReg.Auth.Services.Login;
 
@@ -8,11 +8,9 @@ public class LoginCommandValidator : AbstractValidator<LoginCommand>
 {
     public LoginCommandValidator()
     {
-        RuleFor(x => x.Email).NotEmpty()
-            .WithErrorCode(ErrorCode.Empty.ToString())
-            .WithMessage(RegUser.EmailEmpty.Message)
-            .MaximumLength(Domain.Model.Domain.RegUser.EmailMaxLength)
-            .WithErrorCode(ErrorCode.TooLong.ToString())
-            .WithMessage(RegUser.EmailMaxLength(Domain.Model.Domain.RegUser.EmailMaxLength).Message);
+        RuleFor(x => x.Email)
+            .NotEmpty<LoginCommand, string, string>(Email.Empty.Message)
+            .MaximumLength<LoginCommand, string>(Domain.Model.Domain.RegUser.EmailMaxLength, Email.TooLong.Message)
+            .InvalidFormat<LoginCommand, string, string>(Email.InvalidFormat.Message, email => email.Split('@').Length == 2);
     }
 }
