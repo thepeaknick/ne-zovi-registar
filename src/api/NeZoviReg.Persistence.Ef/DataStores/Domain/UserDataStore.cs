@@ -1,4 +1,4 @@
-﻿using NeZoviReg.Application.Infrastructure.DataStores;
+﻿using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Domain.Model.Domain;
 
 namespace NeZoviReg.Persistence.Ef.DataStores.Domain;

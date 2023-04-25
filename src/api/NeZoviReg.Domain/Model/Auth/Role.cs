@@ -1,5 +1,4 @@
 ﻿using NeZoviReg.Domain.Model.Auth.Enum;
-using NeZoviReg.Domain.Model.Domain;
 
 namespace NeZoviReg.Domain.Model.Auth;
 
@@ -15,8 +14,8 @@ public sealed class Role : EnumerationEntity<Role>
     {
     }
 
-    private readonly List<RegUser> _users = new();
-    public IReadOnlyCollection<RegUser> Users => _users;
+    private readonly List<RegUserRole> _regUserRoles = new();
+    public IReadOnlyCollection<RegUserRole> RegUserRoles => _regUserRoles;
 
     private readonly List<Permission> _permissions = new();
     public IReadOnlyCollection<Permission> Permissions => _permissions;

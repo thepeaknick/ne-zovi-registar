@@ -5,18 +5,19 @@ using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands;
 using NeZoviReg.Abstractions.Shared;
+using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Domain.Model.Auth;
 
 namespace NeZoviReg.Application.Services.RegUser;
 
-internal sealed class CreateRegUserCommandHandler : ICommandHandler<CreateRegUserCommand, string>
+internal sealed class RemoveRegUserCommandHandler : ICommandHandler<RemoveRegUserCommand, string>
 {
-    private readonly ILogger<CreateRegUserCommandHandler> _logger;
+    private readonly ILogger<RemoveRegUserCommandHandler> _logger;
     private readonly IRegUserDataStore _regUserDataStore;
     private readonly IAuthDataStore _authDataStore;
     private readonly IUnitOfWork _unitOfWork;
 
-    public CreateRegUserCommandHandler(ILogger<CreateRegUserCommandHandler> logger,
+    public RemoveRegUserCommandHandler(ILogger<RemoveRegUserCommandHandler> logger,
         IRegUserDataStore regUserDataStore,
         IAuthDataStore authDataStore,
         IUnitOfWork unitOfWork)
@@ -27,16 +28,16 @@ internal sealed class CreateRegUserCommandHandler : ICommandHandler<CreateRegUse
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Result<string>> Handle(CreateRegUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result<string>> Handle(RemoveRegUserCommand request, CancellationToken cancellationToken)
     {
-        var rolles = await _authDataStore.GetRollesAsync(request.Rolles, cancellationToken);
+        var regUser = await _regUserDataStore.Get(request.RegUserId, cancellationToken);
 
-        var regUser = new Domain.Model.Domain.RegUser(request.UserName, request.Email)
-            .AddPassword(request.Password)
-            .AddName(request.FirstName, request.LastName)
-            .AddRoles(rolles.Select(r => r.Id).ToList());
+        if (regUser is null)
+        {
+            return Result.Failure<string>(ValidationErrors.RegUser.NotFound(request.RegUserId));
+        }
 
-        await _regUserDataStore.Add(regUser, cancellationToken);
+        _regUserDataStore.Remove(regUser);
 
         await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
 

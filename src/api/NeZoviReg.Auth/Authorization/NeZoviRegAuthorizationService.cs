@@ -1,12 +1,11 @@
 ﻿using System.Security.Claims;
-using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
+using NeZoviReg.Abstractions.Infrastructure.DataStores.Auth;
 using NeZoviReg.Auth.Authentication.Services;
-using NeZoviReg.Auth.Infrastructure;
 
 namespace NeZoviReg.Auth.Authorization;
 

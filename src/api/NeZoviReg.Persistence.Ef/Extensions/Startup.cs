@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NeZoviReg.Abstractions.Infrastructure;
-using NeZoviReg.Application.Infrastructure.DataStores;
-using NeZoviReg.Auth.Infrastructure;
+using NeZoviReg.Abstractions.Infrastructure.DataStores;
+using NeZoviReg.Abstractions.Infrastructure.DataStores.Auth;
+using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Persistence.Ef.DataStores;
 using NeZoviReg.Persistence.Ef.DataStores.Auth;
 using NeZoviReg.Persistence.Ef.DataStores.Domain;

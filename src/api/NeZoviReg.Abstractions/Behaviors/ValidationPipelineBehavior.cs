@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
 using NeZoviReg.Abstractions.Shared;
-using NeZoviReg.Abstractions.Shared.Enums;
 
 namespace NeZoviReg.Abstractions.Behaviors;
 

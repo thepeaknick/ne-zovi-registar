@@ -10,6 +10,10 @@ public static class ValidationErrors
             ErrorCode.EmailAlreadyInUse,
             $"E-mail adresa '{email}' je već u upotrebi.");
 
+        public static readonly Func<string, Error> UsernameAlreadyInUse = username =>  new(
+            ErrorCode.EmailAlreadyInUse,
+            $"Korisničko ime '{username}' je već u upotrebi.");
+
         public static readonly Func<dynamic, Error> NotFound = identificator => new Error(
             ErrorCode.NotFound,
             $"Korisnik '{identificator}' nije pronađen.");
@@ -25,6 +29,10 @@ public static class ValidationErrors
         public static readonly Error PasswordTooLong = new(
             ErrorCode.TooLong,
             "Lozinka je predugačka.");
+
+        public static readonly Error IdentificatorEmpty = new(
+            ErrorCode.Empty,
+            "Identifikator korisinika je prazan.");
     }
 
     public static class Email
@@ -87,6 +95,6 @@ public static class ValidationErrors
 
         public static readonly Error InvalidFormat = new(
             ErrorCode.InvalidFormat,
-            "Broj telefona format nije ispravan.");
+            "Format Broj telefona nije ispravan.");
     }
 }

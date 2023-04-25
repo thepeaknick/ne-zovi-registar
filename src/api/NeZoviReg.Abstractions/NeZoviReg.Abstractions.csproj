@@ -18,6 +18,8 @@
 
   <ItemGroup>
     <Folder Include="Extensions\" />
+    <Folder Include="Messaging\Auth\Queries\" />
+    <Folder Include="Messaging\Domain\Queries\" />
   </ItemGroup>
 
 </Project>

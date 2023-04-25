@@ -20,6 +20,7 @@
   <ItemGroup>
     <Folder Include="Authentication\Services\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Model\" />
   </ItemGroup>
 
   <ItemGroup>

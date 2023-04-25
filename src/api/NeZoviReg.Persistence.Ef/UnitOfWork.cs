@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using NeZoviReg.Application.Infrastructure.DataStores;
+using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Domain;
 
 namespace NeZoviReg.Persistence.Ef;

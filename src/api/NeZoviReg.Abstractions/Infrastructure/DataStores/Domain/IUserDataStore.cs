@@ -1,6 +1,6 @@
 ﻿using NeZoviReg.Domain.Model.Domain;
 
-namespace NeZoviReg.Application.Infrastructure.DataStores;
+namespace NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 
 public interface IUserDataStore
 {

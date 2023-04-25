@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using NeZoviReg.Abstractions.Infrastructure;
+using NeZoviReg.Abstractions.Infrastructure.DataStores;
 
 namespace NeZoviReg.Persistence.Ef.DataStores;
 

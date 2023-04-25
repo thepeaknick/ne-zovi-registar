@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NeZoviReg.Auth.Infrastructure;
+using NeZoviReg.Abstractions.Infrastructure.DataStores.Auth;
+using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
+using NeZoviReg.Domain.Model.Auth;
 using NeZoviReg.Domain.Model.Domain;
 
 namespace NeZoviReg.Persistence.Ef.DataStores.Auth;
@@ -16,17 +18,27 @@ public class AuthDataStore : IAuthDataStore
     public async Task<List<string>> GetUserPermissionsAsync(Guid regUserId, CancellationToken cancellationToken)
     {
         var roles = await _dbContext.Set<RegUser>()
-            .Include(ru => ru.Roles)
+            .Include(ru => ru.RegUserRoles)
+            .ThenInclude(ru => ru.Role)
             .ThenInclude(r => r.Permissions)
             .Where(ru => ru.GuidId == regUserId)
-            .Select(ru => ru.Roles).ToArrayAsync(cancellationToken);
+            .Select(ru => ru.RegUserRoles).ToArrayAsync(cancellationToken);
 
         return roles.SelectMany(r => r)
-            .SelectMany(r => r.Permissions)
+            .SelectMany(r => r.Role.Permissions)
             .Select(p => p.Name)
             .ToList();
 
     }
+
+    public async Task<List<Role>> GetRollesAsync(CancellationToken cancellationToken) =>
+    await _dbContext.Set<Role>()
+        .ToListAsync(cancellationToken);
+
+    public async Task<List<Role>> GetRollesAsync(RoleType[] rolles, CancellationToken cancellationToken) =>
+            await _dbContext.Set<Role>()
+                .Where(r => rolles.Contains((RoleType)r.Id))
+                .ToListAsync(cancellationToken);
 
     public async Task<RegUser?> GetRegUserByEmailAsync(string email, CancellationToken cancellationToken)
     => await _dbContext.Set<RegUser>()

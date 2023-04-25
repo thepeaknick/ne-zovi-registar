@@ -41,15 +41,10 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
 
         builder.HasIndex(x => x.Email).IsUnique();
 
-        /*builder.HasMany(x => x.Roles)
-            .WithMany(x=>x.Users)
-            .UsingEntity(j => j
-                .ToTable("RegUserRole")
-                .HasData(new { RolesId = 1, UsersId = 1 }
-                ));*/
+        builder.HasIndex(x => x.Username).IsUnique();
 
-        builder.Navigation(n => n.Roles)
-             .UsePropertyAccessMode(PropertyAccessMode.Field);
+        builder.Navigation(n => n.RegUserRoles)
+            .UsePropertyAccessMode(PropertyAccessMode.Field);
 
         builder.HasData(Create("Petar", "Petrovic", "pPetrovic", "test123", "petar.petrovic@mts.rs"));
 

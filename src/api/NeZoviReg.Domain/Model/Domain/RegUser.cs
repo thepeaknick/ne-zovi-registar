@@ -36,7 +36,7 @@ public class RegUser : Entity
 
     public string? LastName { get; private set; }
 
-    public string FullName => $"{FirstName} {LastName}";
+    public string FullName => $"Email adresa={Email}, Korisničko ime={Username}, Ime={FirstName}, Prezime={LastName}";
 
     public string Email { get; private set; }
 
@@ -51,8 +51,8 @@ public class RegUser : Entity
 
     public string? ThumbPrint { get; private set; }
 
-    private readonly List<Role> _roles = new();
-    public IReadOnlyCollection<Role> Roles => _roles;
+    private readonly List<RegUserRole> _regUserRoles = new();
+    public IReadOnlyCollection<RegUserRole> RegUserRoles => _regUserRoles;
 
     public RegUser AddName(string firstName, string lastName)
     {
@@ -82,20 +82,22 @@ public class RegUser : Entity
         return this;
     }
 
-    public RegUser AddRole(Role role)
+    public RegUser AddRole(int roleId)
     {
-        _roles.Add(role);
+        _regUserRoles.Add(RegUserRole.Create(Id, roleId));
 
         return this;
     }
 
-    public RegUser AddRoles(List<Role> roles)
+    public RegUser AddRoles(List<int> roleIds)
     {
-        _roles.AddRange(roles);
+        foreach (var roleId in roleIds)
+        {
+            _regUserRoles.Add(RegUserRole.Create(Id, roleId));
+        }
 
         return this;
     }
-
 
     private static string Encode(string value) => Convert.ToBase64String(Encoding.UTF8.GetBytes(value));
 

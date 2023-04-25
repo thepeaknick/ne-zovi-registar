@@ -3,8 +3,8 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using NeZoviReg.Abstractions.Infrastructure.DataStores.Auth;
 using NeZoviReg.Auth.Authentication.Services;
-using NeZoviReg.Auth.Infrastructure;
 using NeZoviReg.Domain.Model.Domain;
 
 namespace NeZoviReg.Auth.Authentication.Jwt;

@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using static NeZoviReg.Abstractions.Shared.Errors.ValidationErrors;
 using NeZoviReg.Abstractions.Extensions;
+using NeZoviReg.Abstractions.Messaging.Auth.Commands;
 
 namespace NeZoviReg.Auth.Services.Login;
 

@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using NeZoviReg.Application.Services.User;
+using NeZoviReg.Abstractions.Messaging.Domain.Commands;
+using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using NeZoviReg.Auth.Authorization;
-using NeZoviReg.Auth.Model.Enum;
 using NeZoviReg.WebApi.Model.User;
 
 namespace NeZoviReg.WebApi.Controllers;

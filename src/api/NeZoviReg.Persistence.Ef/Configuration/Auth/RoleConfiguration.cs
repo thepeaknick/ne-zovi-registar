@@ -16,18 +16,14 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
             .IsRequired()
             .HasMaxLength(100);
 
-        builder.HasMany(x => x.Users)
-            .WithMany(x => x.Roles)
-            .UsingEntity<RegUserRole>(); ;
-
         builder.HasMany(x => x.Permissions)
             .WithMany()
             .UsingEntity<RolePermission>();
 
-        builder.Navigation(n => n.Permissions)
+        builder.Navigation(n => n.RegUserRoles)
             .UsePropertyAccessMode(PropertyAccessMode.Field);
 
-        builder.Navigation(n => n.Users)
+        builder.Navigation(n => n.Permissions)
             .UsePropertyAccessMode(PropertyAccessMode.Field);
 
         builder.HasData(Create());

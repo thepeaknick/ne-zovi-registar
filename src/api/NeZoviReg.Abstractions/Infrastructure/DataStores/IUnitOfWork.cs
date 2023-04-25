@@ -1,4 +1,4 @@
-﻿namespace NeZoviReg.Application.Infrastructure.DataStores;
+﻿namespace NeZoviReg.Abstractions.Infrastructure.DataStores;
 
 public interface IUnitOfWork
 {
