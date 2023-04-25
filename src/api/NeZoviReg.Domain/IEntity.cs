@@ -8,4 +8,6 @@ public interface IEntity : IAuditableEntity
     int Id { get; }
 
     byte[] Rowversion { get; }
+
+    bool New => CreatedOn == default;
 }

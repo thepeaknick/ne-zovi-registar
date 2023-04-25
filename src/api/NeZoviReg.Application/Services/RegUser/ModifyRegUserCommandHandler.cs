@@ -9,14 +9,14 @@ using NeZoviReg.Abstractions.Shared.Errors;
 
 namespace NeZoviReg.Application.Services.RegUser;
 
-internal sealed class RemoveRegUserCommandHandler : ICommandHandler<RemoveRegUserCommand, string>
+internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUserCommand, string>
 {
-    private readonly ILogger<RemoveRegUserCommandHandler> _logger;
+    private readonly ILogger<ModifyRegUserCommandHandler> _logger;
     private readonly IRegUserDataStore _regUserDataStore;
     private readonly IAuthDataStore _authDataStore;
     private readonly IUnitOfWork _unitOfWork;
 
-    public RemoveRegUserCommandHandler(ILogger<RemoveRegUserCommandHandler> logger,
+    public ModifyRegUserCommandHandler(ILogger<ModifyRegUserCommandHandler> logger,
         IRegUserDataStore regUserDataStore,
         IAuthDataStore authDataStore,
         IUnitOfWork unitOfWork)
@@ -27,16 +27,28 @@ internal sealed class RemoveRegUserCommandHandler : ICommandHandler<RemoveRegUse
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Result<string>> Handle(RemoveRegUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result<string>> Handle(ModifyRegUserCommand request, CancellationToken cancellationToken)
     {
-        var regUser = await _regUserDataStore.Get(request.RegUserId, cancellationToken);
+        var regUser = await _regUserDataStore.GetByGuidId(request.RegUserId, cancellationToken);
 
         if (regUser is null)
         {
             return Result.Failure<string>(ValidationErrors.RegUser.NotFound(request.RegUserId));
         }
 
-        _regUserDataStore.Remove(regUser);
+        if (!string.IsNullOrEmpty(request.Email) &&
+            !(await _regUserDataStore.IsEmailUniqueAsync(request.RegUserId, request.Email, cancellationToken)))
+        {
+            return Result.Failure<string>(ValidationErrors.RegUser.EmailAlreadyInUse(request.Email));
+        }
+
+        regUser
+            .AddEmail(request.Email)
+            .AddName(request.FirstName, request.LastName)
+            .AddPassword(request.Password)
+            .AddRoles(request.Roles);
+
+        _regUserDataStore.Update(regUser);
 
         await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
 

@@ -22,9 +22,11 @@ public abstract class Entity : IEntity, IEquatable<Entity>
 
     public string? ModifiedBy { get; private set; }
 
-    public DateTime CreatedOn { get; private set; } = DateTime.Now;
+    public DateTime CreatedOn { get; private set; }
 
     public DateTime? ModifiedOn { get; private set; }
+
+    public bool Deleted { get; private set; }
 
     public byte[] Rowversion { get; private set; }
 
@@ -38,6 +40,11 @@ public abstract class Entity : IEntity, IEquatable<Entity>
     {
         ModifiedOn = DateTime.Now;
         ModifiedBy = user;
+    }
+
+    public void DeleteMe()
+    {
+        Deleted = true;
     }
 
     public static bool operator ==(Entity? first, Entity? second) =>

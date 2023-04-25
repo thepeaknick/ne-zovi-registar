@@ -13,7 +13,11 @@ public interface IAuditableEntity
 
     DateTime? ModifiedOn { get; }
 
+    bool Deleted { get; }
+
     void AddCreation(string user);
 
     void AddModification(string user);
+
+    void DeleteMe();
 }

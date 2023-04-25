@@ -16,6 +16,8 @@ internal sealed class UnitOfWork : IUnitOfWork
 
     public Task SaveChangesAsync(string user, CancellationToken cancellationToken = default)
     {
+        UpdateEntitiesState();
+
         UpdateAuditableEntities(user);
 
         return _dbContext.SaveChangesAsync(cancellationToken);
@@ -43,6 +45,26 @@ internal sealed class UnitOfWork : IUnitOfWork
             if (entityEntry.State == EntityState.Modified)
             {
                 entityEntry.Entity.AddModification(user);
+            }
+        }
+    }
+
+    private void UpdateEntitiesState()
+    {
+        IEnumerable<EntityEntry<IEntity>> entries =
+            _dbContext
+                .ChangeTracker
+                .Entries<IEntity>();
+
+        foreach (EntityEntry<IEntity> entityEntry in entries)
+        {
+            entityEntry.State = entityEntry.Entity.New
+                ? EntityState.Added
+                : EntityState.Modified;
+
+            if (entityEntry.Entity.Deleted)
+            {
+                entityEntry.State = EntityState.Deleted;
             }
         }
     }

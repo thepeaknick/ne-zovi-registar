@@ -5,7 +5,6 @@ using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands;
 using NeZoviReg.Abstractions.Shared;
-using NeZoviReg.Domain.Model.Auth;
 
 namespace NeZoviReg.Application.Services.RegUser;
 
@@ -29,7 +28,7 @@ internal sealed class CreateRegUserCommandHandler : ICommandHandler<CreateRegUse
 
     public async Task<Result<string>> Handle(CreateRegUserCommand request, CancellationToken cancellationToken)
     {
-        var rolles = await _authDataStore.GetRollesAsync(request.Rolles, cancellationToken);
+        var rolles = await _authDataStore.GetRollesAsync(request.Roles, cancellationToken);
 
         var regUser = new Domain.Model.Domain.RegUser(request.UserName, request.Email)
             .AddPassword(request.Password)

@@ -18,7 +18,7 @@ public static class Startup
             .AddDbContext<NeZoviRegDataContext>(op =>
         {
             op.UseSqlServer(configuration.GetConnectionString("SqlServerDatabase"))
-                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTrackingWithIdentityResolution);
         })
             .AddPersistenceServices(configuration);
     }

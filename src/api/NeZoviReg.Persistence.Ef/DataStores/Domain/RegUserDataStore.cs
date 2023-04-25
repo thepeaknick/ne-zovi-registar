@@ -24,13 +24,29 @@ public class RegUserDataStore : IRegUserDataStore
             .Set<RegUser>()
             .AnyAsync(user => user.Username == username, cancellationToken);
 
+    public async Task<bool> IsEmailUniqueAsync(Guid regUserId, string email, CancellationToken cancellationToken = default)
+        => !await _dbContext
+            .Set<RegUser>()
+            .AnyAsync(user => user.GuidId != regUserId && user.Email == email, cancellationToken);
+
+    public async Task<bool> IsUsernamelUniqueAsync(Guid regUserId, string username, CancellationToken cancellationToken = default)
+        => !await _dbContext
+            .Set<RegUser>()
+            .AnyAsync(user => user.GuidId != regUserId && user.Username == username, cancellationToken);
+
     public async Task<RegUser?> Get(Guid regUserId, CancellationToken cancellationToken = default) =>
-        await _dbContext.Set<RegUser>().SingleOrDefaultAsync(x => x.GuidId == regUserId, cancellationToken);
+        await _dbContext.Set<RegUser>()
+            .SingleOrDefaultAsync(x => x.GuidId == regUserId, cancellationToken);
+
+    public async Task<RegUser?> GetByGuidId(Guid regUserId, CancellationToken cancellationToken = default) =>
+        await _dbContext.Set<RegUser>()
+            .Include(u => u.RegUserRoles)
+            .SingleOrDefaultAsync(x => x.GuidId == regUserId, cancellationToken);
 
     public async Task Add(RegUser regUser, CancellationToken cancellationToken = default) =>
         await _dbContext.Set<RegUser>().AddAsync(regUser, cancellationToken);
 
-    public void Update(RegUser regUser)=>
+    public void Update(RegUser regUser) =>
         _dbContext.Set<RegUser>().Update(regUser);
 
     public void Remove(RegUser regUser) =>

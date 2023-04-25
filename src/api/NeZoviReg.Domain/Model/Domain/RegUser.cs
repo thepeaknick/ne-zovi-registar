@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Data;
+using System.Text;
 using NeZoviReg.Domain.Model.Auth;
 
 namespace NeZoviReg.Domain.Model.Domain;
@@ -54,29 +55,40 @@ public class RegUser : Entity
     private readonly List<RegUserRole> _regUserRoles = new();
     public IReadOnlyCollection<RegUserRole> RegUserRoles => _regUserRoles;
 
-    public RegUser AddName(string firstName, string lastName)
+    public RegUser AddEmail(string? email)
     {
-        FirstName = firstName;
-        LastName = lastName;
-
-        return this;
-    }
-    public RegUser AddFirstName(string firstName)
-    {
-        FirstName = firstName;
+        Email = email ?? Email;
 
         return this;
     }
 
-    public RegUser AddLastName(string lastName)
+    public RegUser AddFirstName(string? firstName)
     {
-        LastName = lastName;
+        FirstName = firstName ?? FirstName;
 
         return this;
     }
 
-    public RegUser AddPassword(string password)
+    public RegUser AddLastName(string? lastName)
     {
+        LastName = lastName ?? LastName;
+
+        return this;
+    }
+
+    public RegUser AddName(string? firstName, string? lastName)
+    {
+        AddFirstName(firstName);
+        AddLastName(lastName);
+
+        return this;
+    }
+
+    public RegUser AddPassword(string? password)
+    {
+        if (password == default)
+            return this;
+
         Password = Encode(password);
 
         return this;
@@ -89,9 +101,17 @@ public class RegUser : Entity
         return this;
     }
 
-    public RegUser AddRoles(List<int> roleIds)
+    public RegUser AddRoles(List<int>? roleIds)
     {
-        foreach (var roleId in roleIds)
+        foreach (var regUserRole in RegUserRoles
+                     .Where(r => !roleIds?.Contains(r.RoleId) ?? false)
+                     .ToList())
+        {
+            regUserRole.PrepareForDelete();
+        }
+
+        foreach (var roleId in (roleIds ??= new List<int>())
+                 .Where(roleId => RegUserRoles.All(r => r.RoleId != roleId)))
         {
             _regUserRoles.Add(RegUserRole.Create(Id, roleId));
         }

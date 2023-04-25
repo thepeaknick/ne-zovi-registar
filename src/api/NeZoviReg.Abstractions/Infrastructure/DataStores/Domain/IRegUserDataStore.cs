@@ -8,7 +8,13 @@ public interface IRegUserDataStore
 
     Task<bool> IsUsernamelUniqueAsync(string username, CancellationToken cancellationToken = default);
 
+    Task<bool> IsEmailUniqueAsync(Guid regUserId, string email, CancellationToken cancellationToken = default);
+
+    Task<bool> IsUsernamelUniqueAsync(Guid regUserId, string username, CancellationToken cancellationToken = default);
+
     Task<RegUser?> Get(Guid regUserId, CancellationToken cancellationToken = default);
+
+    Task<RegUser?> GetByGuidId(Guid regUserId, CancellationToken cancellationToken = default);
 
     Task Add(RegUser regUser, CancellationToken cancellationToken = default);
 

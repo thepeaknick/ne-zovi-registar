@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NeZoviReg.Abstractions.Extensions;
 using NeZoviReg.Abstractions.Messaging.Auth.Commands;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands;
 using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
@@ -35,7 +36,7 @@ public class RegUserController : NeZoviRegBaseController
     [ProducesResponseType(typeof(string), 200)]
     public async Task<IActionResult> RegisterRegUser([FromBody] RegisterRegUserRequest request, CancellationToken cancellationToken)
     {
-        var command = new CreateRegUserCommand(request.Email, request.UserName, request.Password, request.FirstName, request.LastName, request.Rolles)
+        var command = new CreateRegUserCommand(request.Email, request.UserName, request.Password, request.FirstName, request.LastName, request.Roles)
                          .AddAppUser(AppUser);
 
         var result = await Sender.Send(command, cancellationToken);
@@ -43,12 +44,13 @@ public class RegUserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
-    [HttpPut("reguser/{regUserId}")]
+    [HttpPatch("reguser/{regUserId}")]
     [ProducesResponseType(typeof(string), 400)]
     [ProducesResponseType(typeof(string), 200)]
-    public async Task<IActionResult> ModifyRegUser(Guid regUserId, [FromBody] ModifyRegUserCommand request, CancellationToken cancellationToken)
+    public async Task<IActionResult> ModifyRegUser(Guid regUserId, [FromBody] ModifyRegUserRequest request, CancellationToken cancellationToken)
     {
-        var command = new ModifyRegUserCommand(regUserId, request.Email, request.UserName, request.Password, request.FirstName, request.LastName, request.Rolles)
+        var command = new ModifyRegUserCommand(regUserId, request.Email, request.UserName, request.Password,
+                request.FirstName, request.LastName, request.Roles.ToIntList())
             .AddAppUser(AppUser);
 
         var result = await Sender.Send(command, cancellationToken);

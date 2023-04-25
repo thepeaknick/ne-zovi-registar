@@ -39,11 +39,13 @@ public abstract class EnumerationEntity<TEnum> : IEquatable<EnumerationEntity<TE
 
     public string? ModifiedBy { get; private set; }
 
-    public DateTime CreatedOn { get; private set; } = DateTime.Now;
+    public DateTime CreatedOn { get; private set; }
 
     public DateTime? ModifiedOn { get; private set; }
 
     public byte[] Rowversion { get; private set; }
+
+    public bool Deleted { get; private set; }
 
     public void AddCreation(string user)
     {
@@ -55,6 +57,11 @@ public abstract class EnumerationEntity<TEnum> : IEquatable<EnumerationEntity<TE
     {
         ModifiedOn = DateTime.Now;
         ModifiedBy = user;
+    }
+
+    public void DeleteMe()
+    {
+        Deleted = true;
     }
 
     public static bool operator ==(EnumerationEntity<TEnum>? a, EnumerationEntity<TEnum>? b)

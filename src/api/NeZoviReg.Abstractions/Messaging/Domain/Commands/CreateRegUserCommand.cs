@@ -3,5 +3,5 @@
 namespace NeZoviReg.Abstractions.Messaging.Domain.Commands;
 
 public record CreateRegUserCommand
-    (string Email, string UserName, string Password, string FirstName, string LastName, RoleType[] Rolles)
+    (string Email, string UserName, string Password, string FirstName, string LastName, RoleType[] Roles)
     : BaseCommand<string>;

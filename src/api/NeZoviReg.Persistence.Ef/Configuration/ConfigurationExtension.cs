@@ -32,6 +32,8 @@ public static class ConfigurationExtension
         {
             configuration.Ignore(i => i.Rowversion);
         }
+
+        configuration.Ignore(i => i.Deleted);
     }
 
     public static void ConfigureEnumerationEntity<T>(this EntityTypeBuilder<T> configuration, bool hasDefaultId = true, bool configConcurrent = true)
@@ -61,6 +63,9 @@ public static class ConfigurationExtension
         {
             configuration.Ignore(i => i.Rowversion);
         }
+
+        configuration.Ignore(i => i.Deleted);
+
     }
 
     public static EntityTypeBuilder<T> ConfigureAuditable<T>(this EntityTypeBuilder<T> builder)
