@@ -16,7 +16,7 @@ public class RegUserController : NeZoviRegBaseController
     {
     }
 
-    [HttpPost("login")]
+    [HttpPost("reguser/login")]
     [AllowAnonymous]
     public async Task<IActionResult> LoginUser([FromBody] LoginRequest request, CancellationToken cancellationToken)
     {
@@ -27,7 +27,7 @@ public class RegUserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
-    [HttpPost("register")]
+    [HttpPost("reguser/register")]
     [HasPermission(PermissionType.All)]
     public async Task<IActionResult> RegisterRegUser([FromBody] RegisterRegUserRequest request, CancellationToken cancellationToken)
     {

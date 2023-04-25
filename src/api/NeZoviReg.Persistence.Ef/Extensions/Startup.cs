@@ -35,7 +35,8 @@ public static class Startup
         IConfiguration configuration)
     {
         return services.AddScoped<IAuthDataStore, AuthDataStore>()
-                .AddScoped<IRegUserDataStore, RegUserDataStore>();
+                .AddScoped<IRegUserDataStore, RegUserDataStore>()
+                .AddScoped<IUserDataStore, UserDataStore>();
 
     }
 }

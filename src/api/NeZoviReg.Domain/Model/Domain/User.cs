@@ -5,6 +5,11 @@
 /// </summary>
 public class User : Entity
 {
+    public static int FirstNameMaxLength = 100;
+    public static int LastNameMaxLength = 100;
+    public static int PhoneNumberMaxLength = 25;
+    public static int JmbgMaxLength = 13;
+
     public User(string firstName, string lastName, string phoneNumber, string jmbg)
     {
         FirstName = firstName;
@@ -29,7 +34,7 @@ public class User : Entity
 
     public string PhoneNumber { get; private set; }
 
-    public string FullName => $"{FirstName} {LastName}";
+    public string FullName => $"Ime={FirstName}, Prezime={LastName}, Jmbg={Jmbg}, Broj telefona={PhoneNumber}.";
 
     public string Jmbg { get; private set; }
 

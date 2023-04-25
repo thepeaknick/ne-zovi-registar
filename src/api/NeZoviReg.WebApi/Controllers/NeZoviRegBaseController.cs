@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Auth.Authentication.Services;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using Error = NeZoviReg.Abstractions.Shared.Error;
 
 namespace NeZoviReg.WebApi.Controllers;

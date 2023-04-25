@@ -26,7 +26,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.Jmbg)
             .IsRequired()
-            .HasMaxLength(100);
+            .HasMaxLength(13);
 
         builder.HasData(Create("Marko", "Bubulj", "1234", "012345567"));
     }

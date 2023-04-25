@@ -63,4 +63,30 @@ public static class ValidationErrors
             ErrorCode.TooLong,
             "Prezime je predugačko.");
     }
+
+    public static class Jmbg
+    {
+        public static readonly Error Empty = new(
+            ErrorCode.Empty,
+            "JMBG je prazno.");
+
+        public static readonly Error TooLong = new(
+            ErrorCode.TooLong,
+            "JMBG je predugačko.");
+    }
+
+    public static class PhoneNumber
+    {
+        public static readonly Error Empty = new(
+            ErrorCode.Empty,
+            "Broj telefona je prazan.");
+
+        public static readonly Error TooLong = new(
+            ErrorCode.TooLong,
+            "Broj telefona je predugačak.");
+
+        public static readonly Error InvalidFormat = new(
+            ErrorCode.InvalidFormat,
+            "Broj telefona format nije ispravan.");
+    }
 }
