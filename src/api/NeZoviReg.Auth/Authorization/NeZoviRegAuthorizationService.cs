@@ -39,7 +39,7 @@ public class NeZoviRegAuthorizationService : DefaultAuthorizationService, INeZov
             .Claims
             .SingleOrDefault(x => x.Type == CustomClaims.RegUserId)?.Value;
 
-        if (!int.TryParse(regUserId, out var id))
+        if (!Guid.TryParse(regUserId, out var id))
         {
             _logger.LogWarning($"ClaimsPrincipal.Claims.RegUser={regUserId} is not integer.");
 
@@ -53,7 +53,7 @@ public class NeZoviRegAuthorizationService : DefaultAuthorizationService, INeZov
 
     private CancellationTokenSource GetTokenSource() => _cache.GetOrCreate(KeyTokenSource, _ => new CancellationTokenSource())!;
 
-    private async Task<List<string>> GetCachedUserPermissions(int regUserId, CancellationToken cancellationToken)
+    private async Task<List<string>> GetCachedUserPermissions(Guid regUserId, CancellationToken cancellationToken)
     {
         return await _cache.GetOrCreateAsync($"reg_user_{regUserId}", async ce =>
             {

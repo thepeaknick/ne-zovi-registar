@@ -12,6 +12,9 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
 
         builder.ConfigureEntity();
 
+        builder.Property(x => x.GuidId)
+            .IsRequired();
+
         builder.Property(x => x.FirstName)
             .IsRequired(false)
             .HasMaxLength(RegUser.FirstNameMaxLength);

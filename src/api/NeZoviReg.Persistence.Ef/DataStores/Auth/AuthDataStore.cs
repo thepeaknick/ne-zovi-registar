@@ -13,12 +13,12 @@ public class AuthDataStore : IAuthDataStore
         _dbContext = context;
     }
 
-    public async Task<List<string>> GetUserPermissionsAsync(int regUserId, CancellationToken cancellationToken)
+    public async Task<List<string>> GetUserPermissionsAsync(Guid regUserId, CancellationToken cancellationToken)
     {
         var roles = await _dbContext.Set<RegUser>()
             .Include(ru => ru.Roles)
             .ThenInclude(r => r.Permissions)
-            .Where(ru => ru.Id == regUserId)
+            .Where(ru => ru.GuidId == regUserId)
             .Select(ru => ru.Roles).ToArrayAsync(cancellationToken);
 
         return roles.SelectMany(r => r)

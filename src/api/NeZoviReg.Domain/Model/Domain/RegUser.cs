@@ -19,6 +19,7 @@ public class RegUser : Entity
     {
         Username = username;
         Email = email;
+        GuidId = Guid.NewGuid();
     }
 
     public RegUser(int id, string username, string email)
@@ -26,7 +27,10 @@ public class RegUser : Entity
     {
         Username = username;
         Email = email;
+        GuidId = Guid.NewGuid();
     }
+
+    public Guid GuidId { get; private set; }
 
     public string? FirstName { get; private set; }
 
