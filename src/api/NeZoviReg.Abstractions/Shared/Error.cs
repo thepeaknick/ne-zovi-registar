@@ -10,15 +10,21 @@ public class Error : IEquatable<Error>
 
     public Error(ErrorCode code, string message)
     {
+        Code = code.ToString();
+        Message = message;
+    }
+
+    public Error(string code, string message)
+    {
         Code = code;
         Message = message;
     }
 
-    public ErrorCode Code { get; }
+    public string Code { get; }
 
     public string Message { get; }
 
-    public static implicit operator ErrorCode(Error error) => error.Code;
+    public static implicit operator string(Error error) => error.Code;
 
     public static bool operator ==(Error? a, Error? b)
     {

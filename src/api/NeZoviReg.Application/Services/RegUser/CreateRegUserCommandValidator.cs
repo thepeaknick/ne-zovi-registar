@@ -26,7 +26,6 @@ public class CreateRegUserCommandValidator : AbstractValidator<CreateRegUserComm
                 ValidationErrors.RegUser.PasswordTooLong.Message);
 
         RuleFor(x => x.Email).MustAsync((email, cancellationToken) => regUserDataStore.IsEmailUniqueAsync(email, cancellationToken))
-        .WithErrorCode(ErrorCode.EmailAlreadyInUse.ToString())
         .WithMessage(x => ValidationErrors.RegUser.EmailAlreadyInUse(x.Email).Message);
     }
 }

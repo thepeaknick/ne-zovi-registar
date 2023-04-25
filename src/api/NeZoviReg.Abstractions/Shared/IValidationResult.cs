@@ -9,4 +9,6 @@ public interface IValidationResult
         "Došlo je do problema sa validacijom.");
 
     Error[] Errors { get; }
+
+    Dictionary<string, string[]> ErrorsDictionary { get; }
 }
