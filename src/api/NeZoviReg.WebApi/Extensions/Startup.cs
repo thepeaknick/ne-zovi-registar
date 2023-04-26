@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using System.Threading.RateLimiting;
-using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.WebApi.Extensions.Middleware;
 using NeZoviReg.WebApi.Extensions.Options;
@@ -18,10 +17,10 @@ public static class Startup
 
     private static IServiceCollection AddRateLimiter(this IServiceCollection services, IConfiguration configuration)
     {
-        var rlOptions = new FixedWindowRateLimitOptions();
+        var fixedWindowRateLimitOptions = new FixedWindowRateLimitOptions();
         configuration
             .GetSection(FixedWindowRateLimitOptions.SectionName)
-            .Bind(rlOptions);
+            .Bind(fixedWindowRateLimitOptions);
 
         services.AddRateLimiter(options =>
         {
@@ -31,10 +30,10 @@ public static class Startup
                     _ => new FixedWindowRateLimiterOptions
                     {
                         AutoReplenishment = true,
-                        PermitLimit = rlOptions.PermitLimit,
-                        QueueLimit = rlOptions.QueueLimit,
+                        PermitLimit = fixedWindowRateLimitOptions.PermitLimit,
+                        QueueLimit = fixedWindowRateLimitOptions.QueueLimit,
                         QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
-                        Window = TimeSpan.FromMinutes(rlOptions.WindowInMinutes)
+                        Window = TimeSpan.FromSeconds(fixedWindowRateLimitOptions.WindowInSeconds)
                     }));
 
             options.OnRejected = async (context, cancellationToken) =>

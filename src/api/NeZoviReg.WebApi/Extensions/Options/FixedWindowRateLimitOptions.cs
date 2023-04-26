@@ -6,7 +6,7 @@ public class FixedWindowRateLimitOptions
 
     public int PermitLimit { get; init; }
 
-    public int WindowInMinutes { get; init; }
+    public int WindowInSeconds { get; init; }
 
     public int QueueLimit { get; init; }
 }
