@@ -29,7 +29,7 @@ internal sealed class RemoveRegUserCommandHandler : ICommandHandler<RemoveRegUse
 
         if (regUser is null)
         {
-            return Result.Failure<string>(ValidationErrors.RegUser.NotFound(request.RegUserId));
+            return Result.Failure<string>(RegErrors.RegUser.NotFound(request.RegUserId));
         }
 
         _regUserDataStore.Remove(regUser);

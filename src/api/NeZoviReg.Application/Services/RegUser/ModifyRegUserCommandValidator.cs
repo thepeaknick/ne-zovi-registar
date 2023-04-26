@@ -3,7 +3,7 @@ using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Extensions;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands;
-using static NeZoviReg.Abstractions.Shared.Errors.ValidationErrors;
+using static NeZoviReg.Abstractions.Shared.Errors.RegErrors;
 
 namespace NeZoviReg.Application.Services.RegUser;
 
@@ -12,7 +12,7 @@ public class ModifyRegUserCommandValidator : AbstractValidator<ModifyRegUserComm
     public ModifyRegUserCommandValidator(IRegUserDataStore regUserDataStore)
     {
         RuleFor(x => x.RegUserId)
-            .NotEmpty<ModifyRegUserCommand, Guid, string>(ValidationErrors.RegUser.IdentificatorEmpty.Message);
+            .NotEmpty<ModifyRegUserCommand, Guid, string>(RegErrors.RegUser.IdentificatorEmpty.Message);
 
         When(x => !string.IsNullOrEmpty(x.Email), () =>
         {
@@ -25,21 +25,21 @@ public class ModifyRegUserCommandValidator : AbstractValidator<ModifyRegUserComm
                 var regUser = await regUserDataStore.GetByEmail(email!, cancellationToken);
 
                 if (regUser?.GuidId != ctx.InstanceToValidate.RegUserId)
-                    ctx.AddFailure(ValidationErrors.RegUser.EmailAlreadyInUse(email!).Message);
+                    ctx.AddFailure(RegErrors.RegUser.EmailAlreadyInUse(email!).Message);
             });
         });
 
         When(x => !string.IsNullOrEmpty(x.UserName), () =>
         {
             RuleFor(x => x.UserName!)
-                .MaximumLength<ModifyRegUserCommand, string>(Domain.Model.Domain.RegUser.UsernameMaxLength, ValidationErrors.RegUser.UserNameTooLong.Message);
+                .MaximumLength<ModifyRegUserCommand, string>(Domain.Model.Domain.RegUser.UsernameMaxLength, RegErrors.RegUser.UserNameTooLong.Message);
         });
 
         When(x => !string.IsNullOrEmpty(x.Password), () =>
         {
             RuleFor(x => x.Password!)
                 .MaximumLength<ModifyRegUserCommand, string>(Domain.Model.Domain.RegUser.PasswordMaxLength,
-                    ValidationErrors.RegUser.PasswordTooLong.Message);
+                    RegErrors.RegUser.PasswordTooLong.Message);
         });
     }
 }

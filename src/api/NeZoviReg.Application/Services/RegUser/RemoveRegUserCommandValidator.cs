@@ -10,6 +10,6 @@ public class RemoveRegUserCommandValidator : AbstractValidator<RemoveRegUserComm
     public RemoveRegUserCommandValidator()
     {
         RuleFor(x => x.RegUserId)
-            .NotEmpty<RemoveRegUserCommand, Guid, string>(ValidationErrors.RegUser.IdentificatorEmpty.Message);
+            .NotEmpty<RemoveRegUserCommand, Guid, string>(RegErrors.RegUser.IdentificatorEmpty.Message);
     }
 }

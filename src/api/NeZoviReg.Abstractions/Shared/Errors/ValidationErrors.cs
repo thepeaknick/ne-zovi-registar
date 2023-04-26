@@ -2,7 +2,7 @@
 
 namespace NeZoviReg.Abstractions.Shared.Errors;
 
-public static class ValidationErrors
+public static class RegErrors
 {
     public static class App
     {
@@ -11,6 +11,10 @@ public static class ValidationErrors
             retry == default
                 ? "Previše pokušaja. Molimo vas pokušajte kasnije."
                 : $"Previše pokušaja. Molimo vas pokušajte za {retry} minut/a.");
+
+        public static readonly Error InternalServerError = new(
+            ErrorCode.InternalServerError,
+            "Desila se greška na serveru.");
 
     }
 

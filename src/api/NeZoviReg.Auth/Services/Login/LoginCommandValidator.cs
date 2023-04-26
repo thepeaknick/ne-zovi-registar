@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using static NeZoviReg.Abstractions.Shared.Errors.ValidationErrors;
+using static NeZoviReg.Abstractions.Shared.Errors.RegErrors;
 using NeZoviReg.Abstractions.Extensions;
 using NeZoviReg.Abstractions.Messaging.Auth.Commands;
 

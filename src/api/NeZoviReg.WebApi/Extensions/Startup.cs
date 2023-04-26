@@ -2,6 +2,7 @@
 using System.Threading.RateLimiting;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
+using NeZoviReg.WebApi.Extensions.Middleware;
 using NeZoviReg.WebApi.Extensions.Options;
 
 namespace NeZoviReg.WebApi.Extensions;
@@ -11,6 +12,7 @@ public static class Startup
     public static IServiceCollection ConfigureWebApi(this IServiceCollection services, IConfiguration configuration)
     {
         return services
+                .AddTransient<ExceptionsHandlingMiddleware>()
                 .AddRateLimiter(configuration);
     }
 
@@ -41,11 +43,11 @@ public static class Startup
 
                 if (context.Lease.TryGetMetadata(MetadataName.RetryAfter, out var retryAfter))
                 {
-                    await context.HttpContext.Response.WriteAsync(ValidationErrors.App.RateLimitRejected(retryAfter.Minutes).Message, cancellationToken);
+                    await context.HttpContext.Response.WriteAsync(RegErrors.App.RateLimitRejected(retryAfter.Minutes).Message, cancellationToken);
                 }
                 else
                 {
-                    await context.HttpContext.Response.WriteAsync(ValidationErrors.App.RateLimitRejected(default).Message, cancellationToken);
+                    await context.HttpContext.Response.WriteAsync(RegErrors.App.RateLimitRejected(default).Message, cancellationToken);
                 }
 
             };

@@ -33,7 +33,7 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
 
         if (regUser is null)
         {
-            return Result.Failure<string>(ValidationErrors.RegUser.NotFound(request.RegUserId));
+            return Result.Failure<string>(RegErrors.RegUser.NotFound(request.RegUserId));
         }
 
         regUser

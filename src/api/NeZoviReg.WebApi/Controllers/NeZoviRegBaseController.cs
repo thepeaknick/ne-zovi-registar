@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Auth.Authentication.Services;
-using Error = NeZoviReg.Abstractions.Shared.Error;
+using NeZoviReg.WebApi.Extensions;
 
 namespace NeZoviReg.WebApi.Controllers;
 
@@ -11,6 +11,7 @@ namespace NeZoviReg.WebApi.Controllers;
 [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
 [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
 [ProducesResponseType(typeof(string), (int)HttpStatusCode.TooManyRequests)]
+[ProducesResponseType(typeof(string), (int)HttpStatusCode.InternalServerError)]
 public class NeZoviRegBaseController : ControllerBase
 {
     protected readonly ISender Sender;
@@ -31,44 +32,16 @@ public class NeZoviRegBaseController : ControllerBase
         {
             { IsSuccess: true } => throw new InvalidOperationException(),
             IValidationResult validationResult =>
-                BadRequest(CreateProblemDetails("Validaciona greška",
+                BadRequest(WebApiExtensions.CreateProblemDetails("Validaciona greška",
                     StatusCodes.Status400BadRequest,
                     result.Error,
                     validationResult.ErrorsDictionary)),
             _ =>
                 BadRequest(
-                    CreateProblemDetails(
+                    WebApiExtensions.CreateProblemDetails(
                         "Loš zahtev",
                         StatusCodes.Status400BadRequest,
                         result.Error,
                         errors: null))
-        };
-
-    /*private static ProblemDetails CreateProblemDetails(
-        string title,
-        int status,
-        Error error,
-        Error[]? errors = null) =>
-        new()
-        {
-            Title = title,
-            Type = error.Code,
-            Detail = error.Message,
-            Status = status,
-            Extensions = { { nameof(errors), errors } }
-        };*/
-
-    private static ProblemDetails CreateProblemDetails(
-        string title,
-        int status,
-        Error error,
-        Dictionary<string, string[]>? errors = null) =>
-        new()
-        {
-            Title = title,
-            Type = error.Code,
-            Detail = error.Message,
-            Status = status,
-            Extensions = { { nameof(errors), errors } }
         };
 }
