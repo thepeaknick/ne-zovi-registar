@@ -8,11 +8,9 @@ public interface IRegUserDataStore
 
     Task<bool> IsUsernamelUniqueAsync(string username, CancellationToken cancellationToken = default);
 
-    Task<bool> IsEmailUniqueAsync(Guid regUserId, string email, CancellationToken cancellationToken = default);
+    Task<RegUser?> GetByEmail(string email, CancellationToken cancellationToken = default);
 
-    Task<bool> IsUsernamelUniqueAsync(Guid regUserId, string username, CancellationToken cancellationToken = default);
-
-    Task<RegUser?> Get(Guid regUserId, CancellationToken cancellationToken = default);
+    Task<RegUser?> GetByUsername(string username, CancellationToken cancellationToken = default);
 
     Task<RegUser?> GetByGuidId(Guid regUserId, CancellationToken cancellationToken = default);
 
@@ -21,8 +19,4 @@ public interface IRegUserDataStore
     void Remove(RegUser member);
 
     void Update(RegUser member);
-
-    Task AddRole(int regUserId, int roleId, CancellationToken cancellationToken = default);
-
-    Task AddRoles(int regUserId, List<int> roleIds, CancellationToken cancellationToken = default);
 }

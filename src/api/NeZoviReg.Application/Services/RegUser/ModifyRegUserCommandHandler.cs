@@ -36,12 +36,6 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
             return Result.Failure<string>(ValidationErrors.RegUser.NotFound(request.RegUserId));
         }
 
-        if (!string.IsNullOrEmpty(request.Email) &&
-            !(await _regUserDataStore.IsEmailUniqueAsync(request.RegUserId, request.Email, cancellationToken)))
-        {
-            return Result.Failure<string>(ValidationErrors.RegUser.EmailAlreadyInUse(request.Email));
-        }
-
         regUser
             .AddEmail(request.Email)
             .AddName(request.FirstName, request.LastName)

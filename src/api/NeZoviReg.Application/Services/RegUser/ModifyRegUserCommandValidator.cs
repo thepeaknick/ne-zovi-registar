@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System.Runtime.InteropServices.ComTypes;
+using FluentValidation;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Extensions;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
@@ -19,6 +20,14 @@ public class ModifyRegUserCommandValidator : AbstractValidator<ModifyRegUserComm
             RuleFor(x => x.Email!)
                 .MaximumLength<ModifyRegUserCommand, string>(Domain.Model.Domain.RegUser.EmailMaxLength, Email.TooLong.Message)
                 .RegexFormat<ModifyRegUserCommand, string>(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", Email.InvalidFormat.Message);
+
+            RuleFor(x => x.Email).CustomAsync(async (email, ctx, cancellationToken) =>
+            {
+                var regUser = await regUserDataStore.GetByEmail(email!, cancellationToken);
+
+                if (regUser?.GuidId != ctx.InstanceToValidate.RegUserId)
+                    ctx.AddFailure(ValidationErrors.RegUser.EmailAlreadyInUse(email!).Message);
+            });
         });
 
         When(x => !string.IsNullOrEmpty(x.UserName), () =>

@@ -13,23 +13,20 @@ internal sealed class RemoveRegUserCommandHandler : ICommandHandler<RemoveRegUse
 {
     private readonly ILogger<RemoveRegUserCommandHandler> _logger;
     private readonly IRegUserDataStore _regUserDataStore;
-    private readonly IAuthDataStore _authDataStore;
     private readonly IUnitOfWork _unitOfWork;
 
     public RemoveRegUserCommandHandler(ILogger<RemoveRegUserCommandHandler> logger,
         IRegUserDataStore regUserDataStore,
-        IAuthDataStore authDataStore,
         IUnitOfWork unitOfWork)
     {
         _logger = logger;
         _regUserDataStore = regUserDataStore;
-        _authDataStore = authDataStore;
         _unitOfWork = unitOfWork;
     }
 
     public async Task<Result<string>> Handle(RemoveRegUserCommand request, CancellationToken cancellationToken)
     {
-        var regUser = await _regUserDataStore.Get(request.RegUserId, cancellationToken);
+        var regUser = await _regUserDataStore.GetByGuidId(request.RegUserId, cancellationToken);
 
         if (regUser is null)
         {
