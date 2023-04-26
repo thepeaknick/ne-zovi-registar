@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System.Net;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Auth.Authentication.Services;
@@ -7,6 +8,9 @@ using Error = NeZoviReg.Abstractions.Shared.Error;
 namespace NeZoviReg.WebApi.Controllers;
 
 [ApiController]
+[ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+[ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+[ProducesResponseType(typeof(string), (int)HttpStatusCode.TooManyRequests)]
 public class NeZoviRegBaseController : ControllerBase
 {
     protected readonly ISender Sender;

@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NeZoviReg.Abstractions\NeZoviReg.Abstractions.csproj" />
-    <ProjectReference Include="..\NeZoviReg.Auth\NeZoviReg.Auth.csproj"/>
+    <ProjectReference Include="..\NeZoviReg.Auth\NeZoviReg.Auth.csproj" />
     <ProjectReference Include="..\NeZoviReg.Composition\NeZoviReg.Composition.csproj" />
   </ItemGroup>
 

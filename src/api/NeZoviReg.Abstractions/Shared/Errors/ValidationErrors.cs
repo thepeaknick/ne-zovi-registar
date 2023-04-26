@@ -4,6 +4,16 @@ namespace NeZoviReg.Abstractions.Shared.Errors;
 
 public static class ValidationErrors
 {
+    public static class App
+    {
+        public static readonly Func<int?, Error> RateLimitRejected = retry =>  new(
+            ErrorCode.Rejected,
+            retry == default
+                ? "Previše pokušaja. Molimo vas pokušajte kasnije."
+                : $"Previše pokušaja. Molimo vas pokušajte za {retry} minut/a.");
+
+    }
+
     public static class RegUser
     {
         public static readonly Func<string, Error> EmailAlreadyInUse = email =>  new(

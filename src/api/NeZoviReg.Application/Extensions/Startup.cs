@@ -8,7 +8,7 @@ namespace NeZoviReg.Application.Extensions;
 
 public static class Startup
 {
-    public static IServiceCollection ConfigureApplication(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection ConfigureAppCore(this IServiceCollection services, IConfiguration configuration)
     {
         return services
             .AddMediatR(typeof(Startup).Assembly)

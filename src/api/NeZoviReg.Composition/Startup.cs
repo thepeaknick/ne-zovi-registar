@@ -8,11 +8,11 @@ namespace NeZoviReg.Composition;
 
 public static class Startup
 {
-    public static IServiceCollection ConfigureNeZoviRegApp(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection ConfigureApplication(this IServiceCollection services, IConfiguration configuration)
     {
         return services
             .ConfigureAuth()
-            .ConfigureApplication(configuration)
+            .ConfigureAppCore(configuration)
             .ConfigurePersistence(configuration);
     }
 }

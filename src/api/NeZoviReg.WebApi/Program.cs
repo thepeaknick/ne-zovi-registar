@@ -1,4 +1,5 @@
 using NeZoviReg.Composition;
+using NeZoviReg.WebApi.Extensions;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,7 +22,8 @@ builder.Services.AddOptions();
 builder.Host.UseSerilog((ctx, lc)
     => lc.ReadFrom.Configuration(ctx.Configuration));
 
-builder.Services.ConfigureNeZoviRegApp(builder.Configuration);
+builder.Services.ConfigureWebApi(builder.Configuration)
+                .ConfigureApplication(builder.Configuration);
 
 var app = builder.Build();
 
@@ -39,5 +41,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseRateLimiter();
 
 app.Run();

@@ -20,6 +20,8 @@ public enum ErrorCode
 
     InvalidFormat,
 
-    ValidationError
+    ValidationError,
+
+    Rejected,
 
 }

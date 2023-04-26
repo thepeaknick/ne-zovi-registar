@@ -1,5 +1,4 @@
-﻿using System.Data;
-using System.Text;
+﻿using System.Text;
 using NeZoviReg.Domain.Model.Auth;
 
 namespace NeZoviReg.Domain.Model.Domain;

@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices.ComTypes;
-using FluentValidation;
+﻿using FluentValidation;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Extensions;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;

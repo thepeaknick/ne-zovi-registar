@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System.Net;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Extensions;
@@ -20,8 +21,6 @@ public class RegUserController : NeZoviRegBaseController
 
     [HttpPost("reguser/login")]
     [AllowAnonymous]
-    [ProducesResponseType(typeof(string), 400)]
-    [ProducesResponseType(typeof(string), 200)]
     public async Task<IActionResult> LoginRegUser([FromBody] LoginRequest request, CancellationToken cancellationToken)
     {
         var command = new LoginCommand(request.Email);
@@ -32,8 +31,6 @@ public class RegUserController : NeZoviRegBaseController
     }
 
     [HttpPost("reguser/register")]
-    [ProducesResponseType(typeof(string), 400)]
-    [ProducesResponseType(typeof(string), 200)]
     public async Task<IActionResult> RegisterRegUser([FromBody] RegisterRegUserRequest request, CancellationToken cancellationToken)
     {
         var command = new CreateRegUserCommand(request.Email, request.UserName, request.Password, request.FirstName, request.LastName, request.Roles)
@@ -45,8 +42,6 @@ public class RegUserController : NeZoviRegBaseController
     }
 
     [HttpPatch("reguser/{regUserId}")]
-    [ProducesResponseType(typeof(string), 400)]
-    [ProducesResponseType(typeof(string), 200)]
     public async Task<IActionResult> ModifyRegUser(Guid regUserId, [FromBody] ModifyRegUserRequest request, CancellationToken cancellationToken)
     {
         var command = new ModifyRegUserCommand(regUserId, request.Email, request.UserName, request.Password,
@@ -59,8 +54,6 @@ public class RegUserController : NeZoviRegBaseController
     }
 
     [HttpDelete("reguser/{regUserId}")]
-    [ProducesResponseType(typeof(string), 400)]
-    [ProducesResponseType(typeof(string), 200)]
     public async Task<IActionResult> RemoveRegUser(Guid regUserId, CancellationToken cancellationToken)
     {
         var command = new RemoveRegUserCommand(regUserId)
