@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Auth.Authentication.Services;
-using NeZoviReg.WebApi.Extensions;
+using NeZoviReg.WebApi.Extensions.WebApi;
 
 namespace NeZoviReg.WebApi.Controllers;
 

@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json;
 using NeZoviReg.Abstractions.Shared.Errors;
+using NeZoviReg.WebApi.Extensions.WebApi;
 
 namespace NeZoviReg.WebApi.Extensions.Middleware;
 

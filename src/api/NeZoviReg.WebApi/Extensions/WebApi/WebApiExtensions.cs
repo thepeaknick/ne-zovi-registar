@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Shared;
 
-namespace NeZoviReg.WebApi.Extensions;
+namespace NeZoviReg.WebApi.Extensions.WebApi;
 
 public static class WebApiExtensions
 {

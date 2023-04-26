@@ -2,8 +2,13 @@
 
 public class NeZoviRegAppException : Exception
 {
-    protected NeZoviRegAppException(string message)
+    public NeZoviRegAppException(string message)
         : base(message)
+    {
+    }
+
+    public NeZoviRegAppException(string message, Exception innerException)
+        : base(message, innerException)
     {
     }
 }

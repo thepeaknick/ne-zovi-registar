@@ -1,8 +1,11 @@
 ﻿using System.Net;
 using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.WebApi.Extensions.Middleware;
 using NeZoviReg.WebApi.Extensions.Options;
+using NeZoviReg.WebApi.Extensions.WebApi;
 
 namespace NeZoviReg.WebApi.Extensions;
 
@@ -10,9 +13,21 @@ public static class Startup
 {
     public static IServiceCollection ConfigureWebApi(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddControllers();
+
         return services
-                .AddTransient<ExceptionsHandlingMiddleware>()
-                .AddRateLimiter(configuration);
+            .AddEndpointsApiExplorer()
+            .AddSwagger(configuration)
+            .AddOptions()
+            .AddTransient<ExceptionsHandlingMiddleware>()
+            .AddRateLimiter(configuration)
+            .AddApiVersioning();
+
+    }
+
+    private static IServiceCollection AddSwagger(this IServiceCollection services, IConfiguration configuration)
+    {
+        return services.AddSwaggerGen();
     }
 
     private static IServiceCollection AddRateLimiter(this IServiceCollection services, IConfiguration configuration)
@@ -51,6 +66,32 @@ public static class Startup
 
             };
         });
+        return services;
+    }
+
+    private static IServiceCollection AddApiVersioning(this IServiceCollection services)
+    {
+        services.AddControllers(o =>
+        {
+            o.UseGeneralRoutePrefix("/v{version:apiVersion}");
+        });
+
+        services.AddApiVersioning(o =>
+        {
+            o.ReportApiVersions = true;
+        });
+
+        services.AddVersionedApiExplorer(
+            options =>
+            {
+                // add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
+                // note: the specified format code will format the version as "'v'major[.minor][-status]"
+                options.GroupNameFormat = "'v'VVV";
+                // note: this option is only necessary when versioning by url segment. the SubstitutionFormat
+                // can also be used to control the format of the API version in route templates
+                options.SubstituteApiVersionInUrl = true;
+            });
+
         return services;
     }
 }
