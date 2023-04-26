@@ -1,7 +1,5 @@
 ﻿using System.Net;
 using System.Threading.RateLimiting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Versioning;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.WebApi.Extensions.Middleware;
 using NeZoviReg.WebApi.Extensions.Options;

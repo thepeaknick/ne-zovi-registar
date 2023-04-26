@@ -8,6 +8,7 @@ using NeZoviReg.WebApi.Extensions.WebApi;
 namespace NeZoviReg.WebApi.Controllers;
 
 [ApiController]
+[ApiVersion("1.0")]
 [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
 [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
 [ProducesResponseType(typeof(string), (int)HttpStatusCode.TooManyRequests)]
