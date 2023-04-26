@@ -1,9 +1,43 @@
-﻿namespace NeZoviReg.WebApi.Extensions.Middleware;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Text.Json;
 
-public class ExceptionsHandlerMiddlaware : IMiddleware
+namespace NeZoviReg.WebApi.Extensions.Middleware;
+
+public class ExceptionsHandlingMiddleware : IMiddleware
 {
-    public Task InvokeAsync(HttpContext context, RequestDelegate next)
+    private readonly ILogger<ExceptionsHandlingMiddleware> _logger;
+
+    public ExceptionsHandlingMiddleware(
+        ILogger<ExceptionsHandlingMiddleware> logger) =>
+        _logger = logger;
+
+    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        throw new NotImplementedException();
+        try
+        {
+            await next(context);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, e.Message);
+
+            context.Response.StatusCode =
+                (int)HttpStatusCode.InternalServerError;
+
+            ProblemDetails problem = new()
+            {
+                Status = (int)HttpStatusCode.InternalServerError,
+                Type = "Greška na serveru.",
+                Title = "Greška na serveru.",
+                Detail = "Desila se greška na serveru."
+            };
+
+            var json = JsonSerializer.Serialize(problem);
+
+            context.Response.ContentType = "application/json";
+
+            await context.Response.WriteAsync(json);
+        }
     }
 }
