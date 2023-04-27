@@ -21,7 +21,8 @@ var app = builder.Build();
 
 app.UseSwagger();
 
-app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+    app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
