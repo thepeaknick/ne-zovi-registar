@@ -2,7 +2,6 @@
 using System.Text.Json.Serialization;
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.Options;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.WebApi.Extensions.Middleware;
 using NeZoviReg.WebApi.Extensions.Options;
@@ -19,6 +18,7 @@ public static class Startup
 
         return services
             .AddEndpointsApiExplorer()
+            .ConfigureOptions<AppOptionsSetup>()
             .AddDocumentation(configuration)
             .AddOptions()
             .AddTransient<ExceptionsHandlingMiddleware>()
@@ -29,12 +29,14 @@ public static class Startup
 
     private static IServiceCollection AddDocumentation(this IServiceCollection services, IConfiguration configuration)
     {
+        var appSettings = configuration.GetSection(AppOptions.SectionName).Get<AppOptions>();
+
         return services.AddOpenApiDocument(c =>
             {
                 c.ApiGroupNames = new[] {"1"};
-                c.DocumentName = "v1";
-                c.Title = "'НЕ ЗОВИ' регистар.";
+                c.Title = appSettings?.Title;
                 c.GenerateEnumMappingDescription = true;
+                c.Version = appSettings?.Version;
             });
     }
 
