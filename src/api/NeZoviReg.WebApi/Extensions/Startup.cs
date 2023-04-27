@@ -29,14 +29,17 @@ public static class Startup
 
     private static IServiceCollection AddDocumentation(this IServiceCollection services, IConfiguration configuration)
     {
-        var appSettings = configuration.GetSection(AppOptions.SectionName).Get<AppOptions>();
+        var appSettings = configuration
+            .GetSection(AppOptions.SectionName)
+            .Get<AppOptions>();
 
         return services.AddOpenApiDocument(c =>
             {
-                c.ApiGroupNames = new[] {"1"};
-                c.Title = appSettings?.Title;
+                c.DocumentName = $"v{appSettings?.Version}";
                 c.GenerateEnumMappingDescription = true;
                 c.Version = appSettings?.Version;
+                c.Description = appSettings?.Description;
+                c.Title = appSettings?.Title;
             });
     }
 
