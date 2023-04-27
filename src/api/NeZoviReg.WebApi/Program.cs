@@ -18,9 +18,9 @@ builder.Services.ConfigureWebApi(builder.Configuration)
 
 var app = builder.Build();
 
-app.UseOpenApi();
+app.UseSwagger();
 
-app.UseSwaggerUi3();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 

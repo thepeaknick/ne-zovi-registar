@@ -18,29 +18,13 @@ public static class Startup
 
         return services
             .AddEndpointsApiExplorer()
-            .ConfigureOptions<AppOptionsSetup>()
-            .AddDocumentation(configuration)
-            .AddOptions()
             .AddTransient<ExceptionsHandlingMiddleware>()
+            .AddApiDocumentation()
+            .AddOptions()
             .AddRateLimiter(configuration)
+            .ConfigureOptions<AppOptionsSetup>()
             .AddApiVersioning();
 
-    }
-
-    private static IServiceCollection AddDocumentation(this IServiceCollection services, IConfiguration configuration)
-    {
-        var appSettings = configuration
-            .GetSection(AppOptions.SectionName)
-            .Get<AppOptions>();
-
-        return services.AddOpenApiDocument(c =>
-            {
-                c.DocumentName = $"v{appSettings?.Version}";
-                c.GenerateEnumMappingDescription = true;
-                c.Version = appSettings?.Version;
-                c.Description = appSettings?.Description;
-                c.Title = appSettings?.Title;
-            });
     }
 
     private static IServiceCollection AddRateLimiter(this IServiceCollection services, IConfiguration configuration)
@@ -97,12 +81,19 @@ public static class Startup
         services.AddVersionedApiExplorer(
             options =>
             {
-                options.GroupNameFormat = "VVV";
+                options.GroupNameFormat = "'v'VVV";
                 options.SubstituteApiVersionInUrl = true;
                 options.AssumeDefaultVersionWhenUnspecified = true;
                 options.DefaultApiVersion = ApiVersion.Default;
             });
 
         return services;
+    }
+
+    private static IServiceCollection AddApiDocumentation(this IServiceCollection services)
+    {
+        return services
+            .AddSwaggerGen()
+            .ConfigureOptions<SwaggerGenOptionsSetup>();
     }
 }

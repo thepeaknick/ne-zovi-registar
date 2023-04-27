@@ -39,7 +39,6 @@ public static class Startup
     {
         services.ConfigureOptions<JwtOptionsSetup>();
         services.ConfigureOptions<JwtBearerOptionsSetup>();
-        services.ConfigureOptions<SwaggerGenOptionsSetup>();
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer();
 
