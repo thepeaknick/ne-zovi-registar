@@ -2,8 +2,8 @@
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Extensions;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
-using NeZoviReg.Abstractions.Messaging.Domain.Commands;
 using static NeZoviReg.Abstractions.Shared.Errors.RegErrors;
+using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 
 namespace NeZoviReg.Application.Services.RegUser;
 

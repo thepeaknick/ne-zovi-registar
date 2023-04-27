@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Extensions;
 using NeZoviReg.Abstractions.Messaging.Auth.Commands;
-using NeZoviReg.Abstractions.Messaging.Domain.Commands;
+using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using NeZoviReg.Auth.Authorization;
-using NeZoviReg.WebApi.Model.Account;
+using NeZoviReg.WebApi.Model.RegUser;
 
 namespace NeZoviReg.WebApi.Controllers;
 

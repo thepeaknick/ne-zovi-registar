@@ -2,7 +2,7 @@
 using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
-using NeZoviReg.Abstractions.Messaging.Domain.Commands;
+using NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
 using NeZoviReg.Abstractions.Shared;
 
 namespace NeZoviReg.Application.Services.User;
