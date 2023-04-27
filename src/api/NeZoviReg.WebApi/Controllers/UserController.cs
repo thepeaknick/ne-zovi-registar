@@ -7,7 +7,6 @@ using NeZoviReg.WebApi.Model.User;
 
 namespace NeZoviReg.WebApi.Controllers;
 
-[HasPermission(PermissionType.All)]
 public class UserController : NeZoviRegBaseController
 {
     public UserController(ISender sender,
@@ -42,9 +41,9 @@ public class UserController : NeZoviRegBaseController
 
     [HttpGet("user/all")]
     [HasPermission(PermissionType.ReadAll)]
-    public async Task<IActionResult> AllUsers(CancellationToken cancellationToken)
+    public async Task<IActionResult> AllUsers([FromBody] AllUsersRequest request, CancellationToken cancellationToken)
     {
-        var command = new AllUsersCommand()
+        var command = new AllUsersCommand(request.StartingFrom)
             .AddAppUser(AppUser);
 
         var result = await Sender.Send(command, cancellationToken);

@@ -1,3 +1,3 @@
 ﻿namespace NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
 
-public record AllUsersCommand() : BaseCommand<string>;
+public record AllUsersCommand(DateTime StartingFrom) : BaseCommand<string>;
