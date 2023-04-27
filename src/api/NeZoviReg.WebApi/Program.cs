@@ -34,6 +34,6 @@ app.MapControllers();
 
 app.UseRateLimiter();
 
-app.UseMiddleware<ExceptionsHandlingMiddleware>();
+app.UseMiddleware<NeZoviExceptionsHandlingMiddleware>();
 
 app.Run();

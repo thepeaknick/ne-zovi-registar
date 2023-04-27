@@ -16,6 +16,10 @@ public static class RegErrors
             ErrorCode.InternalServerError,
             "Desila se greška na serveru.");
 
+        public static readonly Error ForbiddenAccess = new(
+            ErrorCode.Forbidden,
+            "Korisnik nije autorizovan za traženi zahtev.");
+
     }
 
     public static class RegUser

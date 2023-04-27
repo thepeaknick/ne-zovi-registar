@@ -5,11 +5,11 @@ using NeZoviReg.WebApi.Extensions.WebApi;
 
 namespace NeZoviReg.WebApi.Extensions.Middleware;
 
-public class ExceptionsHandlingMiddleware : IMiddleware
+public class NeZoviExceptionsHandlingMiddleware : IMiddleware
 {
-    private readonly ILogger<ExceptionsHandlingMiddleware> _logger;
+    private readonly ILogger<NeZoviExceptionsHandlingMiddleware> _logger;
 
-    public ExceptionsHandlingMiddleware(ILogger<ExceptionsHandlingMiddleware> logger) =>
+    public NeZoviExceptionsHandlingMiddleware(ILogger<NeZoviExceptionsHandlingMiddleware> logger) =>
         _logger = logger;
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)

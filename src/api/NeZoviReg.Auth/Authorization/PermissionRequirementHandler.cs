@@ -17,21 +17,13 @@ public class PermissionRequirementHandler : AuthorizationHandler<PermissionRequi
         using var scope = _serviceProvider.CreateScope();
         var authService = scope.ServiceProvider.GetRequiredService<INeZoviRegAuthorizationService>();
 
-        if(await authService.HasPermission(context.User, requirement.Permission, CancellationToken.None))
-            context.Succeed(requirement);
-
-        /*var permissions = context
-            .User
-            .Claims
-            .Where(x => x.Type == CustomClaims.Permissions)
-            .Select(x => x.Value)
-            .ToHashSet();
-
-        if (permissions.Contains(requirement.Permission))
+        if (await authService.HasPermission(context.User, requirement.Permission, CancellationToken.None))
         {
             context.Succeed(requirement);
+        }
+        /*else
+        {
+            context.Fail(new AuthorizationFailureReason(this, string.Empty));
         }*/
     }
-
-
 }

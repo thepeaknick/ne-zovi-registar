@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json.Serialization;
 using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.WebApi.Extensions.Middleware;
@@ -20,6 +21,7 @@ public static class Startup
             .AddRateLimiter(configuration)
             .ConfigureOptions<AppOptionsSetup>()
             .ConfigureExceptionHandling(configuration)
+            //.AddSingleton<IAuthorizationMiddlewareResultHandler, NeZoviAuthorizationMiddleware>()
             .AddApiVersioning();
 
     }
@@ -97,6 +99,6 @@ public static class Startup
 
     private static IServiceCollection ConfigureExceptionHandling(this IServiceCollection services, IConfiguration configuration)
     {
-        return services.AddTransient<ExceptionsHandlingMiddleware>();
+        return services.AddTransient<NeZoviExceptionsHandlingMiddleware>();
     }
 }

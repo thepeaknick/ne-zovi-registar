@@ -25,4 +25,6 @@ public enum ErrorCode
     Rejected,
 
     InternalServerError,
+
+    Forbidden,
 }
