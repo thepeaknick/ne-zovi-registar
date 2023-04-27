@@ -20,7 +20,7 @@ public class SwaggerGenOptionsSetup : IPostConfigureOptions<SwaggerGenOptions>
     {
         var jwtSecurityScheme = new OpenApiSecurityScheme
         {
-            Scheme = "Bearer",
+            Scheme = JwtBearerDefaults.AuthenticationScheme,
             BearerFormat = "JWT",
             Name = "JWT Authentication",
             In = ParameterLocation.Header,
@@ -42,7 +42,7 @@ public class SwaggerGenOptionsSetup : IPostConfigureOptions<SwaggerGenOptions>
         options.SwaggerDoc($"v{_appOptions.Version}", new OpenApiInfo
         {
             Title = _appOptions.Title,
-            Version = _appOptions.Version,
+            Version = $"v{_appOptions.Version}",
             Description = _appOptions.Description,
         });
 

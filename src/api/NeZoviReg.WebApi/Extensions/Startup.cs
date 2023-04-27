@@ -94,6 +94,7 @@ public static class Startup
     {
         return services
             .AddSwaggerGen()
-            .ConfigureOptions<SwaggerGenOptionsSetup>();
+            .ConfigureOptions<SwaggerGenOptionsSetup>()
+            .ConfigureOptions<SwaggerUiOptionsSetup>();
     }
 }
