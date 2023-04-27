@@ -13,16 +13,13 @@ public static class Startup
 {
     public static IServiceCollection ConfigureWebApi(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddControllers()
-            .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())); ;
-
         return services
             .AddEndpointsApiExplorer()
-            .AddTransient<ExceptionsHandlingMiddleware>()
             .AddApiDocumentation()
             .AddOptions()
             .AddRateLimiter(configuration)
             .ConfigureOptions<AppOptionsSetup>()
+            .ConfigureExceptionHandling(configuration)
             .AddApiVersioning();
 
     }
@@ -34,7 +31,7 @@ public static class Startup
             .GetSection(FixedWindowRateLimitOptions.SectionName)
             .Bind(fixedWindowRateLimitOptions);
 
-        services.AddRateLimiter(options =>
+        return services.AddRateLimiter(options =>
         {
             options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
                 RateLimitPartition.GetFixedWindowLimiter(
@@ -63,15 +60,15 @@ public static class Startup
 
             };
         });
-        return services;
     }
 
     private static IServiceCollection AddApiVersioning(this IServiceCollection services)
     {
         services.AddControllers(o =>
-        {
-            o.UseGeneralRoutePrefix("/v{version:apiVersion}");
-        });
+            {
+                o.UseGeneralRoutePrefix("/v{version:apiVersion}");
+            })
+            .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
         services.AddApiVersioning(o =>
         {
@@ -96,5 +93,10 @@ public static class Startup
             .AddSwaggerGen()
             .ConfigureOptions<SwaggerGenOptionsSetup>()
             .ConfigureOptions<SwaggerUiOptionsSetup>();
+    }
+
+    private static IServiceCollection ConfigureExceptionHandling(this IServiceCollection services, IConfiguration configuration)
+    {
+        return services.AddTransient<ExceptionsHandlingMiddleware>();
     }
 }
