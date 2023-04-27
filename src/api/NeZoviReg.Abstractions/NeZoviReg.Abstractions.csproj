@@ -19,8 +19,8 @@
   <ItemGroup>
     <Folder Include="Extensions\" />
     <Folder Include="Messaging\Auth\Queries\" />
-    <Folder Include="Messaging\Domain\Queries\" />
     <Folder Include="Exceptions\" />
+    <Folder Include="Messaging\Domain\Model\" />
   </ItemGroup>
 
 </Project>

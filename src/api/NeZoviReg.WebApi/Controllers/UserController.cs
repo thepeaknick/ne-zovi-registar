@@ -1,6 +1,9 @@
-﻿using MediatR;
+﻿using System.Net;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
+using NeZoviReg.Abstractions.Messaging.Domain.Model;
+using NeZoviReg.Abstractions.Messaging.Domain.Queries.User;
 using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using NeZoviReg.Auth.Authorization;
 using NeZoviReg.WebApi.Model.User;
@@ -43,8 +46,7 @@ public class UserController : NeZoviRegBaseController
     [HasPermission(PermissionType.ReadAll)]
     public async Task<IActionResult> AllUsers([FromBody] AllUsersRequest request, CancellationToken cancellationToken)
     {
-        var command = new AllUsersCommand(request.StartingFrom)
-            .AddAppUser(AppUser);
+        var command = new AllUsersQuery(request.StartingFrom);
 
         var result = await Sender.Send(command, cancellationToken);
 
@@ -53,13 +55,13 @@ public class UserController : NeZoviRegBaseController
 
     [HttpGet("user/{phoneNumber}")]
     [HasPermission(PermissionType.Read)]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> GetUser(string phoneNumber, CancellationToken cancellationToken)
     {
-        var command = new GetUserCommand(phoneNumber)
-            .AddAppUser(AppUser);
+        var query = new GetUserQuery(phoneNumber);
 
-        var result = await Sender.Send(command, cancellationToken);
+        var result = await Sender.Send(query, cancellationToken);
 
-        return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
+        return result.IsFailure ? HandleFailure(result) : Ok(result.Value.PhoneNumber);
     }
 }

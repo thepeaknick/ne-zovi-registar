@@ -53,6 +53,17 @@ public static class RegErrors
             "Identifikator korisinika je prazan.");
     }
 
+    public static class User
+    {
+        public static readonly Func<string, Error> NotFound = phoneNumber => new(
+            ErrorCode.NotFound,
+            $"Broj telefona '{phoneNumber}' ne postoji u registru.");
+
+        public static readonly Func<DateTime, Error> NotFoundAfter = after => new(
+            ErrorCode.NotFound,
+            $"Nema novih korisnika u registru posle {after:d/M/yy}.");
+    }
+
     public static class Email
     {
         public static readonly Error Empty = new(
