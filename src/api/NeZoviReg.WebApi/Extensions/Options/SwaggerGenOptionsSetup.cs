@@ -25,7 +25,7 @@ public class SwaggerGenOptionsSetup : IPostConfigureOptions<SwaggerGenOptions>
             Name = "JWT Authentication",
             In = ParameterLocation.Header,
             Type = SecuritySchemeType.Http,
-            Description = "Put *_ONLY_* your JWT Bearer token on textbox below!",
+            Description = "Upiši samo JWT Bearer token u polje ispod!",
 
             Reference = new OpenApiReference
             {
