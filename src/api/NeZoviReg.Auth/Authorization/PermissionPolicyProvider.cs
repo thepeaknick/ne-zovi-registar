@@ -21,7 +21,7 @@ public class PermissionPolicyProvider : IAuthorizationPolicyProvider
             var permission = policyName.Substring(HasPermissionAttribute.PolicyPrefix.Length);
 
             var policy = new AuthorizationPolicyBuilder()
-                .RequireAuthenticatedUser()
+                //.RequireAuthenticatedUser()
                 .AddRequirements(new PermissionRequirement(permission))
                 .Build();
 
