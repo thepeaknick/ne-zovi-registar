@@ -1,5 +1,8 @@
 ﻿using System.Net;
+using System.Text.Json.Serialization;
 using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Options;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.WebApi.Extensions.Middleware;
 using NeZoviReg.WebApi.Extensions.Options;
@@ -11,11 +14,12 @@ public static class Startup
 {
     public static IServiceCollection ConfigureWebApi(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddControllers();
+        services.AddControllers()
+            .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())); ;
 
         return services
             .AddEndpointsApiExplorer()
-            .AddSwagger(configuration)
+            .AddDocumentation(configuration)
             .AddOptions()
             .AddTransient<ExceptionsHandlingMiddleware>()
             .AddRateLimiter(configuration)
@@ -23,9 +27,15 @@ public static class Startup
 
     }
 
-    private static IServiceCollection AddSwagger(this IServiceCollection services, IConfiguration configuration)
+    private static IServiceCollection AddDocumentation(this IServiceCollection services, IConfiguration configuration)
     {
-        return services.AddSwaggerGen();
+        return services.AddOpenApiDocument(c =>
+            {
+                c.ApiGroupNames = new[] {"1"};
+                c.DocumentName = "v1";
+                c.Title = "'НЕ ЗОВИ' регистар.";
+                c.GenerateEnumMappingDescription = true;
+            });
     }
 
     private static IServiceCollection AddRateLimiter(this IServiceCollection services, IConfiguration configuration)
@@ -82,12 +92,10 @@ public static class Startup
         services.AddVersionedApiExplorer(
             options =>
             {
-                // add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
-                // note: the specified format code will format the version as "'v'major[.minor][-status]"
-                options.GroupNameFormat = "'v'VVV";
-                // note: this option is only necessary when versioning by url segment. the SubstitutionFormat
-                // can also be used to control the format of the API version in route templates
+                options.GroupNameFormat = "VVV";
                 options.SubstituteApiVersionInUrl = true;
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = ApiVersion.Default;
             });
 
         return services;

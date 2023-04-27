@@ -19,12 +19,9 @@ builder.Services.ConfigureWebApi(builder.Configuration)
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseOpenApi();
+
+app.UseSwaggerUi3();
 
 app.UseHttpsRedirection();
 
