@@ -29,6 +29,18 @@ public class UserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
+    [HttpPatch("user/{phoneNumber}")]
+    [HasPermission(PermissionType.Write)]
+    public async Task<IActionResult> ModifyUser(string phoneNumber, [FromBody] ModifyUserRequest request, CancellationToken cancellationToken)
+    {
+        var command = new ModifyUserCommand(phoneNumber, request.FirstName, request.LastName, request.Jmbg, request.PhoneNumber)
+            .AddAppUser(AppUser);
+
+        var result = await Sender.Send(command, cancellationToken);
+
+        return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
+    }
+
     [HttpDelete("user/{phoneNumber}")]
     [HasPermission(PermissionType.Delete)]
     public async Task<IActionResult> RemoveUser(string phoneNumber, CancellationToken cancellationToken)

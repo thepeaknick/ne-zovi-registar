@@ -27,7 +27,7 @@ internal sealed class AllUsersQueryHandler : IQueryHandler<AllUsersQuery, List<U
         var users = await _userDataStore.GetAll(request.After, cancellationToken);
 
         return users.Any()
-            ? Result.Failure<List<UserDto>>(RegErrors.User.NotFoundAfter(request.After))
-            : _mapper.Map<List<UserDto>>(users);
+            ? _mapper.Map<List<UserDto>>(users)
+            : Result.Failure<List<UserDto>>(RegErrors.User.NotFoundAfter(request.After));
     }
 }

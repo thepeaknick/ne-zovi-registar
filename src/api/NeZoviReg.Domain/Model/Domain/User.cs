@@ -38,5 +38,41 @@ public class User : Entity
 
     public string Jmbg { get; private set; }
 
+    public User AddFirstName(string? firstName)
+    {
+        FirstName = firstName ?? FirstName;
+
+        return this;
+    }
+
+    public User AddLastName(string? lastName)
+    {
+        LastName = lastName ?? LastName;
+
+        return this;
+    }
+
+    public User AddName(string? firstName, string? lastName)
+    {
+        AddFirstName(firstName);
+        AddLastName(lastName);
+
+        return this;
+    }
+
+    public User AddJmbg(string? jmbg)
+    {
+        Jmbg = jmbg ?? Jmbg;
+
+        return this;
+    }
+
+    public User AddPhoneNumber(string? phoneNumber)
+    {
+        PhoneNumber = phoneNumber ?? PhoneNumber;
+
+        return this;
+    }
+
     public override string ToString() => $"{FullName}, {Jmbg}";
 }

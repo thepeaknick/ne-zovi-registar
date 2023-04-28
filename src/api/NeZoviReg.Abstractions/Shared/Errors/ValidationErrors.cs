@@ -63,9 +63,12 @@ public static class RegErrors
             ErrorCode.NotFound,
             $"Broj telefona '{phoneNumber}' ne postoji u registru.");
 
-        public static readonly Func<DateTime, Error> NotFoundAfter = after => new(
-            ErrorCode.NotFound,
-            $"Nema novih korisnika u registru posle {after:d/M/yy}.");
+        public static readonly Func<DateTime?, Error> NotFoundAfter = after=>
+        {
+            var afterStr = after == default ? string.Empty : $" posle {after:d/M/yy}";
+            return new(ErrorCode.NotFound,
+                $"Nema novih korisnika u registru{afterStr}.");
+        };
     }
 
     public static class Email

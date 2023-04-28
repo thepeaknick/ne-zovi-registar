@@ -16,12 +16,15 @@ public class UserDataStore : IUserDataStore
     public async Task<User?> GetByPhoneNumber(string phoneNumber, CancellationToken cancellationToken = default) =>
         await _dbContext.Set<User>().FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber, cancellationToken);
 
-    public async Task<List<User>> GetAll(DateTime after, CancellationToken cancellationToken = default)
-        => await _dbContext.Set<User>().Where(x => x.CreatedOn >= after).ToListAsync(cancellationToken);
+    public async Task<List<User>> GetAll(DateTime? after, CancellationToken cancellationToken = default)
+        => await _dbContext.Set<User>().Where(x => x.CreatedOn >= (after ?? DateTime.MinValue)).ToListAsync(cancellationToken);
 
-    public void Add(User regUser, CancellationToken cancellationToken = default) =>
-        _dbContext.Set<User>().AddAsync(regUser, cancellationToken);
+    public async Task AddAsync(User user, CancellationToken cancellationToken = default) =>
+       await _dbContext.Set<User>().AddAsync(user, cancellationToken);
 
-    public void Update(User regUser) =>
-        _dbContext.Set<User>().Update(regUser);
+    public void Update(User user) =>
+        _dbContext.Set<User>().Update(user);
+
+    public void Remove(User user) =>
+        _dbContext.Set<User>().Remove(user);
 }

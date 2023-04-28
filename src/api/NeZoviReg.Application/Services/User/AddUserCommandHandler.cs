@@ -25,7 +25,7 @@ internal sealed class AddUserCommandHandler : ICommandHandler<AddUserCommand, st
         var user =
             new Domain.Model.Domain.User(request.FirstName, request.LastName, request.PhoneNumber, request.Jmbg);
 
-        _userDataStore.Add(user);
+        await _userDataStore.AddAsync(user, cancellationToken);
 
         await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
 
