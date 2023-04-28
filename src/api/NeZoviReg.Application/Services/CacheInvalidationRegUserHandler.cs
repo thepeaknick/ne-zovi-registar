@@ -2,7 +2,7 @@
 using NeZoviReg.Abstractions.Shared.Caching;
 using NeZoviReg.Abstractions.Shared.Events;
 
-namespace NeZoviReg.Auth.Services;
+namespace NeZoviReg.Application.Services;
 
 internal class CacheInvalidationRegUserHandler :
     INotificationHandler<RegUserModifiedEvent>,
