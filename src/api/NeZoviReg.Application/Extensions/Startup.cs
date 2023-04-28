@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,7 @@ public static class Startup
             .AddMediatR(typeof(Startup).Assembly)
             .AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>))
             .AddValidatorsFromAssembly(typeof(Startup).Assembly)
+            .AddAutoMapper()
             .AddApplicationServices(configuration);
 
     }
@@ -22,5 +24,17 @@ public static class Startup
         IConfiguration configuration)
     {
         return services;
+    }
+
+    private static IServiceCollection AddAutoMapper(this IServiceCollection services)
+    {
+        var config = new MapperConfiguration(c =>
+        {
+            AutoMapperExtension.AddApplicationProfile.Invoke(c);
+        });
+
+        return services
+            .AddSingleton<AutoMapper.IConfigurationProvider>(config)
+            .AddSingleton(config.CreateMapper());
     }
 }

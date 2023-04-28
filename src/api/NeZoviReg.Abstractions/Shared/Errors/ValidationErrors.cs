@@ -51,6 +51,10 @@ public static class RegErrors
         public static readonly Error IdentificatorEmpty = new(
             ErrorCode.Empty,
             "Identifikator korisinika je prazan.");
+
+        public static readonly Error NotRegistered = new(
+            ErrorCode.NotFound,
+            "Korisnik nije registrovan.");
     }
 
     public static class User

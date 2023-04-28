@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using NeZoviReg.Abstractions.Shared;
+using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Auth.Authentication.Jwt;
 using NeZoviReg.Auth.Authentication.Services;
 
@@ -39,12 +41,12 @@ public class NeZoviRegCertAuthenticationOptionsSetup : IPostConfigureOptions<Cer
                 }
                 else
                 {
-                    context.Fail("Invalid certificate");
+                    context.Fail(Result.Failure<string>(RegErrors.RegUser.NotRegistered).Error.Message);
                 }
             },
             OnAuthenticationFailed = context =>
             {
-                context.Fail("Invalid certificate");
+                context.Fail(Result.Failure<string>(RegErrors.RegUser.NotRegistered).Error.Message);
                 return Task.CompletedTask;
             }
         };
