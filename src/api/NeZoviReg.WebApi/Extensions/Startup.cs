@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json.Serialization;
 using System.Threading.RateLimiting;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.WebApi.Extensions.Middleware;

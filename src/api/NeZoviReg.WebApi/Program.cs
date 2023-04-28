@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.AspNetCore.Server.Kestrel.Https;
 using NeZoviReg.Composition;
 using NeZoviReg.WebApi.Extensions;
 using NeZoviReg.WebApi.Extensions.Middleware;

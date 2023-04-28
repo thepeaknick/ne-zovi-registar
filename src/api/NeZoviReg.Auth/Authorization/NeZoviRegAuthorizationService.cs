@@ -1,10 +1,9 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Primitives;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Auth;
+using NeZoviReg.Abstractions.Shared.Caching;
 using NeZoviReg.Auth.Authentication.Services;
 
 namespace NeZoviReg.Auth.Authorization;
@@ -13,8 +12,7 @@ public class NeZoviRegAuthorizationService : DefaultAuthorizationService, INeZov
 {
     private readonly IAuthDataStore _authDataStore;
     private readonly ILogger<NeZoviRegAuthorizationService> _logger;
-    private readonly IMemoryCache _cache;
-    private const string KeyTokenSource = "Permissions_TokenSource";
+    private readonly ICacheService _cache;
 
     public NeZoviRegAuthorizationService(IAuthorizationPolicyProvider policyProvider,
         IAuthorizationHandlerProvider handlers,
@@ -23,7 +21,7 @@ public class NeZoviRegAuthorizationService : DefaultAuthorizationService, INeZov
         IAuthorizationEvaluator evaluator,
         IOptions<AuthorizationOptions> options,
         IAuthDataStore authDataStore,
-        IMemoryCache cache)
+        ICacheService cache)
         : base(policyProvider, handlers, logger, contextFactory, evaluator,
         options)
     {
@@ -47,26 +45,14 @@ public class NeZoviRegAuthorizationService : DefaultAuthorizationService, INeZov
 
         var permissions = await GetCachedUserPermissions(id, cancellationToken);
 
-       return permissions.Contains(permission);
+       return permissions?.Contains(permission) ?? false;
     }
 
-    private CancellationTokenSource GetTokenSource() => _cache.GetOrCreate(KeyTokenSource, _ => new CancellationTokenSource())!;
-
-    private async Task<List<string>> GetCachedUserPermissions(Guid regUserId, CancellationToken cancellationToken)
+    private async Task<List<string>?> GetCachedUserPermissions(Guid regUserId, CancellationToken cancellationToken = default)
     {
-        return await _cache.GetOrCreateAsync($"reg_user_{regUserId}", async ce =>
-            {
-                ConfigureCacheEntry(ce, GetTokenSource());
-
-                return await _authDataStore.GetUserPermissionsAsync(regUserId, cancellationToken)
-                    .ConfigureAwait(false);
-            })
-            .ConfigureAwait(false) ?? new List<string>();
-    }
-    private static void ConfigureCacheEntry(ICacheEntry cacheEntry, CancellationTokenSource cts)
-    {
-        cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
-        cacheEntry.SlidingExpiration = TimeSpan.FromMinutes(10);
-        cacheEntry.AddExpirationToken(new CancellationChangeToken(cts.Token));
+        return await _cache.GetAsync(CacheKeyPrefix.RegUser, regUserId,
+           async () => await _authDataStore.GetUserPermissionsAsync(regUserId, cancellationToken),
+           cancellationToken)
+            .ConfigureAwait(false);
     }
 }

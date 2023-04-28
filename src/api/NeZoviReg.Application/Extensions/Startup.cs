@@ -14,6 +14,7 @@ public static class Startup
         return services
             .AddMediatR(typeof(Startup).Assembly)
             .AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>))
+            .AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavior<,>))
             .AddValidatorsFromAssembly(typeof(Startup).Assembly)
             .AddAutoMapper()
             .AddApplicationServices(configuration);

@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using NeZoviReg.Domain.Model.Auth;
+#pragma warning disable CS8618
 
 namespace NeZoviReg.Domain.Model.Domain;
 
@@ -14,6 +15,11 @@ public class RegUser : Entity
     public static int PasswordMaxLength = 255;
     public static int UsernameMaxLength = 255;
     public static int ThumbprintMaxLength = 100;
+
+    public RegUser()
+    :base()
+    {
+    }
 
     public RegUser(string username, string email)
     {

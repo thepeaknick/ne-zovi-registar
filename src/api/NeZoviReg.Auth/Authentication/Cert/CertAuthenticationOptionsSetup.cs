@@ -4,20 +4,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
-using NeZoviReg.Auth.Authentication.Jwt;
 using NeZoviReg.Auth.Authentication.Services;
 
 namespace NeZoviReg.Auth.Authentication.Cert;
 
 public class NeZoviRegCertAuthenticationOptionsSetup : IPostConfigureOptions<CertificateAuthenticationOptions>
 {
-    private readonly JwtOptions _options;
-
-    public NeZoviRegCertAuthenticationOptionsSetup(IOptions<JwtOptions> options)
-    {
-        _options = options.Value;
-    }
-
     public void PostConfigure(string? name, CertificateAuthenticationOptions options)
     {
         options.AllowedCertificateTypes = CertificateTypes.SelfSigned;
@@ -29,11 +21,11 @@ public class NeZoviRegCertAuthenticationOptionsSetup : IPostConfigureOptions<Cer
 
                 var regUser = await validationService?.ValidateCertificate(context.ClientCertificate)!;
 
-                if (regUser.HasValue)
+                if (regUser is not null)
                 {
                     var claims = new List<Claim>
                     {
-                        new(CustomClaims.RegUserId, regUser.Value.ToString())
+                        new(CustomClaims.RegUserId, regUser.GuidId.ToString())
                     };
 
                     context.Principal = new ClaimsPrincipal(new ClaimsIdentity(claims, context.Scheme.Name));

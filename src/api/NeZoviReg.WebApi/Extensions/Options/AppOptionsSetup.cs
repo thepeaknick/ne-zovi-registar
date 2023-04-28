@@ -3,7 +3,7 @@
 namespace NeZoviReg.WebApi.Extensions.Options;
 
 public class AppOptionsSetup : IConfigureOptions<AppOptions>
-{ 
+{
     public static string SectionName = @"Application";
 
     private readonly IConfiguration _configuration;

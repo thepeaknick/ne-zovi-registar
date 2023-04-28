@@ -1,45 +1,30 @@
 ﻿using System.Security.Cryptography.X509Certificates;
-using System.Threading;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Primitives;
-using NeZoviReg.Abstractions.Infrastructure.DataStores.Auth;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
+using NeZoviReg.Abstractions.Shared.Caching;
+using NeZoviReg.Domain.Model.Domain;
 
 namespace NeZoviReg.Auth.Authentication.Cert;
 
 public class CertValidationService : ICertValidationService
 {
     private readonly IRegUserDataStore _regUserDataStore;
-    private readonly IMemoryCache _cache;
-    private const string KeyTokenSource = "Cert_TokenSource";
+    private readonly ICacheService _cache;
 
-    public CertValidationService(IRegUserDataStore regUserDataStore, IMemoryCache cache)
+    public CertValidationService(IRegUserDataStore regUserDataStore, ICacheService cache)
     {
         _regUserDataStore = regUserDataStore;
         _cache = cache;
     }
 
-    public async Task<Guid?> ValidateCertificate(X509Certificate2 clientCertificate)
+    public async Task<RegUser?> ValidateCertificate(X509Certificate2 clientCertificate, CancellationToken cancellationToken = default)
     {
-        return await _cache.GetOrCreateAsync($"reg_user_{clientCertificate.Thumbprint}", async ce =>
+        return await _cache.GetAsync(CacheKeyPrefix.Cert, clientCertificate.Thumbprint,
+            async () =>
         {
-            ConfigureCacheEntry(ce, GetTokenSource());
-
-            var regUser = await _regUserDataStore.GetByThumbprint(clientCertificate.Thumbprint)
+            var regUser = await _regUserDataStore.GetByThumbprint(clientCertificate.Thumbprint, cancellationToken)
                 .ConfigureAwait(false);
 
-            return regUser?.GuidId;
-            })
-            .ConfigureAwait(false) ?? null;
+            return regUser;
+        }, cancellationToken);
     }
-
-    private CancellationTokenSource GetTokenSource() => _cache.GetOrCreate(KeyTokenSource, _ => new CancellationTokenSource())!;
-
-    private static void ConfigureCacheEntry(ICacheEntry cacheEntry, CancellationTokenSource cts)
-    {
-        cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
-        cacheEntry.SlidingExpiration = TimeSpan.FromMinutes(10);
-        cacheEntry.AddExpirationToken(new CancellationChangeToken(cts.Token));
-    }
-
 }

@@ -1,4 +1,5 @@
-﻿namespace NeZoviReg.Abstractions.Shared;
+﻿#pragma warning disable CS8618
+namespace NeZoviReg.Abstractions.Shared;
 
 public sealed class ValidationResult<TValue> : Result<TValue>, IValidationResult
 {
