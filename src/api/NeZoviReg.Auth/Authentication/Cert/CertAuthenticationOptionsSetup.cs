@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using NeZoviReg.Auth.Authentication.Jwt;
+using NeZoviReg.Auth.Authentication.Services;
 
 namespace NeZoviReg.Auth.Authentication.Cert;
 
@@ -20,18 +21,17 @@ public class NeZoviRegCertAuthenticationOptionsSetup : IPostConfigureOptions<Cer
         options.AllowedCertificateTypes = CertificateTypes.SelfSigned;
         options.Events = new CertificateAuthenticationEvents
         {
-            OnCertificateValidated = context =>
+            OnCertificateValidated = async context =>
             {
                 var validationService = context.HttpContext.RequestServices.GetService<ICertValidationService>();
 
-                if (validationService?.ValidateCertificate(context.ClientCertificate) ?? false)
+                var regUser = await validationService?.ValidateCertificate(context.ClientCertificate)!;
+
+                if (regUser.HasValue)
                 {
-                    var claims = new[]
+                    var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.NameIdentifier, context.ClientCertificate.Subject, ClaimValueTypes.String,
-                            context.Options.ClaimsIssuer),
-                        new Claim(ClaimTypes.Name, context.ClientCertificate.Subject, ClaimValueTypes.String,
-                            context.Options.ClaimsIssuer)
+                        new(CustomClaims.RegUserId, regUser.Value.ToString())
                     };
 
                     context.Principal = new ClaimsPrincipal(new ClaimsIdentity(claims, context.Scheme.Name));
@@ -41,8 +41,6 @@ public class NeZoviRegCertAuthenticationOptionsSetup : IPostConfigureOptions<Cer
                 {
                     context.Fail("Invalid certificate");
                 }
-
-                return Task.CompletedTask;
             },
             OnAuthenticationFailed = context =>
             {

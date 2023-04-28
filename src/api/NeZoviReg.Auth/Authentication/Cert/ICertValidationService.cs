@@ -4,7 +4,7 @@ namespace NeZoviReg.Auth.Authentication.Cert;
 
 public interface ICertValidationService
 {
-    bool ValidateCertificate(X509Certificate2 clientCertificate);
+    //bool ValidateCertificate(X509Certificate2 clientCertificate);
 
-    int? ValidateCertificateWithUserId(X509Certificate2 clientCertificate);
+    Task<Guid?> ValidateCertificate(X509Certificate2 clientCertificate);
 }

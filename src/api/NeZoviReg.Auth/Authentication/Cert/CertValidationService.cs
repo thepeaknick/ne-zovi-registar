@@ -1,33 +1,30 @@
 ﻿using System.Security.Cryptography.X509Certificates;
+using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 
 namespace NeZoviReg.Auth.Authentication.Cert;
 
 public class CertValidationService : ICertValidationService
 {
-    public bool ValidateCertificate(X509Certificate2 clientCertificate)
+    private readonly IRegUserDataStore _regUserDataStore;
+
+    public CertValidationService(IRegUserDataStore regUserDataStore)
     {
-        string[] allowedThumbprints = { //TODO read from appsettings.json, or db
-            "FC2A6F7D627E08FDAB50F194FEC535C7E21824C3"
-            /*"D9B889793C876CF81307F9D2BA6F53C1D87E7EEE"*/
-        };
-        return allowedThumbprints.Contains(clientCertificate.Thumbprint);
+        _regUserDataStore = regUserDataStore;
     }
 
-    public int? ValidateCertificateWithUserId(X509Certificate2 clientCertificate)
+    /*public bool ValidateCertificate(X509Certificate2 clientCertificate)
     {
         string[] allowedThumbprints = { //TODO read from appsettings.json, or db
             "FC2A6F7D627E08FDAB50F194FEC535C7E21824C3"
-            /*"D9B889793C876CF81307F9D2BA6F53C1D87E7EEE"*/
+            /*"D9B889793C876CF81307F9D2BA6F53C1D87E7EEE"#1#
         };
-        //1. get the user by mail in the cert
-        //2 check the Thumbprint
-        //3 return userId
-        var valid = allowedThumbprints.Contains(clientCertificate.Thumbprint);
+        return allowedThumbprints.Contains(clientCertificate.Thumbprint);
+    }*/
 
-        if (valid)
-        {
-            return 1;
-        }
-        return default;
+    public async Task<Guid?> ValidateCertificate(X509Certificate2 clientCertificate)
+    {
+        var regUser = await _regUserDataStore.GetByThumbprint(clientCertificate.Thumbprint);
+
+        return regUser?.GuidId;
     }
 }

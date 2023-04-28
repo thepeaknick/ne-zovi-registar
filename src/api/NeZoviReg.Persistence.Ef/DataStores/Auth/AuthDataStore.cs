@@ -39,8 +39,4 @@ public class AuthDataStore : IAuthDataStore
             await _dbContext.Set<Role>()
                 .Where(r => rolles.Contains((RoleType)r.Id))
                 .ToListAsync(cancellationToken);
-
-    public async Task<RegUser?> GetRegUserByEmailAsync(string email, CancellationToken cancellationToken)
-    => await _dbContext.Set<RegUser>()
-            .FirstOrDefaultAsync(ru => ru.Email == email);
 }
