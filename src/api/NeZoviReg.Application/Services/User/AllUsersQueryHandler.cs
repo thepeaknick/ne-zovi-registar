@@ -9,11 +9,11 @@ using NeZoviReg.Abstractions.Shared.Errors;
 
 namespace NeZoviReg.Application.Services.User;
 
-internal sealed class AllUsersQueryHandler : IQueryHandler<AllUsersQuery, List<UserDto>>
+internal sealed class AllUsersQueryHandler : IQueryHandler<AllUsersQuery, List<string>>
 {
     private readonly ILogger<AllUsersQueryHandler> _logger;
     private readonly IUserDataStore _userDataStore;
-    private readonly  IMapper _mapper;
+    private readonly IMapper _mapper;
 
     public AllUsersQueryHandler(ILogger<AllUsersQueryHandler> logger, IUserDataStore userDataStore, IMapper mapper)
     {
@@ -22,12 +22,12 @@ internal sealed class AllUsersQueryHandler : IQueryHandler<AllUsersQuery, List<U
         _mapper = mapper;
     }
 
-    public async Task<Result<List<UserDto>>> Handle(AllUsersQuery request, CancellationToken cancellationToken)
+    public async Task<Result<List<string>>> Handle(AllUsersQuery request, CancellationToken cancellationToken)
     {
         var users = await _userDataStore.GetAll(request.After, cancellationToken);
 
         return users.Any()
-            ? _mapper.Map<List<UserDto>>(users)
-            : Result.Failure<List<UserDto>>(RegErrors.User.NotFoundAfter(request.After));
+            ? users.Select(x => x.PhoneNumber).ToList()
+            : Result.Failure<List<string>>(RegErrors.User.NotFoundAfter(request.After));
     }
 }
