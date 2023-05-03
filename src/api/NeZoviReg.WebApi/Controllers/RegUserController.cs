@@ -7,6 +7,7 @@ using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using NeZoviReg.Auth.Authorization;
 using NeZoviReg.WebApi.Model.RegUser;
+using System.Net;
 
 namespace NeZoviReg.WebApi.Controllers;
 
@@ -19,6 +20,7 @@ public class RegUserController : NeZoviRegBaseController
     }
 
     [HttpPost("reguser/login")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     [AllowAnonymous]
     public async Task<IActionResult> LoginRegUser([FromBody] LoginRequest request, CancellationToken cancellationToken)
     {
@@ -30,6 +32,7 @@ public class RegUserController : NeZoviRegBaseController
     }
 
     [HttpPost("reguser/register")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> RegisterRegUser([FromBody] RegisterRegUserRequest request, CancellationToken cancellationToken)
     {
         var command = new CreateRegUserCommand(request.Email, request.UserName, request.Password, request.FirstName, request.LastName, request.Roles)
@@ -41,6 +44,7 @@ public class RegUserController : NeZoviRegBaseController
     }
 
     [HttpPatch("reguser/{regUserId}")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> ModifyRegUser(Guid regUserId, [FromBody] ModifyRegUserRequest request, CancellationToken cancellationToken)
     {
         var command = new ModifyRegUserCommand(regUserId, request.Email, request.UserName, request.Password,
@@ -53,6 +57,7 @@ public class RegUserController : NeZoviRegBaseController
     }
 
     [HttpDelete("reguser/{regUserId}")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> RemoveRegUser(Guid regUserId, CancellationToken cancellationToken)
     {
         var command = new RemoveRegUserCommand(regUserId)

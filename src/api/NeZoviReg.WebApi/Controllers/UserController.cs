@@ -18,6 +18,7 @@ public class UserController : NeZoviRegBaseController
     }
 
     [HttpPost("user/add")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     [HasPermission(PermissionType.Write)]
     public async Task<IActionResult> AddUser([FromBody] AddUserRequest request, CancellationToken cancellationToken)
     {
@@ -30,6 +31,7 @@ public class UserController : NeZoviRegBaseController
     }
 
     [HttpPatch("user/{phoneNumber}")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     [HasPermission(PermissionType.Write)]
     public async Task<IActionResult> ModifyUser(string phoneNumber, [FromBody] ModifyUserRequest request, CancellationToken cancellationToken)
     {
@@ -42,6 +44,7 @@ public class UserController : NeZoviRegBaseController
     }
 
     [HttpDelete("user/{phoneNumber}")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     [HasPermission(PermissionType.Delete)]
     public async Task<IActionResult> RemoveUser(string phoneNumber, CancellationToken cancellationToken)
     {
@@ -55,6 +58,7 @@ public class UserController : NeZoviRegBaseController
 
     [HttpGet("user/all")]
     [HasPermission(PermissionType.ReadAll)]
+    [ProducesResponseType(typeof(List<string>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> AllUsers([FromBody] AllUsersRequest request, CancellationToken cancellationToken)
     {
         var command = new AllUsersQuery(request.StartingFrom);
