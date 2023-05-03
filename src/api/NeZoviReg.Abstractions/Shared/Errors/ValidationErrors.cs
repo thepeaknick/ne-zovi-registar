@@ -69,6 +69,10 @@ public static class RegErrors
             return new(ErrorCode.NotFound,
                 $"Nema novih korisnika u registru{afterStr}.");
         };
+
+        public static readonly Func<string, Error> PhoneNumberAlreadyInUse = phone =>  new(
+            ErrorCode.EmailAlreadyInUse,
+            $"Korisnik sa brojem '{phone}' je već u registru.");
     }
 
     public static class Email

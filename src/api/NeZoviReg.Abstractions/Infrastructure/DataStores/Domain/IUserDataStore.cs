@@ -6,6 +6,8 @@ public interface IUserDataStore
 {
     Task<User?> GetByPhoneNumber(string phoneNumber, CancellationToken cancellationToken = default);
 
+    Task<bool> IsPhoneNumberUniqueAsync(string phoneNumber, CancellationToken cancellationToken = default);
+
     Task<List<User>> GetAll(DateTime? after, CancellationToken cancellationToken = default);
 
     Task AddAsync(User user, CancellationToken cancellationToken = default);
