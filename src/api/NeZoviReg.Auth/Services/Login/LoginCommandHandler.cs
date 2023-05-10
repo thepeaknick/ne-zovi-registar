@@ -26,11 +26,11 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, string
 
     public async Task<Result<string>> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        var regUser = await _regUserDataStore.GetByEmail(request.Email, cancellationToken);
+        var regUser = await _regUserDataStore.GetByUsernameAndPassword(request.UserName, request.Password, cancellationToken);
 
         if (regUser is null)
         {
-            return Result.Failure<string>(RegErrors.RegUser.NotFound(request.Email));
+            return Result.Failure<string>(RegErrors.RegUser.NotFound(request.UserName));
         }
 
         var token = await _jwtProvider.GenerateAsync(regUser, cancellationToken);

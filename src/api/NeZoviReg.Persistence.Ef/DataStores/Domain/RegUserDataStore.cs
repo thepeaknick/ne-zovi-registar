@@ -36,6 +36,12 @@ public class RegUserDataStore : IRegUserDataStore
         await _dbContext.Set<RegUser>()
             .SingleOrDefaultAsync(x => x.Username == username, cancellationToken);
 
+    public async Task<RegUser?> GetByUsernameAndPassword(string username, string password,
+        CancellationToken cancellationToken = default) =>
+        await _dbContext.Set<RegUser>()
+            .SingleOrDefaultAsync(x => x.Username == username && x.Password == RegUser.Encode(password), cancellationToken);
+
+
     public async Task<RegUser?> GetByThumbprint(string thumbprint, CancellationToken cancellationToken = default) =>
         await _dbContext.Set<RegUser>()
             .SingleOrDefaultAsync(x => x.ThumbPrint == thumbprint, cancellationToken);

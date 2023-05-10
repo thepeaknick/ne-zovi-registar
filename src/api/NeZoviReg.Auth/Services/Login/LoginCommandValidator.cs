@@ -9,9 +9,12 @@ public class LoginCommandValidator : AbstractValidator<LoginCommand>
 {
     public LoginCommandValidator()
     {
-        RuleFor(x => x.Email)
-            .NotEmpty<LoginCommand, string, string>(Email.Empty.Message)
-            .MaximumLength<LoginCommand, string>(Domain.Model.Domain.RegUser.EmailMaxLength, Email.TooLong.Message)
-            .RegexFormat<LoginCommand, string>(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", Email.InvalidFormat.Message);
+        RuleFor(x => x.UserName)
+            .NotEmpty<LoginCommand, string, string>(RegUser.InvalidCredentials.Message)
+            .MaximumLength<LoginCommand, string>(Domain.Model.Domain.RegUser.UsernameMaxLength, RegUser.UserNameTooLong.Message);
+
+        RuleFor(x => x.Password)
+            .NotEmpty<LoginCommand, string, string>(RegUser.InvalidCredentials.Message)
+            .MaximumLength<LoginCommand, string>(Domain.Model.Domain.RegUser.PasswordMaxLength, RegUser.PasswordTooLong.Message);
     }
 }

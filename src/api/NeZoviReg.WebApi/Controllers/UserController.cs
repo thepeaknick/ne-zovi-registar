@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
 using NeZoviReg.Abstractions.Messaging.Domain.Queries.User;
@@ -23,7 +24,7 @@ public class UserController : NeZoviRegBaseController
     public async Task<IActionResult> AddUser([FromBody] AddUserRequest request, CancellationToken cancellationToken)
     {
         var command = new AddUserCommand(request.FirstName, request.LastName, request.Jmbg, request.PhoneNumber)
-            .AddAppUser(AppUser);
+            .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);
 
@@ -36,7 +37,7 @@ public class UserController : NeZoviRegBaseController
     public async Task<IActionResult> ModifyUser(string phoneNumber, [FromBody] ModifyUserRequest request, CancellationToken cancellationToken)
     {
         var command = new ModifyUserCommand(phoneNumber, request.FirstName, request.LastName, request.Jmbg, request.PhoneNumber)
-            .AddAppUser(AppUser);
+            .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);
 
@@ -49,7 +50,7 @@ public class UserController : NeZoviRegBaseController
     public async Task<IActionResult> RemoveUser(string phoneNumber, CancellationToken cancellationToken)
     {
         var command = new RemoveUserCommand(phoneNumber)
-            .AddAppUser(AppUser);
+            .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);
 
@@ -69,7 +70,7 @@ public class UserController : NeZoviRegBaseController
     }
 
     [HttpGet("user/{phoneNumber}")]
-    [HasPermission(PermissionType.Read)]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> GetUser(string phoneNumber, CancellationToken cancellationToken)
     {

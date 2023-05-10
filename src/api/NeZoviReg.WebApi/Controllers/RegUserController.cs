@@ -15,7 +15,7 @@ namespace NeZoviReg.WebApi.Controllers;
 public class RegUserController : NeZoviRegBaseController
 {
     public RegUserController(ISender sender, ILogger<RegUserController> logger)
-    :base(sender, logger)
+    : base(sender, logger)
     {
     }
 
@@ -24,24 +24,32 @@ public class RegUserController : NeZoviRegBaseController
     [AllowAnonymous]
     public async Task<IActionResult> LoginRegUser([FromBody] LoginRequest request, CancellationToken cancellationToken)
     {
-        var command = new LoginCommand(request.Email);
+        var command = new LoginCommand(request.Username, request.Password);
 
         var result = await Sender.Send(command, cancellationToken);
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
-    [HttpPost("reguser/register")]
+    [HttpPost("reguser/logout")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> LogoutRegUser(CancellationToken cancellationToken)
+    {
+        return Ok();
+    }
+
+    [HttpPost("reguser/signup")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> RegisterRegUser([FromBody] RegisterRegUserRequest request, CancellationToken cancellationToken)
     {
         var command = new CreateRegUserCommand(request.Email, request.UserName, request.Password, request.FirstName, request.LastName, request.Roles)
-                         .AddAppUser(AppUser);
+                         .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
+
 
     [HttpPatch("reguser/{regUserId}")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
@@ -49,7 +57,7 @@ public class RegUserController : NeZoviRegBaseController
     {
         var command = new ModifyRegUserCommand(regUserId, request.Email, request.UserName, request.Password,
                 request.FirstName, request.LastName, request.Roles.ToIntList())
-            .AddAppUser(AppUser);
+            .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);
 
@@ -61,7 +69,7 @@ public class RegUserController : NeZoviRegBaseController
     public async Task<IActionResult> RemoveRegUser(Guid regUserId, CancellationToken cancellationToken)
     {
         var command = new RemoveRegUserCommand(regUserId)
-            .AddAppUser(AppUser);
+            .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);
 
