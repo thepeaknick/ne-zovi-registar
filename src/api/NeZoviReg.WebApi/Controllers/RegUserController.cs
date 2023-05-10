@@ -44,6 +44,19 @@ public class RegUserController : NeZoviRegBaseController
     }
 
 
+    [HttpPatch("reguser/modify")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> ModifyRegUser([FromBody] ModifyRegUserRequest request, CancellationToken cancellationToken)
+    {
+        var command = new ModifyRegUserCommand(AppUser.Id, request.Email, request.UserName, request.Password,
+                request.FirstName, request.LastName, request.Roles.ToIntList())
+            .AddAppUser(AppUser.UserName);
+
+        var result = await Sender.Send(command, cancellationToken);
+
+        return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
+    }
+
     [HttpPatch("reguser/{regUserId}")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> ModifyRegUser(Guid regUserId, [FromBody] ModifyRegUserRequest request, CancellationToken cancellationToken)
