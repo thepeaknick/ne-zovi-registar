@@ -8,10 +8,12 @@ using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using NeZoviReg.Auth.Authorization;
 using NeZoviReg.WebApi.Model.RegUser;
 using System.Net;
+using NeZoviReg.Abstractions.Messaging.Domain.Queries.RegUser;
 
 namespace NeZoviReg.WebApi.Controllers;
 
 [HasPermission(PermissionType.All)]
+[Route("reguser")]
 public class RegUserController : NeZoviRegBaseController
 {
     public RegUserController(ISender sender, ILogger<RegUserController> logger)
@@ -19,7 +21,7 @@ public class RegUserController : NeZoviRegBaseController
     {
     }
 
-    [HttpPost("reguser/login")]
+    [HttpPost("login")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     [AllowAnonymous]
     public async Task<IActionResult> LoginRegUser([FromBody] LoginRequest request, CancellationToken cancellationToken)
@@ -31,7 +33,7 @@ public class RegUserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
-    [HttpPost("reguser/signup")]
+    [HttpPost("signup")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> RegisterRegUser([FromBody] RegisterRegUserRequest request, CancellationToken cancellationToken)
     {
@@ -44,7 +46,7 @@ public class RegUserController : NeZoviRegBaseController
     }
 
 
-    [HttpPatch("reguser/modify")]
+    [HttpPatch("modify")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> ModifyRegUser([FromBody] ModifyRegUserRequest request, CancellationToken cancellationToken)
     {
@@ -57,7 +59,7 @@ public class RegUserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
-    [HttpPatch("reguser/{regUserId}")]
+    [HttpPatch("{regUserId}")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> ModifyRegUser(Guid regUserId, [FromBody] ModifyRegUserRequest request, CancellationToken cancellationToken)
     {
@@ -70,12 +72,24 @@ public class RegUserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
-    [HttpDelete("reguser/{regUserId}")]
+    [HttpDelete("{regUserId}")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> RemoveRegUser(Guid regUserId, CancellationToken cancellationToken)
     {
         var command = new RemoveRegUserCommand(regUserId)
             .AddAppUser(AppUser.UserName);
+
+        var result = await Sender.Send(command, cancellationToken);
+
+        return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
+    }
+
+    [HttpPost("regusers")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetRegUsers([FromBody] RegUsersRequest request, CancellationToken cancellationToken)
+    {
+        var command = new RegUsersQuery(request.Role);
 
         var result = await Sender.Send(command, cancellationToken);
 
