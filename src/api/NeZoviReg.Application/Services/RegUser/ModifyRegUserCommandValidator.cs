@@ -15,16 +15,25 @@ public class ModifyRegUserCommandValidator : AbstractValidator<ModifyRegUserComm
         RuleFor(x => x.RegUserId)
             .NotEmpty<ModifyRegUserCommand, Guid, RegUserDto>(RegErrors.RegUser.IdentificatorEmpty.Message);
 
-        When(x => !string.IsNullOrEmpty(x.Name), () =>
+        When(x => !string.IsNullOrEmpty(x.CompanyName), () =>
         {
-            RuleFor(x => x.Name)!
-                .MaximumLength<ModifyRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.NameMaxLength,
-                    Name.TooLong.Message);
+            RuleFor(x => x.CompanyName)!
+                .MaximumLength<ModifyRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.CompanyNameMaxLength,
+                    CompanyName.TooLong.Message);
+
+            RuleFor(x => x.CompanyName).CustomAsync(async (name, ctx, cancellationToken) =>
+            {
+                if (await regUserDataStore.IsCompanyNameUniqueAsync(name!, ctx.InstanceToValidate.RegUserId,
+                        cancellationToken))
+                {
+                    ctx.AddFailure(CompanyName.AlreadyInUse(name!).Message);
+                }
+            });
         });
 
         When(x => !string.IsNullOrEmpty(x.Address), () =>
         {
-            RuleFor(x => x.Name)!
+            RuleFor(x => x.CompanyName)!
                 .MaximumLength<ModifyRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.AddressMaxLength,
                     Address.TooLong.Message);
         });
@@ -61,6 +70,19 @@ public class ModifyRegUserCommandValidator : AbstractValidator<ModifyRegUserComm
             });
         });
 
+        When(x => !string.IsNullOrEmpty(x.FirstName), () =>
+        {
+            RuleFor(x => x.FirstName)!
+                .MaximumLength<ModifyRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.FirstNameMaxLength,
+                    FirstName.TooLong.Message);
+        });
+
+        When(x => !string.IsNullOrEmpty(x.LastName), () =>
+        {
+            RuleFor(x => x.LastName)!
+                .MaximumLength<ModifyRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.LastNameMaxLength,
+                    LastName.TooLong.Message);
+        });
 
         When(x => !string.IsNullOrEmpty(x.UserName), () =>
         {

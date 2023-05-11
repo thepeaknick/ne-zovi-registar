@@ -38,7 +38,7 @@ public class RegUserController : NeZoviRegBaseController
     [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> RegisterRegUser([FromBody] RegisterRegUserRequest request, CancellationToken cancellationToken)
     {
-        var command = new CreateRegUserCommand(request.Name, request.Address, request.RegNumber, request.TaxNumber,
+        var command = new CreateRegUserCommand(request.Name, request.Address, request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
                 request.UserName, request.Password, request.Roles)
             .AddAppUser(AppUser.UserName);
 
@@ -52,7 +52,7 @@ public class RegUserController : NeZoviRegBaseController
     [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> ModifyRegUser([FromBody] ModifyRegUserRequest request, CancellationToken cancellationToken)
     {
-        var command = new ModifyRegUserCommand(AppUser.Id, request.Name, request.Address, request.RegNumber, request.TaxNumber,
+        var command = new ModifyRegUserCommand(AppUser.Id, request.Name, request.Address, request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
                 request.UserName, request.Password, request.Roles.ToIntList())
             .AddAppUser(AppUser.UserName);
 
@@ -65,7 +65,7 @@ public class RegUserController : NeZoviRegBaseController
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> ModifyRegUser(Guid regUserId, [FromBody] ModifyRegUserRequest request, CancellationToken cancellationToken)
     {
-        var command = new ModifyRegUserCommand(regUserId, request.Name, request.Address, request.RegNumber, request.TaxNumber,
+        var command = new ModifyRegUserCommand(regUserId, request.Name, request.Address, request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
                 request.UserName, request.Password, request.Roles.ToIntList())
             .AddAppUser(AppUser.UserName);
 

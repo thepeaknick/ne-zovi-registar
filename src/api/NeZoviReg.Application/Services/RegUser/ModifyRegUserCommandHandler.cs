@@ -39,10 +39,11 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
         }
 
         regUser
-            .AddName(request.Name)
+            .AddCompanyName(request.CompanyName)
             .AddAddress(request.Address)
             .AddRegNumber(request.RegNumber)
             .AddTaxNumber(request.TaxNumber)
+            .AddName(request.FirstName, request.LastName)
             .AddPassword(request.Password)
             .AddRoles(request.Roles);
 

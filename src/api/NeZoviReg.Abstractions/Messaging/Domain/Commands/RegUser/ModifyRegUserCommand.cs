@@ -4,10 +4,12 @@ namespace NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 
 public record ModifyRegUserCommand
     (Guid RegUserId,
-        string? Name = default,
+        string? CompanyName = default,
         string? Address = default,
         string? RegNumber = default,
         string? TaxNumber = default,
+        string? FirstName = default,
+        string? LastName = default,
         string? UserName = default,
         string? Password = default,
         List<int>? Roles = default)

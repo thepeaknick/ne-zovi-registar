@@ -15,9 +15,9 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
         builder.Property(x => x.GuidId)
             .IsRequired();
 
-        builder.Property(x => x.Name)
+        builder.Property(x => x.CompanyName)
             .IsRequired()
-            .HasMaxLength(RegUser.NameMaxLength);
+            .HasMaxLength(RegUser.CompanyNameMaxLength);
 
         builder.Property(x => x.Address)
             .IsRequired()
@@ -31,6 +31,14 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
             .IsRequired()
             .HasMaxLength(RegUser.TaxNumberMaxLength);
 
+        builder.Property(x => x.FirstName)
+            .IsRequired()
+            .HasMaxLength(RegUser.FirstNameMaxLength);
+
+        builder.Property(x => x.LastName)
+            .IsRequired()
+            .HasMaxLength(RegUser.LastNameMaxLength);
+
         builder.Property(x => x.Username)
             .IsRequired()
             .HasMaxLength(RegUser.UsernameMaxLength);
@@ -39,7 +47,7 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
             .IsRequired()
             .HasMaxLength(RegUser.PasswordMaxLength);
 
-        builder.HasIndex(x => x.Name).IsUnique();
+        builder.HasIndex(x => x.CompanyName).IsUnique();
 
         builder.HasIndex(x => x.RegNumber).IsUnique();
 
@@ -50,16 +58,17 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
         builder.Navigation(n => n.RegUserRoles)
             .UsePropertyAccessMode(PropertyAccessMode.Field);
 
-        builder.HasData(Create("RATEL", "Palmotićeva 2", "17606590", "103986571", "ratel", "test123"));
+        builder.HasData(Create("RATEL", "Palmotićeva 2", "17606590", "103986571", "Ime", "Prezime", "ratel", "test123"));
 
     }
 
-    private static RegUser Create(string name, string address, string regNumber, string taxNumber, string userName, string password)
+    private static RegUser Create(string companyName, string address, string regNumber, string taxNumber, string firstName, string lastName, string userName, string password)
     {
-        var regUser = new RegUser(1, name, userName)
+        var regUser = new RegUser(1, companyName, userName)
             .AddAddress(address)
             .AddRegNumber(regNumber)
             .AddTaxNumber(taxNumber)
+            .AddName(firstName, lastName)
             .AddPassword(password);
 
         regUser.AddCreation();

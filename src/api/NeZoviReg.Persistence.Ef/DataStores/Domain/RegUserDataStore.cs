@@ -24,6 +24,11 @@ public class RegUserDataStore : IRegUserDataStore
             .Set<RegUser>()
             .AnyAsync(user => user.TaxNumber == taxNumber && user.GuidId == (excludeId ?? user.GuidId), cancellationToken);
 
+    public async Task<bool> IsCompanyNameUniqueAsync(string name, Guid? excludeId = default, CancellationToken cancellationToken = default)
+        => !await _dbContext
+            .Set<RegUser>()
+            .AnyAsync(user => user.CompanyName == name && user.GuidId == (excludeId ?? user.GuidId), cancellationToken);
+
     public async Task<bool> IsUsernamelUniqueAsync(string username, Guid? excludeId = default, CancellationToken cancellationToken = default)
         => !await _dbContext
             .Set<RegUser>()

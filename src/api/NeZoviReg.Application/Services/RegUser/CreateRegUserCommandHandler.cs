@@ -31,10 +31,11 @@ internal sealed class CreateRegUserCommandHandler : ICommandHandler<CreateRegUse
     {
         var rolles = await _authDataStore.GetRollesAsync(request.Roles, cancellationToken);
 
-        var regUser = new Domain.Model.Domain.RegUser(request.Name, request.UserName)
+        var regUser = new Domain.Model.Domain.RegUser(request.CompanyName, request.UserName)
             .AddAddress(request.Address)
             .AddRegNumber(request.RegNumber)
             .AddTaxNumber(request.TaxNumber)
+            .AddName(request.FirstName, request.LastName)
             .AddPassword(request.Password)
             .AddRoles(rolles.Select(r => r.Id).ToList());
 

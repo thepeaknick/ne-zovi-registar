@@ -9,7 +9,9 @@ namespace NeZoviReg.Domain.Model.Domain;
 /// </summary>
 public class RegUser : Entity
 {
-    public static int NameMaxLength = 100;
+    public static int CompanyNameMaxLength = 100;
+    public static int FirstNameMaxLength = 100;
+    public static int LastNameMaxLength = 100;
     public static int AddressMaxLength = 100;
     public static int RegNumberMaxLength = 8;
     public static int TaxNumberMaxLength = 9;
@@ -21,26 +23,30 @@ public class RegUser : Entity
     {
     }
 
-    public RegUser(string name, string userName)
+    public RegUser(string companyName, string userName)
     {
-        Name = name;
+        CompanyName = companyName;
         Username = userName;
         GuidId = Guid.NewGuid();
     }
 
-    public RegUser(int id, string name, string userName)
+    public RegUser(int id, string companyName, string userName)
                : base(id)
     {
-        Name = name;
+        CompanyName = companyName;
         Username = userName;
         GuidId = Guid.NewGuid();
     }
 
     public Guid GuidId { get; private set; }
 
-    public string Name { get; private set; }
+    public string CompanyName { get; private set; }
 
-    public string FullName => $"Naziv={Name}, Adresa={Address}, MatičniBroj={RegNumber}, Pib={TaxNumber}";
+    public string FirstName { get; private set; }
+
+    public string LastName { get; private set; }
+
+    public string FullName => $"Naziv={CompanyName}, Adresa={Address}, MatičniBroj={RegNumber}, Pib={TaxNumber}, Ime={FirstName}, Prezime={LastName}";
 
     public string Username { get; private set; }
 
@@ -81,9 +87,31 @@ public class RegUser : Entity
         return this;
     }
 
-    public RegUser AddName(string? name)
+    public RegUser AddFirstName(string? firstName)
     {
-        Name = name ?? Name;
+        FirstName = firstName ?? FirstName;
+
+        return this;
+    }
+
+    public RegUser AddLastName(string? lastName)
+    {
+        LastName = lastName ?? LastName;
+
+        return this;
+    }
+
+    public RegUser AddName(string? firstName, string? lastName)
+    {
+        AddFirstName(firstName);
+        AddLastName(lastName);
+
+        return this;
+    }
+
+    public RegUser AddCompanyName(string? name)
+    {
+        CompanyName = name ?? CompanyName;
 
         return this;
     }

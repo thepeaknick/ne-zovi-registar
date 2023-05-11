@@ -7,6 +7,8 @@ public interface IRegUserDataStore
 {
     Task<bool> IsRegNumberUniqueAsync(string regNumber, Guid? excludeId = default, CancellationToken cancellationToken = default);
 
+    Task<bool> IsCompanyNameUniqueAsync(string name, Guid? excludeId = default, CancellationToken cancellationToken = default);
+
     Task<bool> IsTaxNumberUniqueAsync(string taxNumber, Guid? excludeId = default, CancellationToken cancellationToken = default);
 
     Task<bool> IsUsernamelUniqueAsync(string username, Guid? excludeId = default, CancellationToken cancellationToken = default);

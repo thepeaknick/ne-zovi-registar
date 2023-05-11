@@ -45,8 +45,12 @@ public static class RegErrors
             "Korisnik nije registrovan.");
     }
 
-    public static class Name
+    public static class CompanyName
     {
+        public static readonly Func<string, Error> AlreadyInUse = name =>  new(
+            ErrorCode.AlreadyInUse,
+            $"Naziv '{name}' je već u upotrebi.");
+
         public static readonly Error Empty = new(
             ErrorCode.Empty,
             "Naziv je obavezan.");
