@@ -87,7 +87,7 @@ public class RegUserController : NeZoviRegBaseController
     }
 
     [HttpGet("regusers")]
-    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(List<RegUserDto>), (int)HttpStatusCode.OK)]
     [AllowAnonymous]
     public async Task<IActionResult> GetRegUsers([FromBody] RegUsersRequest request, CancellationToken cancellationToken)
     {

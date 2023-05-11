@@ -1,4 +1,5 @@
 ﻿using NeZoviReg.Abstractions.Shared.Enums;
+using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 
 namespace NeZoviReg.Abstractions.Shared.Errors;
 
@@ -24,11 +25,15 @@ public static class RegErrors
 
     public static class RegUser
     {
-       public static readonly Func<dynamic, Error> NotFound = identificator => new Error(
+        public static readonly Func<dynamic, Error> NotFound = ident => new Error(
             ErrorCode.NotFound,
-            $"Korisnik '{identificator}' nije pronađen.");
+            $"Korisnik registra '{ident}' nije pronađen.");
 
-       public static readonly Func<string, Error> RoleNotFound = role => new Error(
+       public static readonly Func<RoleType, Error> RoleNotFound = role => new Error(
+            ErrorCode.NotFound,
+            $"{role} nije pronađen.");
+
+       public static readonly Func<string, Error> RolesNotFound = role => new Error(
            ErrorCode.NotFound,
            $"{role} nisu pronađeni.");
 
@@ -43,6 +48,13 @@ public static class RegErrors
         public static readonly Error NotRegistered = new(
             ErrorCode.NotFound,
             "Korisnik nije registrovan.");
+    }
+
+    public static class Operator
+    {
+       public static readonly Error Empty = new(
+            ErrorCode.Empty,
+            "Operator je obavezan.");
     }
 
     public static class CompanyName
@@ -138,10 +150,6 @@ public static class RegErrors
             return new(ErrorCode.NotFound,
                 $"Nema novih korisnika u registru{afterStr}.");
         };
-
-        public static readonly Func<string, Error> AlreadyInUse = phone =>  new(
-            ErrorCode.AlreadyInUse,
-            $"Korisnik sa brojem '{phone}' je već u registru.");
     }
 
     public static class Email
@@ -209,5 +217,9 @@ public static class RegErrors
         public static readonly Error InvalidFormat = new(
             ErrorCode.InvalidFormat,
             "Format Broj telefona nije ispravan.");
+
+        public static readonly Func<string, Error> AlreadyInUse = phone =>  new(
+            ErrorCode.AlreadyInUse,
+            $"Korisnik sa brojem '{phone}' je već u registru.");
     }
 }

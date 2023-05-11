@@ -28,14 +28,13 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .IsRequired()
             .HasMaxLength(13);
 
-        builder.HasData(Create("Marko", "Bubulj", "1234", "012345567"));
-    }
+        builder.Property(x => x.OperatorId)
+            .IsRequired()
+            .HasMaxLength(25);
 
-    private static User Create(string firstName, string lastName, string phone, string jmbg)
-    {
-        var user = new User(1, firstName, lastName, phone, jmbg);
-        user.AddCreation("test");
-
-        return user;
+        builder.HasOne(kp => kp.Operator)
+            .WithMany()
+            .HasForeignKey(kp => kp.OperatorId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

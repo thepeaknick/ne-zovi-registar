@@ -56,6 +56,6 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
             RegUserId = regUser.GuidId
         }, cancellationToken);
 
-        return new RegUserDto(regUser.GuidId, regUser.FullName);
+        return new RegUserDto(regUser.Id, regUser.GuidId, regUser.FullName);
     }
 }

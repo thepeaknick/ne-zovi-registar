@@ -23,7 +23,9 @@ internal sealed class AddUserCommandHandler : ICommandHandler<AddUserCommand, st
     public async Task<Result<string>> Handle(AddUserCommand request, CancellationToken cancellationToken)
     {
         var user =
-            new Domain.Model.Domain.User(request.FirstName, request.LastName, request.PhoneNumber, request.Jmbg);
+            new Domain.Model.Domain.User(request.FirstName, request.LastName, request.PhoneNumber)
+                .AddJmbg(request.Jmbg)
+                .AddOperator(request.OperatorId);
 
         await _userDataStore.AddAsync(user, cancellationToken);
 

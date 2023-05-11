@@ -43,6 +43,6 @@ internal sealed class CreateRegUserCommandHandler : ICommandHandler<CreateRegUse
 
         await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
 
-        return new RegUserDto(regUser.GuidId, regUser.FullName);
+        return new RegUserDto(regUser.Id, regUser.GuidId, regUser.FullName);
     }
 }

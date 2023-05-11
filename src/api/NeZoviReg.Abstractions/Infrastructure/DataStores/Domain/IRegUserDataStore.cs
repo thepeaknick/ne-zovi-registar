@@ -17,6 +17,8 @@ public interface IRegUserDataStore
 
     //Task<RegUser?> GetByThumbprint(string thumbprint, CancellationToken cancellationToken = default);
 
+    Task<RegUser?> GetById(int regUserId, CancellationToken cancellationToken = default);
+
     Task<RegUser?> GetByGuidId(Guid regUserId, CancellationToken cancellationToken = default);
 
     Task<List<RegUser>> GetByRole(RoleType role, CancellationToken cancellationToken = default);

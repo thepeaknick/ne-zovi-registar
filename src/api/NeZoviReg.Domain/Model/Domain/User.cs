@@ -10,21 +10,19 @@ public class User : Entity
     public static int PhoneNumberMaxLength = 25;
     public static int JmbgMaxLength = 13;
 
-    public User(string firstName, string lastName, string phoneNumber, string jmbg)
+    public User(string firstName, string lastName, string phoneNumber)
     {
         FirstName = firstName;
         LastName = lastName;
         PhoneNumber = phoneNumber;
-        Jmbg = jmbg;
     }
 
-    public User(int id, string firstName, string lastName, string phoneNumber, string jmbg)
+    public User(int id, string firstName, string lastName, string phoneNumber)
         : base(id)
     {
         FirstName = firstName;
         LastName = lastName;
         PhoneNumber = phoneNumber;
-        Jmbg = jmbg;
     }
 
 
@@ -36,7 +34,10 @@ public class User : Entity
 
     public string FullName => $"Ime={FirstName}, Prezime={LastName}, Jmbg={Jmbg}, Broj telefona={PhoneNumber}.";
 
-    public string Jmbg { get; private set; }
+    public string Jmbg { get; private set; } = string.Empty;
+
+    public RegUser Operator { get; private set; }
+    public int OperatorId { get; private set; }
 
     public User AddFirstName(string? firstName)
     {
@@ -70,6 +71,13 @@ public class User : Entity
     public User AddPhoneNumber(string? phoneNumber)
     {
         PhoneNumber = phoneNumber ?? PhoneNumber;
+
+        return this;
+    }
+
+    public User AddOperator(int? operatorId)
+    {
+        OperatorId = operatorId ?? OperatorId;
 
         return this;
     }

@@ -10,6 +10,7 @@ using NeZoviReg.WebApi.Model.User;
 
 namespace NeZoviReg.WebApi.Controllers;
 
+[Route("user")]
 public class UserController : NeZoviRegBaseController
 {
     public UserController(ISender sender,
@@ -18,12 +19,12 @@ public class UserController : NeZoviRegBaseController
     {
     }
 
-    [HttpPost("user/add")]
+    [HttpPost("add")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     [HasPermission(PermissionType.Write)]
     public async Task<IActionResult> AddUser([FromBody] AddUserRequest request, CancellationToken cancellationToken)
     {
-        var command = new AddUserCommand(request.FirstName, request.LastName, request.Jmbg, request.PhoneNumber)
+        var command = new AddUserCommand(request.FirstName, request.LastName, request.PhoneNumber, request.Jmbg, request.OperatorId)
             .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);
@@ -31,12 +32,12 @@ public class UserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
-    [HttpPatch("user/{phoneNumber}")]
+    [HttpPatch("{phoneNumber}")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     [HasPermission(PermissionType.Write)]
     public async Task<IActionResult> ModifyUser(string phoneNumber, [FromBody] ModifyUserRequest request, CancellationToken cancellationToken)
     {
-        var command = new ModifyUserCommand(phoneNumber, request.FirstName, request.LastName, request.Jmbg, request.PhoneNumber)
+        var command = new ModifyUserCommand(phoneNumber, request.FirstName, request.LastName, request.Jmbg, request.PhoneNumber, request.OperatorId)
             .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);
@@ -44,7 +45,7 @@ public class UserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
-    [HttpDelete("user/{phoneNumber}")]
+    [HttpDelete("{phoneNumber}")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     [HasPermission(PermissionType.Delete)]
     public async Task<IActionResult> RemoveUser(string phoneNumber, CancellationToken cancellationToken)
@@ -57,7 +58,7 @@ public class UserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
-    [HttpGet("user/all")]
+    [HttpGet("all")]
     [HasPermission(PermissionType.ReadAll)]
     [ProducesResponseType(typeof(List<string>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> AllUsers([FromBody] AllUsersRequest request, CancellationToken cancellationToken)
@@ -69,7 +70,7 @@ public class UserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
-    [HttpGet("user/{phoneNumber}")]
+    [HttpGet("{phoneNumber}")]
     [AllowAnonymous]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> GetUser(string phoneNumber, CancellationToken cancellationToken)

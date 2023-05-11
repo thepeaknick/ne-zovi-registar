@@ -39,6 +39,11 @@ public class RegUserDataStore : IRegUserDataStore
             .Include(u => u.RegUserRoles)
             .SingleOrDefaultAsync(x => x.GuidId == regUserId, cancellationToken);
 
+    public async Task<RegUser?> GetById(int id, CancellationToken cancellationToken = default) =>
+        await _dbContext.Set<RegUser>()
+            .Include(u => u.RegUserRoles)
+            .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
+
     public async Task<RegUser?> GetByUsernameAndPassword(string username, string password,
         CancellationToken cancellationToken = default) =>
         await _dbContext.Set<RegUser>()

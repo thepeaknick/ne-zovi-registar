@@ -11,7 +11,6 @@ public class AppMappingProfile : Profile
         CreateMap<User, UserDto>();
 
         CreateMap<RegUser, RegUserDto>()
-            .ConstructUsing(s => new RegUserDto(s.GuidId, s.CompanyName))
-            .ForMember(d => d.Id, o => o.MapFrom(s => s.GuidId));
+            .ConstructUsing(s => new RegUserDto(s.Id, s.GuidId, s.CompanyName));
     }
 }
