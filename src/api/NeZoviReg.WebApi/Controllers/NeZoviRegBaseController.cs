@@ -36,7 +36,7 @@ public class NeZoviRegBaseController : ControllerBase
         {
             { IsSuccess: true } => throw new InvalidOperationException(),
             IValidationResult validationResult =>
-                BadRequest(WebApiExtensions.CreateProblemDetails("Validaciona greška",
+                BadRequest(WebApiExtensions.CreateProblemDetails("Greška u validaciji",
                     StatusCodes.Status400BadRequest,
                     result.Error,
                     validationResult.ErrorsDictionary)),

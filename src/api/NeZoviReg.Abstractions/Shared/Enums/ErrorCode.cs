@@ -8,7 +8,7 @@ public enum ErrorCode
 
     Empty,
 
-    EmailAlreadyInUse,
+    AlreadyInUse,
 
     NullValue,
 

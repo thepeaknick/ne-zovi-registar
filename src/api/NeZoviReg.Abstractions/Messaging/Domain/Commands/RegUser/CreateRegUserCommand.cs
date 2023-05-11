@@ -1,7 +1,8 @@
-﻿using RoleType = NeZoviReg.Abstractions.Shared.Model.Auth.Enum.RoleType;
+﻿using NeZoviReg.Abstractions.Messaging.Domain.Model;
+using RoleType = NeZoviReg.Abstractions.Shared.Model.Auth.Enum.RoleType;
 
 namespace NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 
 public record CreateRegUserCommand
-    (string Email, string UserName, string Password, string FirstName, string LastName, RoleType[] Roles, string? Thumbprint = null)
-    : BaseCommand<string>;
+    (string Name, string Address, string RegNumber, string TaxNumber, string UserName, string Password, RoleType[] Roles)
+    : BaseCommand<RegUserDto>;

@@ -4,11 +4,12 @@ using NeZoviReg.Abstractions.Infrastructure.DataStores.Auth;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
+using NeZoviReg.Abstractions.Messaging.Domain.Model;
 using NeZoviReg.Abstractions.Shared;
 
 namespace NeZoviReg.Application.Services.RegUser;
 
-internal sealed class CreateRegUserCommandHandler : ICommandHandler<CreateRegUserCommand, string>
+internal sealed class CreateRegUserCommandHandler : ICommandHandler<CreateRegUserCommand, RegUserDto>
 {
     private readonly ILogger<CreateRegUserCommandHandler> _logger;
     private readonly IRegUserDataStore _regUserDataStore;
@@ -26,19 +27,21 @@ internal sealed class CreateRegUserCommandHandler : ICommandHandler<CreateRegUse
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Result<string>> Handle(CreateRegUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result<RegUserDto>> Handle(CreateRegUserCommand request, CancellationToken cancellationToken)
     {
         var rolles = await _authDataStore.GetRollesAsync(request.Roles, cancellationToken);
 
-        var regUser = new Domain.Model.Domain.RegUser(request.UserName, request.Email)
+        var regUser = new Domain.Model.Domain.RegUser(request.Name, request.UserName)
+            .AddAddress(request.Address)
+            .AddRegNumber(request.RegNumber)
+            .AddTaxNumber(request.TaxNumber)
             .AddPassword(request.Password)
-            .AddName(request.FirstName, request.LastName)
             .AddRoles(rolles.Select(r => r.Id).ToList());
 
         await _regUserDataStore.Add(regUser, cancellationToken);
 
         await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
 
-        return regUser.FullName;
+        return new RegUserDto(regUser.GuidId, regUser.FullName);
     }
 }

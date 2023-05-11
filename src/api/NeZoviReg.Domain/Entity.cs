@@ -30,13 +30,13 @@ public abstract class Entity : IEntity, IEquatable<Entity>
 
     public byte[] Rowversion { get; private set; }
 
-    public void AddCreation(string user)
+    public void AddCreation(string user = "init")
     {
         CreatedOn = DateTime.Now;
         CreatedBy = user;
     }
 
-    public void AddModification(string user)
+    public void AddModification(string user = "init")
     {
         ModifiedOn = DateTime.Now;
         ModifiedBy = user;

@@ -18,13 +18,15 @@ public class CertValidationService : ICertValidationService
 
     public async Task<RegUser?> ValidateCertificate(X509Certificate2 clientCertificate, CancellationToken cancellationToken = default)
     {
-        return await _cache.GetAsync(CacheKeyPrefix.Cert, clientCertificate.Thumbprint,
+        /*return await _cache.GetAsync(CacheKeyPrefix.Cert, clientCertificate.Thumbprint,
             async () =>
         {
             var regUser = await _regUserDataStore.GetByThumbprint(clientCertificate.Thumbprint, cancellationToken)
                 .ConfigureAwait(false);
 
             return regUser;
-        }, cancellationToken);
+        }, cancellationToken);*/
+
+        return default;
     }
 }

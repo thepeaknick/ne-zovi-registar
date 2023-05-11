@@ -24,37 +24,102 @@ public static class RegErrors
 
     public static class RegUser
     {
-        public static readonly Func<string, Error> EmailAlreadyInUse = email =>  new(
-            ErrorCode.EmailAlreadyInUse,
-            $"E-mail adresa '{email}' je već u upotrebi.");
-
-        public static readonly Func<string, Error> UsernameAlreadyInUse = username =>  new(
-            ErrorCode.EmailAlreadyInUse,
-            $"Korisničko ime '{username}' je već u upotrebi.");
-
-        public static readonly Func<dynamic, Error> NotFound = identificator => new Error(
+       public static readonly Func<dynamic, Error> NotFound = identificator => new Error(
             ErrorCode.NotFound,
             $"Korisnik '{identificator}' nije pronađen.");
+
+       public static readonly Func<string, Error> RoleNotFound = role => new Error(
+           ErrorCode.NotFound,
+           $"{role} nisu pronađeni.");
 
         public static readonly Error InvalidCredentials = new(
             ErrorCode.InvalidCredentials,
             "Korisničko ime/lozinka nisu ispravni.");
 
-        public static readonly Error UserNameTooLong = new(
-            ErrorCode.TooLong,
-            "Korisničko ime je predugačko.");
-
-        public static readonly Error PasswordTooLong = new(
-            ErrorCode.TooLong,
-            "Lozinka je predugačka.");
-
         public static readonly Error IdentificatorEmpty = new(
             ErrorCode.Empty,
-            "Identifikator korisinika je prazan.");
+            "Identifikator korisnika je prazan.");
 
         public static readonly Error NotRegistered = new(
             ErrorCode.NotFound,
             "Korisnik nije registrovan.");
+    }
+
+    public static class Name
+    {
+        public static readonly Error Empty = new(
+            ErrorCode.Empty,
+            "Naziv je obavezan.");
+
+        public static readonly Error TooLong = new(
+            ErrorCode.TooLong,
+            "Naziv je predugačak.");
+    }
+
+    public static class Address
+    {
+        public static readonly Error Empty = new(
+            ErrorCode.Empty,
+            "Adresa je obavezna.");
+
+        public static readonly Error TooLong = new(
+            ErrorCode.TooLong,
+            "Adresa je predugačka.");
+    }
+    public static class UserName
+    {
+        public static readonly Func<string, Error> AlreadyInUse = username =>  new(
+            ErrorCode.AlreadyInUse,
+            $"Korisničko ime '{username}' je već u upotrebi.");
+
+        public static readonly Error Empty = new(
+            ErrorCode.Empty,
+            "Korisničko ime je obavezno.");
+
+        public static readonly Error TooLong = new(
+            ErrorCode.TooLong,
+            "Korisničko ime je predugačko.");
+    }
+
+    public static class Password
+    {
+        public static readonly Error Empty = new(
+            ErrorCode.Empty,
+            "Lozinka je obavezna.");
+
+        public static readonly Error TooLong = new(
+            ErrorCode.TooLong,
+            "Lozinka je predugačka.");
+    }
+
+    public static class RegNumber
+    {
+        public static readonly Func<string, Error> AlreadyInUse = regNumber =>  new(
+            ErrorCode.AlreadyInUse,
+            $"Matični broj '{regNumber}' je već u upotrebi.");
+
+        public static readonly Error Empty = new(
+            ErrorCode.Empty,
+            "Matični broj je obavezan.");
+
+        public static readonly Error TooLong = new(
+            ErrorCode.TooLong,
+            "Matični broj je predugačak.");
+    }
+
+    public static class TaxNumber
+    {
+        public static readonly Func<string, Error> AlreadyInUse = taxNumber =>  new(
+            ErrorCode.AlreadyInUse,
+            $"PIB '{taxNumber}' je već u upotrebi.");
+
+        public static readonly Error Empty = new(
+            ErrorCode.Empty,
+            "PIB je obavezan.");
+
+        public static readonly Error TooLong = new(
+            ErrorCode.TooLong,
+            "PIB je predugačak.");
     }
 
     public static class User
@@ -70,13 +135,17 @@ public static class RegErrors
                 $"Nema novih korisnika u registru{afterStr}.");
         };
 
-        public static readonly Func<string, Error> PhoneNumberAlreadyInUse = phone =>  new(
-            ErrorCode.EmailAlreadyInUse,
+        public static readonly Func<string, Error> AlreadyInUse = phone =>  new(
+            ErrorCode.AlreadyInUse,
             $"Korisnik sa brojem '{phone}' je već u registru.");
     }
 
     public static class Email
     {
+        public static readonly Func<string, Error> AlreadyInUse = email =>  new(
+            ErrorCode.AlreadyInUse,
+            $"E-mail adresa '{email}' je već u upotrebi.");
+
         public static readonly Error Empty = new(
             ErrorCode.Empty,
             "Email adresa je prazna.");

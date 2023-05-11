@@ -38,7 +38,7 @@ public class RegUserRoleConfiguration : IEntityTypeConfiguration<RegUserRole>
     private static RegUserRole Create(int regUserId, RoleType role)
     {
         var rr = new RegUserRole(regUserId, (int)role);
-        rr.AddCreation("test");
+        rr.AddCreation();
 
         return rr;
     }

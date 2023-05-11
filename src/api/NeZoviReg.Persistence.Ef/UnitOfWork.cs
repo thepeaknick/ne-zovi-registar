@@ -41,8 +41,7 @@ internal sealed class UnitOfWork : IUnitOfWork
             {
                 entityEntry.Entity.AddCreation(user);
             }
-
-            if (entityEntry.State == EntityState.Modified)
+            else if (entityEntry.State == EntityState.Modified)
             {
                 entityEntry.Entity.AddModification(user);
             }

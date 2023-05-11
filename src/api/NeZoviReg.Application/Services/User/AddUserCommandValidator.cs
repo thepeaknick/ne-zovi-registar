@@ -31,6 +31,6 @@ public class AddUserCommandValidator : AbstractValidator<AddUserCommand>
             .RegexFormat<AddUserCommand, string>(@"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$", PhoneNumber.InvalidFormat.Message);
 
         RuleFor(x => x.PhoneNumber).MustAsync((phone, cancellationToken) => userDataStore.IsPhoneNumberUniqueAsync(phone, cancellationToken))
-            .WithMessage(x => RegErrors.User.PhoneNumberAlreadyInUse(x.PhoneNumber).Message);
+            .WithMessage(x => RegErrors.User.AlreadyInUse(x.PhoneNumber).Message);
     }
 }

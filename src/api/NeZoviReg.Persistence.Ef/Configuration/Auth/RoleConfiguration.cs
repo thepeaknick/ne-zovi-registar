@@ -37,7 +37,7 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
         return roles.Select(r =>
         {
             var role = new Role(r.Id, r.Name);
-            role.AddCreation("test");
+            role.AddCreation();
             return role;
         }).ToList();
     }

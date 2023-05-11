@@ -9,42 +9,38 @@ namespace NeZoviReg.Domain.Model.Domain;
 /// </summary>
 public class RegUser : Entity
 {
-    public static int FirstNameMaxLength = 100;
-    public static int LastNameMaxLength = 100;
-    public static int EmailMaxLength = 100;
+    public static int NameMaxLength = 100;
+    public static int AddressMaxLength = 100;
+    public static int RegNumberMaxLength = 8;
+    public static int TaxNumberMaxLength = 9;
     public static int PasswordMaxLength = 255;
     public static int UsernameMaxLength = 255;
-    public static int ThumbprintMaxLength = 100;
 
     public RegUser()
-    :base()
+    : base()
     {
     }
 
-    public RegUser(string username, string email)
+    public RegUser(string name, string userName)
     {
-        Username = username;
-        Email = email;
+        Name = name;
+        Username = userName;
         GuidId = Guid.NewGuid();
     }
 
-    public RegUser(int id, string username, string email)
+    public RegUser(int id, string name, string userName)
                : base(id)
     {
-        Username = username;
-        Email = email;
+        Name = name;
+        Username = userName;
         GuidId = Guid.NewGuid();
     }
 
     public Guid GuidId { get; private set; }
 
-    public string? FirstName { get; private set; }
+    public string Name { get; private set; }
 
-    public string? LastName { get; private set; }
-
-    public string FullName => $"Email adresa={Email}, Korisničko ime={Username}, Ime={FirstName}, Prezime={LastName}";
-
-    public string Email { get; private set; }
+    public string FullName => $"Naziv={Name}, Adresa={Address}, MatičniBroj={RegNumber}, Pib={TaxNumber}";
 
     public string Username { get; private set; }
 
@@ -55,36 +51,39 @@ public class RegUser : Entity
         private set => _password = value;
     }
 
-    public string? ThumbPrint { get; private set; }
+    public string Address { get; private set; }
+
+    public string RegNumber { get; private set; }
+
+    public string TaxNumber { get; private set; }
 
     private readonly List<RegUserRole> _regUserRoles = new();
     public IReadOnlyCollection<RegUserRole> RegUserRoles => _regUserRoles;
 
-    public RegUser AddEmail(string? email)
+    public RegUser AddAddress(string? address)
     {
-        Email = email ?? Email;
+        Address = address ?? Address;
 
         return this;
     }
 
-    public RegUser AddFirstName(string? firstName)
+    public RegUser AddRegNumber(string? regNumb)
     {
-        FirstName = firstName ?? FirstName;
+        RegNumber = regNumb ?? RegNumber;
 
         return this;
     }
 
-    public RegUser AddLastName(string? lastName)
+    public RegUser AddTaxNumber(string? taxNumber)
     {
-        LastName = lastName ?? LastName;
+        TaxNumber = taxNumber ?? TaxNumber;
 
         return this;
     }
 
-    public RegUser AddName(string? firstName, string? lastName)
+    public RegUser AddName(string? name)
     {
-        AddFirstName(firstName);
-        AddLastName(lastName);
+        Name = name ?? Name;
 
         return this;
     }

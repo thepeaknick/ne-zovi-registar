@@ -4,10 +4,14 @@ using NeZoviReg.Domain.Model.Domain;
 
 namespace NeZoviReg.Application.Mapping;
 
-public class AppMappingProfile: Profile
+public class AppMappingProfile : Profile
 {
     public AppMappingProfile()
     {
         CreateMap<User, UserDto>();
+
+        CreateMap<RegUser, RegUserDto>()
+            .ConstructUsing(s => new RegUserDto(s.GuidId, s.Name))
+            .ForMember(d => d.Id, o => o.MapFrom(s => s.GuidId));
     }
 }

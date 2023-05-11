@@ -26,7 +26,7 @@ public class PermissionConfiguration : IEntityTypeConfiguration<Permission>
         return permissions.Select(r =>
         {
             var permission = new Permission(r.Id, r.Name);
-            permission.AddCreation("test");
+            permission.AddCreation();
             return permission;
         }).ToList();
     }

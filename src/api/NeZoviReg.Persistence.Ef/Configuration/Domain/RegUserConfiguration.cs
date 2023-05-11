@@ -15,13 +15,21 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
         builder.Property(x => x.GuidId)
             .IsRequired();
 
-        builder.Property(x => x.FirstName)
-            .IsRequired(false)
-            .HasMaxLength(RegUser.FirstNameMaxLength);
+        builder.Property(x => x.Name)
+            .IsRequired()
+            .HasMaxLength(RegUser.NameMaxLength);
 
-        builder.Property(x => x.LastName)
-            .IsRequired(false)
-            .HasMaxLength(RegUser.LastNameMaxLength);
+        builder.Property(x => x.Address)
+            .IsRequired()
+            .HasMaxLength(RegUser.AddressMaxLength);
+
+        builder.Property(x => x.RegNumber)
+            .IsRequired()
+            .HasMaxLength(RegUser.RegNumberMaxLength);
+
+        builder.Property(x => x.TaxNumber)
+            .IsRequired()
+            .HasMaxLength(RegUser.TaxNumberMaxLength);
 
         builder.Property(x => x.Username)
             .IsRequired()
@@ -31,33 +39,30 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
             .IsRequired()
             .HasMaxLength(RegUser.PasswordMaxLength);
 
-        builder.Property(x => x.Email)
-            .IsRequired()
-            .HasMaxLength(RegUser.EmailMaxLength);
+        builder.HasIndex(x => x.Name).IsUnique();
 
-        builder.Property(x => x.ThumbPrint)
-            .IsRequired(false)
-            .HasMaxLength(RegUser.ThumbprintMaxLength);
+        builder.HasIndex(x => x.RegNumber).IsUnique();
 
-        builder.HasIndex(x => x.Email).IsUnique();
+        builder.HasIndex(x => x.TaxNumber).IsUnique();
 
         builder.HasIndex(x => x.Username).IsUnique();
 
         builder.Navigation(n => n.RegUserRoles)
             .UsePropertyAccessMode(PropertyAccessMode.Field);
 
-        builder.HasData(Create("Petar", "Petrovic", "pPetrovic", "test123", "petar.petrovic@mts.rs"));
+        builder.HasData(Create("RATEL", "Palmotićeva 2", "17606590", "103986571", "ratel", "test123"));
 
     }
 
-    private static RegUser Create(string firstName, string lastName, string userName, string password, string email)
+    private static RegUser Create(string name, string address, string regNumber, string taxNumber, string userName, string password)
     {
-        var regUser = new RegUser(1, userName, email)
-            .AddFirstName(firstName)
-            .AddLastName(lastName)
+        var regUser = new RegUser(1, name, userName)
+            .AddAddress(address)
+            .AddRegNumber(regNumber)
+            .AddTaxNumber(taxNumber)
             .AddPassword(password);
 
-        regUser.AddCreation("test");
+        regUser.AddCreation();
 
         return regUser;
     }
