@@ -36,12 +36,12 @@ public class CreateRegUserCommandValidator : AbstractValidator<CreateRegUserComm
             .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.TaxNumberMaxLength, TaxNumber.TooLong.Message);
 
         RuleFor(x => x.UserName)
-            .NotEmpty<CreateRegUserCommand, string, RegUserDto>(UserName.TooLong.Message)
+            .NotEmpty<CreateRegUserCommand, string, RegUserDto>(UserName.Empty.Message)
             .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.UsernameMaxLength,
                 UserName.TooLong.Message);
 
         RuleFor(x => x.Password)
-            .NotEmpty<CreateRegUserCommand, string, RegUserDto>(Password.TooLong.Message)
+            .NotEmpty<CreateRegUserCommand, string, RegUserDto>(Password.Empty.Message)
             .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.PasswordMaxLength,
                 Password.TooLong.Message);
 

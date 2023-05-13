@@ -34,7 +34,7 @@ public class RegUserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
-    [HttpPost("signup")]
+    [HttpPost("register")]
     [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> RegisterRegUser([FromBody] RegisterRegUserRequest request, CancellationToken cancellationToken)
     {
@@ -53,7 +53,7 @@ public class RegUserController : NeZoviRegBaseController
     public async Task<IActionResult> ModifyRegUser([FromBody] ModifyRegUserRequest request, CancellationToken cancellationToken)
     {
         var command = new ModifyRegUserCommand(AppUser.Id, request.Name, request.Address, request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
-                request.UserName, request.Password, request.Roles.ToIntList())
+                request.UserName, request.Roles.ToIntList())
             .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);
@@ -61,12 +61,12 @@ public class RegUserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
-    [HttpPatch("{regUserId}")]
+    [HttpPatch("{regUserId:required}")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> ModifyRegUser(Guid regUserId, [FromBody] ModifyRegUserRequest request, CancellationToken cancellationToken)
     {
         var command = new ModifyRegUserCommand(regUserId, request.Name, request.Address, request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
-                request.UserName, request.Password, request.Roles.ToIntList())
+                request.UserName, request.Roles.ToIntList())
             .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);
@@ -74,7 +74,19 @@ public class RegUserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
-    [HttpDelete("{regUserId}")]
+    [HttpPatch("forgotpassword")]
+    [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> ChangeRegUserPassword([FromBody] ChangeRegUserPasswordRequest request, CancellationToken cancellationToken)
+    {
+        var command = new ChangePassRegUserCommand(AppUser.UserName, request.Password, request.NewPassword)
+            .AddAppUser(AppUser.UserName);
+
+        var result = await Sender.Send(command, cancellationToken);
+
+        return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
+    }
+
+    [HttpDelete("{regUserId:required}")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> RemoveRegUser(Guid regUserId, CancellationToken cancellationToken)
     {
@@ -86,12 +98,12 @@ public class RegUserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
-    [HttpGet("regusers")]
+    [HttpGet("roles/{role:int}")]
+    [HasPermission(PermissionType.All)]
     [ProducesResponseType(typeof(List<RegUserDto>), (int)HttpStatusCode.OK)]
-    [AllowAnonymous]
-    public async Task<IActionResult> GetRegUsers([FromBody] RegUsersRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetRegUsers(RoleType role, CancellationToken cancellationToken)
     {
-        var command = new RegUsersQuery(request.Role);
+        var command = new RegUsersQuery(role);
 
         var result = await Sender.Send(command, cancellationToken);
 

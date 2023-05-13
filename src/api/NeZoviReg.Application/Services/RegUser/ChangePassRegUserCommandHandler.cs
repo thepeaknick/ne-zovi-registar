@@ -11,14 +11,14 @@ using NeZoviReg.Abstractions.Shared.Events;
 
 namespace NeZoviReg.Application.Services.RegUser;
 
-internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUserCommand, RegUserDto>
+internal sealed class ChangePassRegUserCommandHandler : ICommandHandler<ChangePassRegUserCommand, RegUserDto>
 {
-    private readonly ILogger<ModifyRegUserCommandHandler> _logger;
+    private readonly ILogger<ChangePassRegUserCommandHandler> _logger;
     private readonly IRegUserDataStore _regUserDataStore;
     private readonly IPublisher _publisher;
     private readonly IUnitOfWork _unitOfWork;
 
-    public ModifyRegUserCommandHandler(ILogger<ModifyRegUserCommandHandler> logger,
+    public ChangePassRegUserCommandHandler(ILogger<ChangePassRegUserCommandHandler> logger,
         IRegUserDataStore regUserDataStore,
         IPublisher publisher,
         IUnitOfWork unitOfWork)
@@ -29,22 +29,16 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Result<RegUserDto>> Handle(ModifyRegUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result<RegUserDto>> Handle(ChangePassRegUserCommand request, CancellationToken cancellationToken)
     {
-        var regUser = await _regUserDataStore.GetByGuidId(request.RegUserId, cancellationToken);
+        var regUser = await _regUserDataStore.GetByUsernameAndPassword(request.UserName, request.Password, cancellationToken);
 
         if (regUser is null)
         {
-            return Result.Failure<RegUserDto>(RegErrors.RegUser.NotFound(request.RegUserId));
+            return Result.Failure<RegUserDto>(RegErrors.RegUser.InvalidCredentials);
         }
 
-        regUser
-            .AddCompanyName(request.CompanyName)
-            .AddAddress(request.Address)
-            .AddRegNumber(request.RegNumber)
-            .AddTaxNumber(request.TaxNumber)
-            .AddName(request.FirstName, request.LastName)
-            .AddRoles(request.Roles);
+        regUser.AddPassword(request.NewPassword);
 
         _regUserDataStore.Update(regUser);
 
