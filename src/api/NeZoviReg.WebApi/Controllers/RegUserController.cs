@@ -13,7 +13,8 @@ using NeZoviReg.Abstractions.Messaging.Domain.Queries.RegUser;
 
 namespace NeZoviReg.WebApi.Controllers;
 
-[HasPermission(PermissionType.All)]
+//[HasPermission(PermissionType.All)]
+[AllowAnonymous]
 [Route("reguser")]
 public class RegUserController : NeZoviRegBaseController
 {
@@ -22,9 +23,9 @@ public class RegUserController : NeZoviRegBaseController
     {
     }
 
-    [HttpPost("login")]
+    /*[HttpPost("login")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
-    [AllowAnonymous]
+    //[AllowAnonymous]
     public async Task<IActionResult> LoginRegUser([FromBody] LoginRequest request, CancellationToken cancellationToken)
     {
         var command = new LoginCommand(request.Username, request.Password);
@@ -32,7 +33,7 @@ public class RegUserController : NeZoviRegBaseController
         var result = await Sender.Send(command, cancellationToken);
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
-    }
+    }*/
 
     [HttpPost("register")]
     [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
@@ -74,7 +75,7 @@ public class RegUserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
-    [HttpPatch("forgotpassword")]
+    /*[HttpPatch("forgotpassword")]
     [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> ChangeRegUserPassword([FromBody] ChangeRegUserPasswordRequest request, CancellationToken cancellationToken)
     {
@@ -84,7 +85,7 @@ public class RegUserController : NeZoviRegBaseController
         var result = await Sender.Send(command, cancellationToken);
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
-    }
+    }*/
 
     [HttpDelete("{regUserId:required}")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
@@ -99,7 +100,6 @@ public class RegUserController : NeZoviRegBaseController
     }
 
     [HttpGet("roles/{role:int}")]
-    [HasPermission(PermissionType.All)]
     [ProducesResponseType(typeof(List<RegUserDto>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> GetRegUsers(RoleType role, CancellationToken cancellationToken)
     {

@@ -1,3 +1,3 @@
 ﻿namespace NeZoviReg.WebApi.Model.User;
 
-public record AllUsersRequest(DateTime? StartingFrom);
+public record AllUsersRequest(DateTime? After);
