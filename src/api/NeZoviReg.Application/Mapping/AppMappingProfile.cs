@@ -8,9 +8,10 @@ public class AppMappingProfile : Profile
 {
     public AppMappingProfile()
     {
-        CreateMap<User, UserDto>();
+        CreateMap<User, UserDto>()
+            .ConstructUsing(s => new UserDto(s.PhoneNumber, s.ModifiedOn ?? s.CreatedOn));
 
         CreateMap<RegUser, RegUserDto>()
-            .ConstructUsing(s => new RegUserDto(s.Id, s.GuidId, s.CompanyName));
+            .ConstructUsing(s => new RegUserDto(s.GuidId, s.CompanyName, s.Id));
     }
 }

@@ -1,3 +1,5 @@
-﻿namespace NeZoviReg.Abstractions.Messaging.Domain.Queries.User;
+﻿using NeZoviReg.Abstractions.Messaging.Domain.Model;
 
-public record AllUsersQuery(DateTime? After) : IQuery<List<string>>;
+namespace NeZoviReg.Abstractions.Messaging.Domain.Queries.User;
+
+public record AllUsersQuery(DateTime? After) : IQuery<List<UserDto>>;

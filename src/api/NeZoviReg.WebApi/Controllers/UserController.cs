@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
+using NeZoviReg.Abstractions.Messaging.Domain.Model;
 using NeZoviReg.Abstractions.Messaging.Domain.Queries.User;
 using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using NeZoviReg.Auth.Authorization;
@@ -21,7 +22,7 @@ public class UserController : NeZoviRegBaseController
     }
 
     [HttpPost("add")]
-    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
     //[HasPermission(PermissionType.Write)]
     public async Task<IActionResult> AddUser([FromBody] AddUserRequest request, CancellationToken cancellationToken)
     {
@@ -34,7 +35,7 @@ public class UserController : NeZoviRegBaseController
     }
 
     [HttpPatch("{phoneNumber}")]
-    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
     //[HasPermission(PermissionType.Write)]
     public async Task<IActionResult> ModifyUser(string phoneNumber, [FromBody] ModifyUserRequest request, CancellationToken cancellationToken)
     {
@@ -61,7 +62,7 @@ public class UserController : NeZoviRegBaseController
 
     [HttpGet("all")]
     //[HasPermission(PermissionType.ReadAll)]
-    [ProducesResponseType(typeof(List<string>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(List<UserDto>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> AllUsers([FromBody] AllUsersRequest request, CancellationToken cancellationToken)
     {
         var command = new AllUsersQuery(request.After);

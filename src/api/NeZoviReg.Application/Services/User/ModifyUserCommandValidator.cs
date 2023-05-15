@@ -2,6 +2,7 @@
 using NeZoviReg.Abstractions.Extensions;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
+using NeZoviReg.Abstractions.Messaging.Domain.Model;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using static NeZoviReg.Abstractions.Shared.Errors.RegErrors;
@@ -13,35 +14,35 @@ public class ModifyUserCommandValidator : AbstractValidator<ModifyUserCommand>
     public ModifyUserCommandValidator(IUserDataStore userDataStore, IRegUserDataStore regUserDataStore)
     {
         RuleFor(x => x.PhoneNumber)
-            .NotEmpty<ModifyUserCommand, string, string>(PhoneNumber.Empty.Message);
+            .NotEmpty<ModifyUserCommand, string, UserDto>(PhoneNumber.Empty.Message);
 
         When(x => !string.IsNullOrEmpty(x.FirstName), () =>
         {
             RuleFor(x => x.FirstName)!
-                .MaximumLength<ModifyUserCommand, string>(Domain.Model.Domain.User.FirstNameMaxLength,
+                .MaximumLength<ModifyUserCommand, UserDto>(Domain.Model.Domain.User.FirstNameMaxLength,
                     FirstName.TooLong.Message);
         });
 
         When(x => !string.IsNullOrEmpty(x.LastName), () =>
         {
             RuleFor(x => x.LastName)!
-                .MaximumLength<ModifyUserCommand, string>(Domain.Model.Domain.User.LastNameMaxLength,
+                .MaximumLength<ModifyUserCommand, UserDto>(Domain.Model.Domain.User.LastNameMaxLength,
                     LastName.TooLong.Message);
         });
 
         When(x => !string.IsNullOrEmpty(x.Jmbg), () =>
         {
             RuleFor(x => x.Jmbg)!
-                .MaximumLength<ModifyUserCommand, string>(Domain.Model.Domain.User.JmbgMaxLength, Jmbg.TooLong.Message);
+                .MaximumLength<ModifyUserCommand, UserDto>(Domain.Model.Domain.User.JmbgMaxLength, Jmbg.TooLong.Message);
         });
 
         When(x => !string.IsNullOrEmpty(x.NewPhoneNumber), () =>
         {
             RuleFor(x => x.NewPhoneNumber)!
-                .MaximumLength<ModifyUserCommand, string>(Domain.Model.Domain.User.PhoneNumberMaxLength, PhoneNumber.TooLong.Message)
-                .RegexFormat<ModifyUserCommand, string>(@"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$", PhoneNumber.InvalidFormat.Message)
+                .MaximumLength<ModifyUserCommand, UserDto>(Domain.Model.Domain.User.PhoneNumberMaxLength, PhoneNumber.TooLong.Message)
+                .RegexFormat<ModifyUserCommand, UserDto>(@"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$", PhoneNumber.InvalidFormat.Message)
                 .MustAsync((phone, cancellationToken) => userDataStore.IsPhoneNumberUniqueAsync(phone, cancellationToken))
-                .WithMessage(x => PhoneNumber.AlreadyInUse(x.PhoneNumber).Message);;
+                .WithMessage(x => PhoneNumber.AlreadyInUse(x.NewPhoneNumber).Message);;
         });
 
         When(x => x.NewOperatorId.HasValue, () =>
@@ -49,7 +50,7 @@ public class ModifyUserCommandValidator : AbstractValidator<ModifyUserCommand>
             RuleFor(x => x.NewOperatorId).CustomAsync(async (id, ctx, cancellationToken) =>
             {
                 var regUser = await regUserDataStore.GetById(id!.Value, cancellationToken);
-                if (regUser == default || regUser.RegUserRoles.All(x => x.RoleId != (int)RoleType.Obveznik))
+                if (regUser is null || regUser.RegUserRoles.All(x => x.RoleId != (int)RoleType.Obveznik))
                 {
                     ctx.AddFailure(RegErrors.RegUser.RoleNotFound(RoleType.Obveznik).Message);
                 }

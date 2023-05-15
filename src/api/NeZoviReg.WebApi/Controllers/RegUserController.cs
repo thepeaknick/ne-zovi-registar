@@ -49,7 +49,7 @@ public class RegUserController : NeZoviRegBaseController
     }
 
 
-    [HttpPatch("modify")]
+    /*[HttpPatch("modify")]
     [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> ModifyRegUser([FromBody] ModifyRegUserRequest request, CancellationToken cancellationToken)
     {
@@ -60,10 +60,10 @@ public class RegUserController : NeZoviRegBaseController
         var result = await Sender.Send(command, cancellationToken);
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
-    }
+    }*/
 
     [HttpPatch("{regUserId:required}")]
-    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> ModifyRegUser(Guid regUserId, [FromBody] ModifyRegUserRequest request, CancellationToken cancellationToken)
     {
         var command = new ModifyRegUserCommand(regUserId, request.Name, request.Address, request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
@@ -88,7 +88,7 @@ public class RegUserController : NeZoviRegBaseController
     }*/
 
     [HttpDelete("{regUserId:required}")]
-    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> RemoveRegUser(Guid regUserId, CancellationToken cancellationToken)
     {
         var command = new RemoveRegUserCommand(regUserId)

@@ -2,13 +2,14 @@
 using Microsoft.Extensions.Logging;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
+using NeZoviReg.Abstractions.Messaging.Domain.Model;
 using NeZoviReg.Abstractions.Messaging.Domain.Queries.User;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
 
 namespace NeZoviReg.Application.Services.User;
 
-internal sealed class AllUsersQueryHandler : IQueryHandler<AllUsersQuery, List<string>>
+internal sealed class AllUsersQueryHandler : IQueryHandler<AllUsersQuery, List<UserDto>>
 {
     private readonly ILogger<AllUsersQueryHandler> _logger;
     private readonly IUserDataStore _userDataStore;
@@ -21,12 +22,12 @@ internal sealed class AllUsersQueryHandler : IQueryHandler<AllUsersQuery, List<s
         _mapper = mapper;
     }
 
-    public async Task<Result<List<string>>> Handle(AllUsersQuery request, CancellationToken cancellationToken)
+    public async Task<Result<List<UserDto>>> Handle(AllUsersQuery request, CancellationToken cancellationToken)
     {
         var users = await _userDataStore.GetAll(request.After, cancellationToken);
 
         return users.Any()
-            ? users.Select(x => x.PhoneNumber).ToList()
-            : Result.Failure<List<string>>(RegErrors.User.NotFoundAfter(request.After));
+            ? _mapper.Map<List<UserDto>>(users).ToList()
+            : Result.Failure<List<UserDto>>(RegErrors.User.NotFoundAfter(request.After));
     }
 }
