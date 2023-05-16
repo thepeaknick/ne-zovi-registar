@@ -21,5 +21,6 @@
 **/obj
 **/secrets.dev.yaml
 **/values.dev.yaml
+/src/NeZoviReg.Migrations.Ef/appsettings.my.json
 LICENSE
 README.md

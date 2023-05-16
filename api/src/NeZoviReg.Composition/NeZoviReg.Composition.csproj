@@ -16,7 +16,6 @@
     <ProjectReference Include="..\NeZoviReg.Application\NeZoviReg.Application.csproj" PrivateAssets="All" />
     <ProjectReference Include="..\NeZoviReg.Auth\NeZoviReg.Auth.csproj" PrivateAssets="All" />
     <ProjectReference Include="..\NeZoviReg.Domain\NeZoviReg.Domain.csproj" PrivateAssets="All" />
-    <ProjectReference Include="..\NeZoviReg.Migrations.Ef\NeZoviReg.Migrations.Ef.csproj" PrivateAssets="All" />
     <ProjectReference Include="..\NeZoviReg.Persistence.Ef\NeZoviReg.Persistence.Ef.csproj" PrivateAssets="All" />
   </ItemGroup>
 

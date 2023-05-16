@@ -11,8 +11,7 @@ public class NeZoviRegDbContextFactory : IDesignTimeDbContextFactory<NeZoviRegDa
     {
         IConfigurationRoot configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional:false, true)
-            .AddJsonFile("appsettings.my.json", optional:true, true)
+            .AddJsonFile("migrations.json", optional:false, true)
             .Build();
 
         var connectionString = configuration.GetConnectionString("SqlServerDatabase");
