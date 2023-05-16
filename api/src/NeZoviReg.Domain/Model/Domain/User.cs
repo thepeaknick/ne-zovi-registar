@@ -1,4 +1,5 @@
-﻿namespace NeZoviReg.Domain.Model.Domain;
+﻿#pragma warning disable CS8618
+namespace NeZoviReg.Domain.Model.Domain;
 
 /// <summary>
 /// End user, mobile number owner.

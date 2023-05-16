@@ -11,7 +11,7 @@ using NeZoviReg.WebApi.Model.User;
 
 namespace NeZoviReg.WebApi.Controllers;
 
-[Route("user")]
+[Route("users")]
 [AllowAnonymous]
 public class UserController : NeZoviRegBaseController
 {

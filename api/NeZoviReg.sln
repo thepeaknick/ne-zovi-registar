@@ -17,23 +17,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.IntegrationTests"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.UnitTests", "test\NeZoviReg.UnitTests\NeZoviReg.UnitTests.csproj", "{08E3EE24-E7B8-499C-B475-F093163E24B6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.Abstractions", "src\api\NeZoviReg.Abstractions\NeZoviReg.Abstractions.csproj", "{3A5248C2-F006-4115-B596-C5272281DFEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.Abstractions", "src\NeZoviReg.Abstractions\NeZoviReg.Abstractions.csproj", "{3A5248C2-F006-4115-B596-C5272281DFEF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.Auth", "src\api\NeZoviReg.Auth\NeZoviReg.Auth.csproj", "{300ECAA4-B020-4924-91C7-B1EC2E89D844}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.Auth", "src\NeZoviReg.Auth\NeZoviReg.Auth.csproj", "{300ECAA4-B020-4924-91C7-B1EC2E89D844}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.Domain", "src\api\NeZoviReg.Domain\NeZoviReg.Domain.csproj", "{B5DB979F-8821-4AE7-8EB6-625602783E92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.Domain", "src\NeZoviReg.Domain\NeZoviReg.Domain.csproj", "{B5DB979F-8821-4AE7-8EB6-625602783E92}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.Application", "src\api\NeZoviReg.Application\NeZoviReg.Application.csproj", "{2C310D29-FF78-454A-95A6-6AC1C01D02F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.Application", "src\NeZoviReg.Application\NeZoviReg.Application.csproj", "{2C310D29-FF78-454A-95A6-6AC1C01D02F0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.WebApi", "src\api\NeZoviReg.WebApi\NeZoviReg.WebApi.csproj", "{A9FC23E3-80D8-4B12-94A3-1ACC200D42C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.WebApi", "src\NeZoviReg.WebApi\NeZoviReg.WebApi.csproj", "{A9FC23E3-80D8-4B12-94A3-1ACC200D42C3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.Composition", "src\api\NeZoviReg.Composition\NeZoviReg.Composition.csproj", "{30F6519C-9E69-4374-98CD-FAE465E6D110}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.Composition", "src\NeZoviReg.Composition\NeZoviReg.Composition.csproj", "{30F6519C-9E69-4374-98CD-FAE465E6D110}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.Migrations.Ef", "src\api\NeZoviReg.Migrations.Ef\NeZoviReg.Migrations.Ef.csproj", "{D22946F1-E542-4209-BC68-60DFB7C2282B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.Migrations.Ef", "src\NeZoviReg.Migrations.Ef\NeZoviReg.Migrations.Ef.csproj", "{D22946F1-E542-4209-BC68-60DFB7C2282B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.Persistence.Ef", "src\api\NeZoviReg.Persistence.Ef\NeZoviReg.Persistence.Ef.csproj", "{F8C2106A-2C75-47DE-AADF-53C46B7CA36B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{295F2516-24EC-4982-A511-9A4DEBCF73E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.Persistence.Ef", "src\NeZoviReg.Persistence.Ef\NeZoviReg.Persistence.Ef.csproj", "{F8C2106A-2C75-47DE-AADF-53C46B7CA36B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,8 +87,6 @@ Global
 		{63DCD4C1-1176-44B6-AC89-C9A1CFDFC2AD} = {A2BD3D0F-5FF9-410C-95F6-DAD884527E32}
 		{731EF08D-5244-409A-93EB-0800C46793F5} = {A2BD3D0F-5FF9-410C-95F6-DAD884527E32}
 		{D73CA493-AC10-4046-B95C-E8BDD42061C3} = {A2BD3D0F-5FF9-410C-95F6-DAD884527E32}
-		{A2BD3D0F-5FF9-410C-95F6-DAD884527E32} = {295F2516-24EC-4982-A511-9A4DEBCF73E9}
-		{906A835F-FB79-4049-80FD-E2034DBABAFC} = {295F2516-24EC-4982-A511-9A4DEBCF73E9}
 		{65A0C15F-02B4-4DF6-A81F-F463AFBCB7A1} = {906A835F-FB79-4049-80FD-E2034DBABAFC}
 		{08E3EE24-E7B8-499C-B475-F093163E24B6} = {906A835F-FB79-4049-80FD-E2034DBABAFC}
 		{3A5248C2-F006-4115-B596-C5272281DFEF} = {731EF08D-5244-409A-93EB-0800C46793F5}
