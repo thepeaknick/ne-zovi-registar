@@ -1,5 +1,5 @@
 {
   "ConnectionStrings": {
-    "SqlServerDatabase": "Server=localhost;Database=NeZoviReg;User Id=SA;Password=Nezovitest@123;Trusted_Connection=False;MultipleActiveResultSets=True;Connection Timeout=30;TrustServerCertificate=true;"
+    "SqlServerDatabase": "Server=sql_server2022;Database=NeZoviReg;User Id=SA;Password=Nezovitest@123;Trusted_Connection=False;MultipleActiveResultSets=True;Connection Timeout=30;TrustServerCertificate=true;"
   }
 }

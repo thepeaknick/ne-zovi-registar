@@ -5,5 +5,4 @@ cd d:\Projects\nezovireg.git_docker\api\
 #docker rm  nezovireg_api --force 
 
 docker-compose up -d
-#docker exec nezovireg_api NeZoviReg.Migrations.Ef.exe
-dotnet run \src\NeZoviReg.Migrations.Ef\bin\Release\net7.0\NeZoviReg.Migrations.Ef.exe
+docker exec nezovireg_api /app/NeZoviReg.Migrations.Ef
