@@ -1,5 +1,3 @@
-cd d:\Projects\nezovireg.git_docker\api\
-
 # for test
 #docker rm  sql_server2022 --force 
 #docker rm  nezovireg_api --force 
