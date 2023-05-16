@@ -25,12 +25,21 @@ public class NeZoviRegBaseController : ControllerBase
         Logger = logger;
     }
 
-    protected AppUser AppUser => new (Guid.Parse(User.Claims
-        .FirstOrDefault(x => x.Type == CustomClaims.RegUserId)?
-        .Value ?? string.Empty),
-         User.Claims
-        .FirstOrDefault(x => x.Type == CustomClaims.RegUserName)?
-        .Value ?? string.Empty);
+    protected AppUser AppUser
+    {
+        get
+        {
+            if (!Guid.TryParse(User.Claims.FirstOrDefault(x => x.Type == CustomClaims.RegUserId)?.Value,
+                    out Guid regUserId))
+                return AppUser.Default;
+
+            var userName = User.Claims
+                .FirstOrDefault(x => x.Type == CustomClaims.RegUserName)?
+                .Value ?? string.Empty;
+
+            return new(regUserId, userName);
+        }
+    }
 
     protected IActionResult HandleFailure(Result result) =>
         result switch

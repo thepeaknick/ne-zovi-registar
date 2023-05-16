@@ -89,12 +89,5 @@ public class ModifyRegUserCommandValidator : AbstractValidator<ModifyRegUserComm
             RuleFor(x => x.UserName!)
                 .MaximumLength<ModifyRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.UsernameMaxLength, UserName.TooLong.Message);
         });
-
-        When(x => !string.IsNullOrEmpty(x.Password), () =>
-        {
-            RuleFor(x => x.Password!)
-                .MaximumLength<ModifyRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.PasswordMaxLength,
-                    Password.TooLong.Message);
-        });
     }
 }

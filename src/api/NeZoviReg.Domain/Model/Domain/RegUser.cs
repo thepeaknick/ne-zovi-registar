@@ -46,7 +46,7 @@ public class RegUser : Entity
 
     public string LastName { get; private set; }
 
-    public string FullName => $"Naziv={CompanyName}, Adresa={Address}, MatičniBroj={RegNumber}, Pib={TaxNumber}, Ime={FirstName}, Prezime={LastName}";
+    public string FullName => $"Naziv={CompanyName}, Adresa={Address}, MatičniBroj={RegNumber}, Pib={TaxNumber}";
 
     public string Username { get; private set; }
 
@@ -122,6 +122,13 @@ public class RegUser : Entity
             return this;
 
         Password = Encode(password);
+
+        return this;
+    }
+
+    public RegUser AddUserName(string? userName)
+    {
+        Username = userName ?? Username;
 
         return this;
     }

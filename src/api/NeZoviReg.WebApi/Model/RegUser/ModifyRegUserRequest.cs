@@ -9,5 +9,4 @@ public record ModifyRegUserRequest(string? Name = default,
     string? FirstName = default,
     string? LastName = default,
     string? UserName = default,
-    string? Password = default,
     List<RoleType>? Roles = default);

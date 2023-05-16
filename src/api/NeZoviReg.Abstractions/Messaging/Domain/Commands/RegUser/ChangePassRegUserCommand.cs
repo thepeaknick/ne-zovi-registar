@@ -2,5 +2,6 @@
 
 namespace NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 
-public record RemoveRegUserCommand(Guid RegUserId)
+public record ChangePassRegUserCommand
+    (string UserName, string Password, string NewPassword)
     : BaseCommand<RegUserDto>;

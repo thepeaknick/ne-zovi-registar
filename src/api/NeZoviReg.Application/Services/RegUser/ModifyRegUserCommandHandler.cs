@@ -44,7 +44,7 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
             .AddRegNumber(request.RegNumber)
             .AddTaxNumber(request.TaxNumber)
             .AddName(request.FirstName, request.LastName)
-            .AddPassword(request.Password)
+            .AddUserName(request.UserName)
             .AddRoles(request.Roles);
 
         _regUserDataStore.Update(regUser);
@@ -56,6 +56,6 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
             RegUserId = regUser.GuidId
         }, cancellationToken);
 
-        return new RegUserDto(regUser.Id, regUser.GuidId, regUser.FullName);
+        return new RegUserDto(regUser.GuidId, regUser.FullName, regUser.Id);
     }
 }

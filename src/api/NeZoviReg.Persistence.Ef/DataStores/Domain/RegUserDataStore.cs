@@ -55,10 +55,6 @@ public class RegUserDataStore : IRegUserDataStore
             .Where(x => x.RegUserRoles.Select(r => r.RoleId).Contains((int)role))
             .ToListAsync(cancellationToken);
 
-    /*public async Task<RegUser?> GetByThumbprint(string thumbprint, CancellationToken cancellationToken = default) =>
-        await _dbContext.Set<RegUser>()
-            .SingleOrDefaultAsync(x => x.ThumbPrint == thumbprint, cancellationToken);*/
-
     public async Task Add(RegUser regUser, CancellationToken cancellationToken = default) =>
         await _dbContext.Set<RegUser>().AddAsync(regUser, cancellationToken);
 

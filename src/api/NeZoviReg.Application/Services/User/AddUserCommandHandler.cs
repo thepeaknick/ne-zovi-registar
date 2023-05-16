@@ -3,11 +3,12 @@ using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
+using NeZoviReg.Abstractions.Messaging.Domain.Model;
 using NeZoviReg.Abstractions.Shared;
 
 namespace NeZoviReg.Application.Services.User;
 
-internal sealed class AddUserCommandHandler : ICommandHandler<AddUserCommand, string>
+internal sealed class AddUserCommandHandler : ICommandHandler<AddUserCommand, UserDto>
 {
     private readonly ILogger<AddUserCommandHandler> _logger;
     private readonly IUserDataStore _userDataStore;
@@ -20,7 +21,7 @@ internal sealed class AddUserCommandHandler : ICommandHandler<AddUserCommand, st
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Result<string>> Handle(AddUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result<UserDto>> Handle(AddUserCommand request, CancellationToken cancellationToken)
     {
         var user =
             new Domain.Model.Domain.User(request.FirstName, request.LastName, request.PhoneNumber)
@@ -31,6 +32,6 @@ internal sealed class AddUserCommandHandler : ICommandHandler<AddUserCommand, st
 
         await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
 
-        return user.FullName;
+        return new UserDto(user.PhoneNumber, user.CreatedOn);
     }
 }

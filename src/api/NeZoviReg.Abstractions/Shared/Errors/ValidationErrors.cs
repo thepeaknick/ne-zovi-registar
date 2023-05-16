@@ -35,7 +35,7 @@ public static class RegErrors
 
        public static readonly Func<string, Error> RolesNotFound = role => new Error(
            ErrorCode.NotFound,
-           $"{role} nisu pronađeni.");
+           $"Pripadnici '{role}' role nisu pronađeni.");
 
         public static readonly Error InvalidCredentials = new(
             ErrorCode.InvalidCredentials,
@@ -48,6 +48,10 @@ public static class RegErrors
         public static readonly Error NotRegistered = new(
             ErrorCode.NotFound,
             "Korisnik nije registrovan.");
+
+        public static readonly Error NotLoggedIn = new(
+            ErrorCode.Empty,
+            "Ulogujte se u sistem.");
     }
 
     public static class Operator
@@ -146,7 +150,7 @@ public static class RegErrors
 
         public static readonly Func<DateTime?, Error> NotFoundAfter = after=>
         {
-            var afterStr = after == default ? string.Empty : $" posle {after:d/M/yy}";
+            var afterStr = after == default ? string.Empty : $" posle {after:dd.MM.yyyy}";
             return new(ErrorCode.NotFound,
                 $"Nema novih korisnika u registru{afterStr}.");
         };

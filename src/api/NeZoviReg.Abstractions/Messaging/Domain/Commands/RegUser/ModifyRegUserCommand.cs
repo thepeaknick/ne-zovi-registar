@@ -11,6 +11,5 @@ public record ModifyRegUserCommand
         string? FirstName = default,
         string? LastName = default,
         string? UserName = default,
-        string? Password = default,
         List<int>? Roles = default)
     : BaseCommand<RegUserDto>;
