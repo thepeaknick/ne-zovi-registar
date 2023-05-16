@@ -2,12 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>NeZoviApp</title>
-  <base href="/">
+  <title>Ne zovi</title>
+  <base href="./">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-  <app-root></app-root>
+  <noscript>Potrebno je da omogućite JavaScript da biste startovali ovu aplikaciju.</noscript>
+  <app-root>
+    <div class="fade show" style="text-align: center; padding-top: calc(100vh / 2); height: 100vh">
+      <i class="spinner-grow spinner-grow-sm"></i>
+      <span class="m-1">Učitavanje...</span>
+    </div>
+  </app-root>
 </body>
 </html>
