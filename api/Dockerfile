@@ -11,7 +11,7 @@ EXPOSE 443
 ENV ASPNETCORE_ENVIRONMENT=Development
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR .
+WORKDIR /src
 COPY ["src/NeZoviReg.WebApi/NeZoviReg.WebApi.csproj", "src/NeZoviReg.WebApi/"]
 COPY ["src/NeZoviReg.Abstractions/NeZoviReg.Abstractions.csproj", "src/NeZoviReg.Abstractions/"]
 COPY ["src/NeZoviReg.Domain/NeZoviReg.Domain.csproj", "src/NeZoviReg.Domain/"]
@@ -21,20 +21,15 @@ COPY ["src/NeZoviReg.Application/NeZoviReg.Application.csproj", "src/NeZoviReg.A
 COPY ["src/NeZoviReg.Persistence.Ef/NeZoviReg.Persistence.Ef.csproj", "src/NeZoviReg.Persistence.Ef/"]
 RUN dotnet restore "src/NeZoviReg.WebApi/NeZoviReg.WebApi.csproj"
 COPY . .
-WORKDIR "/src/NeZoviReg.WebApi"
+WORKDIR "/src/src/NeZoviReg.WebApi"
 RUN dotnet build "NeZoviReg.WebApi.csproj" -c Release -o /app/build
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS migration
-WORKDIR .
-COPY ["src/NeZoviReg.Abstractions/NeZoviReg.Abstractions.csproj", "src/NeZoviReg.Abstractions/"]
-COPY ["src/NeZoviReg.Domain/NeZoviReg.Domain.csproj", "src/NeZoviReg.Domain/"]
-COPY ["src/NeZoviReg.Auth/NeZoviReg.Auth.csproj", "src/NeZoviReg.Auth/"]
-COPY ["src/NeZoviReg.Application/NeZoviReg.Application.csproj", "src/NeZoviReg.Application/"]
-COPY ["src/NeZoviReg.Persistence.Ef/NeZoviReg.Persistence.Ef.csproj", "src/NeZoviReg.Persistence.Ef/"]
+WORKDIR /src
 COPY ["src/NeZoviReg.Migrations.Ef/NeZoviReg.Migrations.Ef.csproj", "src/NeZoviReg.Migrations.Ef/"]
 RUN dotnet restore "src/NeZoviReg.Migrations.Ef/NeZoviReg.Migrations.Ef.csproj"
 COPY . .
-WORKDIR "/src/NeZoviReg.Migrations.Ef"
+WORKDIR "/src/src/NeZoviReg.Migrations.Ef"
 RUN dotnet build "NeZoviReg.Migrations.Ef.csproj" -c Release -o /app/migration
 
 
