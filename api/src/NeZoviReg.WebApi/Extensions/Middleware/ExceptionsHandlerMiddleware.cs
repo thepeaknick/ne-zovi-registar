@@ -19,6 +19,22 @@ public class NeZoviExceptionsHandlingMiddleware : IMiddleware
         {
             await next(context);
         }
+        catch (SecurityTokenInvalidSignatureException e)
+        {
+            _logger.LogError(e, e.Message);
+
+            context.Response.StatusCode = (int) HttpStatusCode.Unauthorized;
+            context.Response.ContentType = "application/json";
+
+            var json = JsonSerializer.Serialize(WebApiExtensions.CreateProblemDetails("Nevalidan potpis tokena. Algoritam nije ispravan.",
+                (int) HttpStatusCode.Unauthorized,
+                RegErrors.App.ForbiddenAccess
+            ));
+
+            await context.Response.WriteAsync(json);
+
+        }
+
         catch (SecurityTokenException e)
         {
             _logger.LogError(e, e.Message);

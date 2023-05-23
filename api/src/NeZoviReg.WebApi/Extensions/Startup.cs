@@ -25,6 +25,14 @@ public static class Startup
 
     }
 
+    public static IConfigurationBuilder AddConfigurationJsonFiles(this IConfigurationBuilder builder, IHostEnvironment? environment = null, bool reloadOnChange = true)
+    {
+        builder.AddJsonFile("appsettings.json", false, reloadOnChange);
+        if (environment != null)
+            builder.AddJsonFile("appsettings." + environment.EnvironmentName + ".json", true, reloadOnChange);
+        return builder.AddJsonFile("appsettings.my.json", true, reloadOnChange);
+    }
+
     private static IServiceCollection AddRateLimiter(this IServiceCollection services, IConfiguration configuration)
     {
         var fixedWindowRateLimitOptions = new FixedWindowRateLimitOptions();
