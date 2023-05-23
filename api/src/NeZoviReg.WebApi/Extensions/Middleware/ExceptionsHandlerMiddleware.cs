@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json;
+using Microsoft.IdentityModel.Tokens;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.WebApi.Extensions.WebApi;
 
@@ -18,17 +19,32 @@ public class NeZoviExceptionsHandlingMiddleware : IMiddleware
         {
             await next(context);
         }
+        catch (SecurityTokenException e)
+        {
+            _logger.LogError(e, e.Message);
+
+            context.Response.StatusCode = (int) HttpStatusCode.Unauthorized;
+            context.Response.ContentType = "application/json";
+
+            var json = JsonSerializer.Serialize(WebApiExtensions.CreateProblemDetails("Nevalidan token.",
+                (int) HttpStatusCode.Unauthorized,
+                RegErrors.App.ForbiddenAccess
+            ));
+
+            await context.Response.WriteAsync(json);
+
+        }
         catch (Exception e)
         {
             _logger.LogError(e, e.Message);
 
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
             context.Response.ContentType = "application/json";
 
             var json = JsonSerializer.Serialize(WebApiExtensions.CreateProblemDetails("Greška na serveru.",
-                (int)HttpStatusCode.InternalServerError,
+                (int) HttpStatusCode.InternalServerError,
                 RegErrors.App.InternalServerError
-                ));
+            ));
 
             await context.Response.WriteAsync(json);
         }

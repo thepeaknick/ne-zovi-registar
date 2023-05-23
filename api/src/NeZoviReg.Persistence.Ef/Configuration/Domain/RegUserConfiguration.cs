@@ -47,6 +47,10 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
             .IsRequired()
             .HasMaxLength(RegUser.PasswordMaxLength);
 
+        builder.Property(x => x.RefreshToken);
+
+        builder.Property(x => x.RefreshTokenExpirationTime);
+
         builder.HasIndex(x => x.CompanyName).IsUnique();
 
         builder.HasIndex(x => x.RegNumber).IsUnique();
@@ -65,11 +69,11 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
     private static RegUser Create(string companyName, string address, string regNumber, string taxNumber, string firstName, string lastName, string userName, string password)
     {
         var regUser = new RegUser(1, companyName, userName)
-            .AddAddress(address)
-            .AddRegNumber(regNumber)
-            .AddTaxNumber(taxNumber)
-            .AddName(firstName, lastName)
-            .AddPassword(password);
+            .WithAddress(address)
+            .WithRegNumber(regNumber)
+            .WithTaxNumber(taxNumber)
+            .WithName(firstName, lastName)
+            .WithPassword(password);
 
         regUser.AddCreation();
 

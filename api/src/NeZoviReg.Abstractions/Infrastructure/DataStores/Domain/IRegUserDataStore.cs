@@ -15,8 +15,6 @@ public interface IRegUserDataStore
 
     Task<RegUser?> GetByUsernameAndPassword(string username, string password, CancellationToken cancellationToken = default);
 
-    //Task<RegUser?> GetByThumbprint(string thumbprint, CancellationToken cancellationToken = default);
-
     Task<RegUser?> GetById(int regUserId, CancellationToken cancellationToken = default);
 
     Task<RegUser?> GetByGuidId(Guid regUserId, CancellationToken cancellationToken = default);

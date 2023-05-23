@@ -226,4 +226,15 @@ public static class RegErrors
             ErrorCode.AlreadyInUse,
             $"Korisnik sa brojem '{phone}' je već u registru.");
     }
+
+    public static class Token
+    {
+        public static readonly Error AccessTokenEmpty = new(
+            ErrorCode.Empty,
+            "Access token je obavezan.");
+
+        public static readonly Error RefreshTokenEmpty = new(
+            ErrorCode.Empty,
+            "Refresh token je obavezan.");
+    }
 }
