@@ -15,7 +15,7 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
-    let users: Observable<User[]> = this.neZoviService.getAllUsers();
+    let users: User[] = this.neZoviService.getAllUsers();
   }
 
 }
