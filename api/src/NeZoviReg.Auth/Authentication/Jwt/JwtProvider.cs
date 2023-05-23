@@ -33,7 +33,7 @@ internal sealed class JwtProvider : IJwtProvider
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)),
                                      SecurityAlgorithms.HmacSha256Signature);
-        
+
         /*var permissions = await _authDataStore.GetUserPermissionsAsync(user.Id, cancellationToken);
 
         foreach (string permission in permissions)
@@ -72,7 +72,7 @@ internal sealed class JwtProvider : IJwtProvider
         var now = DateTime.Now;
 
         var (principal, jwtToken) = DecodeJwtToken(accessToken);
-        if (jwtToken == null || !jwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256Signature))
+        if (jwtToken is null || !jwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256Signature))
         {
             throw new SecurityTokenInvalidSignatureException("Invalid token. Token algorithm is wrong.");
         }
@@ -94,7 +94,7 @@ internal sealed class JwtProvider : IJwtProvider
         return new RefreshTokenResult(regUser, tokens.AccessToken, tokens.RefreshToken);
     }
 
-    private (ClaimsPrincipal, JwtSecurityToken) DecodeJwtToken(string token)
+    private (ClaimsPrincipal, JwtSecurityToken?) DecodeJwtToken(string token)
     {
         if (string.IsNullOrWhiteSpace(token))
         {
