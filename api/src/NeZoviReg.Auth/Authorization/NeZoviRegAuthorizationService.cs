@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Auth;
 using NeZoviReg.Abstractions.Shared.Caching;
-using NeZoviReg.Auth.Authentication.Services;
+using NeZoviReg.Abstractions.Shared.Model.Auth;
 
 namespace NeZoviReg.Auth.Authorization;
 

@@ -1,4 +1,7 @@
-﻿namespace NeZoviReg.Abstractions.Shared.Model;
+﻿using System.Security.Claims;
+using NeZoviReg.Abstractions.Shared.Model.Auth;
+
+namespace NeZoviReg.Abstractions.Shared.Model;
 
 public class AppUser
 {
@@ -12,6 +15,20 @@ public class AppUser
         UserName = userName;
     }
 
-    public static AppUser Default => new (Guid.Empty, string.Empty);
+    public static AppUser Default => new(Guid.Empty, string.Empty);
+
+    public static AppUser GetUser(ClaimsPrincipal principal)
+    {
+        if (!Guid.TryParse(principal.Claims.FirstOrDefault(x => x.Type == CustomClaims.RegUserId)?.Value,
+                out Guid regUserId))
+            return AppUser.Default;
+
+        var userName = principal.Claims
+            .FirstOrDefault(x => x.Type == CustomClaims.RegUserName)?
+            .Value ?? string.Empty;
+
+        return new(regUserId, userName);
+
+    }
 }
 

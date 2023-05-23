@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NeZoviReg.Persistence.Ef;
 
@@ -11,9 +12,11 @@ using NeZoviReg.Persistence.Ef;
 namespace NeZoviReg.Migrations.Ef.Migrations
 {
     [DbContext(typeof(NeZoviRegDataContext))]
-    partial class NeZoviRegDataContextModelSnapshot : ModelSnapshot
+    [Migration("20230523092613_RegUser_Add_RefreshToken")]
+    partial class RegUser_Add_RefreshToken
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,35 +69,35 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                         {
                             Id = 1,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 5, 23, 11, 27, 26, 973, DateTimeKind.Local).AddTicks(6370),
+                            CreatedOn = new DateTime(2023, 5, 23, 11, 26, 13, 720, DateTimeKind.Local).AddTicks(483),
                             Name = "All"
                         },
                         new
                         {
                             Id = 4,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 5, 23, 11, 27, 26, 973, DateTimeKind.Local).AddTicks(6415),
+                            CreatedOn = new DateTime(2023, 5, 23, 11, 26, 13, 720, DateTimeKind.Local).AddTicks(534),
                             Name = "Read"
                         },
                         new
                         {
                             Id = 3,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 5, 23, 11, 27, 26, 973, DateTimeKind.Local).AddTicks(6417),
+                            CreatedOn = new DateTime(2023, 5, 23, 11, 26, 13, 720, DateTimeKind.Local).AddTicks(536),
                             Name = "Delete"
                         },
                         new
                         {
                             Id = 5,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 5, 23, 11, 27, 26, 973, DateTimeKind.Local).AddTicks(6419),
+                            CreatedOn = new DateTime(2023, 5, 23, 11, 26, 13, 720, DateTimeKind.Local).AddTicks(538),
                             Name = "ReadAll"
                         },
                         new
                         {
                             Id = 2,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 5, 23, 11, 27, 26, 973, DateTimeKind.Local).AddTicks(6421),
+                            CreatedOn = new DateTime(2023, 5, 23, 11, 26, 13, 720, DateTimeKind.Local).AddTicks(540),
                             Name = "Write"
                         });
                 });
@@ -141,7 +144,7 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                             RegUserId = 1,
                             RoleId = 1,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 5, 23, 11, 27, 26, 982, DateTimeKind.Local).AddTicks(2447)
+                            CreatedOn = new DateTime(2023, 5, 23, 11, 26, 13, 731, DateTimeKind.Local).AddTicks(2910)
                         });
                 });
 
@@ -189,28 +192,28 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                         {
                             Id = 1,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 5, 23, 11, 27, 26, 989, DateTimeKind.Local).AddTicks(9143),
+                            CreatedOn = new DateTime(2023, 5, 23, 11, 26, 13, 736, DateTimeKind.Local).AddTicks(4877),
                             Name = "Admin"
                         },
                         new
                         {
                             Id = 3,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 5, 23, 11, 27, 26, 989, DateTimeKind.Local).AddTicks(9201),
+                            CreatedOn = new DateTime(2023, 5, 23, 11, 26, 13, 736, DateTimeKind.Local).AddTicks(4916),
                             Name = "Obveznik"
                         },
                         new
                         {
                             Id = 2,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 5, 23, 11, 27, 26, 989, DateTimeKind.Local).AddTicks(9204),
+                            CreatedOn = new DateTime(2023, 5, 23, 11, 26, 13, 736, DateTimeKind.Local).AddTicks(4919),
                             Name = "Trgovac"
                         },
                         new
                         {
                             Id = 4,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 5, 23, 11, 27, 26, 989, DateTimeKind.Local).AddTicks(9207),
+                            CreatedOn = new DateTime(2023, 5, 23, 11, 26, 13, 736, DateTimeKind.Local).AddTicks(4921),
                             Name = "Potrosac"
                         });
                 });
@@ -257,42 +260,42 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                             RoleId = 1,
                             PermissionId = 1,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 5, 23, 11, 27, 26, 990, DateTimeKind.Local).AddTicks(7312)
+                            CreatedOn = new DateTime(2023, 5, 23, 11, 26, 13, 737, DateTimeKind.Local).AddTicks(1997)
                         },
                         new
                         {
                             RoleId = 3,
                             PermissionId = 2,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 5, 23, 11, 27, 26, 990, DateTimeKind.Local).AddTicks(7339)
+                            CreatedOn = new DateTime(2023, 5, 23, 11, 26, 13, 737, DateTimeKind.Local).AddTicks(2012)
                         },
                         new
                         {
                             RoleId = 3,
                             PermissionId = 3,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 5, 23, 11, 27, 26, 990, DateTimeKind.Local).AddTicks(7341)
+                            CreatedOn = new DateTime(2023, 5, 23, 11, 26, 13, 737, DateTimeKind.Local).AddTicks(2014)
                         },
                         new
                         {
                             RoleId = 2,
                             PermissionId = 4,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 5, 23, 11, 27, 26, 990, DateTimeKind.Local).AddTicks(7343)
+                            CreatedOn = new DateTime(2023, 5, 23, 11, 26, 13, 737, DateTimeKind.Local).AddTicks(2015)
                         },
                         new
                         {
                             RoleId = 2,
                             PermissionId = 5,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 5, 23, 11, 27, 26, 990, DateTimeKind.Local).AddTicks(7344)
+                            CreatedOn = new DateTime(2023, 5, 23, 11, 26, 13, 737, DateTimeKind.Local).AddTicks(2017)
                         },
                         new
                         {
                             RoleId = 4,
                             PermissionId = 4,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 5, 23, 11, 27, 26, 990, DateTimeKind.Local).AddTicks(7346)
+                            CreatedOn = new DateTime(2023, 5, 23, 11, 26, 13, 737, DateTimeKind.Local).AddTicks(2035)
                         });
                 });
 
@@ -348,7 +351,8 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("RefreshToken")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime?>("RefreshTokenExpirationTime")
                         .HasColumnType("datetime2");
@@ -398,9 +402,9 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                             Address = "Palmotićeva 2",
                             CompanyName = "RATEL",
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 5, 23, 11, 27, 26, 991, DateTimeKind.Local).AddTicks(3303),
+                            CreatedOn = new DateTime(2023, 5, 23, 11, 26, 13, 737, DateTimeKind.Local).AddTicks(8034),
                             FirstName = "Ime",
-                            GuidId = new Guid("d7cba23d-cbc5-4968-b333-d693d0851722"),
+                            GuidId = new Guid("3ccf33ed-8a07-4d3d-b0af-62bdb9b2e4ee"),
                             LastName = "Prezime",
                             Password = "dGVzdDEyMw==",
                             RegNumber = "17606590",

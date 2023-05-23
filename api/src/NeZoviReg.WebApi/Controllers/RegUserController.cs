@@ -10,12 +10,13 @@ using NeZoviReg.WebApi.Model.RegUser;
 using System.Net;
 using NeZoviReg.Abstractions.Messaging.Domain.Model;
 using NeZoviReg.Abstractions.Messaging.Domain.Queries.RegUser;
+using NeZoviReg.Abstractions.Shared.Model.Auth;
 
 namespace NeZoviReg.WebApi.Controllers;
 
-//[HasPermission(PermissionType.All)]
-[AllowAnonymous]
+
 [Route("regusers")]
+[HasPermission(PermissionType.All)]
 public class RegUserController : NeZoviRegBaseController
 {
     public RegUserController(ISender sender, ILogger<RegUserController> logger)
@@ -23,9 +24,9 @@ public class RegUserController : NeZoviRegBaseController
     {
     }
 
-    /*[HttpPost("login")]
-    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
-    //[AllowAnonymous]
+    [HttpPost("login")]
+    [ProducesResponseType(typeof(TokenResult), (int)HttpStatusCode.OK)]
+    [AllowAnonymous]
     public async Task<IActionResult> LoginRegUser([FromBody] LoginRequest request, CancellationToken cancellationToken)
     {
         var command = new LoginCommand(request.Username, request.Password);
@@ -33,7 +34,7 @@ public class RegUserController : NeZoviRegBaseController
         var result = await Sender.Send(command, cancellationToken);
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
-    }*/
+    }
 
     [HttpPost("register")]
     [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
@@ -49,7 +50,7 @@ public class RegUserController : NeZoviRegBaseController
     }
 
 
-    /*[HttpPatch("modify")]
+    [HttpPatch("modify")]
     [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> ModifyRegUser([FromBody] ModifyRegUserRequest request, CancellationToken cancellationToken)
     {
@@ -60,7 +61,7 @@ public class RegUserController : NeZoviRegBaseController
         var result = await Sender.Send(command, cancellationToken);
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
-    }*/
+    }
 
     [HttpPatch("{regUserId:required}")]
     [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
@@ -75,7 +76,7 @@ public class RegUserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
-    /*[HttpPatch("forgotpassword")]
+    [HttpPatch("forgotpassword")]
     [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> ChangeRegUserPassword([FromBody] ChangeRegUserPasswordRequest request, CancellationToken cancellationToken)
     {
@@ -85,7 +86,7 @@ public class RegUserController : NeZoviRegBaseController
         var result = await Sender.Send(command, cancellationToken);
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
-    }*/
+    }
 
     [HttpDelete("{regUserId:required}")]
     [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]

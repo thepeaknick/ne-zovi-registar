@@ -38,7 +38,7 @@ internal sealed class ChangePassRegUserCommandHandler : ICommandHandler<ChangePa
             return Result.Failure<RegUserDto>(RegErrors.RegUser.InvalidCredentials);
         }
 
-        regUser.AddPassword(request.NewPassword);
+        regUser.WithPassword(request.NewPassword);
 
         _regUserDataStore.Update(regUser);
 

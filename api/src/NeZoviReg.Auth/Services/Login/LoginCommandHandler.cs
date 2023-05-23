@@ -1,40 +1,51 @@
 ﻿using Microsoft.Extensions.Logging;
+using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Auth.Commands;
+using NeZoviReg.Abstractions.Messaging.Auth.Model;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Auth.Authentication.Jwt;
 
 namespace NeZoviReg.Auth.Services.Login;
 
-internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, string>
+internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginResultDto>
 {
     private readonly IRegUserDataStore _regUserDataStore;
     private readonly IJwtProvider _jwtProvider;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly ILogger<LoginCommandHandler> _logger;
 
     public LoginCommandHandler(
         IRegUserDataStore regUserDataStore,
         IJwtProvider jwtProvider,
+        IUnitOfWork unitOfWork,
         ILogger<LoginCommandHandler> logger)
     {
         _regUserDataStore = regUserDataStore;
         _jwtProvider = jwtProvider;
+        _unitOfWork = unitOfWork;
         _logger = logger;
     }
 
-    public async Task<Result<string>> Handle(LoginCommand request, CancellationToken cancellationToken)
+    public async Task<Result<LoginResultDto>> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
         var regUser = await _regUserDataStore.GetByUsernameAndPassword(request.UserName, request.Password, cancellationToken);
 
         if (regUser is null)
         {
-            return Result.Failure<string>(RegErrors.RegUser.InvalidCredentials);
+            return Result.Failure<LoginResultDto>(RegErrors.RegUser.InvalidCredentials);
         }
 
-        var token = await _jwtProvider.GenerateAsync(regUser, cancellationToken);
+        var loginResult = await _jwtProvider.GenerateTokenAsync(regUser, cancellationToken);
 
-        return token;
+        regUser.WithRefreshToken(loginResult.RefreshToken.TokenString)
+            .WithRefreshTokenExpTime(loginResult.RefreshToken.ExpireAt);
+        _regUserDataStore.Update(regUser);
+
+        await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
+
+        return new LoginResultDto(loginResult.AccessToken, loginResult.RefreshToken.TokenString);
     }
 }

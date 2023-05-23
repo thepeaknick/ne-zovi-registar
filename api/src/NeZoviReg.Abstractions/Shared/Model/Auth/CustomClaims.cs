@@ -1,4 +1,4 @@
-﻿namespace NeZoviReg.Auth.Authentication.Services;
+﻿namespace NeZoviReg.Abstractions.Shared.Model.Auth;
 
 public static class CustomClaims
 {
