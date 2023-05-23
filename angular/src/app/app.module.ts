@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import {
   PERFECT_SCROLLBAR_CONFIG,
@@ -18,6 +19,9 @@ import {
   DefaultFooterComponent,
   DefaultHeaderComponent,
   DefaultLayoutComponent,
+  PageFooterComponent,
+  PageHeaderComponent,
+  PageLayoutComponent,
 } from './containers';
 
 import {
@@ -42,6 +46,7 @@ import {
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
+import { NeZoviService } from './domain/services/nezovi.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -51,6 +56,10 @@ const APP_CONTAINERS = [
   DefaultFooterComponent,
   DefaultHeaderComponent,
   DefaultLayoutComponent,
+
+  PageLayoutComponent,
+  PageHeaderComponent,
+  PageFooterComponent,
 ];
 
 @NgModule({
@@ -60,6 +69,7 @@ const APP_CONTAINERS = [
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     AvatarModule,
@@ -89,7 +99,11 @@ const APP_CONTAINERS = [
   providers: [
     {
       provide: LocationStrategy,
-      useClass: HashLocationStrategy,
+      useClass: PathLocationStrategy,
+    },
+    {
+      provide: NeZoviService,
+      useClass: NeZoviService,
     },
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
