@@ -77,16 +77,15 @@ internal sealed class JwtProvider : IJwtProvider
             throw new SecurityTokenInvalidSignatureException("Invalid token. Token algorithm is wrong.");
         }
 
-        var appUser = AppUser.GetUser(principal);
-        if (appUser is null)
-        {
-            throw new SecurityTokenException("Invalid token");
-        }
-        var regUser = await _regUserDataStore.GetByGuidId(appUser.Id, cancellationToken);
+        var appUser = AppUser.GetUser(principal)
+                      ?? throw new SecurityTokenException("Invalid token. Claims are wrong.");
 
-        if (regUser?.RefreshToken != refreshToken || regUser.RefreshTokenExpirationTime < now)
+        var regUser = await _regUserDataStore.GetByGuidId(appUser.Id, cancellationToken)
+                      ?? throw new SecurityTokenException($"Invalid token. RegUser with GuidId={appUser.Id} doesnt exist");
+
+        if (regUser.RefreshToken != refreshToken || regUser.RefreshTokenExpirationTime < now)
         {
-            throw new SecurityTokenException($"Invalid token, RegUser.RefreshToken={regUser?.RefreshToken}");
+            throw new SecurityTokenException($"Invalid token, RegUser.RefreshToken={regUser.RefreshToken}");
         }
 
         var tokens =  await GenerateTokenAsync(regUser, cancellationToken);
@@ -96,10 +95,6 @@ internal sealed class JwtProvider : IJwtProvider
 
     private (ClaimsPrincipal, JwtSecurityToken?) DecodeJwtToken(string token)
     {
-        if (string.IsNullOrWhiteSpace(token))
-        {
-            throw new SecurityTokenException("Invalid token. Token is null or empty.");
-        }
         var principal = new JwtSecurityTokenHandler()
             .ValidateToken(token,
                 new TokenValidationParameters
