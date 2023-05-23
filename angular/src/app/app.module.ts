@@ -46,6 +46,7 @@ import {
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
+import { NeZoviService } from './domain/services/nezovi.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -99,6 +100,10 @@ const APP_CONTAINERS = [
     {
       provide: LocationStrategy,
       useClass: PathLocationStrategy,
+    },
+    {
+      provide: NeZoviService,
+      useClass: NeZoviService,
     },
     {
       provide: PERFECT_SCROLLBAR_CONFIG,

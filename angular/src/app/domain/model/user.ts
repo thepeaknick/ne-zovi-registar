@@ -1,9 +1,10 @@
 import { Entity } from "./entity";
+import { Operator } from "./operator";
 
-export interface user extends Entity {
+export interface User extends Entity {
     firstName: string;
     lastName: string;
     phoneNumber: string;
     jmbg: string;
-    operatorId: number;
+    operator: Operator;
 }
