@@ -2,6 +2,7 @@
 using System.Text.Json;
 using Microsoft.IdentityModel.Tokens;
 using NeZoviReg.Abstractions.Shared.Errors;
+using NeZoviReg.Auth.Exceptions;
 using NeZoviReg.WebApi.Extensions.WebApi;
 
 namespace NeZoviReg.WebApi.Extensions.Middleware;
@@ -19,6 +20,21 @@ public class NeZoviExceptionsHandlingMiddleware : IMiddleware
         {
             await next(context);
         }
+        catch (RefreshTokenExpiredException e)
+        {
+            _logger.LogError(e, e.Message);
+
+            context.Response.StatusCode = (int) HttpStatusCode.Unauthorized;
+            context.Response.ContentType = "application/json";
+
+            var json = JsonSerializer.Serialize(WebApiExtensions.CreateProblemDetails("Refresh token je istekao. Ulogujte se ponovo.",
+                (int) HttpStatusCode.Unauthorized,
+                RegErrors.App.ForbiddenAccess
+            ));
+
+            await context.Response.WriteAsync(json);
+
+        }
         catch (SecurityTokenInvalidSignatureException e)
         {
             _logger.LogError(e, e.Message);
@@ -34,7 +50,6 @@ public class NeZoviExceptionsHandlingMiddleware : IMiddleware
             await context.Response.WriteAsync(json);
 
         }
-
         catch (SecurityTokenException e)
         {
             _logger.LogError(e, e.Message);

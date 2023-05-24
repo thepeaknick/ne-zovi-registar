@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Shared.Model;
 using NeZoviReg.Abstractions.Shared.Model.Auth;
+using NeZoviReg.Auth.Exceptions;
 using RegUser = NeZoviReg.Domain.Model.Domain.RegUser;
 
 namespace NeZoviReg.Auth.Authentication.Jwt;
@@ -85,7 +86,7 @@ internal sealed class JwtProvider : IJwtProvider
 
         if (regUser.RefreshToken != refreshToken || regUser.RefreshTokenExpirationTime < now)
         {
-            throw new SecurityTokenException($"Invalid token, RegUser.RefreshToken={regUser.RefreshToken}");
+            throw new RefreshTokenExpiredException($"Invalid token, RegUser.RefreshToken={regUser.RefreshToken}");
         }
 
         var tokens =  await GenerateTokenAsync(regUser, cancellationToken);
