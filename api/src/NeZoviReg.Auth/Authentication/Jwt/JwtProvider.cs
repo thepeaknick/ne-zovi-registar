@@ -73,14 +73,7 @@ internal sealed class JwtProvider : IJwtProvider
         var now = DateTime.Now;
 
         PrincipalWithToken pandt;
-        try
-        {
-            pandt = DecodeJwtToken(accessToken);
-        }
-        catch (Exception e)
-        {
-            throw new SecurityTokenExpiredException("Invalid token. Token algorithm is wrong.", e);
-        }
+        pandt = DecodeJwtToken(accessToken);
 
         if (pandt.JwtToken is null || !pandt.JwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256Signature))
         {
@@ -91,7 +84,7 @@ internal sealed class JwtProvider : IJwtProvider
                       ?? throw new SecurityTokenException("Invalid token. Claims are wrong.");
 
         var regUser = await _regUserDataStore.GetByGuidId(appUser.Id, cancellationToken)
-                      ?? throw new SecurityTokenException($"Invalid token. RegUser with GuidId={appUser.Id} doesnt exist");
+                      ?? throw new SecurityTokenException($"Invalid token. RegUser with GuidId={appUser.Id} doesn't exist");
 
         if (regUser.RefreshToken != refreshToken || regUser.RefreshTokenExpirationTime < now)
         {
