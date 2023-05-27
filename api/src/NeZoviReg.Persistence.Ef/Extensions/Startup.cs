@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NeZoviReg.Abstractions.Infrastructure.DataStores;
@@ -16,7 +17,8 @@ public static class Startup
     {
         return services
             .AddDbContext<NeZoviRegDataContext>(op =>
-        {
+            {
+                op.ConfigureWarnings(x => x.Ignore(RelationalEventId.MultipleCollectionIncludeWarning));
             op.UseSqlServer(configuration.GetConnectionString("SqlServerDatabase"))
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTrackingWithIdentityResolution);
         })
