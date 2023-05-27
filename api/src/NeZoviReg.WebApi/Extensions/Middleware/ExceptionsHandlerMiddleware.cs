@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json;
+using Azure.Core;
 using Microsoft.IdentityModel.Tokens;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Auth.Exceptions;
@@ -45,6 +46,21 @@ public class NeZoviExceptionsHandlingMiddleware : IMiddleware
             var json = JsonSerializer.Serialize(WebApiExtensions.CreateProblemDetails("Nevalidan potpis tokena. Algoritam nije ispravan.",
                 (int) HttpStatusCode.Unauthorized,
                 RegErrors.App.ForbiddenAccess
+            ));
+
+            await context.Response.WriteAsync(json);
+
+        }
+        catch (SecurityTokenExpiredException e)
+        {
+            _logger.LogError(e, e.Message);
+
+            context.Response.StatusCode = (int) HttpStatusCode.Unauthorized;
+            context.Response.ContentType = "application/json";
+
+            var json = JsonSerializer.Serialize(WebApiExtensions.CreateProblemDetails("Nevalidan token.",
+                (int) HttpStatusCode.Unauthorized,
+                RegErrors.Token.AccessTokenExpired
             ));
 
             await context.Response.WriteAsync(json);

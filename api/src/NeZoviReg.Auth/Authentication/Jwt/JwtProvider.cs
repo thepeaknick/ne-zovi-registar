@@ -72,13 +72,22 @@ internal sealed class JwtProvider : IJwtProvider
     {
         var now = DateTime.Now;
 
-        var (principal, jwtToken) = DecodeJwtToken(accessToken);
-        if (jwtToken is null || !jwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256Signature))
+        PrincipalWithToken pandt;
+        try
+        {
+            pandt = DecodeJwtToken(accessToken);
+        }
+        catch (Exception e)
+        {
+            throw new SecurityTokenExpiredException("Invalid token. Token algorithm is wrong.", e);
+        }
+
+        if (pandt.JwtToken is null || !pandt.JwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256Signature))
         {
             throw new SecurityTokenInvalidSignatureException("Invalid token. Token algorithm is wrong.");
         }
 
-        var appUser = AppUser.GetUser(principal)
+        var appUser = AppUser.GetUser(pandt.Principal)
                       ?? throw new SecurityTokenException("Invalid token. Claims are wrong.");
 
         var regUser = await _regUserDataStore.GetByGuidId(appUser.Id, cancellationToken)
@@ -89,12 +98,12 @@ internal sealed class JwtProvider : IJwtProvider
             throw new RefreshTokenExpiredException($"Invalid token, RegUser.RefreshToken={regUser.RefreshToken}");
         }
 
-        var tokens =  await GenerateTokenAsync(regUser, cancellationToken);
+        var tokens = await GenerateTokenAsync(regUser, cancellationToken);
 
         return new RefreshTokenResult(regUser, tokens.AccessToken, tokens.RefreshToken);
     }
 
-    private (ClaimsPrincipal, JwtSecurityToken?) DecodeJwtToken(string token)
+    private PrincipalWithToken DecodeJwtToken(string token)
     {
         var principal = new JwtSecurityTokenHandler()
             .ValidateToken(token,
@@ -110,6 +119,9 @@ internal sealed class JwtProvider : IJwtProvider
                 },
                 out var validatedToken);
 
-        return (principal, validatedToken as JwtSecurityToken);
+        return new (principal, validatedToken as JwtSecurityToken);
     }
+
+
+    private record PrincipalWithToken(ClaimsPrincipal Principal, JwtSecurityToken? JwtToken);
 }
