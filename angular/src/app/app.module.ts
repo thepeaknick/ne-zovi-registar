@@ -46,7 +46,8 @@ import {
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
-import { NeZoviService } from './domain/services/nezovi.service';
+import { UserService } from './domain/services/user.service';
+import { RegUserService } from './domain/services/reguser.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -97,18 +98,10 @@ const APP_CONTAINERS = [
     CardModule,
   ],
   providers: [
-    {
-      provide: LocationStrategy,
-      useClass: PathLocationStrategy,
-    },
-    {
-      provide: NeZoviService,
-      useClass: NeZoviService,
-    },
-    {
-      provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
-    },
+    { provide: LocationStrategy, useClass: PathLocationStrategy },
+    { provide: UserService, useClass: UserService },
+    { provide: RegUserService, useClass: RegUserService },
+    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     IconSetService,
     Title
   ],

@@ -1,0 +1,90 @@
+export interface AddUserRequest {
+    firstName: string;
+    lastName: string;
+    jmbg: string;
+    phoneNumber: string;
+    operatorId: number;
+}
+
+export interface ChangeRegUserPasswordRequest {
+    password: string;
+    newPassword: string;
+}
+
+export interface LoginRequest {
+    username: string;
+    password: string;
+}
+
+export interface LoginResultDto {
+    accessToken: string;
+    refreshToken: string;
+}
+
+export enum RoleType {
+    //RATEL or partner
+    Admin = 1,
+    //Content provder
+    Trgovac,
+    //Operater
+    Obveznik,
+    //End user (from RATEL site), only check its own number
+    Potrosac,
+}
+
+export interface ModifyRegUserRequest {
+    name: string;
+    address: string;
+    regNumber: string;
+    taxNumber: string;
+    firstName: string;
+    lastName: string;
+    userName: string;
+    roles: RoleType[];
+}
+
+export interface ModifyUserRequest {
+    firstName: string;
+    lastName: string;
+    jmbg: string;
+    phoneNumber: string;
+    operatorId: number;
+}
+
+export interface RefreshToken {
+    tokenString: string;
+    expireAt: string; // "format": "date-time"
+}
+
+export interface RefreshTokenRequest {
+    accessToken: string;
+    refreshToken: string;
+}
+
+export interface RegUserDto {
+    guidId: string;
+    name: string;
+    id: number;
+}
+
+export interface RegisterRegUserRequest {
+    name: string;
+    address: string;
+    regNumber: string;
+    taxNumber: string;
+    firstName: string;
+    lastName: string;
+    userName: string;
+    password: string;
+    roles: RoleType[];
+}
+
+export interface TokenResult {
+    accessToken: string;
+    refreshToken: RefreshToken;
+}
+
+export interface UserDto {
+    phoneNumber: string;
+    createdModifiedOn: string;
+}
