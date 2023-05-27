@@ -1,7 +1,5 @@
 ﻿using System.Net;
 using System.Text.Json;
-using Azure.Core;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using NeZoviReg.Abstractions.Shared.Errors;

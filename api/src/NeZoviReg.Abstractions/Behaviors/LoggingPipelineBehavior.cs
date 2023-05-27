@@ -14,11 +14,11 @@ public class LoggingPipelineBehavior<TRequest, TResponse>
     public LoggingPipelineBehavior(ILogger<LoggingPipelineBehavior<TRequest, TResponse>> logger) =>_logger = logger;
 
     public async Task<TResponse> Handle(
-        TRequest request,
+        TRequest request, 
         RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Starting request {RequestName}, {@DateTime}", typeof(TRequest).Name, DateTime.Now);
+        _logger.LogInformation("Starting request {@Request}, {@DateTime}", request, DateTime.Now);
 
         var result = await next();
 
