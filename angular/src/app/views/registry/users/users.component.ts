@@ -25,7 +25,7 @@ export class UsersComponent implements OnInit {
       .subscribe(users => this.users = users);
 
     let response = this.userService
-      .getUser('0652015766x')
+      .getUser('0652015766')
       .subscribe({
         next: pn => { this.phoneNumber = pn; },
         error: err => { this.phoneNumber = 'unknown'; }

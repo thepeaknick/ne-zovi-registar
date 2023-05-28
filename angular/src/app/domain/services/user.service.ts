@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 
 import { map, catchError, retry } from 'rxjs/operators';
-import { UserDto } from '../model/schemas';
+import { AddUserRequest, ModifyUserRequest, UserDto } from '../model/schemas';
 import { BaseService } from './base.service';
 
 @Injectable({
@@ -16,6 +16,19 @@ export class UserService extends BaseService {
         super(http);
         this.path = 'users';
     }
+
+    addUser(addUserRequest: AddUserRequest): Observable<UserDto> {
+        return this.post<string>('add', addUserRequest);
+    }
+
+    modifyUser(phoneNumber: string, modifyUserRequest: ModifyUserRequest): Observable<UserDto> {
+        return this.patch<string>(phoneNumber, modifyUserRequest);
+    }
+
+    removeUser(phoneNumber: string): Observable<string> {
+        return this.deleteText<string>(phoneNumber);
+    }
+
 
     getUser(phoneNumber: string): Observable<string> {
         return this.getText<string>(phoneNumber);
@@ -31,5 +44,7 @@ export class UserService extends BaseService {
                 'all',
                 params); //{ after : after.toUTCString() }); 
     }
+
+
 
 }

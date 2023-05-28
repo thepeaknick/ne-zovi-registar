@@ -58,6 +58,7 @@ export class BaseService {
                 verb, 
                 this.Url(url), 
                 { 
+                    body: body,
                     headers: this.headers, 
                     responseType: responseType
                 }
@@ -74,7 +75,23 @@ export class BaseService {
 
 
     public getText<T>(url: string) : any {
-        return this.request<T>('GET', url);
+        return this.request<T>('GET', url, undefined, 'text');
+    }
+
+    public get<T>(url: string) : any {
+        return this.request<T>('GET', url, undefined, 'json');
+    }
+
+    public deleteText<T>(url: string) : any {
+        return this.request<T>('DELETE', url, undefined, 'text');
+    }
+
+    public post<T>(url: string, data: Object) : any {
+        return this.request<T>('POST', url, JSON.stringify(data), 'json');
+    }
+
+    public patch<T>(url: string, data: Object) : any {
+        return this.request<T>('PATCH', url, JSON.stringify(data), 'json');
     }
 
 
@@ -101,52 +118,52 @@ export class BaseService {
     //     return response;
     // }
 
-    public get<T>(url: string) : any {
+    // public get<T>(url: string) : any {
         
-        this.startCall();
+    //     this.startCall();
 
-        let response: Observable<T> = this.http
-            .get<T>(
-                this.Url(url), 
-                { 
-                    headers: this.headers,
-                });
+    //     let response: Observable<T> = this.http
+    //         .get<T>(
+    //             this.Url(url), 
+    //             { 
+    //                 headers: this.headers,
+    //             });
 
-        response.subscribe({ 
-            next: result => { return result; },
-            error: err => { return null; },
-            complete: () => this.finishCall() 
-        });
+    //     response.subscribe({ 
+    //         next: result => { return result; },
+    //         error: err => { return null; },
+    //         complete: () => this.finishCall() 
+    //     });
         
-        return response;
-    }
+    //     return response;
+    // }
 
-    public post<T>(
-        url: string, 
-        data: Object,
-        next?: (r: T) => void, 
-        error?: (r: T) => void) : Observable<T> {
+    // public post<T>(
+    //     url: string, 
+    //     data: Object,
+    //     next?: (r: T) => void, 
+    //     error?: (r: T) => void) : Observable<T> {
         
-        this.startCall();
+    //     this.startCall();
 
-        const httpParams: HttpParams = new HttpParams({
-            fromString:  JSON.stringify(data)
-        })
+    //     const httpParams: HttpParams = new HttpParams({
+    //         fromString:  JSON.stringify(data)
+    //     })
 
-        let response: Observable<T> = this.http
-            .post<T>(
-                this.Url(url), 
-                httpParams,
-                { 
-                    headers: this.headers,
-                });
+    //     let response: Observable<T> = this.http
+    //         .post<T>(
+    //             this.Url(url), 
+    //             httpParams,
+    //             { 
+    //                 headers: this.headers,
+    //             });
 
-        response.subscribe({ 
-            next: result => { return result; },
-            error: err => { return null; },
-            complete: () => this.finishCall() 
-        });
+    //     response.subscribe({ 
+    //         next: result => { return result; },
+    //         error: err => { return null; },
+    //         complete: () => this.finishCall() 
+    //     });
         
-        return response;
-    }
+    //     return response;
+    // }
 }
