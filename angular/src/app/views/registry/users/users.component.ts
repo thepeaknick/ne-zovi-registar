@@ -13,16 +13,23 @@ export class UsersComponent implements OnInit {
 
   }
 
+  users: UserDto[] = [];
+  phoneNumber: string | null = null;
+
   ngOnInit() {
     let after: Date = new Date();
     after.setMonth(3);
     
     this.userService
       .all(after)
-      .forEach(u => console.log(u));
+      .subscribe(users => this.users = users);
 
-    let phoneNumber: string | null = this.userService.getUser('0652015766');
-    console.log(`phone number = ${phoneNumber}`);
+    let response = this.userService
+      .getUser('0652015766x')
+      .subscribe({
+        next: pn => { this.phoneNumber = pn; },
+        error: err => { this.phoneNumber = 'unknown'; }
+      });
   }
 
 }

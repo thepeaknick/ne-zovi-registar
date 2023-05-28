@@ -1,1 +1,9 @@
 <p>users works!</p>
+
+<select aria-label="Large select example" cSelect class="mb-3" sizing="lg">
+    <option *ngFor="let user of users">
+      <span>{{ user.phoneNumber }} {{ user.createdModifiedOn }}</span>
+    </option>
+</select>
+
+<span>{{ phoneNumber }}</span>

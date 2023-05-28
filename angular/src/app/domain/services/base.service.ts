@@ -34,10 +34,12 @@ export class BaseService {
     constructor(public http: HttpClient) { 
     }
 
-    private callInProgress: number = 0;
+
     public get isCallInProgress() { 
         return this.callInProgress > 0; 
     }
+
+    private callInProgress: number = 0;
 
     startCall() {
         this.callInProgress++;
@@ -47,45 +49,75 @@ export class BaseService {
         this.callInProgress--;
     }
 
-    public get<T>(
-        url: string, 
-        next?: (r: T) => void, 
-        error?: (r: T) => void) : any {
+    request<T>(verb: string, url: string, body?: string, responseType?: 'json' | 'text' | 'blob' | 'arraybuffer') : any {
         
         this.startCall();
 
-        let response: Observable<T> | null = null;
-
-
-        let headers: HttpHeaders  = new HttpHeaders() 
-            .set('Content-T', 'text/plain')
-            .set('Authorization', `Bearer ${BaseService.auth_token.accessToken}`);
-
-        response = this.http
-            .get<T>(
-                url, 
+        let response: Observable<string> = this.http
+            .request(
+                verb, 
+                this.Url(url), 
                 { 
-                    headers: headers,
-                    observe: 'body' 
-                });
+                    headers: this.headers, 
+                    responseType: responseType
+                }
+            );
 
-        response.subscribe({
-            next: (r : T) => 
-            {
-                if(next)
-                    next(r);
-            },
-            error: (r: T) =>
-            {
-                if(error)
-                    error(r);
-                response = null;
-            },
-            complete: () => {
-                this.finishCall();
-            }
+        response.subscribe({ 
+            next: result => { return result; },
+            error: err => { return null; },
+            complete: () => this.finishCall() 
         });
 
+        return response;
+    }
+
+
+    public getText<T>(url: string) : any {
+        return this.request<T>('GET', url);
+    }
+
+
+    // public getText<T>(url: string) : any {
+        
+    //     this.startCall();
+
+    //     let response: Observable<string> = this.http
+    //         .request(
+    //             'GET', 
+    //             this.Url(url), 
+    //             { 
+    //                 headers: this.headers, 
+    //                 responseType: "text"
+    //             }
+    //         );
+
+    //     response.subscribe({ 
+    //         next: result => { return result; },
+    //         error: err => { return null; },
+    //         complete: () => this.finishCall() 
+    //     });
+
+    //     return response;
+    // }
+
+    public get<T>(url: string) : any {
+        
+        this.startCall();
+
+        let response: Observable<T> = this.http
+            .get<T>(
+                this.Url(url), 
+                { 
+                    headers: this.headers,
+                });
+
+        response.subscribe({ 
+            next: result => { return result; },
+            error: err => { return null; },
+            complete: () => this.finishCall() 
+        });
+        
         return response;
     }
 
@@ -101,34 +133,20 @@ export class BaseService {
             fromString:  JSON.stringify(data)
         })
 
-        let response: Observable<T> | null = null;
-
-        response = this.http
+        let response: Observable<T> = this.http
             .post<T>(
                 this.Url(url), 
                 httpParams,
                 { 
                     headers: this.headers,
-                    observe: 'body' 
                 });
 
-        response.subscribe({
-            next: (r : T) => 
-            {
-                if(next)
-                    next(r);
-            },
-            error: (r: T) => 
-            {
-                if(error)
-                    error(r);
-            },
-            complete: () => {
-                this.finishCall();
-            }
+        response.subscribe({ 
+            next: result => { return result; },
+            error: err => { return null; },
+            complete: () => this.finishCall() 
         });
-
+        
         return response;
     }
-
 }

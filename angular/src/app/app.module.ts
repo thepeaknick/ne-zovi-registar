@@ -4,6 +4,7 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 import {
   PERFECT_SCROLLBAR_CONFIG,
@@ -23,6 +24,10 @@ import {
   PageHeaderComponent,
   PageLayoutComponent,
 } from './containers';
+
+import {
+  UsersComponent
+} from './views'
 
 import {
   AvatarModule,
@@ -66,10 +71,12 @@ const APP_CONTAINERS = [
 @NgModule({
   declarations: [
     AppComponent,
+    UsersComponent,
     ...APP_CONTAINERS
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,

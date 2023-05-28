@@ -59,11 +59,15 @@ public class UserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
-    [HttpGet("all")]
-    [HasPermission(PermissionType.ReadAll)]
+    [HttpPost("all")]
+    //[HasPermission(PermissionType.ReadAll)]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(List<UserDto>), (int)HttpStatusCode.OK)]
-    public async Task<IActionResult> AllUsers([FromBody] AllUsersRequest request, CancellationToken cancellationToken)
+    //public async Task<IActionResult> AllUsers([FromBody] AllUsersRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> AllUsers(CancellationToken cancellationToken)
     {
+        AllUsersRequest request = new AllUsersRequest(DateTime.MinValue);
+
         var command = new AllUsersQuery(request.After);
 
         var result = await Sender.Send(command, cancellationToken);
