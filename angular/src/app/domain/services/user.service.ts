@@ -14,34 +14,34 @@ export class UserService extends BaseService {
 
     constructor(http: HttpClient) { 
         super(http);
-        this.path = 'users';
     }
 
     addUser(addUserRequest: AddUserRequest): Observable<UserDto> {
-        return this.post<string>('add', addUserRequest);
+        return this.post<string>('/users/add', addUserRequest);
     }
 
     modifyUser(phoneNumber: string, modifyUserRequest: ModifyUserRequest): Observable<UserDto> {
-        return this.patch<string>(phoneNumber, modifyUserRequest);
+        return this.patch<string>('/users/' + phoneNumber, modifyUserRequest);
     }
 
     removeUser(phoneNumber: string): Observable<string> {
-        return this.deleteText<string>(phoneNumber);
+        return this.deleteWithTextResponse<string>('/users/' + phoneNumber);
     }
 
 
     getUser(phoneNumber: string): Observable<string> {
-        return this.getText<string>(phoneNumber);
+        return this.getTextResponse<string>('/users/' + phoneNumber);
     }
 
 
-    all(after: Date): Observable<UserDto[]> {
+    // TODO: get/post?
+    allUsers(after: Date): Observable<UserDto[]> {
     
         let params = {after: "2023-05-27T21:20:10.780Z"};
 
         return this
             .post<UserDto[]>(
-                'all',
+                '/users/all',
                 params); //{ after : after.toUTCString() }); 
     }
 

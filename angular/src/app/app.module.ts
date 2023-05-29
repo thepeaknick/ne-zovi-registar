@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 import {
@@ -53,6 +53,8 @@ import {
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 import { UserService } from './domain/services/user.service';
 import { RegUserService } from './domain/services/reguser.service';
+import { NeZoviHttpInterceptor } from './domain/services/http-interceptor';
+import { AppConfiguration } from './domain/services/app-configuration.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -108,10 +110,27 @@ const APP_CONTAINERS = [
     { provide: LocationStrategy, useClass: PathLocationStrategy },
     { provide: UserService, useClass: UserService },
     { provide: RegUserService, useClass: RegUserService },
+    { provide: 'BASE_URL', useFactory: getBaseUrl },
+    { provide: HTTP_INTERCEPTORS, useClass: NeZoviHttpInterceptor, multi: true },
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     IconSetService,
+    AppConfiguration,
+    { 
+        provide: APP_INITIALIZER, 
+        useFactory: AppConfigurationFactory, 
+        deps: [AppConfiguration, HttpClient], multi: true 
+    },
     Title
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function getBaseUrl() {
+  return document.getElementsByTagName('base')[0].href;
+}
+
+export function AppConfigurationFactory(
+  appConfig: AppConfiguration) {
+    return () => appConfig.ensureInit();
+  }

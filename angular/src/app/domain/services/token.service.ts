@@ -16,7 +16,7 @@ export class TokenService extends BaseService {
 
     public refreshToken(username: string, password: string) : Observable<RefreshToken>  {
         const url: string = "refresh-token";
-        return this.http.get<RefreshToken>(this.baseUrl + url);
+        return this.http.get<RefreshToken>(url);
     }
 
 }

@@ -9,27 +9,10 @@ import { LoginResultDto } from '../model/schemas';
 })
 export class BaseService {
 
-    public baseUrl: string = 'https://localhost:7058';  
-    public version: string = "v1";
-    public path: string | null = null;
-
     static auth_token: LoginResultDto = {
         accessToken: "",
         refreshToken: "" 
     };
-
-    public get headers(): HttpHeaders {
-        return new HttpHeaders()
-        .set('Content-T', 'application/json')
-        .set('Authorization', `Bearer ${BaseService.auth_token.accessToken}`);
-    }
-
-    public Url(url: string): string { 
-        if(this.path)
-            return `${this.baseUrl}/${this.version}/${this.path}/${url}`;
-        else
-            return `${this.baseUrl}/${this.version}/${url}`;
-    }
 
     constructor(public http: HttpClient) { 
     }
@@ -56,10 +39,9 @@ export class BaseService {
         let response: Observable<string> = this.http
             .request(
                 verb, 
-                this.Url(url), 
+                url, 
                 { 
                     body: body,
-                    headers: this.headers, 
                     responseType: responseType
                 }
             );
@@ -74,7 +56,7 @@ export class BaseService {
     }
 
 
-    public getText<T>(url: string) : any {
+    public getTextResponse<T>(url: string) : any {
         return this.request<T>('GET', url, undefined, 'text');
     }
 
@@ -82,8 +64,12 @@ export class BaseService {
         return this.request<T>('GET', url, undefined, 'json');
     }
 
-    public deleteText<T>(url: string) : any {
+    public deleteWithTextResponse<T>(url: string) : any {
         return this.request<T>('DELETE', url, undefined, 'text');
+    }
+
+    public delete<T>(url: string, data: Object) : any {
+        return this.request<T>('DELETE', url, JSON.stringify(data), 'json');
     }
 
     public post<T>(url: string, data: Object) : any {

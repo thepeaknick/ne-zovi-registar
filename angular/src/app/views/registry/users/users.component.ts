@@ -21,7 +21,7 @@ export class UsersComponent implements OnInit {
     after.setMonth(3);
     
     this.userService
-      .all(after)
+      .allUsers(after)
       .subscribe(users => this.users = users);
 
     let response = this.userService

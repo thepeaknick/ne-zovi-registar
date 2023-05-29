@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 
 import { map, catchError, retry } from 'rxjs/operators';
-import { RegUserDto, RoleType, UserDto } from '../model/schemas';
+import { ChangeRegUserPasswordRequest, LoginRequest, ModifyRegUserRequest, RegUserDto, RegisterRegUserRequest, RoleType, TokenResult, UserDto } from '../model/schemas';
 import { BaseService } from './base.service';
 
 @Injectable({
@@ -14,27 +14,40 @@ export class RegUserService extends BaseService {
 
     constructor(http: HttpClient) { 
         super(http);
-        this.path = 'regusers';
     }
 
-    roles(role: RoleType): RegUserDto[] {
-        const httpParams: HttpParams = new HttpParams({
-            fromObject: {
-                role : role
-            }
-        })
+    loginRegUser(request: LoginRequest): Observable<TokenResult> {
+        return this
+            .post<TokenResult>('/regusers/login', { request: request });
+    }
 
-        const observe = "body";
+    registerRegUser(request: RegisterRegUserRequest): Observable<RegUserDto[]> {
+        return this
+            .post<RegUserDto>('/regusers/register', { request: request });
+    }
 
-        let data: RegUserDto[] = [];
+    modifyRegUser(request: ModifyRegUserRequest): Observable<RegUserDto[]> {
+        return this
+            .patch<RegUserDto>('/regusers/modify', { request: request });
+    }
 
-        this.http
-            .post<RegUserDto[]>(this.Url('role'), httpParams, { 
-                    headers: this.headers,
-                    observe: observe 
-                })
-            .subscribe((regUsers: RegUserDto[]) => data = regUsers);
+    modifyRegUserByGuid(regUserId: string, request: ModifyRegUserRequest): Observable<RegUserDto[]> {
+        return this
+            .patch<RegUserDto>(`/regusers/${regUserId}`, { request: request });
+    }
 
-        return data;
+    removeRegUser(regUserId: string): Observable<RegUserDto> {
+        return this
+            .deleteWithTextResponse<RegUserDto>(`/regusers/${regUserId}`);
+    }
+
+    changeRegUserPassword(request: ChangeRegUserPasswordRequest): Observable<RegUserDto[]> {
+        return this
+            .patch<RegUserDto>('/regusers/forgotpassword', { request: request });
+    }
+
+    getRegUsers(role: RoleType): Observable<RegUserDto[]> {
+        return this
+            .get<RegUserDto[]>(`/regusers/role/${role}`);
     }
 }
