@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Model;
-using NeZoviReg.WebApi.Extensions.WebApi;
+using static NeZoviReg.WebApi.Extensions.WebApi.WebApiExtensions;
 
 namespace NeZoviReg.WebApi.Controllers;
 
@@ -31,13 +31,13 @@ public class NeZoviRegBaseController : ControllerBase
         {
             { IsSuccess: true } => throw new InvalidOperationException(),
             IValidationResult validationResult =>
-                BadRequest(WebApiExtensions.CreateProblemDetails("Greška u validaciji",
+                BadRequest(CreateProblemDetails("Greška u validaciji",
                     StatusCodes.Status400BadRequest,
                     result.Error,
                     validationResult.ErrorsDictionary)),
             _ =>
                 BadRequest(
-                    WebApiExtensions.CreateProblemDetails(
+                    CreateProblemDetails(
                         "Loš zahtev",
                         StatusCodes.Status400BadRequest,
                         result.Error,

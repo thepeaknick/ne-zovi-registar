@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Shared.Model;
 using NeZoviReg.Abstractions.Shared.Model.Auth;
+using NeZoviReg.Auth.Exceptions;
 using RegUser = NeZoviReg.Domain.Model.Domain.RegUser;
 
 namespace NeZoviReg.Auth.Authentication.Jwt;
@@ -71,29 +72,31 @@ internal sealed class JwtProvider : IJwtProvider
     {
         var now = DateTime.Now;
 
-        var (principal, jwtToken) = DecodeJwtToken(accessToken);
-        if (jwtToken is null || !jwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256Signature))
+        PrincipalWithToken pandt;
+        pandt = DecodeJwtToken(accessToken);
+
+        if (pandt.JwtToken is null || !pandt.JwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256Signature))
         {
             throw new SecurityTokenInvalidSignatureException("Invalid token. Token algorithm is wrong.");
         }
 
-        var appUser = AppUser.GetUser(principal)
+        var appUser = AppUser.GetUser(pandt.Principal)
                       ?? throw new SecurityTokenException("Invalid token. Claims are wrong.");
 
         var regUser = await _regUserDataStore.GetByGuidId(appUser.Id, cancellationToken)
-                      ?? throw new SecurityTokenException($"Invalid token. RegUser with GuidId={appUser.Id} doesnt exist");
+                      ?? throw new SecurityTokenException($"Invalid token. RegUser with GuidId={appUser.Id} doesn't exist");
 
         if (regUser.RefreshToken != refreshToken || regUser.RefreshTokenExpirationTime < now)
         {
-            throw new SecurityTokenException($"Invalid token, RegUser.RefreshToken={regUser.RefreshToken}");
+            throw new RefreshTokenExpiredException($"Invalid token, RegUser.RefreshToken={regUser.RefreshToken}");
         }
 
-        var tokens =  await GenerateTokenAsync(regUser, cancellationToken);
+        var tokens = await GenerateTokenAsync(regUser, cancellationToken);
 
         return new RefreshTokenResult(regUser, tokens.AccessToken, tokens.RefreshToken);
     }
 
-    private (ClaimsPrincipal, JwtSecurityToken?) DecodeJwtToken(string token)
+    private PrincipalWithToken DecodeJwtToken(string token)
     {
         var principal = new JwtSecurityTokenHandler()
             .ValidateToken(token,
@@ -109,6 +112,9 @@ internal sealed class JwtProvider : IJwtProvider
                 },
                 out var validatedToken);
 
-        return (principal, validatedToken as JwtSecurityToken);
+        return new (principal, validatedToken as JwtSecurityToken);
     }
+
+
+    private record PrincipalWithToken(ClaimsPrincipal Principal, JwtSecurityToken? JwtToken);
 }

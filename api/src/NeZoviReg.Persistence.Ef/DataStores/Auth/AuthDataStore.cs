@@ -21,8 +21,10 @@ public class AuthDataStore : IAuthDataStore
             .Include(ru => ru.RegUserRoles)
             .ThenInclude(ru => ru.Role)
             .ThenInclude(r => r.Permissions)
+            //.AsSplitQuery()
             .Where(ru => ru.GuidId == regUserId)
-            .Select(ru => ru.RegUserRoles).ToArrayAsync(cancellationToken);
+            .Select(ru => ru.RegUserRoles)
+            .ToArrayAsync(cancellationToken);
 
         return roles.SelectMany(r => r)
             .SelectMany(r => r.Role.Permissions)
