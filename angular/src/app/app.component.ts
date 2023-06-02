@@ -18,8 +18,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     private titleService: Title,
     private iconSetService: IconSetService
-  ) // private _registry: SvgIconRegistryService
-  {
+  ) {
     titleService.setTitle(this.title);
     // iconSet singleton
     iconSetService.icons = { ...iconSubset };

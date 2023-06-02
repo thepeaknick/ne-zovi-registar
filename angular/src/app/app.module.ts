@@ -3,14 +3,12 @@ import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
-
 import {
-  PERFECT_SCROLLBAR_CONFIG,
-  PerfectScrollbarConfigInterface,
-  PerfectScrollbarModule,
-} from 'ngx-perfect-scrollbar';
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+  HttpClient,
+} from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,9 +23,7 @@ import {
   PageLayoutComponent,
 } from './containers';
 
-import {
-  UsersComponent
-} from './views'
+import { UsersComponent } from './views';
 
 import {
   AvatarModule,
@@ -55,10 +51,7 @@ import { UserService } from './domain/services/user.service';
 import { RegUserService } from './domain/services/reguser.service';
 import { NeZoviHttpInterceptor } from './domain/services/http-interceptor';
 import { AppConfiguration } from './domain/services/app-configuration.service';
-
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true,
-};
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -71,12 +64,10 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    UsersComponent,
-    ...APP_CONTAINERS
-  ],
+  declarations: [AppComponent, UsersComponent, ...APP_CONTAINERS],
   imports: [
+    HttpClientModule,
+    AngularSvgIconModule.forRoot(),
     BrowserModule,
     CommonModule,
     HttpClientModule,
@@ -90,7 +81,6 @@ const APP_CONTAINERS = [
     HeaderModule,
     SidebarModule,
     IconModule,
-    PerfectScrollbarModule,
     NavModule,
     ButtonModule,
     FormModule,
@@ -111,26 +101,29 @@ const APP_CONTAINERS = [
     { provide: UserService, useClass: UserService },
     { provide: RegUserService, useClass: RegUserService },
     { provide: 'BASE_URL', useFactory: getBaseUrl },
-    { provide: HTTP_INTERCEPTORS, useClass: NeZoviHttpInterceptor, multi: true },
-    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: NeZoviHttpInterceptor,
+      multi: true,
+    },
     IconSetService,
     AppConfiguration,
-    { 
-        provide: APP_INITIALIZER, 
-        useFactory: AppConfigurationFactory, 
-        deps: [AppConfiguration, HttpClient], multi: true 
+    {
+      provide: APP_INITIALIZER,
+      useFactory: AppConfigurationFactory,
+      deps: [AppConfiguration, HttpClient],
+      multi: true,
     },
-    Title
+    Title,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
 
 export function getBaseUrl() {
   return document.getElementsByTagName('base')[0].href;
 }
 
-export function AppConfigurationFactory(
-  appConfig: AppConfiguration) {
-    return () => appConfig.ensureInit();
-  }
+export function AppConfigurationFactory(appConfig: AppConfiguration) {
+  return () => appConfig.ensureInit();
+}

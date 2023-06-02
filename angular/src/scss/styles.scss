@@ -11,9 +11,6 @@ $enable-rtl: true;
 // Import Chart.js custom tooltips styles
 @import "@coreui/chartjs/scss/coreui-chartjs";
 
-// perfect scrollbar theming for use with [perfectScrollbar] directive
-//@import '~perfect-scrollbar/css/perfect-scrollbar.css';
-
 @import "layout";
 
 // Some temp fixes
@@ -24,3 +21,8 @@ $enable-rtl: true;
 
 // If you want to add something do it here
 @import "custom";
+
+@font-face {
+  font-family: "Source Sans 3";
+  src: url("../assets/fonts/Source_Sans_3/SourceSans3-VariableFont_wght.ttf");
+}

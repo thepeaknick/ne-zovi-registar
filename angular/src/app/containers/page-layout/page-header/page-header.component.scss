@@ -6,3 +6,22 @@ c-header {
   height: 160px;
   width: 80%;
 }
+
+button img {
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+span {
+  vertical-align: middle;
+  font-family: "Source Sans 3";
+  color: #3f6aa3;
+}
+
+span h2 {
+  font-weight: 800;
+}
+
+span#header-title {
+  margin-right: 20%;
+}
