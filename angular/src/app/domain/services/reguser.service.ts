@@ -3,9 +3,11 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 
-import { map, catchError, retry } from 'rxjs/operators';
+import { map, catchError, retry, tap } from 'rxjs/operators';
 import { ChangeRegUserPasswordRequest, LoginRequest, ModifyRegUserRequest, RegUserDto, RegisterRegUserRequest, RoleType, TokenResult, UserDto } from '../model/schemas';
 import { BaseService } from './base.service';
+import { Token } from '@angular/compiler';
+import { NeZoviHttpInterceptor } from './http-interceptor';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,10 @@ export class RegUserService extends BaseService {
 
     loginRegUser(request: LoginRequest): Observable<TokenResult> {
         return this
-            .post<TokenResult>('/regusers/login', { request: request });
+            .post<TokenResult>('/regusers/login', { request: request })
+            .pipe(
+                tap((result: TokenResult) => NeZoviHttpInterceptor.auth_token = result)
+            );
     }
 
     registerRegUser(request: RegisterRegUserRequest): Observable<RegUserDto[]> {

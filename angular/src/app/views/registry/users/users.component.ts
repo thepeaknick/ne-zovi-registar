@@ -17,19 +17,32 @@ export class UsersComponent implements OnInit {
   phoneNumber: string | null = null;
 
   ngOnInit() {
+    /*
     let after: Date = new Date();
     after.setMonth(3);
     
     this.userService
       .allUsers(after)
       .subscribe(users => this.users = users);
+    */
 
+    this.userService
+      .addUser({ 
+        firstName: "FirstName",
+        lastName: "LAst name",
+        jmbg: "0110969710420",
+        operatorId: 1,
+        phoneNumber: "0641946800"
+      });
+
+      /*
     let response = this.userService
       .getUser('0652015766')
       .subscribe({
         next: pn => { this.phoneNumber = pn; },
         error: err => { this.phoneNumber = 'unknown'; }
       });
+      */
   }
 
 }
