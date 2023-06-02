@@ -1,14 +1,21 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { DefaultLayoutComponent } from './containers';
+import { DefaultLayoutComponent, PageLayoutComponent } from './containers';
 import { LoginComponent } from './views/pages/login/login.component';
 import { SearchComponent } from './views/pages/search/search.component';
+import { UsersComponent } from './views/registry/users/users.component';
+import { RegUsersComponent } from './views/registry/regusers/regusers.component';
+import { MerchantsComponent } from './views/registry/merchants/merchants.component';
+import { AdminComponent } from './views/admin/admin.component';
+import { HelppageComponent } from './views/helppage/helppage.component';
+import { SettingsComponent } from './views/settings/settings.component';
+import { ContactComponent } from './views/contact/contact.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'search',
     pathMatch: 'full'
   },
   {
@@ -19,44 +26,62 @@ const routes: Routes = [
     },
     children: [
       {
-        path: 'regusers',
-        loadChildren: () =>
-          import('./views/registry/regusers/regusers.module').then((m) => m.RegUsersModule)
+        path: 'registry/users',
+        component: UsersComponent
       },
       {
-        path: 'users',
-        loadChildren: () =>
-          import('./views/registry/users/users.module').then((m) => m.UsersModule)
+        path: 'registry/regusers',
+        component: RegUsersComponent
+      },
+      {
+        path: 'registry/merchants',
+        component: MerchantsComponent
       },
       {
         path: 'admin',
-        loadChildren: () =>
-          import('./views/admin/admin.module').then((m) => m.AdminModule)
+        component: AdminComponent
       },
       {
         path: 'settings',
-        loadChildren: () =>
-          import('./views/settings/settings.module').then((m) => m.SettingsModule)
+        component: SettingsComponent
+      },
+      {
+        path: 'help',
+        component: HelppageComponent
+      },
+      {
+        path: 'contact',
+        component: ContactComponent
       },
     ]
   },
   {
-    path: 'login',
-    component: LoginComponent,
+    path: '',
+    component: PageLayoutComponent,
     data: {
-      title: 'Prijava'
-    }
-  },
-  {
-    path: 'search',
-    component: SearchComponent,
-    data: {
-      title: 'Pretraga telefonskog broja'
-    }
+      title: 'Dobro došli u registar "Ne zovi"'
+    },
+    children: [
+      {
+        path: 'login',
+        component: LoginComponent,
+        data: {
+          title: 'Prijava'
+        }
+      },
+      {
+        path: 'search',
+        component: SearchComponent,
+        data: {
+          title: 'Pretraga telefonskog broja'
+        }
+      },
+    ]
   },
   {
     path: '**', 
-    redirectTo: 'search'
+    redirectTo: 'search',
+    pathMatch: 'full'
   }
 ];
 

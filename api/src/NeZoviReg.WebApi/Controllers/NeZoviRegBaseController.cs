@@ -3,8 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Model;
-using NeZoviReg.Auth.Authentication.Services;
-using NeZoviReg.WebApi.Extensions.WebApi;
+using static NeZoviReg.WebApi.Extensions.WebApi.WebApiExtensions;
 
 namespace NeZoviReg.WebApi.Controllers;
 
@@ -25,34 +24,20 @@ public class NeZoviRegBaseController : ControllerBase
         Logger = logger;
     }
 
-    protected AppUser AppUser
-    {
-        get
-        {
-            if (!Guid.TryParse(User.Claims.FirstOrDefault(x => x.Type == CustomClaims.RegUserId)?.Value,
-                    out Guid regUserId))
-                return AppUser.Default;
-
-            var userName = User.Claims
-                .FirstOrDefault(x => x.Type == CustomClaims.RegUserName)?
-                .Value ?? string.Empty;
-
-            return new(regUserId, userName);
-        }
-    }
+    protected AppUser AppUser => AppUser.GetUser(User);
 
     protected IActionResult HandleFailure(Result result) =>
         result switch
         {
             { IsSuccess: true } => throw new InvalidOperationException(),
             IValidationResult validationResult =>
-                BadRequest(WebApiExtensions.CreateProblemDetails("Greška u validaciji",
+                BadRequest(CreateProblemDetails("Greška u validaciji",
                     StatusCodes.Status400BadRequest,
                     result.Error,
                     validationResult.ErrorsDictionary)),
             _ =>
                 BadRequest(
-                    WebApiExtensions.CreateProblemDetails(
+                    CreateProblemDetails(
                         "Loš zahtev",
                         StatusCodes.Status400BadRequest,
                         result.Error,

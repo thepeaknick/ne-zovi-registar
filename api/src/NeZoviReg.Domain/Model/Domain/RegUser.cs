@@ -50,6 +50,10 @@ public class RegUser : Entity
 
     public string Username { get; private set; }
 
+    public string? RefreshToken { get; private set; }
+
+    public DateTime? RefreshTokenExpirationTime { get; private set; }
+
     private string? _password;
     public string? Password
     {
@@ -66,57 +70,57 @@ public class RegUser : Entity
     private readonly List<RegUserRole> _regUserRoles = new();
     public IReadOnlyCollection<RegUserRole> RegUserRoles => _regUserRoles;
 
-    public RegUser AddAddress(string? address)
+    public RegUser WithAddress(string? address)
     {
         Address = address ?? Address;
 
         return this;
     }
 
-    public RegUser AddRegNumber(string? regNumb)
+    public RegUser WithRegNumber(string? regNumb)
     {
         RegNumber = regNumb ?? RegNumber;
 
         return this;
     }
 
-    public RegUser AddTaxNumber(string? taxNumber)
+    public RegUser WithTaxNumber(string? taxNumber)
     {
         TaxNumber = taxNumber ?? TaxNumber;
 
         return this;
     }
 
-    public RegUser AddFirstName(string? firstName)
+    public RegUser WithFirstName(string? firstName)
     {
         FirstName = firstName ?? FirstName;
 
         return this;
     }
 
-    public RegUser AddLastName(string? lastName)
+    public RegUser WithLastName(string? lastName)
     {
         LastName = lastName ?? LastName;
 
         return this;
     }
 
-    public RegUser AddName(string? firstName, string? lastName)
+    public RegUser WithName(string? firstName, string? lastName)
     {
-        AddFirstName(firstName);
-        AddLastName(lastName);
+        WithFirstName(firstName);
+        WithLastName(lastName);
 
         return this;
     }
 
-    public RegUser AddCompanyName(string? name)
+    public RegUser WithCompanyName(string? name)
     {
         CompanyName = name ?? CompanyName;
 
         return this;
     }
 
-    public RegUser AddPassword(string? password)
+    public RegUser WithPassword(string? password)
     {
         if (password == default)
             return this;
@@ -126,21 +130,35 @@ public class RegUser : Entity
         return this;
     }
 
-    public RegUser AddUserName(string? userName)
+    public RegUser WithUserName(string? userName)
     {
         Username = userName ?? Username;
 
         return this;
     }
 
-    public RegUser AddRole(int roleId)
+    public RegUser WithRole(int roleId)
     {
         _regUserRoles.Add(RegUserRole.Create(Id, roleId));
 
         return this;
     }
 
-    public RegUser AddRoles(List<int>? roleIds)
+    public RegUser WithRefreshToken(string? refreshToken)
+    {
+        RefreshToken = refreshToken ?? RefreshToken;
+
+        return this;
+    }
+
+    public RegUser WithRefreshTokenExpTime(DateTime? expTime)
+    {
+        RefreshTokenExpirationTime = expTime ?? RefreshTokenExpirationTime;
+
+        return this;
+    }
+
+    public RegUser WithRoles(List<int>? roleIds)
     {
         foreach (var regUserRole in RegUserRoles
                      .Where(r => !roleIds?.Contains(r.RoleId) ?? false)

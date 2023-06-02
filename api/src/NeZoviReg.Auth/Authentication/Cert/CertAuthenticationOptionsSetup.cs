@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
-using NeZoviReg.Auth.Authentication.Services;
+using NeZoviReg.Abstractions.Shared.Model.Auth;
 
 namespace NeZoviReg.Auth.Authentication.Cert;
 

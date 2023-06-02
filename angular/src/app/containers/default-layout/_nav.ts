@@ -2,17 +2,32 @@ import { INavData } from '@coreui/angular';
 
 export const navItems: INavData[] = [
   {
+    name: 'Početna',
+    url: '/admin',
+    iconComponent: { name: 'cil-user' }
+  },
+  {
+    divider: true,
+  },
+  {
     name: 'Registar',
     url: '/registry',
-    iconComponent: { name: 'cil-puzzle' },
+    iconComponent: { name: 'cil-spreadsheet' },
     children: [
       {
         name: 'Korisnici',
-        url: '/registry/users'
+        url: '/registry/users',
+        iconComponent: { name: 'cil-group' },
       },
       {
         name: 'Obveznici',
-        url: '/registry/regusers'
+        url: '/registry/regusers',
+        iconComponent: { name: 'cil-briefcase' },
+      },
+      {
+        name: 'Trgovci',
+        url: '/registry/merchants',
+        iconComponent: { name: 'cil-cart' },
       },
     ]
   },
@@ -20,17 +35,9 @@ export const navItems: INavData[] = [
     divider: true,
   },
   {
-    name: 'Admin panel',
-    url: '/admin',
-    iconComponent: { name: 'cil-chart-pie' }
-  },
-  {
-    divider: true,
-  },
-  {
     name: 'Podešavanja',
     url: '/settings',
-    iconComponent: { name: 'cil-chart-pie' }
+    iconComponent: { name: 'cil-settings' }
   },
   {
     divider: true,
@@ -38,7 +45,7 @@ export const navItems: INavData[] = [
   {
     name: 'Pomoć',
     url: '/help',
-    iconComponent: { name: 'cil-chart-pie' }
+    iconComponent: { name: 'cil-puzzle' }
   },
   {
     divider: true,
@@ -46,6 +53,6 @@ export const navItems: INavData[] = [
   {
     name: 'Kontaktirajte nas',
     url: '/contact',
-    iconComponent: { name: 'cil-chart-pie' }
+    iconComponent: { name: 'cil-envelope-closed' }
   },
 ];

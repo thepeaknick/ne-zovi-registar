@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <Folder Include="Extensions\" />
-    <Folder Include="Model\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
 
   <ItemGroup>

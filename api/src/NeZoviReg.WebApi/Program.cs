@@ -10,6 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
     o.ConfigureHttpsDefaults(m => m.ClientCertificateMode = ClientCertificateMode.AllowCertificate);
 });*/
 
+builder.Host.ConfigureAppConfiguration((ctx, configuration) =>
+{
+    configuration.AddConfigurationJsonFiles(ctx.HostingEnvironment);
+});
+
+
 builder.Host.UseSerilog((ctx, lc) => lc.ReadFrom.Configuration(ctx.Configuration));
 
 builder.Services.ConfigureWebApi(builder.Configuration)
