@@ -1,19 +1,16 @@
-<!--<c-header class="mb-4 d-print-none" position="sticky">-->
 <ng-container>
-  <c-container [fluid]="true">
-    <c-header-nav class="d-none d-lg-flex me-auto">
-    </c-header-nav>
-
-    <c-header-nav class="d-none d-lg-flex">
-    </c-header-nav>
-    <c-header-nav class="ms-3">
-    </c-header-nav>
-
-  </c-container>
-  <c-header-divider></c-header-divider>
-  <c-container [fluid]="true">
-    <c-breadcrumb-router class="ms-2"></c-breadcrumb-router>
-  </c-container>
+  <c-header>
+    <c-container fluid>
+      <a class="header-brand" href="#">
+        <img
+          src="/assets/brand/ratellogo.png"
+          alt=""
+          height="100"
+          class="d-inline-block align-middle"
+          alt="Ratel Logo"
+        />
+      </a>
+      <svg cIcon name="cil-envelope-open" size="lg"></svg>
+    </c-container>
+  </c-header>
 </ng-container>
-<!--</c-header>-->
-
