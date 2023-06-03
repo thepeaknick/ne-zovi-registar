@@ -67,7 +67,7 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                             Id = 1,
                             CreatedBy = "init",
                             CreatedOn = new DateTime(2023, 5, 23, 11, 27, 26, 973, DateTimeKind.Local).AddTicks(6370),
-                            Name = "All"
+                            Name = "RegUsersAll"
                         },
                         new
                         {
