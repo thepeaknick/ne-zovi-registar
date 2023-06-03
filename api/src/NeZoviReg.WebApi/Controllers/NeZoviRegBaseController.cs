@@ -40,7 +40,7 @@ public class NeZoviRegBaseController : ControllerBase
                     StatusCodes.Status404NotFound,
                     result.Error)),
 
-            { Error: var e } when e.Code == ErrorCode.NotContent.ToString() => NoContent(),
+            { Error: var e } when e.Code == ErrorCode.NoContent.ToString() => NoContent(),
             _ =>
                 BadRequest(CreateProblemDetails("Loš zahtev",
                         StatusCodes.Status400BadRequest,

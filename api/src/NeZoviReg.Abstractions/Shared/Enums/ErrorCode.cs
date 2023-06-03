@@ -14,7 +14,7 @@ public enum ErrorCode
 
     NotFound,
 
-    NotContent,
+    NoContent,
 
     InvalidCredentials,
 
