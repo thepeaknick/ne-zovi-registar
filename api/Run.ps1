@@ -9,4 +9,7 @@ if ($confirmation -eq 'y') {
 }
 
 docker-compose up -d
-docker exec nezovireg_api /app/NeZoviReg.Migrations.Ef
+$confirmation = Read-Host "Start migration?[y/n]"
+if ($confirmation -eq 'y') {
+	docker exec nezovireg_api /app/NeZoviReg.Migrations.Ef
+}
