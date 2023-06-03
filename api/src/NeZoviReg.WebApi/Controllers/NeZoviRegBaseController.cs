@@ -14,6 +14,7 @@ namespace NeZoviReg.WebApi.Controllers;
 [ProducesResponseType(typeof(string), (int)HttpStatusCode.TooManyRequests)]
 [ProducesResponseType(typeof(string), (int)HttpStatusCode.InternalServerError)]
 [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+[ProducesResponseType(typeof(string), (int)HttpStatusCode.NoContent)]
 public class NeZoviRegBaseController : ControllerBase
 {
     protected readonly ISender Sender;
