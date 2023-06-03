@@ -15,6 +15,12 @@
                         <label cLabel for="inputEmail-1" class="phoneNumberText">Broj telefona</label>
                         <input cFormControl id="inputEmail-1" type="email">
                     </div>
+                    <div>
+                        <re-captcha class="recaptcha" id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)"></re-captcha>
+                        <div *ngIf="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)" class="invalid-feedback">
+                            <div *ngIf="recaptcha.errors?.['required']">This field is required.</div>
+                        </div>
+                    </div>
                     <input cButton class="submitButton" type="submit" value="Pretraga" >
                     <p class="descriptionText">Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum</p>
                 </form>
