@@ -46,11 +46,7 @@ export class BaseService {
                 }
             );
 
-        response.subscribe({ 
-            next: result => { return result; },
-            error: error => { handleHttpError(error) },
-            complete: () => this.finishCall() 
-        });
+        this.finishCall() ;
 
         return response;
     }
