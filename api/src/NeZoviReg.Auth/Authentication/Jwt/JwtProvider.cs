@@ -86,6 +86,11 @@ internal sealed class JwtProvider : IJwtProvider
         var regUser = await _regUserDataStore.GetByGuidId(appUser.Id, cancellationToken)
                       ?? throw new SecurityTokenException($"Invalid token. RegUser with GuidId={appUser.Id} doesn't exist");
 
+        if (regUser.RefreshToken is null)
+        {
+            throw new RefreshTokenEmptyException("Invalid token, RegUser.RefreshToken is empty.");
+        }
+
         if (regUser.RefreshToken != refreshToken || regUser.RefreshTokenExpirationTime < now)
         {
             throw new RefreshTokenExpiredException($"Invalid token, RegUser.RefreshToken={regUser.RefreshToken}");

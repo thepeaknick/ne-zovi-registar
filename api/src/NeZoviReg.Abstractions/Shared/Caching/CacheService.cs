@@ -7,7 +7,7 @@ namespace NeZoviReg.Abstractions.Shared.Caching;
 
 public interface ICacheService
 {
-    Task<T?> GetAsync<T, TId>(string keyPrefix, TId keyDiscriminator, Func<Task<T>> factory, CancellationToken cancellationToken = default)
+    Task<T> GetAsync<T, TId>(string keyPrefix, TId keyDiscriminator, Func<Task<T>> factory, CancellationToken cancellationToken = default)
         where T : class?, new();
 
     Task RemoveAsync(string key, CancellationToken cancellationToken = default);
@@ -28,8 +28,8 @@ public sealed class CacheService : ICacheService
         _cache = cache;
     }
 
-    public async Task<T?> GetAsync<T, TId>(string keyPrefix, TId keyDiscriminator, Func<Task<T>> factory,
-        CancellationToken cancellationToken = default) where T : class?, new()
+    public async Task<T> GetAsync<T, TId>(string keyPrefix, TId keyDiscriminator, Func<Task<T>> factory,
+        CancellationToken cancellationToken = default) where T : class?,  new()
     {
         CacheKeys.TryAdd(keyPrefix, $"{keyPrefix}{keyDiscriminator}");
 
