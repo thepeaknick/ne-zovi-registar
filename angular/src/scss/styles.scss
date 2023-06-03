@@ -33,3 +33,13 @@ $enable-rtl: true;
   background-size: cover;
   // background-position-y: -60px;
 }
+.modal-content {
+  background: url("/assets/images/popupbck.png");
+  background-size: cover;
+  border: 0px;
+  border-radius: 20px;
+}
+
+c-input-group {
+  border: 0px;
+}

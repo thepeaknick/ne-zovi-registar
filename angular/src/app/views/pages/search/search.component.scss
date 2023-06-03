@@ -13,3 +13,45 @@ c-offcanvas-body p {
 c-offcanvas-body button {
   float: right;
 }
+
+//Drugi ekran
+c-modal-body {
+  font-family: "Source Sans 3";
+  text-align: center;
+  color: #3f6aa3;
+}
+
+c-modal-header,
+c-modal-footer {
+  border: 0px;
+}
+
+c-modal-body h5 {
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+c-modal-body img {
+  margin-bottom: 20px;
+}
+
+c-modal-body input {
+  margin-top: 20px;
+  border: 1px solid #c0cbdb;
+}
+
+c-modal-body #inputEmail {
+  width: 60%;
+  display: inline-block;
+}
+
+c-modal-footer span {
+  vertical-align: middle;
+  font-family: "Source Sans 3";
+  color: #3f6aa3;
+}
+
+c-modal-footer button img {
+  vertical-align: middle;
+  margin-right: 10px;
+}
