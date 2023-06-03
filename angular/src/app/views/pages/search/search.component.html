@@ -1,1 +1,19 @@
-<p>search works!</p>
+<c-container breakpoint="lg" class="h-auto home-bck">
+  <router-outlet></router-outlet>
+  <c-row class="aaaa">
+    <c-col xs="8"></c-col>
+    <c-col xs="4">
+      <form cForm>
+        <div class="mb-3">
+          <label cLabel for="inputEmail-1">Broj telefona</label>
+          <input cFormControl id="inputEmail-1" type="email" />
+        </div>
+        <c-form-check class="mb-3">
+          <input cFormCheckInput id="checkMeOut-1" type="checkbox" />
+          <label cFormCheckLabel for="checkMeOut-1">Pretraga</label>
+        </c-form-check>
+        <input cButton color="primary" type="submit" />
+      </form>
+    </c-col>
+  </c-row>
+</c-container>

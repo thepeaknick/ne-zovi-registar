@@ -11,78 +11,79 @@ import { AdminComponent } from './views/admin/admin.component';
 import { HelppageComponent } from './views/helppage/helppage.component';
 import { SettingsComponent } from './views/settings/settings.component';
 import { ContactComponent } from './views/contact/contact.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'search',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: '',
     component: DefaultLayoutComponent,
     data: {
-      title: 'Dobro došli u registar "Ne zovi"'
+      title: 'Dobro došli u registar "Ne zovi"',
     },
     children: [
       {
         path: 'registry/users',
-        component: UsersComponent
+        component: UsersComponent,
       },
       {
         path: 'registry/regusers',
-        component: RegUsersComponent
+        component: RegUsersComponent,
       },
       {
         path: 'registry/merchants',
-        component: MerchantsComponent
+        component: MerchantsComponent,
       },
       {
         path: 'admin',
-        component: AdminComponent
+        component: AdminComponent,
       },
       {
         path: 'settings',
-        component: SettingsComponent
+        component: SettingsComponent,
       },
       {
         path: 'help',
-        component: HelppageComponent
+        component: HelppageComponent,
       },
       {
         path: 'contact',
-        component: ContactComponent
+        component: ContactComponent,
       },
-    ]
+    ],
   },
   {
     path: '',
     component: PageLayoutComponent,
     data: {
-      title: 'Dobro došli u registar "Ne zovi"'
+      title: 'Dobro došli u registar "Ne zovi"',
     },
     children: [
       {
         path: 'login',
         component: LoginComponent,
         data: {
-          title: 'Prijava'
-        }
+          title: 'Prijava',
+        },
       },
       {
         path: 'search',
         component: SearchComponent,
         data: {
-          title: 'Pretraga telefonskog broja'
-        }
+          title: 'Pretraga telefonskog broja',
+        },
       },
-    ]
+    ],
   },
   {
-    path: '**', 
+    path: '**',
     redirectTo: 'search',
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
@@ -90,11 +91,10 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {
       scrollPositionRestoration: 'top',
       anchorScrolling: 'enabled',
-      initialNavigation: 'enabledBlocking'
+      initialNavigation: 'enabledBlocking',
       // relativeLinkResolution: 'legacy'
-    })
+    }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

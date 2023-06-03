@@ -3,7 +3,7 @@
 c-header {
   background-image: url("/assets/brand/headerbackground.png");
   background-size: contain;
-  height: 160px;
+  height: 15vh;
   width: 80%;
 }
 
@@ -20,6 +20,13 @@ span {
 
 span h2 {
   font-weight: 800;
+  font-size: 1.8vw;
+}
+
+span h4 {
+  font-weight: 400;
+  font-size: 1.2vw;
+  margin-bottom: 0px;
 }
 
 span#header-title {

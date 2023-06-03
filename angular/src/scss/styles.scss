@@ -26,3 +26,10 @@ $enable-rtl: true;
   font-family: "Source Sans 3";
   src: url("../assets/fonts/Source_Sans_3/SourceSans3-VariableFont_wght.ttf");
 }
+
+.home-bck {
+  background: url("../assets/images/homebck.png");
+  min-height: 85vh;
+  background-size: cover;
+  // background-position-y: -60px;
+}

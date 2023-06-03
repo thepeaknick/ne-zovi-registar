@@ -52,6 +52,8 @@ import { RegUserService } from './domain/services/reguser.service';
 import { NeZoviHttpInterceptor } from './domain/services/http-interceptor';
 import { AppConfiguration } from './domain/services/app-configuration.service';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { SearchComponent } from './views/pages/search/search.component';
+import { HomeComponent } from './home/home.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -64,7 +66,13 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, UsersComponent, ...APP_CONTAINERS],
+  declarations: [
+    AppComponent,
+    UsersComponent,
+    ...APP_CONTAINERS,
+    HomeComponent,
+    SearchComponent,
+  ],
   imports: [
     HttpClientModule,
     AngularSvgIconModule.forRoot(),
