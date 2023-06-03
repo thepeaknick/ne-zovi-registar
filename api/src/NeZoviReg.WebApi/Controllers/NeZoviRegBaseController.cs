@@ -10,11 +10,11 @@ namespace NeZoviReg.WebApi.Controllers;
 
 [ApiController]
 [ApiVersion("1.0")]
-[ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-[ProducesResponseType(typeof(string), (int)HttpStatusCode.TooManyRequests)]
-[ProducesResponseType(typeof(string), (int)HttpStatusCode.InternalServerError)]
-[ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
-[ProducesResponseType(typeof(string), (int)HttpStatusCode.NoContent)]
+[ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+[ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.TooManyRequests)]
+[ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.InternalServerError)]
+[ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
+[ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NoContent)]
 public class NeZoviRegBaseController : ControllerBase
 {
     protected readonly ISender Sender;
