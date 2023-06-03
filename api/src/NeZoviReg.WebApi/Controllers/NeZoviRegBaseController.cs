@@ -14,7 +14,6 @@ namespace NeZoviReg.WebApi.Controllers;
 [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.TooManyRequests)]
 [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.InternalServerError)]
 [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
-[ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NoContent)]
 public class NeZoviRegBaseController : ControllerBase
 {
     protected readonly ISender Sender;
@@ -40,8 +39,6 @@ public class NeZoviRegBaseController : ControllerBase
             { Error: var e } when e.Code == ErrorCode.NotFound.ToString() => NotFound(CreateProblemDetails("Nema rezultata",
                     StatusCodes.Status404NotFound,
                     result.Error)),
-
-            { Error: var e } when e.Code == ErrorCode.NoContent.ToString() => NoContent(),
             _ =>
                 BadRequest(CreateProblemDetails("Loš zahtev",
                         StatusCodes.Status400BadRequest,
