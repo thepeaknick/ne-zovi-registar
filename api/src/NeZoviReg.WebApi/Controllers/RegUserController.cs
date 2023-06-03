@@ -16,7 +16,7 @@ namespace NeZoviReg.WebApi.Controllers;
 
 
 [Route("regusers")]
-[HasPermission(PermissionType.All)]
+[HasPermission(PermissionType.RegUsersAll)]
 public class RegUserController : NeZoviRegBaseController
 {
     public RegUserController(ISender sender, ILogger<RegUserController> logger)
