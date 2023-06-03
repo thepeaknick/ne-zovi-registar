@@ -44,6 +44,7 @@ import {
   SidebarModule,
   TabsModule,
   UtilitiesModule,
+  OffcanvasModule,
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
@@ -93,6 +94,7 @@ const APP_CONTAINERS = [
     ButtonModule,
     FormModule,
     UtilitiesModule,
+    OffcanvasModule,
     ButtonGroupModule,
     ReactiveFormsModule,
     SidebarModule,

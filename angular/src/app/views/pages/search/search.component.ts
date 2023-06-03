@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OffcanvasComponent } from '@coreui/angular';
 
 @Component({
   selector: 'app-search',
