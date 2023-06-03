@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Shared;
+using NeZoviReg.Abstractions.Shared.Enums;
 using NeZoviReg.Abstractions.Shared.Model;
 using static NeZoviReg.WebApi.Extensions.WebApi.WebApiExtensions;
 
@@ -35,12 +36,12 @@ public class NeZoviRegBaseController : ControllerBase
                     StatusCodes.Status400BadRequest,
                     result.Error,
                     validationResult.ErrorsDictionary)),
+            { Error: var e } when e.Code == ErrorCode.NotFound.ToString() => NotFound(CreateProblemDetails("Nema rezultata",
+                    StatusCodes.Status204NoContent,
+                    result.Error)),
             _ =>
-                BadRequest(
-                    CreateProblemDetails(
-                        "Loš zahtev",
+                BadRequest(CreateProblemDetails("Loš zahtev",
                         StatusCodes.Status400BadRequest,
-                        result.Error,
-                        errors: null))
+                        result.Error))
         };
 }
