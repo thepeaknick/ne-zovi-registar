@@ -56,6 +56,7 @@ import { AppConfiguration } from './domain/services/app-configuration.service';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { SearchComponent } from './views/pages/search/search.component';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './views/pages/login/login.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -74,6 +75,7 @@ const APP_CONTAINERS = [
     ...APP_CONTAINERS,
     HomeComponent,
     SearchComponent,
+    LoginComponent,
   ],
   imports: [
     HttpClientModule,
