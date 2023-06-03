@@ -33,12 +33,18 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
         }
 
         //if we have a token - add it
-        let setHeaders: { [name: string]: string | string[]; } | undefined = undefined;
-        if (NeZoviHttpInterceptor.auth_token.accessToken) {
+        let setHeaders: { [name: string]: string | string[]; } | undefined = { };
+        let tokenResult: TokenResult = JSON.parse(localStorage.getItem("TokenResult") ?? "{}");
+        if (tokenResult) {
             setHeaders = {
-                Authorization: "Bearer " + NeZoviHttpInterceptor.auth_token.accessToken
+                Authorization: "Bearer " + tokenResult.accessToken
             };
         }
+
+        setHeaders = {
+            ...setHeaders,
+            "Content-Type": "application/json"
+        };
 
         let modifiedRequest: HttpRequest<any> = request.clone({
             setHeaders: setHeaders,

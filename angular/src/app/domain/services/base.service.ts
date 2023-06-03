@@ -48,7 +48,7 @@ export class BaseService {
 
         response.subscribe({ 
             next: result => { return result; },
-            error: err => { return null; },
+            error: error => { handleHttpError(error) },
             complete: () => this.finishCall() 
         });
 
@@ -152,4 +152,8 @@ export class BaseService {
         
     //     return response;
     // }
+}
+
+function handleHttpError(error: any) {
+    throw new Error('Function not implemented.');
 }

@@ -26,14 +26,28 @@ export class UsersComponent implements OnInit {
       .subscribe(users => this.users = users);
     */
 
+      /*
     this.userService
       .addUser({ 
         firstName: "FirstName",
         lastName: "LAst name",
         jmbg: "0110969710420",
-        operatorId: 1,
+        operatorId: 2,
         phoneNumber: "0641946800"
       });
+*/
+
+// this.userService
+// .modifyUser("0641946800", { 
+//   firstName: "Goran",
+//   lastName: "Zafirovic",
+//   jmbg: "0110969710420",
+//   operatorId: 2,
+//   phoneNumber: "0652015766"
+// });
+
+
+      this.userService.removeUser("0652015766");
 
       /*
     let response = this.userService

@@ -28,6 +28,7 @@ internal sealed class RegUsersQueryHandler : IQueryHandler<RegUsersQuery, List<R
 
         return users.Any()
             ? _mapper.Map<List<RegUserDto>>(users)
-            : Result.Failure<List<RegUserDto>>(RegErrors.RegUser.RolesNotFound(request.Role.ToString()));
+            : new List<RegUserDto>();
+            //: Result.Failure<List<RegUserDto>>(RegErrors.RegUser.RolesNotFound(request.Role.ToString()));
     }
 }
