@@ -16,7 +16,7 @@ namespace NeZoviReg.WebApi.Controllers;
 
 
 [Route("regusers")]
-[HasPermission(PermissionType.All)]
+[HasPermission(PermissionType.RegUsersAll)]
 public class RegUserController : NeZoviRegBaseController
 {
     public RegUserController(ISender sender, ILogger<RegUserController> logger)
@@ -25,11 +25,23 @@ public class RegUserController : NeZoviRegBaseController
     }
 
     [HttpPost("login")]
-    [ProducesResponseType(typeof(TokenResult), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(TokenResult), (int) HttpStatusCode.OK)]
     [AllowAnonymous]
     public async Task<IActionResult> LoginRegUser([FromBody] LoginRequest request, CancellationToken cancellationToken)
     {
         var command = new LoginCommand(request.Username, request.Password);
+
+        var result = await Sender.Send(command, cancellationToken);
+
+        return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
+
+    }
+
+    [HttpPost("logout")]
+    [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> LogoutRegUser(CancellationToken cancellationToken)
+    {
+        var command = new LogoutCommand(AppUser.Id);
 
         var result = await Sender.Send(command, cancellationToken);
 
@@ -102,9 +114,9 @@ public class RegUserController : NeZoviRegBaseController
 
     [HttpGet("roles/{role:int}")]
     [ProducesResponseType(typeof(List<RegUserDto>), (int)HttpStatusCode.OK)]
-    public async Task<IActionResult> GetRegUsers(RoleType role, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetRegUsers(int role, CancellationToken cancellationToken)
     {
-        var command = new RegUsersQuery(role);
+        var command = new RegUsersQuery((RoleType)role);
 
         var result = await Sender.Send(command, cancellationToken);
 

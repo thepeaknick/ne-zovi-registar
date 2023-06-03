@@ -1,0 +1,18 @@
+﻿services:
+  web_api:
+    build: .
+    container_name: nezovireg_api
+    ports:
+      - "8080:80"
+    environment:
+      - "ConnectionStrings:SqlServerDatabase=Server=sql_server2022;Database=NeZoviReg;User Id=SA;Password=Nezovitest@123;Trusted_Connection=False;MultipleActiveResultSets=True;TrustServerCertificate=true;"     
+    depends_on:
+      - sql
+  sql:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    container_name: sql_server2022
+    ports: # not actually needed, because the two services are on the same network
+      - "1433:1433" 
+    environment:
+      - ACCEPT_EULA=y
+      - SA_PASSWORD=Nezovitest@123

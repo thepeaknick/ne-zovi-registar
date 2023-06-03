@@ -27,6 +27,13 @@ public class NeZoviExceptionsHandlingMiddleware : IMiddleware
                 RegErrors.App.ForbiddenAccess
             )));
         }
+        catch (RefreshTokenEmptyException e)
+        {
+            await context.Response.WriteAsync(HandleException(context, e, CreateProblemDetails("Izlogovani ste iz sistema. Ulogujte se ponovo.",
+                (int)HttpStatusCode.Unauthorized,
+                RegErrors.App.ForbiddenAccess
+            )));
+        }
         catch (SecurityTokenInvalidSignatureException e)
         {
             await context.Response.WriteAsync(HandleException(context, e, CreateProblemDetails("Nevalidan potpis tokena. Algoritam nije ispravan.",

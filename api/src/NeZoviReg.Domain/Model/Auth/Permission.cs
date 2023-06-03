@@ -4,7 +4,7 @@ namespace NeZoviReg.Domain.Model.Auth;
 
 public sealed class Permission : EnumerationEntity<Permission>
 {
-    public static readonly Permission All = new ((int)PermissionType.All, PermissionType.All.ToString());
+    public static readonly Permission All = new ((int)PermissionType.RegUsersAll, PermissionType.RegUsersAll.ToString());
     public static readonly Permission Read = new ((int)PermissionType.Read, PermissionType.Read.ToString());
     public static readonly Permission Delete = new ((int)PermissionType.Delete, PermissionType.Delete.ToString());
     public static readonly Permission ReadAll = new ((int)PermissionType.ReadAll, PermissionType.ReadAll.ToString());
