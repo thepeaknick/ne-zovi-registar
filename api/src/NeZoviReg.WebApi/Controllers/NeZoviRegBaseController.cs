@@ -37,7 +37,7 @@ public class NeZoviRegBaseController : ControllerBase
                     result.Error,
                     validationResult.ErrorsDictionary)),
             { Error: var e } when e.Code == ErrorCode.NotFound.ToString() => NotFound(CreateProblemDetails("Nema rezultata",
-                    StatusCodes.Status204NoContent,
+                    StatusCodes.Status404NotFound,
                     result.Error)),
             _ =>
                 BadRequest(CreateProblemDetails("Loš zahtev",
