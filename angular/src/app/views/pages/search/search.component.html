@@ -1,21 +1,33 @@
 <c-container breakpoint="lg" class="h-auto home-bck">
   <router-outlet></router-outlet>
-  <c-row class="aaaa">
-    <c-col xs="8"></c-col>
-    <c-col xs="4">
-      <form cForm>
-        <div class="mb-3">
-          <label cLabel for="inputPhone">Broj telefona</label>
-          <input cFormControl id="inputPhone" type="email" />
-        </div>
-        <c-form-check class="mb-3">
-          <input cFormCheckInput id="checkMeOut-1" type="checkbox" />
-          <label cFormCheckLabel for="checkMeOut-1">Pretraga</label>
-        </c-form-check>
-        <input cButton color="primary" type="submit" />
-      </form>
-    </c-col>
-  </c-row>
+  <div class="body flex-grow-1 px-3">
+    <c-container breakpoint="lg" class="h-auto">
+    <c-row>
+        <c-col xs="7"></c-col>
+        <c-col xs="5" class="backgroundView">
+            <div class="content">
+                <c-row>
+                    <c-col> <p class="titleText">Sign in</p> </c-col>
+                    <c-col> </c-col>
+                </c-row>
+                <form cForm>
+                    <div class="mb-3">
+                        <label cLabel for="inputEmail-1" class="textInputField">Korisničko ime</label>
+                        <input cFormControl id="inputEmail-1" type="email">
+                    </div>
+                    <div class="mb-3">
+                      <label cLabel for="inputEmail-1" class="textInputField">Lozinka</label>
+                      <input cFormControl id="inputEmail-1" type="email">
+                    </div>
+                    <p class="forgottenPassword">Zaboravili ste lozinku?</p>
+                    <input cButton class="submitButton" type="submit" value="Sign in" >
+                    <p class="descriptionText">Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum</p>
+                </form>
+            </div>
+        </c-col>
+        </c-row> 
+    </c-container>
+  </div>
 
   <c-modal
     #verticallyCenteredModal

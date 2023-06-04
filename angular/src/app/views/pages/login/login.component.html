@@ -1,1 +1,32 @@
-<p>login works!</p>
+
+<div class="backgroundImage">
+<div class="body flex-grow-1 px-3">
+    <c-container breakpoint="lg" class="h-auto">
+    <c-row>
+        <c-col xs="7"></c-col>
+        <c-col xs="5" class="backgroundView">
+            <div class="content">
+                <c-row>
+                    <c-col> <p class="titleText">Pretraga <br>telefonskog broja</p> </c-col>
+                    <c-col> </c-col>
+                </c-row>
+                <form cForm>
+                    <div class="mb-3">
+                        <label cLabel for="inputEmail-1" class="phoneNumberText">Broj telefona</label>
+                        <input cFormControl id="inputEmail-1" type="email">
+                    </div>
+                    <div>
+                        <re-captcha class="recaptcha" id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)"></re-captcha>
+                        <div *ngIf="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)" class="invalid-feedback">
+                            <div *ngIf="recaptcha.errors?.['required']">This field is required.</div>
+                        </div>
+                    </div>
+                    <input cButton class="submitButton" type="submit" value="Pretraga" >
+                    <p class="descriptionText">Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum</p>
+                </form>
+            </div>
+        </c-col>
+        </c-row> 
+    </c-container>
+</div>
+</div>

@@ -1,8 +1,11 @@
+import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+// import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+
 import {
   HttpClientModule,
   HTTP_INTERCEPTORS,
@@ -56,6 +59,7 @@ import { AppConfiguration } from './domain/services/app-configuration.service';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { SearchComponent } from './views/pages/search/search.component';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './views/pages/login/login.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -74,8 +78,11 @@ const APP_CONTAINERS = [
     ...APP_CONTAINERS,
     HomeComponent,
     SearchComponent,
+    LoginComponent,
   ],
   imports: [
+    RecaptchaModule,
+    RecaptchaFormsModule,
     HttpClientModule,
     AngularSvgIconModule.forRoot(),
     BrowserModule,
@@ -98,7 +105,8 @@ const APP_CONTAINERS = [
     OffcanvasModule,
     ModalModule,
     ButtonGroupModule,
-    ReactiveFormsModule,
+    // ReactiveFormsModule,
+    FormsModule,
     SidebarModule,
     SharedModule,
     TabsModule,
@@ -109,6 +117,12 @@ const APP_CONTAINERS = [
     CardModule,
   ],
   providers: [
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: {
+        siteKey: '6LdNNmQmAAAAAKEU4pIxQ33-eNhyyGeZ1_CT2IO6',
+      } as RecaptchaSettings,
+    },
     { provide: LocationStrategy, useClass: PathLocationStrategy },
     { provide: UserService, useClass: UserService },
     { provide: RegUserService, useClass: RegUserService },

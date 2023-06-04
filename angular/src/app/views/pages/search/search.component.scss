@@ -58,3 +58,70 @@ c-modal-footer button img {
   vertical-align: middle;
   margin-right: 10px;
 }
+
+.backgroundImage {
+    background-image: url("../../../../assets/images/homebck.png");    
+    min-height: 82vh;
+    background-size: cover;
+}
+
+.body {
+    font-family: 'Source Sans 3';
+    font-style: normal;
+
+    padding-top: 2%;
+}
+
+.titleText {
+    font-weight: 700;
+    font-size: 25.608px;
+    line-height: 36px;
+    color: #133F85;
+
+    padding-bottom: 50%;
+}
+
+.textInputField {
+    font-weight: 700;
+    font-size: 17.459px;
+    line-height: 25px;
+    color: #001942;
+}
+
+.forgottenPassword {
+    font-weight: 700;
+    font-size: 14.301px;
+    line-height: 20px;
+    color: #3F6AA3;
+}
+
+.descriptionText {
+    font-weight: 400;
+    font-size: 15.132px;
+    line-height: 22px;
+    color: #3F6AA3;
+}
+
+.submitButton {
+    width: 40%;
+    height: 10%;   
+    background: #224C8D;
+    border-radius: 5px;
+
+    font-size: 100%;
+    line-height: 30px;
+    color: #FFFFFF;
+
+    margin-top: 20%;
+    margin-bottom: 10%;
+}
+
+.backgroundView {
+    background-color: white;
+    border-radius:  25px;
+    // width: 25vw;
+}
+
+.content {
+    padding: 5%;
+}
