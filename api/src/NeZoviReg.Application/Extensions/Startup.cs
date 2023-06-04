@@ -4,6 +4,8 @@ using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NeZoviReg.Abstractions.Behaviors;
+using NeZoviReg.Abstractions.Email;
+using NeZoviReg.Application.Email;
 
 namespace NeZoviReg.Application.Extensions;
 
@@ -21,9 +23,14 @@ public static class Startup
 
     }
 
-    private static IServiceCollection AddApplicationServices(this IServiceCollection services,
-        IConfiguration configuration)
+    private static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddOptions<EmailSenderOptions>()
+            .Bind(configuration.GetSection(EmailSenderOptions.SectionName))
+            .ValidateDataAnnotations();
+
+        services.AddTransient<IEmailSender, EmailSender>();
+
         return services;
     }
 

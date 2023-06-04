@@ -122,4 +122,17 @@ public class RegUserController : NeZoviRegBaseController
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
+
+    [HttpPost("email")]
+    [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> SendEmail([FromBody] SendEmailRequest request, CancellationToken cancellationToken)
+    {
+        var command = new SendEmailCommand(request.FirstName, request.LastName, request.CompanyName, request.EmailFrom, request.PhoneNumber, request.Content)
+            .AddAppUser(AppUser.UserName);
+
+        var result = await Sender.Send(command, cancellationToken);
+
+        return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
+    }
+
 }

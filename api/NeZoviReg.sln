@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.Migrations.Ef", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.Persistence.Ef", "src\NeZoviReg.Persistence.Ef\NeZoviReg.Persistence.Ef.csproj", "{F8C2106A-2C75-47DE-AADF-53C46B7CA36B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeZoviReg.Quartz", "src\NeZoviReg.Quartz\NeZoviReg.Quartz.csproj", "{B0C7051E-010F-4CC7-B075-D17D98A58234}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{F8C2106A-2C75-47DE-AADF-53C46B7CA36B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8C2106A-2C75-47DE-AADF-53C46B7CA36B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8C2106A-2C75-47DE-AADF-53C46B7CA36B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0C7051E-010F-4CC7-B075-D17D98A58234}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0C7051E-010F-4CC7-B075-D17D98A58234}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0C7051E-010F-4CC7-B075-D17D98A58234}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0C7051E-010F-4CC7-B075-D17D98A58234}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,6 +103,7 @@ Global
 		{30F6519C-9E69-4374-98CD-FAE465E6D110} = {A2BD3D0F-5FF9-410C-95F6-DAD884527E32}
 		{D22946F1-E542-4209-BC68-60DFB7C2282B} = {D73CA493-AC10-4046-B95C-E8BDD42061C3}
 		{F8C2106A-2C75-47DE-AADF-53C46B7CA36B} = {D73CA493-AC10-4046-B95C-E8BDD42061C3}
+		{B0C7051E-010F-4CC7-B075-D17D98A58234} = {D73CA493-AC10-4046-B95C-E8BDD42061C3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {86387C1F-A172-4F06-9570-BA1BC8EFB8FC}
