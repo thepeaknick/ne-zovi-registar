@@ -1,0 +1,52 @@
+
+.backgroundImage {
+    background-image: url("../../../../assets/images/dots.svg");    
+    min-height: 82vh;
+    background-size: cover;
+}
+
+.merchantTable {
+    background-color: white;
+    padding: 5%;
+    border-radius: 25px;
+
+    font-family: 'Source Sans 3';
+    font-style: normal;
+}
+
+.tableButton {
+    width: 188px;
+    height: 43px;
+    margin-right: 1%;
+    border-color: #95A7C4;
+    border-width: 1px;
+
+    font-family: 'Source Sans 3';
+    font-style: normal;
+    font-weight: 700;
+    color: #133F85;
+}
+
+.tableButtonsView {
+    text-align: right;
+}
+
+.tableData { 
+    padding-top: 3%;
+    justify-content: center;
+    text-align: center;
+}
+
+.tableHeader {
+    font-weight: 700;
+    font-size: 16.3583px;
+    line-height: 23px;
+    color: #224C8D;
+}
+
+.tableContent {
+    font-weight: 400;
+    font-size: 16.3023px;
+    line-height: 23px;
+    color: #001942;
+}

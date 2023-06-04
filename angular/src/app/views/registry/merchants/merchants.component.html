@@ -1,1 +1,60 @@
-<p>merchants works!</p>
+<div class="backgroundImage">
+
+<div class="merchantTable">
+    <div class="tableButtonsView">
+        <button 
+            [cPopover]="popoverHtml"
+            cPopoverPlacement="bottom"
+            [cPopoverTrigger]="'click'"
+            cButton
+            class="tableButton"
+            color="white"
+            shape="rounded-pill"
+        >
+            Prikaz po strani &#8659;
+            <ng-template #popoverHtml>
+                <div class="popover-body">
+                    10<br/>20<br/>30<br/>40<br/>50 
+                </div>
+              </ng-template>
+        </button>
+        <button cButton class="tableButton" color="white" shape="rounded-pill">Export data</button>
+    </div>
+    <div class="tableData">
+        <table cTable hover>
+            <thead class="tableHeader">
+            <tr>
+                <th scope="col">Broj telefona</th>
+                <th scope="col">Datum upisa/ispisa</th>
+            </tr>
+            </thead>
+            <tbody class="tableContent">
+                <tr>
+                    <td>06X XXX XXXX</td>
+                    <td>20 Jan, 2022</td>
+                </tr>
+                <tr>
+                    <td>06X XXX XXXX</td>
+                    <td>20 Jan, 2022</td>
+                </tr>
+                <tr>
+                    <td>06X XXX XXXX</td>
+                    <td>20 Jan, 2022</td>
+                </tr>
+                <tr>
+                    <td>06X XXX XXXX</td>
+                    <td>20 Jan, 2022</td>
+                </tr>
+                <tr>
+                    <td>06X XXX XXXX</td>
+                    <td>20 Jan, 2022</td>
+                </tr>
+                <tr>
+                    <td>06X XXX XXXX</td>
+                    <td>20 Jan, 2022</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>

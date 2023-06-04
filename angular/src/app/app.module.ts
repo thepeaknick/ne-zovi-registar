@@ -5,6 +5,8 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { PopoverModule } from '@coreui/angular';
+import { TableModule } from '@coreui/angular';
 
 import {
   HttpClientModule,
@@ -60,6 +62,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { SearchComponent } from './views/pages/search/search.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './views/pages/login/login.component';
+import { MerchantsComponent } from './views/registry/merchants/merchants.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -79,6 +82,7 @@ const APP_CONTAINERS = [
     HomeComponent,
     SearchComponent,
     LoginComponent,
+    MerchantsComponent,
   ],
   imports: [
     RecaptchaModule,
@@ -115,6 +119,8 @@ const APP_CONTAINERS = [
     BadgeModule,
     ListGroupModule,
     CardModule,
+    PopoverModule,
+    TableModule
   ],
   providers: [
     {
