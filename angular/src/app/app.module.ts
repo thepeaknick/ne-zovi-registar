@@ -63,6 +63,7 @@ import { SearchComponent } from './views/pages/search/search.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './views/pages/login/login.component';
 import { MerchantsComponent } from './views/registry/merchants/merchants.component';
+import { ContactComponent } from './views/contact/contact.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -83,6 +84,7 @@ const APP_CONTAINERS = [
     SearchComponent,
     LoginComponent,
     MerchantsComponent,
+    ContactComponent
   ],
   imports: [
     RecaptchaModule,
