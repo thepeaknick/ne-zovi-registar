@@ -6,4 +6,10 @@ import { OffcanvasComponent } from '@coreui/angular';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent {}
+export class SearchComponent {
+  token: string | undefined;
+
+  constructor() {
+    this.token = undefined;
+  }
+}

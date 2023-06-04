@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 
 import { ClassToggleService, HeaderComponent } from '@coreui/angular';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-page-header',
@@ -13,7 +13,44 @@ export class PageHeaderComponent extends HeaderComponent {
   public newTasks = new Array(5);
   public newNotifications = new Array(5);
 
-  constructor(private classToggler: ClassToggleService) {
+  isLogin: boolean = false;
+  isSearch: boolean = false;
+
+  constructor(
+    private classToggler: ClassToggleService,
+    private router: Router
+  ) {
     super();
+  }
+
+  ngOnInit() {
+    // console.log(this.router.url);
+
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        if (this.router.url === '/login') {
+          this.isLogin = true;
+          this.isSearch = false;
+        }
+        if (this.router.url === '/search') {
+          this.isSearch = true;
+          this.isLogin = false;
+        }
+        return;
+      }
+    });
+  }
+
+  goToSignIn($myParam: string = ''): void {
+    const navigationDetails: string[] = ['/login'];
+    if ($myParam.length) {
+      navigationDetails.push($myParam);
+    }
+    this.router.navigate(navigationDetails);
+  }
+
+  goBack(): void {
+    const navigationDetails: string[] = ['/'];
+    this.router.navigate(navigationDetails);
   }
 }
