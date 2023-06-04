@@ -26,7 +26,7 @@ internal sealed class SendEmailCommandHandler : ICommandHandler<SendEmailCommand
     {
         var subject = CreateEmailSubject(command);
 
-        return await _emailSender.SendEmailAsync(command.EmailFrom, subject, command.Content, cancellationToken);
+        return await _emailSender.SendEmailAsync(command.EmailFrom!, subject, command.Content!, cancellationToken);
     }
 
 

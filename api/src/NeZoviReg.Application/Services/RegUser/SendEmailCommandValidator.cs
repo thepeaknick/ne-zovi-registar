@@ -11,7 +11,8 @@ public class SendEmailCommandValidator : AbstractValidator<SendEmailCommand>
     public SendEmailCommandValidator()
     {
         RuleFor(x => x.EmailFrom)!
-            .NotEmpty<SendEmailCommand, string, bool>(RegErrors.Email.Empty.Message);
+            .NotEmpty<SendEmailCommand, string, bool>(RegErrors.Email.Empty.Message)
+            .RegexFormat<SendEmailCommand, bool>(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", RegErrors.Email.InvalidFormat.Message);;
 
         RuleFor(x => x.PhoneNumber)!
             .NotEmpty<SendEmailCommand, string, bool>(PhoneNumber.Empty.Message)
