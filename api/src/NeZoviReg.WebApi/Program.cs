@@ -10,10 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
     o.ConfigureHttpsDefaults(m => m.ClientCertificateMode = ClientCertificateMode.AllowCertificate);
 });*/
 
-builder.Host.ConfigureAppConfiguration((ctx, configuration) =>
+#pragma warning disable ASP0013
+builder.WebHost.ConfigureAppConfiguration((ctx, conf) =>
 {
-    configuration.AddConfigurationJsonFiles(ctx.HostingEnvironment);
+    conf.AddConfigurationJsonFiles(ctx.HostingEnvironment);
 });
+#pragma warning restore ASP0013
 
 
 builder.Host.UseSerilog((ctx, lc) => lc.ReadFrom.Configuration(ctx.Configuration));

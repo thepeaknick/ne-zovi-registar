@@ -4,7 +4,8 @@ namespace NeZoviReg.Abstractions.Email;
 
 public static class EmailExtensions
 {
-    public static async Task<bool> SendEmailAsync(this IEmailSender sender, string emailFrom, string subject, string content, CancellationToken cancellationToken)
+    public static async Task<bool> SendEmailAsync(this IEmailSender sender, string emailFrom, string subject,
+        string content, CancellationToken cancellationToken)
     {
         using var message = new MailMessage
         {
@@ -16,7 +17,7 @@ public static class EmailExtensions
         return await sender.SendEmailAsync(message, cancellationToken);
     }
 
-    private static void AddRange(this MailAddressCollection collection, IEnumerable<MailAddress> addresses)
+    /*private static void AddRange(this MailAddressCollection collection, IEnumerable<MailAddress> addresses)
     {
         foreach (var address in addresses ?? Enumerable.Empty<MailAddress>())
             collection.Add(address);
@@ -33,7 +34,5 @@ public static class EmailExtensions
         return emailAddresses
             .Split(separator, StringSplitOptions.RemoveEmptyEntries)
             .Select(x => new MailAddress(x.Trim()));
-    }
-
-
+    }*/
 }

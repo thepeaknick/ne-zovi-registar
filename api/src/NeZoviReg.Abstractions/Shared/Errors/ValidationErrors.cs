@@ -7,7 +7,7 @@ public static class RegErrors
 {
     public static class App
     {
-        public static readonly Func<int?, Error> RateLimitRejected = retry => new(
+        public static readonly Func<int?, Error> RateLimitRejected = retry => new(  
             ErrorCode.Rejected,
             retry == default
                 ? "Previše pokušaja. Molimo vas pokušajte kasnije."
