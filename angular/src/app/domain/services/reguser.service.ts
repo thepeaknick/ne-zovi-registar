@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
@@ -8,22 +8,23 @@ import { ChangeRegUserPasswordRequest, LoginRequest, ModifyRegUserRequest, RegUs
 import { BaseService } from './base.service';
 import { Token } from '@angular/compiler';
 import { NeZoviHttpInterceptor } from './http-interceptor';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegUserService extends BaseService {
 
-    constructor(http: HttpClient) { 
+    constructor(http: HttpClient, private authenticationService: AuthenticationService) { 
         super(http);
     }
 
-    loginRegUser(request: LoginRequest): Observable<TokenResult> {
-        return this
-            .post<TokenResult>('/regusers/login', request)
-            .subscribe({
-                next: (result: TokenResult) => localStorage.setItem("TokenResult", JSON.stringify(result)) 
-            });
+    loginRegUser(request: LoginRequest): void {
+        this.authenticationService.login(request.username, request.password);
+    }
+
+    logoutRegUser(): void {
+        this.authenticationService.logout();
     }
 
     registerRegUser(request: RegisterRegUserRequest): Observable<RegUserDto[]> {

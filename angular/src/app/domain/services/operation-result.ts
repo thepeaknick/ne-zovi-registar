@@ -1,31 +1,23 @@
-import { HttpEvent, HttpResponse } from "@angular/common/http";
+// import { HttpErrorResponse, HttpEvent, HttpResponse } from "@angular/common/http";
 
-export class OperationResult {
-    public success: boolean = false;
-    public data: any = null;
-    public rawData: any = null;
-    public message: string = "";
-    public errorMessage: string = "";
+// export class OperationResult {
+//     public success: boolean = false;
 
-    constructor(){
-    }
+//     public data: any = null;
+//     public event: HttpEvent<any> | undefined = undefined;
 
-    public createFromResponse(httpEvent: HttpEvent<any> | null) : OperationResult {
-        if(httpEvent === null) {
-            return new OperationResult;
-        }
+//     constructor(httpEvent: HttpEvent<any> | null) {
+//         if(httpEvent !== null) {
+//             this.event = httpEvent;
 
-        if(httpEvent instanceof HttpResponse) {
-            let httpResponse = httpEvent as HttpResponse<any>;
-
-            this.success = true;
-            this.rawData = httpEvent;
-            this.data = httpResponse;
-            this.errorMessage = "";
-            this.message = "";
-            
-
-        }
-
-    }
-}
+//             if(httpEvent instanceof HttpResponse) {
+//                 this.success = true;
+//                 this.data = JSON.parse(httpEvent.body);
+//             }
+//             else if(httpEvent instanceof HttpErrorResponse) {
+//                 this.success = false;
+//                 this.data = null;
+//             }
+//         }
+//     }
+// }

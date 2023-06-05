@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/domain/services/user.service';
 import { UserDto } from '../../../domain/model/schemas';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-users',
@@ -17,14 +18,14 @@ export class UsersComponent implements OnInit {
   phoneNumber: string | null = null;
 
   ngOnInit() {
-    /*
+    
     let after: Date = new Date();
     after.setMonth(3);
     
     this.userService
       .allUsers(after)
-      .subscribe(users => this.users = users);
-    */
+      .subscribe(users => this.users = (users instanceof HttpErrorResponse) ? [] : users);
+    
 
       /*
     this.userService
@@ -47,7 +48,7 @@ export class UsersComponent implements OnInit {
 // });
 
 
-      this.userService.removeUser("0652015766");
+      //this.userService.removeUser("0652015766");
 
       /*
     let response = this.userService

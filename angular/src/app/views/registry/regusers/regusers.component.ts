@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { RegUserDto, RoleType } from 'src/app/domain/model/schemas';
 import { RegUserService } from 'src/app/domain/services/reguser.service';
@@ -14,9 +15,10 @@ export class RegUsersComponent implements OnInit {
 
   private regUsers: RegUserDto[] = [];
   ngOnInit(): void {
-    this.regUserService.getRegUsers(RoleType.Obveznik)
+    this.regUserService
+      .getRegUsers(RoleType.Obveznik)
       .subscribe({
-        next: (regUsers: RegUserDto[]) => this.regUsers = regUsers,
+        next: (regUsers: RegUserDto[]) => this.regUsers = (regUsers instanceof HttpErrorResponse) ? [] : regUsers,
         complete: () => this.addRegUsers()
       });
   }

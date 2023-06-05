@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
@@ -37,14 +37,9 @@ export class UserService extends BaseService {
     // TODO: get/post?
     allUsers(after: Date): Observable<UserDto[]> {
     
-        let params = {after: "2023-05-27T21:20:10.780Z"};
-
-        return this
-            .post<UserDto[]>(
-                '/users/all',
-                params); //{ after : after.toUTCString() }); 
+        return this.post<UserDto[]>('/users/all', after)
+            .pipe(
+                map((result: UserDto[]) => { (result instanceof HttpResponse) ? [] : result })
+            ); 
     }
-
-
-
 }
