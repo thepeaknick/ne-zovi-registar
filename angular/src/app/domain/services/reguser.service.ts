@@ -19,12 +19,12 @@ export class RegUserService extends BaseService {
         super(http);
     }
 
-    loginRegUser(request: LoginRequest): void {
-        this.authenticationService.login(request.username, request.password);
+    loginRegUser(request: LoginRequest): Observable<void> {
+        return this.authenticationService.login(request.username, request.password);
     }
 
     logoutRegUser(): void {
-        this.authenticationService.logout();
+        return this.authenticationService.logout();
     }
 
     registerRegUser(request: RegisterRegUserRequest): Observable<RegUserDto[]> {

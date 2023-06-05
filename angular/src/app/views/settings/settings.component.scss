@@ -1,0 +1,80 @@
+.settingsScreen {
+    background-image: url("../../../assets/images/dots.svg");    
+    min-height: 82vh;
+    background-size: cover;
+
+    font-family: 'Source Sans 3';
+    font-style: normal;
+}
+
+.settingsMainForm {
+    background-color: white;
+    padding: 5%;
+    margin: 1%;
+    border-radius: 25px;
+    height: 50vh;
+
+    text-align: center;
+}
+
+.settingsMainFormItem {
+    font-weight: 700;
+    font-size: 17.46px;
+    line-height: 25px;  
+    color: #224C8D;
+
+    border-width: 0;
+    width: 15vw;
+}
+
+.settingsInfoForm {
+    background-color: white;
+    padding: 5%;
+    margin: 1%;
+    border-radius: 25px;
+}
+
+.myProfileHeader {
+    background-image: url("../../../assets/images/dots.svg");  
+    height: 10vh;
+
+    font-weight: 700;
+    font-size: 27.679px;
+    line-height: 39px;
+    color: #133F85;
+}
+
+.textInputFieldLabel {
+    font-weight: 700;
+    font-size: 17.46px;
+    line-height: 25px;
+    color: #001942;
+}
+
+.editUsernameButton {
+    width: 84.34px;
+    background: #224C8D;
+}
+
+.submitButton {
+    width: 188px;
+    height: 50px;
+    background: #224C8D;
+    border-radius: 5px;
+    margin-top: 5%;
+}
+
+.descriptionTitleText {
+    margin-top: 10%;
+    font-weight: 700;
+    font-size: 18.624px;
+    line-height: 27px;
+    color: #001942;
+}
+
+.descriptionSubtitleText {
+    font-weight: 400;
+    font-size: 15.132px;
+    line-height: 22px;
+    color: #001942;
+}

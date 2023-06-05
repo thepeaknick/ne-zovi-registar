@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AppConfiguration } from './app-configuration.service';
 import { RefreshTokenResultDto, TokenResult } from '../model/schemas';
+import { catchError, map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -18,10 +19,12 @@ export class AuthenticationService {
             .post<TokenResult>(
                 `${this.config.apiUrl}${this.config.apiLoginUrl}`, 
                 { username, password })
-            .subscribe((token: TokenResult) => {
-                AuthenticationService.Token = token;
-                this.startRefreshTokenTimer();
-            });
+            .pipe(
+                map((token: TokenResult) => {
+                    AuthenticationService.Token = token;
+                    this.startRefreshTokenTimer();
+                }
+            ));
     }
 
     logout() {
@@ -44,13 +47,15 @@ export class AuthenticationService {
                     refreshToken: token.refreshToken.tokenString 
                 }
             )
-            .subscribe((token: RefreshTokenResultDto) => {
-                AuthenticationService.Token = {
-                    accessToken: token.accessToken,
-                    refreshToken: token.refreshToken
-                };
-                this.startRefreshTokenTimer();
-            });
+            .pipe(
+                map((token: RefreshTokenResultDto) => {
+                    AuthenticationService.Token = {
+                        accessToken: token.accessToken,
+                        refreshToken: token.refreshToken
+                    };
+                    this.startRefreshTokenTimer();
+                })
+            );
     }
 
 

@@ -1,0 +1,34 @@
+// CSS for Ne Zovi
+
+c-header {
+  background-image: url("/assets/brand/headerbackground.png");
+  background-size: contain;
+  height: 18vh;
+  width: 80%;
+}
+
+button img {
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+span {
+  vertical-align: middle;
+  font-family: "Source Sans 3";
+  color: #3f6aa3;
+}
+
+span h2 {
+  font-weight: 800;
+  font-size: 1.8vw;
+}
+
+span h4 {
+  font-weight: 400;
+  font-size: 1.2vw;
+  margin-bottom: 0px;
+}
+
+span#header-title {
+  margin-right: 20%;
+}

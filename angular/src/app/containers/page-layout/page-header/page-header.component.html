@@ -1,19 +1,39 @@
-<!--<c-header class="mb-4 d-print-none" position="sticky">-->
 <ng-container>
-  <c-container [fluid]="true">
-    <c-header-nav class="d-none d-lg-flex me-auto">
-    </c-header-nav>
+  <c-header>
+    <c-container fluid>
+      <a class="header-brand" href="#">
+        <img
+          src="/assets/brand/ratellogo.png"
+          alt=""
+          height="100"
+          class="d-inline-block align-middle"
+          alt="Ratel Logo"
+        />
+      </a>
+      <span id="header-title">
+        <h2>Dobrodošli u registar "Ne Zovi"</h2>
+        <h4>Tekst podnaslova u dužini do 50 karaktera</h4>
+      </span>
 
-    <c-header-nav class="d-none d-lg-flex">
-    </c-header-nav>
-    <c-header-nav class="ms-3">
-    </c-header-nav>
+      <button
+        *ngIf="isLogin"
+        cButton
+        color="secondary"
+        variant="ghost"
+        (click)="goBack()"
+      >
+        <img src="/assets/icons/loginicon.svg" /><span>Nazad</span>
+      </button>
 
-  </c-container>
-  <c-header-divider></c-header-divider>
-  <c-container [fluid]="true">
-    <c-breadcrumb-router class="ms-2"></c-breadcrumb-router>
-  </c-container>
+      <button
+        *ngIf="isSearch"
+        cButton
+        color="secondary"
+        variant="ghost"
+        (click)="goToSignIn()"
+      >
+        <img src="/assets/icons/loginicon.svg" /><span>Sign in</span>
+      </button>
+    </c-container>
+  </c-header>
 </ng-container>
-<!--</c-header>-->
-

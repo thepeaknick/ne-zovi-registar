@@ -1,1 +1,69 @@
-<p>settings works!</p>
+<div class="settingsScreen">
+
+    <c-row>
+        <c-col xs="4" class="settingsMainForm"> 
+            <form [formGroup]="sideMenuForm">
+                <c-button-group [vertical]="true">
+                    <input class="btn-check" formControlName="radio1" type="radio" value="sideMenuFirst" />
+                    <label (click)="setRadioValue('sideMenuFirst')" cButton cFormCheckLabel class="settingsMainFormItem" color="secondary" variant="outline">
+                        Moj profil
+                    </label>        
+                    <input class="btn-check" formControlName="radio1" type="radio" value="sideMenuSecond" />
+                    <label (click)="setRadioValue('sideMenuSecond')" cButton cFormCheckLabel class="settingsMainFormItem" color="secondary" variant="outline">
+                         ...
+                    </label>
+                    <input class="btn-check" formControlName="radio1" type="radio" value="sideMenuThird" />
+                    <label (click)="setRadioValue('sideMenuThird')" cButton cFormCheckLabel class="settingsMainFormItem" color="secondary" variant="outline">
+                        ...
+                    </label>
+                </c-button-group>
+            </form>
+        </c-col>
+        <c-col xs="7" class="settingsInfoForm">
+            <div class="myProfileHeader">
+                <p>Moj profil</p>
+            </div>
+            <form cRow>
+                <label cLabel class="textInputFieldLabel">
+                    Korisničko ime
+                </label>
+                <c-input-group class="mb-3">
+                    <input 
+                        cFormControl
+                        placeholder="Uneti"
+                    />
+                    <button cButton class="editUsernameButton" id="editUsername" type="button" >
+                        Edit
+                    </button>
+                </c-input-group>
+            </form>
+            <form cForm>
+                <div class="mb-3">
+                    <label cLabel for="newPassword1" class="textInputFieldLabel">
+                        Nova lozinka
+                    </label>
+                    <input cFormControl id="newPassword1" type="password" />
+                </div>
+                <div class="mb-3">
+                    <label cLabel for="newPassword2" class="textInputFieldLabel">
+                        Lozinka
+                    </label>
+                    <input cFormControl id="newPassword2" type="password" />
+                </div>
+                <input
+                    cButton
+                    class="submitButton"
+                    type="submit"
+                    value="Promeni lozinku"
+                />
+                <p class="descriptionTitleText">
+                    Lorem ipsum
+                </p>
+                <p class="descriptionSubtitleText">
+                    Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+                    lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+                </p>
+              </form>
+        </c-col>
+    </c-row> 
+</div>

@@ -1,0 +1,127 @@
+c-offcanvas {
+  background-color: RGBA(0, 25, 66, 0.4) !important;
+  font-family: "Source Sans 3";
+  height: auto !important;
+}
+
+c-offcanvas-body span {
+  display: inline-block;
+}
+c-offcanvas-body p {
+  margin-bottom: 0px;
+}
+c-offcanvas-body button {
+  float: right;
+}
+
+//Drugi ekran
+c-modal-body {
+  font-family: "Source Sans 3";
+  text-align: center;
+  color: #3f6aa3;
+}
+
+c-modal-header,
+c-modal-footer {
+  border: 0px;
+}
+
+c-modal-body h5 {
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+c-modal-body img {
+  margin-bottom: 20px;
+}
+
+c-modal-body input {
+  margin-top: 20px;
+  border: 1px solid #c0cbdb;
+}
+c-modal-body .btn {
+  width: 40%;
+}
+
+c-modal-body #inputEmail {
+  width: 60%;
+  display: inline-block;
+}
+
+c-modal-footer span {
+  vertical-align: middle;
+  font-family: "Source Sans 3";
+  color: #3f6aa3;
+}
+
+c-modal-footer button img {
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.backgroundImage {
+    background-image: url("../../../../assets/images/homebck.png");    
+    min-height: 82vh;
+    background-size: cover;
+}
+
+.body {
+    font-family: 'Source Sans 3';
+    font-style: normal;
+
+    padding-top: 2%;
+}
+
+.titleText {
+    font-weight: 700;
+    font-size: 25.608px;
+    line-height: 36px;
+    color: #133F85;
+
+    padding-bottom: 50%;
+}
+
+.textInputField {
+    font-weight: 700;
+    font-size: 17.459px;
+    line-height: 25px;
+    color: #001942;
+}
+
+.forgottenPassword {
+    font-weight: 700;
+    font-size: 14.301px;
+    line-height: 20px;
+    color: #3F6AA3;
+}
+
+.descriptionText {
+    font-weight: 400;
+    font-size: 15.132px;
+    line-height: 22px;
+    color: #3F6AA3;
+}
+
+.submitButton {
+    width: 40%;
+    height: 10%;   
+    background: #224C8D;
+    border-radius: 5px;
+
+    font-size: 100%;
+    line-height: 30px;
+    color: #FFFFFF;
+
+    margin-top: 20%;
+    margin-bottom: 10%;
+}
+
+.backgroundView {
+    background-color: white;
+    border-radius:  25px;
+    // width: 25vw;
+}
+
+.content {
+    padding: 5%;
+}

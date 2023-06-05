@@ -7,13 +7,13 @@
 >
   <c-sidebar-brand
     [brandFull]="{
-      src: 'assets/img/brand/coreui-angular.svg',
-      width: 200,
-      height: 46,
+      src: 'assets/brand/ratelLogoWhite.svg',
+      width: 150,
+      height: 150,
       alt: 'CoreUI Logo'
     }"
     [brandNarrow]="{
-      src: 'assets/img/brand/coreui-signet-white.svg',
+      src: 'assets/brand/ratellogo.png',
       width: 46,
       height: 46,
       alt: 'CoreUI Logo'
@@ -21,25 +21,26 @@
     routerLink="./"
   >
   </c-sidebar-brand>
-    <perfect-scrollbar [config]="perfectScrollbarConfig">
-  <!--  [perfectScrollbar]="perfectScrollbarConfig"-->
-  <c-sidebar-nav
-    [navItems]="navItems"
-    dropdownMode="path"
-  >
-  </c-sidebar-nav>
-    </perfect-scrollbar>
+
+  <c-sidebar-nav [navItems]="navItems" dropdownMode="path"> </c-sidebar-nav>
+
   <c-sidebar-toggler
     *ngIf="!sidebar.narrow"
     toggle="unfoldable"
     cSidebarToggle="sidebar"
-  ></c-sidebar-toggler>
+  >
+ 
+  </c-sidebar-toggler>
 </c-sidebar>
 
 <!--main-->
 <div class="wrapper d-flex flex-column min-vh-100 bg-light dark:bg-transparent">
   <!--app-header-->
-  <app-default-header class="mb-4 d-print-none header header-sticky" position="sticky" sidebarId="sidebar"></app-default-header>
+  <app-default-header
+    class="mb-4 d-print-none header header-sticky"
+    position="sticky"
+    sidebarId="sidebar"
+  ></app-default-header>
   <!--app-body-->
   <div class="body flex-grow-1 px-3">
     <c-container breakpoint="lg" class="h-auto">

@@ -1,1 +1,90 @@
-<p>login works!</p>
+<div class="backgroundImage">
+  <div class="body flex-grow-1 px-3">
+    <div class="body flex-grow-1 px-3">
+      <c-container breakpoint="lg" class="h-auto">
+        <c-row>
+          <c-col xs="7"></c-col>
+          <c-col xs="5" class="backgroundView">
+            <div class="content">
+              <c-row>
+                <c-col> <p class="titleText">Sign in</p> </c-col>
+                <c-col> </c-col>
+              </c-row>
+              <form cForm>
+                <div class="mb-3">
+                  <label cLabel for="inputUsername" class="textInputField"
+                    >Korisničko ime</label
+                  >
+                  <input cFormControl id="inputUsername" type="email" [(ngModel)]="username" />
+                </div>
+                <div class="mb-3">
+                  <label cLabel for="inputPassword" class="textInputField"
+                    >Lozinka</label
+                  >
+                  <input cFormControl id="inputPassword" type="email" [(ngModel)]="password" />
+                </div>
+                <button
+                  [cModalToggle]="verticallyCenteredModal.id"
+                  type="button"
+                  class="btn btn-link forgottenPassword"
+                >
+                  Zaboravili ste lozinku?
+                </button>
+                <input
+                  cButton
+                  class="submitButton"
+                  type="submit"
+                  value="Sign in"
+                  (click)="goDashboardHome()"
+                />
+                <p class="descriptionText">
+                  Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+                  lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+                </p>
+              </form>
+            </div>
+          </c-col>
+        </c-row>
+      </c-container>
+    </div>
+
+    <c-modal
+      #verticallyCenteredModal
+      alignment="center"
+      id="verticallyCenteredModal"
+    >
+      <c-modal-header>
+        <button
+          [cModalToggle]="verticallyCenteredModal.id"
+          cButtonClose
+        ></button>
+      </c-modal-header>
+      <c-modal-body>
+        <img src="/assets/images/exclamationmark.png" />
+        <h5 cModalTitle>Zaboravljena lozinka</h5>
+        Unesite vašu e-mail adresu a koju će biti poslat<br />
+        link za promenu vaše lozinke
+
+        <form cForm>
+          <div class="mb-1">
+            <input cFormControl id="inputEmail" type="email" />
+          </div>
+          <input cButton color="primary" type="submit" value="Pošalji" />
+        </form>
+      </c-modal-body>
+      <c-modal-footer>
+        <button
+          cButton
+          [cModalToggle]="verticallyCenteredModal.id"
+          color="secondary"
+          variant="ghost"
+          class=""
+        >
+          <img src="/assets/icons/loginicon.svg" /><span
+            >Vrati se na sign in</span
+          >
+        </button>
+      </c-modal-footer>
+    </c-modal>
+  </div>
+</div>
