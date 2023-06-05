@@ -4,7 +4,7 @@ import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PopoverModule } from '@coreui/angular';
 import { TableModule } from '@coreui/angular';
 
@@ -64,6 +64,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './views/pages/login/login.component';
 import { MerchantsComponent } from './views/registry/merchants/merchants.component';
 import { ContactComponent } from './views/contact/contact.component';
+import { SettingsComponent } from './views/settings/settings.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -84,7 +85,8 @@ const APP_CONTAINERS = [
     SearchComponent,
     LoginComponent,
     MerchantsComponent,
-    ContactComponent
+    ContactComponent,
+    SettingsComponent
   ],
   imports: [
     RecaptchaModule,
@@ -111,7 +113,7 @@ const APP_CONTAINERS = [
     OffcanvasModule,
     ModalModule,
     ButtonGroupModule,
-    // ReactiveFormsModule,
+    ReactiveFormsModule,
     FormsModule,
     SidebarModule,
     SharedModule,
