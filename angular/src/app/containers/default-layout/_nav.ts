@@ -1,11 +1,11 @@
 import { INavData } from '@coreui/angular';
 
 export const navItems: INavData[] = [
-  {
-    name: 'Početna',
-    url: '/admin',
-    iconComponent: { name: 'cil-user' }
-  },
+  // {
+  //   name: 'Početna',
+  //   url: '/admin',
+  //   iconComponent: { name: 'cil-user' }
+  // },
   {
     divider: true,
   },
@@ -14,16 +14,16 @@ export const navItems: INavData[] = [
     url: '/registry',
     iconComponent: { name: 'cil-spreadsheet' },
     children: [
-      {
-        name: 'Korisnici',
-        url: '/registry/users',
-        iconComponent: { name: 'cil-group' },
-      },
-      {
-        name: 'Obveznici',
-        url: '/registry/regusers',
-        iconComponent: { name: 'cil-briefcase' },
-      },
+      // {
+      //   name: 'Korisnici',
+      //   url: '/registry/users',
+      //   iconComponent: { name: 'cil-group' },
+      // },
+      // {
+      //   name: 'Obveznici',
+      //   url: '/registry/regusers',
+      //   iconComponent: { name: 'cil-briefcase' },
+      // },
       {
         name: 'Trgovci',
         url: '/registry/merchants',
