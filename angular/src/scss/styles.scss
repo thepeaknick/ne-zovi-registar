@@ -43,3 +43,25 @@ $enable-rtl: true;
 c-input-group {
   border: 0px;
 }
+
+c-sidebar-brand img {
+  margin: 10px;
+}
+
+.sidebar-nav .nav-link.active,
+.sidebar-nav .nav-link {
+  border-radius: 20px;
+  width: 85%;
+  margin-right: 10px;
+  font-family: "Source Sans 3";
+}
+
+c-sidebar-nav-group.show c-sidebar-nav c-sidebar-nav-link:last-child a:after {
+  width: 80%;
+  border-bottom: 1px solid white !important;
+  display: block !important;
+  content: "";
+  // position: absolute;
+  // top: 18px;
+  // left: 10px;
+}

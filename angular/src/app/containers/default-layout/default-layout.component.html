@@ -4,18 +4,18 @@
   class="d-print-none sidebar sidebar-fixed"
   id="sidebar"
   visible
+  [ngStyle]="vars"
 >
   <c-sidebar-brand
     [brandFull]="{
-      src: 'assets/img/brand/coreui-angular.svg',
-      width: 200,
-      height: 46,
+      src: 'assets/brand/ratellogolightvertical.png',
+      width: 160,
+      margin: 10,
       alt: 'CoreUI Logo'
     }"
     [brandNarrow]="{
-      src: 'assets/img/brand/coreui-signet-white.svg',
+      src: 'assets/brand/ratellogolightvertical.png',
       width: 46,
-      height: 46,
       alt: 'CoreUI Logo'
     }"
     routerLink="./"
@@ -46,5 +46,5 @@
     </c-container>
   </div>
   <!--app footer-->
-  <app-default-footer></app-default-footer>
+  <!-- <app-default-footer></app-default-footer> -->
 </div>
