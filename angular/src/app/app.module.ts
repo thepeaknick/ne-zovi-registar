@@ -65,6 +65,7 @@ import { LoginComponent } from './views/pages/login/login.component';
 import { MerchantsComponent } from './views/registry/merchants/merchants.component';
 import { ContactComponent } from './views/contact/contact.component';
 import { SettingsComponent } from './views/settings/settings.component';
+import { RegUsersComponent } from './views/registry/regusers/regusers.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -86,7 +87,8 @@ const APP_CONTAINERS = [
     LoginComponent,
     MerchantsComponent,
     ContactComponent,
-    SettingsComponent
+    SettingsComponent,
+    RegUsersComponent
   ],
   imports: [
     RecaptchaModule,
