@@ -8,6 +8,7 @@ using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using NeZoviReg.Auth.Authorization;
 using NeZoviReg.WebApi.Model.RegUser;
 using System.Net;
+using NeZoviReg.Abstractions.Messaging.Auth.Model;
 using NeZoviReg.Abstractions.Messaging.Domain.Model;
 using NeZoviReg.Abstractions.Messaging.Domain.Queries.RegUser;
 using NeZoviReg.Abstractions.Shared.Model.Auth;
@@ -25,7 +26,7 @@ public class RegUserController : NeZoviRegBaseController
     }
 
     [HttpPost("login")]
-    [ProducesResponseType(typeof(TokenResult), (int) HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(LoginResultDto), (int) HttpStatusCode.OK)]
     [AllowAnonymous]
     public async Task<IActionResult> LoginRegUser([FromBody] LoginRequest request, CancellationToken cancellationToken)
     {
@@ -106,6 +107,17 @@ public class RegUserController : NeZoviRegBaseController
     {
         var command = new RemoveRegUserCommand(regUserId)
             .AddAppUser(AppUser.UserName);
+
+        var result = await Sender.Send(command, cancellationToken);
+
+        return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
+    }
+
+    [HttpGet("{regUserId:required}")]
+    [ProducesResponseType(typeof(RegUserDetailsDto), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> GetRegUser(Guid regUserId, CancellationToken cancellationToken)
+    {
+        var command = new RegUserQuery(regUserId);
 
         var result = await Sender.Send(command, cancellationToken);
 
