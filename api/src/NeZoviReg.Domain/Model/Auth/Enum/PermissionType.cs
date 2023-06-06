@@ -2,7 +2,7 @@
 
 public enum PermissionType
 {
-    All = 1,
+    RegUsersAll = 1,
 
     Write,
 

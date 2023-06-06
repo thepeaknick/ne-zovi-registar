@@ -18,7 +18,7 @@ export interface LoginRequest {
 
 export interface LoginResultDto {
     accessToken: string;
-    refreshToken: string;
+    refreshToken: RefreshToken;
 }
 
 export enum RoleType {
@@ -59,6 +59,11 @@ export interface RefreshToken {
 export interface RefreshTokenRequest {
     accessToken: string;
     refreshToken: string;
+}
+
+export interface RefreshTokenResultDto {
+    accessToken: string;
+    refreshToken: RefreshToken;
 }
 
 export interface RegUserDto {

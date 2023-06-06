@@ -151,6 +151,14 @@ public class RegUser : Entity
         return this;
     }
 
+    public RegUser WithoutRefreshToken()
+    {
+        RefreshToken = default;
+        RefreshTokenExpirationTime = default;
+
+        return this;
+    }
+
     public RegUser WithRefreshTokenExpTime(DateTime? expTime)
     {
         RefreshTokenExpirationTime = expTime ?? RefreshTokenExpirationTime;

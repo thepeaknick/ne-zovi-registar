@@ -1,30 +1,25 @@
 
-import {tap} from 'rxjs/operators';
+import {catchError, finalize, tap} from 'rxjs/operators';
 import { Injectable, Inject } from "@angular/core";
-import { HttpInterceptor, HttpRequest, HttpEvent, HttpHandler, HttpResponse } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { HttpInterceptor, HttpRequest, HttpEvent, HttpHandler, HttpResponse, HttpResponseBase } from "@angular/common/http";
+import { Observable, of } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { LoginResultDto, TokenResult } from '../model/schemas';
 import { AppConfiguration } from './app-configuration.service';
-
+import { AuthenticationService } from './authentication.service';
 
 @Injectable()
 export class NeZoviHttpInterceptor implements HttpInterceptor {
-    
-    static auth_token: TokenResult = {
-        accessToken: "",
-        refreshToken: {
-            tokenString: "",
-            expireAt: ""  
-        } 
-    };
 
-    constructor(private config: AppConfiguration, private router: Router) {
+    constructor(
+        private config: AppConfiguration, 
+        private router: Router,
+        private authenticationService: AuthenticationService) {
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
+        const started = Date.now();
         console.debug("NeZoviHttpInterceptor: Intercepted " + request.url);
         
         let newUrl: string | undefined = undefined;
@@ -33,12 +28,18 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
         }
 
         //if we have a token - add it
-        let setHeaders: { [name: string]: string | string[]; } | undefined = undefined;
-        if (NeZoviHttpInterceptor.auth_token.accessToken) {
+        let setHeaders: { [name: string]: string | string[]; } | undefined = { };
+        let tokenResult: TokenResult = AuthenticationService.Token;
+        if (tokenResult) {
             setHeaders = {
-                Authorization: "Bearer " + NeZoviHttpInterceptor.auth_token.accessToken
+                Authorization: "Bearer " + tokenResult.accessToken
             };
         }
+
+        setHeaders = {
+            ...setHeaders,
+            "Content-Type": "application/json"
+        };
 
         let modifiedRequest: HttpRequest<any> = request.clone({
             setHeaders: setHeaders,
@@ -49,30 +50,54 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
         return next
             .handle(modifiedRequest)
             .pipe(
-                tap({
-                    next : (event: HttpEvent<any>) => {
-                        if (event instanceof HttpResponse) {
-                            return event;
-                        }
-                        return event;
-                    },
-                    error : (error: any) => {
-                        if (error instanceof HttpErrorResponse) {
-                            console.error("NeZoviHttpInterceptor: Received error from " + request.url + ":" + JSON.stringify(error));
-                            if (error.status === 401 && this.router.url !== '/login') {
-                                NeZoviHttpInterceptor.auth_token.accessToken = "";
-                                this.router.navigate(['./login']);
-                            }
-                        }
-                        else {
-                            console.error("NeZoviHttpInterceptor: Received error: " + JSON.stringify(error));
-                        }
-                    }}
-                )
+                tap({ next : (event: HttpEvent<any>) => this.processOkResult(event) }),
+                catchError((error: any) => this.processFailureResult(request, error)),
+                finalize(() => {
+                  const elapsed = Date.now() - started;
+                })
             );
+    }
+
+    private processOkResult(event: HttpEvent<any>) : HttpEvent<any> {
+        if (event instanceof HttpResponse) {
+            if(event.status == 200) {
+            }
+        }
+
+        return event;
+    }
+
+    private processFailureResult(request: HttpRequest<any>, error: HttpEvent<any>) : Observable<HttpEvent<any>> {
+        if (error instanceof HttpErrorResponse) {
+            console.error("NeZoviHttpInterceptor: Received error from " + request.url + ":" + JSON.stringify(error));
+            if ((error.status === 401 || error.status === 403) && !this.isLoginPageUrl()) {
+                this.authenticationService.logout();
+            }
+            else if(error.status === 404)
+            {
+                return of(new HttpResponse<any>({
+                    body: error,
+                    status: 204, // no content
+                    statusText: "OK",
+                }));
+            }
+
+            return of(error);
+        }
+        
+        console.error("NeZoviHttpInterceptor: Received error: " + JSON.stringify(error));
+        return of(new HttpResponse<any>({
+            body: error,
+            status: 0
+        }));
     }
 
     private isAbsoluteUrl(urlString: string): boolean {
         return urlString.indexOf('http://') === 0 || urlString.indexOf('https://') === 0;
     }
+
+    private isLoginPageUrl(): boolean {
+        return this.router.url.endsWith(this.config.loginPage.substring(this.config.loginPage.lastIndexOf('/')));
+    }
+
 }

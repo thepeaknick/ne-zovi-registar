@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Auth;
+using NeZoviReg.Abstractions.Shared.Model.Auth;
 using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using NeZoviReg.Domain.Model.Auth;
 using NeZoviReg.Domain.Model.Domain;
@@ -15,19 +16,34 @@ public class AuthDataStore : IAuthDataStore
         _dbContext = context;
     }
 
-    public async Task<List<string>> GetUserPermissionsAsync(Guid regUserId, CancellationToken cancellationToken)
+    public async Task<RegUserWithPermissions> GetUserWithPermissionsAsync(Guid regUserId, CancellationToken cancellationToken)
     {
-        var roles = await _dbContext.Set<RegUser>()
+        /*var roles = await _dbContext.Set<RegUser>()
             .Include(ru => ru.RegUserRoles)
             .ThenInclude(ru => ru.Role)
             .ThenInclude(r => r.Permissions)
+            //.AsSplitQuery()
             .Where(ru => ru.GuidId == regUserId)
-            .Select(ru => ru.RegUserRoles).ToArrayAsync(cancellationToken);
+            .Select(ru => ru.RegUserRoles)
+            .ToArrayAsync(cancellationToken);
 
         return roles.SelectMany(r => r)
             .SelectMany(r => r.Role.Permissions)
             .Select(p => p.Name)
-            .ToList();
+            .ToList();*/
+
+        var regUser = await _dbContext.Set<RegUser>()
+            .Include(ru => ru.RegUserRoles)
+            .ThenInclude(ru => ru.Role)
+            .ThenInclude(r => r.Permissions)
+            //.AsSplitQuery()
+            .Where(ru => ru.GuidId == regUserId)
+            .SingleAsync(cancellationToken);
+
+        return new RegUserWithPermissions{RegUser = regUser, Permissions = regUser.RegUserRoles.Select(r => r)
+            .SelectMany(r => r.Role.Permissions)
+            .Select(p => p.Name)
+            .ToList()};
 
     }
 

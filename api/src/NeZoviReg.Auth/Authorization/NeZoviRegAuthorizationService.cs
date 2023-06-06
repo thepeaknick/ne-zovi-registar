@@ -43,15 +43,15 @@ public class NeZoviRegAuthorizationService : DefaultAuthorizationService, INeZov
             return false;
         }
 
-        var permissions = await GetCachedUserPermissions(id, cancellationToken);
+        var regUserWithPermissions = await GetCachedUserWithPermissions(id, cancellationToken);
 
-       return permissions?.Contains(permission) ?? false;
+       return regUserWithPermissions.RegUser.RefreshToken is not null && (regUserWithPermissions.Permissions?.Contains(permission) ?? false);
     }
 
-    private async Task<List<string>?> GetCachedUserPermissions(Guid regUserId, CancellationToken cancellationToken = default)
+    private async Task<RegUserWithPermissions> GetCachedUserWithPermissions(Guid regUserId, CancellationToken cancellationToken = default)
     {
         return await _cache.GetAsync(CacheKeyPrefix.RegUser, regUserId,
-           async () => await _authDataStore.GetUserPermissionsAsync(regUserId, cancellationToken),
+           async () => await _authDataStore.GetUserWithPermissionsAsync(regUserId, cancellationToken),
            cancellationToken)
             .ConfigureAwait(false);
     }

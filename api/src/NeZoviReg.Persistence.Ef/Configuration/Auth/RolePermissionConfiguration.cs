@@ -15,7 +15,7 @@ public class RolePermissionConfiguration : IEntityTypeConfiguration<RolePermissi
 
         builder.ConfigureEntity(false);
 
-        builder.HasData(Create(RoleType.Admin, PermissionType.All),
+        builder.HasData(Create(RoleType.Admin, PermissionType.RegUsersAll),
                         Create(RoleType.Obveznik, PermissionType.Write),
                         Create(RoleType.Obveznik, PermissionType.Delete),
                         Create(RoleType.Trgovac, PermissionType.Read),

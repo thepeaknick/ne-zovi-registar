@@ -16,10 +16,10 @@ public static class Startup
     {
         return services
             //.AddNeZoviRegCertAuthentication()
-            //.AddNeZoviRegJwtAuthentication()
-            //.AddAuthorizationServices()
+            .AddNeZoviRegJwtAuthentication()
+            .AddAuthorizationServices()
             .AddMemoryCache()
-            //.AddMediatR(typeof(Startup).Assembly)
+            .AddMediatR(typeof(Startup).Assembly)
             .AddValidatorsFromAssembly(typeof(Startup).Assembly);
 
 

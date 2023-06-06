@@ -1,39 +1,45 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 
-import { map, catchError, retry } from 'rxjs/operators';
+import { map, catchError, retry, tap } from 'rxjs/operators';
 import { ChangeRegUserPasswordRequest, LoginRequest, ModifyRegUserRequest, RegUserDto, RegisterRegUserRequest, RoleType, TokenResult, UserDto } from '../model/schemas';
 import { BaseService } from './base.service';
+import { Token } from '@angular/compiler';
+import { NeZoviHttpInterceptor } from './http-interceptor';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegUserService extends BaseService {
 
-    constructor(http: HttpClient) { 
+    constructor(http: HttpClient, private authenticationService: AuthenticationService) { 
         super(http);
     }
 
-    loginRegUser(request: LoginRequest): Observable<TokenResult> {
-        return this
-            .post<TokenResult>('/regusers/login', { request: request });
+    loginRegUser(request: LoginRequest): void {
+        this.authenticationService.login(request.username, request.password);
+    }
+
+    logoutRegUser(): void {
+        this.authenticationService.logout();
     }
 
     registerRegUser(request: RegisterRegUserRequest): Observable<RegUserDto[]> {
         return this
-            .post<RegUserDto>('/regusers/register', { request: request });
+            .post<RegUserDto>('/regusers/register', request);
     }
 
     modifyRegUser(request: ModifyRegUserRequest): Observable<RegUserDto[]> {
         return this
-            .patch<RegUserDto>('/regusers/modify', { request: request });
+            .patch<RegUserDto>('/regusers/modify', request);
     }
 
     modifyRegUserByGuid(regUserId: string, request: ModifyRegUserRequest): Observable<RegUserDto[]> {
         return this
-            .patch<RegUserDto>(`/regusers/${regUserId}`, { request: request });
+            .patch<RegUserDto>(`/regusers/${regUserId}`, request);
     }
 
     removeRegUser(regUserId: string): Observable<RegUserDto> {
@@ -43,11 +49,11 @@ export class RegUserService extends BaseService {
 
     changeRegUserPassword(request: ChangeRegUserPasswordRequest): Observable<RegUserDto[]> {
         return this
-            .patch<RegUserDto>('/regusers/forgotpassword', { request: request });
+            .patch<RegUserDto>('/regusers/forgotpassword', request);
     }
 
     getRegUsers(role: RoleType): Observable<RegUserDto[]> {
         return this
-            .get<RegUserDto[]>(`/regusers/role/${role}`);
+            .get<RegUserDto[]>(`/regusers/roles/${role}`);
     }
 }

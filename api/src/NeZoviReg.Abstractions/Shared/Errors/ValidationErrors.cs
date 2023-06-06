@@ -7,7 +7,7 @@ public static class RegErrors
 {
     public static class App
     {
-        public static readonly Func<int?, Error> RateLimitRejected = retry =>  new(
+        public static readonly Func<int?, Error> RateLimitRejected = retry => new(
             ErrorCode.Rejected,
             retry == default
                 ? "Previše pokušaja. Molimo vas pokušajte kasnije."
@@ -29,13 +29,21 @@ public static class RegErrors
             ErrorCode.NotFound,
             $"Korisnik registra '{ident}' nije pronađen.");
 
-       public static readonly Func<RoleType, Error> RoleNotFound = role => new Error(
-            ErrorCode.NotFound,
-            $"{role} nije pronađen.");
+        public static readonly Error Unknown = new Error(
+            ErrorCode.Unknown,
+            "Korisnik registra nije pronađen.");
 
-       public static readonly Func<string, Error> RolesNotFound = role => new Error(
-           ErrorCode.NotFound,
-           $"Pripadnici '{role}' role nisu pronađeni.");
+        public static readonly Error RoleUnknown = new Error(
+            ErrorCode.Unknown,
+            "Tražena rola nije pronađena.");
+
+        public static readonly Func<RoleType, Error> RoleNotFound = role => new Error(
+             ErrorCode.NotFound,
+             $"{role} nije pronađen.");
+
+        public static readonly Func<string, Error> RolesNotFound = role => new Error(
+            ErrorCode.NotFound,
+            $"Pripadnici '{role}' role nisu pronađeni.");
 
         public static readonly Error InvalidCredentials = new(
             ErrorCode.InvalidCredentials,
@@ -56,14 +64,14 @@ public static class RegErrors
 
     public static class Operator
     {
-       public static readonly Error Empty = new(
-            ErrorCode.Empty,
-            "Operator je obavezan.");
+        public static readonly Error Empty = new(
+             ErrorCode.Empty,
+             "Operator je obavezan.");
     }
 
     public static class CompanyName
     {
-        public static readonly Func<string, Error> AlreadyInUse = name =>  new(
+        public static readonly Func<string, Error> AlreadyInUse = name => new(
             ErrorCode.AlreadyInUse,
             $"Naziv '{name}' je već u upotrebi.");
 
@@ -86,9 +94,10 @@ public static class RegErrors
             ErrorCode.TooLong,
             "Adresa je predugačka.");
     }
+
     public static class UserName
     {
-        public static readonly Func<string, Error> AlreadyInUse = username =>  new(
+        public static readonly Func<string, Error> AlreadyInUse = username => new(
             ErrorCode.AlreadyInUse,
             $"Korisničko ime '{username}' je već u upotrebi.");
 
@@ -114,7 +123,7 @@ public static class RegErrors
 
     public static class RegNumber
     {
-        public static readonly Func<string, Error> AlreadyInUse = regNumber =>  new(
+        public static readonly Func<string, Error> AlreadyInUse = regNumber => new(
             ErrorCode.AlreadyInUse,
             $"Matični broj '{regNumber}' je već u upotrebi.");
 
@@ -129,7 +138,7 @@ public static class RegErrors
 
     public static class TaxNumber
     {
-        public static readonly Func<string, Error> AlreadyInUse = taxNumber =>  new(
+        public static readonly Func<string, Error> AlreadyInUse = taxNumber => new(
             ErrorCode.AlreadyInUse,
             $"PIB '{taxNumber}' je već u upotrebi.");
 
@@ -148,7 +157,7 @@ public static class RegErrors
             ErrorCode.NotFound,
             $"Broj telefona '{phoneNumber}' ne postoji u registru.");
 
-        public static readonly Func<DateTime?, Error> NotFoundAfter = after=>
+        public static readonly Func<DateTime?, Error> NotFoundAfter = after =>
         {
             var afterStr = after == default ? string.Empty : $" posle {after:dd.MM.yyyy}";
             return new(ErrorCode.NotFound,
@@ -158,7 +167,7 @@ public static class RegErrors
 
     public static class Email
     {
-        public static readonly Func<string, Error> AlreadyInUse = email =>  new(
+        public static readonly Func<string, Error> AlreadyInUse = email => new(
             ErrorCode.AlreadyInUse,
             $"E-mail adresa '{email}' je već u upotrebi.");
 
@@ -222,7 +231,7 @@ public static class RegErrors
             ErrorCode.InvalidFormat,
             "Format Broj telefona nije ispravan.");
 
-        public static readonly Func<string, Error> AlreadyInUse = phone =>  new(
+        public static readonly Func<string, Error> AlreadyInUse = phone => new(
             ErrorCode.AlreadyInUse,
             $"Korisnik sa brojem '{phone}' je već u registru.");
     }
@@ -232,6 +241,10 @@ public static class RegErrors
         public static readonly Error AccessTokenEmpty = new(
             ErrorCode.Empty,
             "Access token je obavezan.");
+
+        public static readonly Error AccessTokenExpired = new(
+            ErrorCode.Empty,
+            "Access token je istekao. Ulogujte se ponovo.");
 
         public static readonly Error RefreshTokenEmpty = new(
             ErrorCode.Empty,

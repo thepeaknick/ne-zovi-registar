@@ -157,7 +157,7 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "ModifiedBy", "ModifiedOn", "Name" },
                 values: new object[,]
                 {
-                    { 1, "init", new DateTime(2023, 5, 11, 15, 51, 26, 673, DateTimeKind.Local).AddTicks(177), null, null, "All" },
+                    { 1, "init", new DateTime(2023, 5, 11, 15, 51, 26, 673, DateTimeKind.Local).AddTicks(177), null, null, "RegUsersAll" },
                     { 2, "init", new DateTime(2023, 5, 11, 15, 51, 26, 673, DateTimeKind.Local).AddTicks(222), null, null, "Write" },
                     { 3, "init", new DateTime(2023, 5, 11, 15, 51, 26, 673, DateTimeKind.Local).AddTicks(219), null, null, "Delete" },
                     { 4, "init", new DateTime(2023, 5, 11, 15, 51, 26, 673, DateTimeKind.Local).AddTicks(217), null, null, "Read" },

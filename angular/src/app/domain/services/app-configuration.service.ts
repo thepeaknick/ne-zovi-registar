@@ -3,25 +3,29 @@ import { HttpClient } from '@angular/common/http';
  
 @Injectable()
 export class AppConfiguration {
-  constructor(private httpClient: HttpClient){
+    constructor(private http: HttpClient){
 
-  }
+    }
 
-  public apiUrl: string = '';
+    public apiUrl: string = '';
+    public apiLoginUrl: string = '';
+    public apiLogoutUrl: string = '';
+    public apiRefreshTokenUrl: string = '';
+    public loginPage: string = '';
+    
+    ensureInit(): Promise<any> {
+        return new Promise((resolve, reject) => {
 
-  ensureInit(): Promise<any> {
-    return new Promise((resolve, reject) => {
-
-      this.httpClient.get("./assets/config.json")
-        .subscribe({
-            next: (content: object) => {
-                Object.assign(this, content);
-                resolve(this);
-            },
-            error: (reason: any) => {
-                reject(reason);
-            }
+        this.http.get("./assets/config.json")
+            .subscribe({
+                next: (content: object) => {
+                    Object.assign(this, content);
+                    resolve(this);
+                },
+                error: (reason: any) => {
+                    reject(reason);
+                }
+            });
         });
-    });
-  }
+    }
 }

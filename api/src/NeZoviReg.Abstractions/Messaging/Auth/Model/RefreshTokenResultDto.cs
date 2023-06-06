@@ -1,3 +1,5 @@
-﻿namespace NeZoviReg.Abstractions.Messaging.Auth.Model;
+﻿using NeZoviReg.Abstractions.Shared.Model.Auth;
 
-public record RefreshTokenResultDto(string AccessToken, string RefreshToken);
+namespace NeZoviReg.Abstractions.Messaging.Auth.Model;
+
+public record RefreshTokenResultDto(string AccessToken, RefreshToken RefreshToken);

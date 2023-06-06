@@ -59,15 +59,11 @@ public class UserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
-    [HttpPost("all")]
-    //[HasPermission(PermissionType.ReadAll)]
-    [AllowAnonymous]
+    [HttpGet("all")]
     [ProducesResponseType(typeof(List<UserDto>), (int)HttpStatusCode.OK)]
-    //public async Task<IActionResult> AllUsers([FromBody] AllUsersRequest request, CancellationToken cancellationToken)
-    public async Task<IActionResult> AllUsers(CancellationToken cancellationToken)
+    [HasPermission(PermissionType.ReadAll)]
+    public async Task<IActionResult> AllUsers([FromBody] AllUsersRequest request, CancellationToken cancellationToken)
     {
-        AllUsersRequest request = new AllUsersRequest(DateTime.MinValue);
-
         var command = new AllUsersQuery(request.After);
 
         var result = await Sender.Send(command, cancellationToken);
@@ -76,8 +72,8 @@ public class UserController : NeZoviRegBaseController
     }
 
     [HttpGet("{phoneNumber}")]
-    [AllowAnonymous]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+    [AllowAnonymous]
     public async Task<IActionResult> GetUser(string phoneNumber, CancellationToken cancellationToken)
     {
         var query = new GetUserQuery(phoneNumber);
