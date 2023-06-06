@@ -1,7 +1,7 @@
 {
-    "apiUrl":"https://localhost:7058/v1",
-    "apiLoginUrl":"/regusers/login",
-    "apiLogoutUrl":"/regusers/logout",
-    "apiRefreshTokenUrl":"/refresh-token",
-    "loginPage":"./login"
+  "apiUrl": "http://158.180.60.234:8080/v1",
+  "apiLoginUrl": "/regusers/login",
+  "apiLogoutUrl": "/regusers/logout",
+  "apiRefreshTokenUrl": "/refresh-token",
+  "loginPage": "./login"
 }
