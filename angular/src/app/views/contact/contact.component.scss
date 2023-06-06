@@ -1,0 +1,57 @@
+.contactUsScreen {
+    background-image: url("../../../assets/images/dots.svg");    
+    min-height: 82vh;
+    background-size: cover;
+
+    font-family: 'Source Sans 3';
+    font-style: normal;
+}
+
+.contactUsForm {
+    background-color: white;
+    padding: 5%;
+    border-radius: 25px;
+
+    font-family: 'Source Sans 3';
+    font-style: normal;
+}
+
+.titleText {
+    font-weight: 700;
+    font-size: 27.679px;
+    line-height: 39px;
+    color: #133F85;
+}
+
+.subtitleText {
+    font-weight: 400;
+    font-size: 15.132px;
+    line-height: 22px;
+    color: #001942;
+
+    margin-bottom: 5%;
+}
+
+.contactInfo {
+    font-weight: 700;
+    font-size: 27.935px;
+    line-height: 40px;
+    color: #3F6AA3;
+}
+
+.submitView {
+    text-align: center;
+}
+
+.submitButton {
+    margin-top: 3%;
+    width: 262px;
+    height: 50px;
+    background: #224C8D;
+    border-radius: 5px; 
+}
+
+
+img {
+    width: 90%;
+}
