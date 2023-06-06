@@ -2,7 +2,7 @@
 
 public class AppOptions
 {
-    public static string SectionName = @"Application";
+    public const string SectionName = @"Application";
 
     public string Name { get; init; } = string.Empty;
 

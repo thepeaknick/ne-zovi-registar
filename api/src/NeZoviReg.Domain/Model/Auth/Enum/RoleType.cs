@@ -2,6 +2,8 @@
 
 public enum RoleType
 {
+    None = 0,
+    
     //RATEL or partner
     Admin = 1,
 
