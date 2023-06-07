@@ -6,4 +6,5 @@ public sealed record RegUserDetailsDto(Guid GuidId,
     string CompanyName,
     string Address,
     string RegNumber,
-    string TaxNumber);
+    string TaxNumber,
+    int Role);
