@@ -9,6 +9,7 @@ import { PopoverModule } from '@coreui/angular';
 import { TableModule } from '@coreui/angular';
 import { WidgetModule } from '@coreui/angular';
 import { ChartjsModule } from '@coreui/angular-chartjs';
+import { AccordionModule } from '@coreui/angular';
 
 import {
   HttpClientModule,
@@ -69,6 +70,7 @@ import { ContactComponent } from './views/contact/contact.component';
 import { SettingsComponent } from './views/settings/settings.component';
 import { RegUsersComponent } from './views/registry/regusers/regusers.component';
 import { AdminComponent } from './views/admin/admin.component';
+import { HelppageComponent } from './views/helppage/helppage.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -92,7 +94,8 @@ const APP_CONTAINERS = [
     ContactComponent,
     SettingsComponent,
     RegUsersComponent,
-    AdminComponent
+    AdminComponent,
+    HelppageComponent
   ],
   imports: [
     RecaptchaModule,
@@ -132,7 +135,8 @@ const APP_CONTAINERS = [
     PopoverModule,
     TableModule,
     WidgetModule,
-    ChartjsModule
+    ChartjsModule,
+    AccordionModule
   ],
   providers: [
     {
