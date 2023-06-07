@@ -29,6 +29,9 @@
     toggle="unfoldable"
     cSidebarToggle="sidebar"
   ></c-sidebar-toggler>
+  <div *ngIf="role == 1">Admin role: {{ role }}</div>
+  <div *ngIf="role == 2">Operater role: {{ role }}</div>
+  <div *ngIf="role == 3">Trgovac role: {{ role }}</div>
 </c-sidebar>
 
 <!--main-->

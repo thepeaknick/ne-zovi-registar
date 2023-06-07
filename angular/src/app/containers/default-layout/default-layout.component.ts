@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { navItems } from './_nav';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +15,23 @@ export class DefaultLayoutComponent {
     suppressScrollX: true,
   };
 
-  constructor() {}
+  private id: Number;
+  @Input() role: Number;
+
+  constructor(private route: ActivatedRoute) {
+    this.id = 0;
+    this.role = 0;
+    // console.log(this.router.getCurrentNavigation().extras.queryParams); // should log out 'bar'
+  }
+
+  ngOnInit() {
+    this.route.queryParams.subscribe((params) => {
+      console.log(params); // { order: "popular" }
+
+      this.id = params['id'];
+      this.role = params['userRole'];
+    });
+  }
 
   vars = {
     '--cui-sidebar-bg': '#133F85',
