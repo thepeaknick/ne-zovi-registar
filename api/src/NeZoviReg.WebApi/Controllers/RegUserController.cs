@@ -11,13 +11,11 @@ using System.Net;
 using NeZoviReg.Abstractions.Messaging.Auth.Model;
 using NeZoviReg.Abstractions.Messaging.Domain.Model;
 using NeZoviReg.Abstractions.Messaging.Domain.Queries.RegUser;
-using NeZoviReg.Abstractions.Shared.Model.Auth;
 
 namespace NeZoviReg.WebApi.Controllers;
 
 
 [Route("regusers")]
-[HasPermission(PermissionType.RegUsersAll)]
 public class RegUserController : NeZoviRegBaseController
 {
     public RegUserController(ISender sender, ILogger<RegUserController> logger)
@@ -40,6 +38,7 @@ public class RegUserController : NeZoviRegBaseController
 
     [HttpPost("logout")]
     [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+    [HasPermission(PermissionType.All)]
     public async Task<IActionResult> LogoutRegUser(CancellationToken cancellationToken)
     {
         var command = new LogoutCommand(AppUser.Id);
@@ -51,6 +50,7 @@ public class RegUserController : NeZoviRegBaseController
 
     [HttpPost("register")]
     [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
+    [HasPermission(PermissionType.RegUsersOnly)]
     public async Task<IActionResult> RegisterRegUser([FromBody] RegisterRegUserRequest request, CancellationToken cancellationToken)
     {
         var command = new CreateRegUserCommand(request.Name, request.Address, request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
@@ -65,6 +65,7 @@ public class RegUserController : NeZoviRegBaseController
 
     [HttpPatch("modify")]
     [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
+    [HasPermission(PermissionType.All)]
     public async Task<IActionResult> ModifyRegUser([FromBody] ModifyRegUserRequest request, CancellationToken cancellationToken)
     {
         var command = new ModifyRegUserCommand(AppUser.Id, request.Name, request.Address, request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
@@ -78,6 +79,7 @@ public class RegUserController : NeZoviRegBaseController
 
     [HttpPatch("{regUserId:required}")]
     [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
+    [HasPermission(PermissionType.RegUsersOnly)]
     public async Task<IActionResult> ModifyRegUser(Guid regUserId, [FromBody] ModifyRegUserRequest request, CancellationToken cancellationToken)
     {
         var command = new ModifyRegUserCommand(regUserId, request.Name, request.Address, request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
@@ -91,6 +93,7 @@ public class RegUserController : NeZoviRegBaseController
 
     [HttpPatch("forgotpassword")]
     [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
+    [HasPermission(PermissionType.All)]
     public async Task<IActionResult> ChangeRegUserPassword([FromBody] ChangeRegUserPasswordRequest request, CancellationToken cancellationToken)
     {
         var command = new ChangePassRegUserCommand(AppUser.UserName, request.Password, request.NewPassword)
@@ -103,6 +106,7 @@ public class RegUserController : NeZoviRegBaseController
 
     [HttpDelete("{regUserId:required}")]
     [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
+    [HasPermission(PermissionType.RegUsersOnly)]
     public async Task<IActionResult> RemoveRegUser(Guid regUserId, CancellationToken cancellationToken)
     {
         var command = new RemoveRegUserCommand(regUserId)
@@ -115,6 +119,7 @@ public class RegUserController : NeZoviRegBaseController
 
     [HttpGet("{regUserId:required}")]
     [ProducesResponseType(typeof(RegUserDetailsDto), (int)HttpStatusCode.OK)]
+    [HasPermission(PermissionType.All)]
     public async Task<IActionResult> GetRegUser(Guid regUserId, CancellationToken cancellationToken)
     {
         var command = new RegUserQuery(regUserId);
@@ -126,6 +131,7 @@ public class RegUserController : NeZoviRegBaseController
 
     [HttpGet("roles/{role:int}")]
     [ProducesResponseType(typeof(List<RegUserDto>), (int)HttpStatusCode.OK)]
+    [HasPermission(PermissionType.RegUsersOnly)]
     public async Task<IActionResult> GetRegUsers(int role, CancellationToken cancellationToken)
     {
         var command = new RegUsersQuery((RoleType)role);
@@ -137,6 +143,7 @@ public class RegUserController : NeZoviRegBaseController
 
     [HttpPost("email")]
     [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+    [HasPermission(PermissionType.All)]
     public async Task<IActionResult> SendEmail([FromBody] SendEmailRequest request, CancellationToken cancellationToken)
     {
         var command = new SendEmailCommand(request.FirstName, request.LastName, request.CompanyName, request.EmailFrom, request.PhoneNumber, request.Content)

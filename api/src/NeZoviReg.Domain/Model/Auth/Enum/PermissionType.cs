@@ -2,13 +2,11 @@
 
 public enum PermissionType
 {
-    RegUsersAll = 1,
+    RegUsersOnly = 2,
 
-    Write,
+    Write = 4,
 
-    Delete,
+    Delete = 8,
 
-    Read,
-
-    ReadAll,
+    Read = 16
 }

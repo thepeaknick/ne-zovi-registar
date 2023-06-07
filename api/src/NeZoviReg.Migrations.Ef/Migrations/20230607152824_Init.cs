@@ -42,6 +42,8 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Username = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RefreshTokenExpirationTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     RegNumber = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
@@ -85,6 +87,7 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                     LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
                     Jmbg = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
+                    OperatorId = table.Column<int>(type: "int", maxLength: 25, nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -94,6 +97,12 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_User_RegUser_OperatorId",
+                        column: x => x.OperatorId,
+                        principalTable: "RegUser",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -157,50 +166,42 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "ModifiedBy", "ModifiedOn", "Name" },
                 values: new object[,]
                 {
-                    { 1, "init", new DateTime(2023, 5, 11, 15, 51, 26, 673, DateTimeKind.Local).AddTicks(177), null, null, "RegUsersAll" },
-                    { 2, "init", new DateTime(2023, 5, 11, 15, 51, 26, 673, DateTimeKind.Local).AddTicks(222), null, null, "Write" },
-                    { 3, "init", new DateTime(2023, 5, 11, 15, 51, 26, 673, DateTimeKind.Local).AddTicks(219), null, null, "Delete" },
-                    { 4, "init", new DateTime(2023, 5, 11, 15, 51, 26, 673, DateTimeKind.Local).AddTicks(217), null, null, "Read" },
-                    { 5, "init", new DateTime(2023, 5, 11, 15, 51, 26, 673, DateTimeKind.Local).AddTicks(220), null, null, "ReadAll" }
+                    { 2, "init", new DateTime(2023, 6, 7, 17, 28, 23, 631, DateTimeKind.Local).AddTicks(3470), null, null, "RegUsersOnly" },
+                    { 4, "init", new DateTime(2023, 6, 7, 17, 28, 23, 631, DateTimeKind.Local).AddTicks(3522), null, null, "Write" },
+                    { 8, "init", new DateTime(2023, 6, 7, 17, 28, 23, 631, DateTimeKind.Local).AddTicks(3521), null, null, "Delete" },
+                    { 16, "init", new DateTime(2023, 6, 7, 17, 28, 23, 631, DateTimeKind.Local).AddTicks(3519), null, null, "Read" }
                 });
 
             migrationBuilder.InsertData(
                 table: "RegUser",
-                columns: new[] { "Id", "Address", "CompanyName", "CreatedBy", "CreatedOn", "FirstName", "GuidId", "LastName", "ModifiedBy", "ModifiedOn", "Password", "RegNumber", "TaxNumber", "Username" },
-                values: new object[] { 1, "Palmotićeva 2", "RATEL", "init", new DateTime(2023, 5, 11, 15, 51, 26, 686, DateTimeKind.Local).AddTicks(2091), "Ime", new Guid("e57059c3-d4f7-46bb-88c7-f961ed11f22c"), "Prezime", null, null, "dGVzdDEyMw==", "17606590", "103986571", "ratel" });
+                columns: new[] { "Id", "Address", "CompanyName", "CreatedBy", "CreatedOn", "FirstName", "GuidId", "LastName", "ModifiedBy", "ModifiedOn", "Password", "RefreshToken", "RefreshTokenExpirationTime", "RegNumber", "TaxNumber", "Username" },
+                values: new object[] { 1, "Palmotićeva 2", "RATEL", "init", new DateTime(2023, 6, 7, 17, 28, 23, 652, DateTimeKind.Local).AddTicks(363), "Ime", new Guid("5175b8da-e5dc-4da1-a557-5a69e0e1b9b4"), "Prezime", null, null, "dGVzdDEyMw==", null, null, "17606590", "103986571", "ratel" });
 
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "ModifiedBy", "ModifiedOn", "Name" },
                 values: new object[,]
                 {
-                    { 1, "init", new DateTime(2023, 5, 11, 15, 51, 26, 685, DateTimeKind.Local).AddTicks(446), null, null, "Admin" },
-                    { 2, "init", new DateTime(2023, 5, 11, 15, 51, 26, 685, DateTimeKind.Local).AddTicks(484), null, null, "Trgovac" },
-                    { 3, "init", new DateTime(2023, 5, 11, 15, 51, 26, 685, DateTimeKind.Local).AddTicks(482), null, null, "Obveznik" },
-                    { 4, "init", new DateTime(2023, 5, 11, 15, 51, 26, 685, DateTimeKind.Local).AddTicks(486), null, null, "Potrosac" }
+                    { 1, "init", new DateTime(2023, 6, 7, 17, 28, 23, 649, DateTimeKind.Local).AddTicks(8832), null, null, "Admin" },
+                    { 2, "init", new DateTime(2023, 6, 7, 17, 28, 23, 649, DateTimeKind.Local).AddTicks(8894), null, null, "Trgovac" },
+                    { 3, "init", new DateTime(2023, 6, 7, 17, 28, 23, 649, DateTimeKind.Local).AddTicks(8891), null, null, "Obveznik" }
                 });
-
-            migrationBuilder.InsertData(
-                table: "User",
-                columns: new[] { "Id", "CreatedBy", "CreatedOn", "FirstName", "Jmbg", "LastName", "ModifiedBy", "ModifiedOn", "PhoneNumber" },
-                values: new object[] { 1, "test", new DateTime(2023, 5, 11, 15, 51, 26, 687, DateTimeKind.Local).AddTicks(5179), "Marko", "012345567", "Bubulj", null, null, "1234" });
 
             migrationBuilder.InsertData(
                 table: "RegUserRole",
                 columns: new[] { "RegUserId", "RoleId", "CreatedBy", "CreatedOn", "ModifiedBy", "ModifiedOn" },
-                values: new object[] { 1, 1, "init", new DateTime(2023, 5, 11, 15, 51, 26, 680, DateTimeKind.Local).AddTicks(8855), null, null });
+                values: new object[] { 1, 1, "init", new DateTime(2023, 6, 7, 17, 28, 23, 642, DateTimeKind.Local).AddTicks(6310), null, null });
 
             migrationBuilder.InsertData(
                 table: "RolePermission",
                 columns: new[] { "PermissionId", "RoleId", "CreatedBy", "CreatedOn", "ModifiedBy", "ModifiedOn" },
                 values: new object[,]
                 {
-                    { 1, 1, "init", new DateTime(2023, 5, 11, 15, 51, 26, 685, DateTimeKind.Local).AddTicks(6920), null, null },
-                    { 4, 2, "init", new DateTime(2023, 5, 11, 15, 51, 26, 685, DateTimeKind.Local).AddTicks(6941), null, null },
-                    { 5, 2, "init", new DateTime(2023, 5, 11, 15, 51, 26, 685, DateTimeKind.Local).AddTicks(6942), null, null },
-                    { 2, 3, "init", new DateTime(2023, 5, 11, 15, 51, 26, 685, DateTimeKind.Local).AddTicks(6937), null, null },
-                    { 3, 3, "init", new DateTime(2023, 5, 11, 15, 51, 26, 685, DateTimeKind.Local).AddTicks(6939), null, null },
-                    { 4, 4, "init", new DateTime(2023, 5, 11, 15, 51, 26, 685, DateTimeKind.Local).AddTicks(6944), null, null }
+                    { 2, 1, "init", new DateTime(2023, 6, 7, 17, 28, 23, 651, DateTimeKind.Local).AddTicks(1050), null, null },
+                    { 16, 2, "init", new DateTime(2023, 6, 7, 17, 28, 23, 651, DateTimeKind.Local).AddTicks(1089), null, null },
+                    { 4, 3, "init", new DateTime(2023, 6, 7, 17, 28, 23, 651, DateTimeKind.Local).AddTicks(1078), null, null },
+                    { 8, 3, "init", new DateTime(2023, 6, 7, 17, 28, 23, 651, DateTimeKind.Local).AddTicks(1083), null, null },
+                    { 16, 3, "init", new DateTime(2023, 6, 7, 17, 28, 23, 651, DateTimeKind.Local).AddTicks(1085), null, null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -236,6 +237,11 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                 name: "IX_RolePermission_PermissionId",
                 table: "RolePermission",
                 column: "PermissionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_OperatorId",
+                table: "User",
+                column: "OperatorId");
         }
 
         /// <inheritdoc />
@@ -251,13 +257,13 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                 name: "User");
 
             migrationBuilder.DropTable(
-                name: "RegUser");
-
-            migrationBuilder.DropTable(
                 name: "Permission");
 
             migrationBuilder.DropTable(
                 name: "Role");
+
+            migrationBuilder.DropTable(
+                name: "RegUser");
         }
     }
 }

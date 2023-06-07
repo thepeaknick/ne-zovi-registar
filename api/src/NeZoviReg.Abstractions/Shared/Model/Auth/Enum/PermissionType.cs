@@ -1,14 +1,15 @@
 ﻿namespace NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 
+[Flags]
 public enum PermissionType
 {
-    RegUsersAll,
+    RegUsersOnly = 2,
 
-    Write,
+    Write = 4,
 
-    Delete,
+    Delete = 8,
 
-    Read,
+    Read = 16,
 
-    ReadAll,
+    All = RegUsersOnly | Read
 }

@@ -42,7 +42,7 @@ public class AuthDataStore : IAuthDataStore
 
         return new RegUserWithPermissions{RegUser = regUser, Permissions = regUser.RegUserRoles.Select(r => r)
             .SelectMany(r => r.Role.Permissions)
-            .Select(p => p.Name)
+            .Select(p => (PermissionType)p.Id)
             .ToList()};
 
     }

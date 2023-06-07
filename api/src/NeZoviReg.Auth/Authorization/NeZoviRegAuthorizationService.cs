@@ -1,10 +1,12 @@
-﻿using System.Security.Claims;
+﻿using System.Diagnostics.Eventing.Reader;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Auth;
 using NeZoviReg.Abstractions.Shared.Caching;
 using NeZoviReg.Abstractions.Shared.Model.Auth;
+using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 
 namespace NeZoviReg.Auth.Authorization;
 
@@ -43,9 +45,21 @@ public class NeZoviRegAuthorizationService : DefaultAuthorizationService, INeZov
             return false;
         }
 
+        if (!Enum.TryParse(typeof(PermissionType), permission, out var enumPermission))
+        {
+            _logger.LogWarning($"Permission={permission} is not of the PermissionType.");
+
+            return false;
+        }
+
         var regUserWithPermissions = await GetCachedUserWithPermissions(id, cancellationToken);
 
-       return regUserWithPermissions.RegUser.RefreshToken is not null && (regUserWithPermissions.Permissions?.Contains(permission) ?? false);
+        bool HasPermission(PermissionType perm)
+        {
+            return (regUserWithPermissions.Permissions ?? new()).Any(permissionType => (permissionType & perm) == permissionType);
+        }
+
+       return regUserWithPermissions.RegUser.RefreshToken is not null && HasPermission((PermissionType)enumPermission);
     }
 
     private async Task<RegUserWithPermissions> GetCachedUserWithPermissions(Guid regUserId, CancellationToken cancellationToken = default)
