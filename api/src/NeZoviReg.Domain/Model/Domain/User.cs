@@ -6,10 +6,10 @@ namespace NeZoviReg.Domain.Model.Domain;
 /// </summary>
 public class User : Entity
 {
-    public static int FirstNameMaxLength = 100;
-    public static int LastNameMaxLength = 100;
-    public static int PhoneNumberMaxLength = 25;
-    public static int JmbgMaxLength = 13;
+    public const int FirstNameMaxLength = 100;
+    public const int  LastNameMaxLength = 100;
+    public const int  PhoneNumberMaxLength = 25;
+    public const int  JmbgMaxLength = 13;
 
     public User(string firstName, string lastName, string phoneNumber)
     {

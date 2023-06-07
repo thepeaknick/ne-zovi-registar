@@ -62,7 +62,7 @@ public static class RegErrors
             "Ulogujte se u sistem.");
     }
 
-    public static class Operator
+    public static class Operater
     {
         public static readonly Error Empty = new(
              ErrorCode.Empty,

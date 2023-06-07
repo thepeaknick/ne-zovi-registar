@@ -29,20 +29,20 @@ internal sealed class ChangePassRegUserCommandHandler : ICommandHandler<ChangePa
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Result<RegUserDto>> Handle(ChangePassRegUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result<RegUserDto>> Handle(ChangePassRegUserCommand command, CancellationToken cancellationToken)
     {
-        var regUser = await _regUserDataStore.GetByUsernameAndPassword(request.UserName, request.Password, cancellationToken);
+        var regUser = await _regUserDataStore.GetByUsernameAndPassword(command.UserName, command.Password, cancellationToken);
 
         if (regUser is null)
         {
             return Result.Failure<RegUserDto>(RegErrors.RegUser.InvalidCredentials);
         }
 
-        regUser.WithPassword(request.NewPassword);
+        regUser.WithPassword(command.NewPassword);
 
         _regUserDataStore.Update(regUser);
 
-        await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 
         await _publisher.Publish(new RegUserModifiedEvent
         {

@@ -46,6 +46,6 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginR
 
         await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
 
-        return new LoginResultDto(loginResult.AccessToken, loginResult.RefreshToken);
+        return new LoginResultDto(regUser.GuidId, loginResult.AccessToken, loginResult.RefreshToken);
     }
 }

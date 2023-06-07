@@ -28,7 +28,7 @@ public class AddUserCommandValidator : AbstractValidator<AddUserCommand>
             .MaximumLength<AddUserCommand, UserDto>(Domain.Model.Domain.User.JmbgMaxLength, Jmbg.TooLong.Message);
 
         RuleFor(x => x.OperatorId)
-            .NotEmpty<AddUserCommand, int, UserDto>(Operator.Empty.Message);
+            .NotEmpty<AddUserCommand, int, UserDto>(Operater.Empty.Message);
 
         RuleFor(x => x.PhoneNumber)
             .NotEmpty<AddUserCommand, string, UserDto>(PhoneNumber.Empty.Message)

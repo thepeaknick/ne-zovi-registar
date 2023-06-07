@@ -2,6 +2,8 @@
 
 public enum RoleType
 {
+    None = 0,
+
     //RATEL or partner
     Admin = 1,
 
@@ -9,8 +11,5 @@ public enum RoleType
     Trgovac,
 
     //Operater
-    Obveznik,
-
-    //End user (from RATEL site), only check its own number
-    Potrosac,
+    Obveznik
 }
