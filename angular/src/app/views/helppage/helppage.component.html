@@ -1,116 +1,175 @@
 <div class="helpPageScreen">
-    <div class="faqForm">
-        <c-row>
-            <c-col xs="4">
-                <p class="titleText">Najčešće postavljana pitanja</p>
-                <p class="subtitleText">Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum</p>
-            </c-col>
-            <c-col xs="8">
-                <c-accordion [flush]="true">
-                    <c-accordion-item #item0="cAccordionItem" [visible]="false">
-                    <ng-template cTemplateId="accordionHeaderTemplate">
-                        <button (click)="item0.toggleItem()" [collapsed]="!item0.visible" cAccordionButton [ngStyle]="vars"> 
-                            1. Šta predstavlja web aplikacija “Ne zovi”?
-                        </button>
-                    </ng-template>
-                    <ng-template cTemplateId="accordionBodyTemplate">
-                        <div class="accordion-body">
-                        <strong>This is the first item's accordion body.</strong> It is hidden by default,
-                        until the collapse plugin adds the appropriate classes that we use to style each
-                        element. These classes control the overall appearance, as well as the showing and
-                        hiding via CSS transitions. You can modify any of this with custom CSS or overriding
-                        our default variables. It's also worth noting that just about any HTML can go within
-                        the <code>.accordion-body</code>, though the transition does limit overflow.
-                        </div>
-                    </ng-template>
-                    </c-accordion-item>
-                    <c-accordion-item #item1="cAccordionItem" [visible]="false">
-                    <ng-template cTemplateId="accordionHeaderTemplate">
-                        <button (click)="item1.toggleItem()" [collapsed]="!item1.visible" cAccordionButton [ngStyle]="vars">
-                            2. Kako se koristi web aplikacija “Ne zovi”?
-                        </button>
-                    </ng-template>
-                    <ng-template cTemplateId="accordionBodyTemplate">
-                        <div class="accordion-body">
-                        <strong>This is the second item's accordion body.</strong> It is hidden by default,
-                        until the collapse plugin adds the appropriate classes that we use to style each
-                        element. These classes control the overall appearance, as well as the showing and
-                        hiding via CSS transitions. You can modify any of this with custom CSS or overriding
-                        our default variables. It's also worth noting that just about any HTML can go within
-                        the <code>.accordion-body</code>, though the transition does limit overflow.
-                        </div>
-                    </ng-template>
-                    </c-accordion-item>
-                    <c-accordion-item #item2="cAccordionItem" [visible]="false">
-                    <ng-template cTemplateId="accordionHeaderTemplate">
-                        <button (click)="item2.toggleItem()" [collapsed]="!item2.visible" cAccordionButton [ngStyle]="vars">
-                            3. Da li su moji podaci bezbedni u aplikaciji “Ne zovi”?
-                        </button>
-                    </ng-template>
-                    <ng-template cTemplateId="accordionBodyTemplate">
-                        <div class="accordion-body">
-                        <strong>This is the third item's accordion body.</strong> It is hidden by default,
-                        until the collapse plugin adds the appropriate classes that we use to style each
-                        element. These classes control the overall appearance, as well as the showing and
-                        hiding via CSS transitions. You can modify any of this with custom CSS or overriding
-                        our default variables. It's also worth noting that just about any HTML can go within
-                        the <code>.accordion-body</code>, though the transition does limit overflow.
-                        </div>
-                    </ng-template>
-                    </c-accordion-item>
-                    <c-accordion-item #item3="cAccordionItem" [visible]="false">
-                        <ng-template cTemplateId="accordionHeaderTemplate">
-                            <button (click)="item3.toggleItem()" [collapsed]="!item3.visible" cAccordionButton [ngStyle]="vars">
-                                4. Kako mogu da izvršim upis/ispis korisnika telefonskog broja? (obveznici) Kako mogu da eksportujem bazu korisnika registra? (trgovci)
-                            </button>
-                        </ng-template>
-                        <ng-template cTemplateId="accordionBodyTemplate">
-                            <div class="accordion-body">
-                            <strong>This is the third item's accordion body.</strong> It is hidden by default,
-                            until the collapse plugin adds the appropriate classes that we use to style each
-                            element. These classes control the overall appearance, as well as the showing and
-                            hiding via CSS transitions. You can modify any of this with custom CSS or overriding
-                            our default variables. It's also worth noting that just about any HTML can go within
-                            the <code>.accordion-body</code>, though the transition does limit overflow.
-                            </div>
-                        </ng-template>
-                    </c-accordion-item>
-                    <c-accordion-item #item4="cAccordionItem" [visible]="false">
-                        <ng-template cTemplateId="accordionHeaderTemplate">
-                            <button (click)="item4.toggleItem()" [collapsed]="!item4.visible" cAccordionButton [ngStyle]="vars">
-                                5. Koje mogućnosti nudi web aplikacija “Ne zovi”?
-                            </button>
-                        </ng-template>
-                        <ng-template cTemplateId="accordionBodyTemplate">
-                            <div class="accordion-body">
-                            <strong>This is the third item's accordion body.</strong> It is hidden by default,
-                            until the collapse plugin adds the appropriate classes that we use to style each
-                            element. These classes control the overall appearance, as well as the showing and
-                            hiding via CSS transitions. You can modify any of this with custom CSS or overriding
-                            our default variables. It's also worth noting that just about any HTML can go within
-                            the <code>.accordion-body</code>, though the transition does limit overflow.
-                            </div>
-                        </ng-template>
-                    </c-accordion-item>
-                    <c-accordion-item #item5="cAccordionItem" [visible]="false">
-                        <ng-template cTemplateId="accordionHeaderTemplate">
-                            <button (click)="item5.toggleItem()" [collapsed]="!item5.visible" cAccordionButton [ngStyle]="vars">
-                                6. Kako mogu da kontaktiram tehničku podršku?
-                            </button>
-                        </ng-template>
-                        <ng-template cTemplateId="accordionBodyTemplate">
-                            <div class="accordion-body">
-                            <strong>This is the third item's accordion body.</strong> It is hidden by default,
-                            until the collapse plugin adds the appropriate classes that we use to style each
-                            element. These classes control the overall appearance, as well as the showing and
-                            hiding via CSS transitions. You can modify any of this with custom CSS or overriding
-                            our default variables. It's also worth noting that just about any HTML can go within
-                            the <code>.accordion-body</code>, though the transition does limit overflow.
-                            </div>
-                        </ng-template>
-                    </c-accordion-item>
-                </c-accordion>
-            </c-col>
-        </c-row>
-    </div>
+  <div class="faqForm">
+    <c-row>
+      <c-col xs="4">
+        <p class="titleText">Najčešće postavljana pitanja</p>
+        <p class="subtitleText">
+          Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
+          ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+        </p>
+      </c-col>
+      <c-col xs="8">
+        <c-accordion [flush]="true">
+          <c-accordion-item #item0="cAccordionItem" [visible]="false">
+            <ng-template cTemplateId="accordionHeaderTemplate">
+              <button
+                (click)="item0.toggleItem()"
+                [collapsed]="!item0.visible"
+                cAccordionButton
+                [ngStyle]="vars"
+              >
+                1. Šta predstavlja web aplikacija “Ne zovi”?
+              </button>
+            </ng-template>
+            <ng-template cTemplateId="accordionBodyTemplate">
+              <div class="accordion-body">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into
+                electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets
+                containing Lorem Ipsum passages, and more recently with desktop
+                publishing software like Aldus PageMaker including versions of
+                Lorem Ipsum.
+              </div>
+            </ng-template>
+          </c-accordion-item>
+          <c-accordion-item #item1="cAccordionItem" [visible]="false">
+            <ng-template cTemplateId="accordionHeaderTemplate">
+              <button
+                (click)="item1.toggleItem()"
+                [collapsed]="!item1.visible"
+                cAccordionButton
+                [ngStyle]="vars"
+              >
+                2. Kako se koristi web aplikacija “Ne zovi”?
+              </button>
+            </ng-template>
+            <ng-template cTemplateId="accordionBodyTemplate">
+              <div class="accordion-body">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into
+                electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets
+                containing Lorem Ipsum passages, and more recently with desktop
+                publishing software like Aldus PageMaker including versions of
+                Lorem Ipsum.
+              </div>
+            </ng-template>
+          </c-accordion-item>
+          <c-accordion-item #item2="cAccordionItem" [visible]="false">
+            <ng-template cTemplateId="accordionHeaderTemplate">
+              <button
+                (click)="item2.toggleItem()"
+                [collapsed]="!item2.visible"
+                cAccordionButton
+                [ngStyle]="vars"
+              >
+                3. Da li su moji podaci bezbedni u aplikaciji “Ne zovi”?
+              </button>
+            </ng-template>
+            <ng-template cTemplateId="accordionBodyTemplate">
+              <div class="accordion-body">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into
+                electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets
+                containing Lorem Ipsum passages, and more recently with desktop
+                publishing software like Aldus PageMaker including versions of
+                Lorem Ipsum.
+              </div>
+            </ng-template>
+          </c-accordion-item>
+          <c-accordion-item #item3="cAccordionItem" [visible]="false">
+            <ng-template cTemplateId="accordionHeaderTemplate">
+              <button
+                (click)="item3.toggleItem()"
+                [collapsed]="!item3.visible"
+                cAccordionButton
+                [ngStyle]="vars"
+              >
+                4. Kako mogu da izvršim upis/ispis korisnika telefonskog broja?
+                (obveznici) Kako mogu da eksportujem bazu korisnika registra?
+                (trgovci)
+              </button>
+            </ng-template>
+            <ng-template cTemplateId="accordionBodyTemplate">
+              <div class="accordion-body">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into
+                electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets
+                containing Lorem Ipsum passages, and more recently with desktop
+                publishing software like Aldus PageMaker including versions of
+                Lorem Ipsum.
+              </div>
+            </ng-template>
+          </c-accordion-item>
+          <c-accordion-item #item4="cAccordionItem" [visible]="false">
+            <ng-template cTemplateId="accordionHeaderTemplate">
+              <button
+                (click)="item4.toggleItem()"
+                [collapsed]="!item4.visible"
+                cAccordionButton
+                [ngStyle]="vars"
+              >
+                5. Koje mogućnosti nudi web aplikacija “Ne zovi”?
+              </button>
+            </ng-template>
+            <ng-template cTemplateId="accordionBodyTemplate">
+              <div class="accordion-body">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into
+                electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets
+                containing Lorem Ipsum passages, and more recently with desktop
+                publishing software like Aldus PageMaker including versions of
+                Lorem Ipsum.
+              </div>
+            </ng-template>
+          </c-accordion-item>
+          <c-accordion-item #item5="cAccordionItem" [visible]="false">
+            <ng-template cTemplateId="accordionHeaderTemplate">
+              <button
+                (click)="item5.toggleItem()"
+                [collapsed]="!item5.visible"
+                cAccordionButton
+                [ngStyle]="vars"
+              >
+                6. Kako mogu da kontaktiram tehničku podršku?
+              </button>
+            </ng-template>
+            <ng-template cTemplateId="accordionBodyTemplate">
+              <div class="accordion-body">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into
+                electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets
+                containing Lorem Ipsum passages, and more recently with desktop
+                publishing software like Aldus PageMaker including versions of
+                Lorem Ipsum.
+              </div>
+            </ng-template>
+          </c-accordion-item>
+        </c-accordion>
+      </c-col>
+    </c-row>
+  </div>
 </div>
