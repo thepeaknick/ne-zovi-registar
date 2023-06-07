@@ -1,38 +1,64 @@
 <div class="contactUsScreen">
-    <div class="contactUsForm">
-        <p class="titleText">Pošaljite nam poruku</p>
-        <p class="subtitleText">Pošaljite nam poruku i očekujte odgovor u roku od 24h</p>
-        <c-row>
-            <c-col xs="7"> 
-                <form cForm class="row g-3">
-                    <c-col [md]="6">
-                        <label cLabel for="">Ime i prezime</label>
-                         <input cFormControl id="" />
-                    </c-col>
-                    <c-col [md]="6">
-                        <label cLabel for="">Email</label>
-                        <input cFormControl id="" type="email" />
-                    </c-col>
-                    <c-col [xs]="6">
-                        <label cLabel for="">Broj telefona</label>
-                        <input cFormControl id=""/>
-                    </c-col>
-                    <c-col [xs]="6">
-                        <label cLabel for="">Ime firme</label>
-                        <input cFormControl id=""/>
-                    </c-col>
-                    <c-col>
-                        <textarea cFormControl placeholder="Unesite sadržaj poruke" rows="6"></textarea>
-                    </c-col>
-                  </form>
-            </c-col>
-            <c-col xs="5">
-                <p class="contactInfo">Kontakt informacije</p>
-                <img src="../../../assets/images/contactInfo.png">
-            </c-col>
-        </c-row>
-        <div class="submitView">
-            <button cButton class="submitButton" type="submit">Pošalji</button>
+  <div class="contactUsForm">
+    <p class="titleText">Pošaljite nam poruku</p>
+    <p class="subtitleText">
+      Pošaljite nam poruku i očekujte odgovor u roku od 24h
+    </p>
+    <c-row>
+      <c-col xs="7">
+        <form cForm class="row g-3">
+          <c-col [md]="6">
+            <label cLabel for="">Ime i prezime</label>
+            <input cFormControl id="" />
+          </c-col>
+          <c-col [md]="6">
+            <label cLabel for="">Email</label>
+            <input cFormControl id="" type="email" />
+          </c-col>
+          <c-col [xs]="6">
+            <label cLabel for="">Broj telefona</label>
+            <input cFormControl id="" />
+          </c-col>
+          <c-col [xs]="6">
+            <label cLabel for="">Ime firme</label>
+            <input cFormControl id="" />
+          </c-col>
+          <c-col>
+            <textarea
+              cFormControl
+              placeholder="Unesite sadržaj poruke"
+              rows="6"
+            ></textarea>
+          </c-col>
+        </form>
+      </c-col>
+      <c-col xs="1"></c-col>
+      <c-col xs="4">
+        <p class="contactInfo">Kontakt informacije</p>
+        <div class="contactInfoContainer">
+          <c-col>
+            <span class="iconContainer">
+              <img src="/assets/images/locationMark.png" />
+            </span>
+            <span>Lorem ipsum</span>
+          </c-col>
+          <c-col>
+            <span class="iconContainer">
+              <img src="/assets/images/envelopeMark.png" />
+            </span>
+            <span>ime@ratel.rs</span>
+          </c-col>
+          <c-col>
+            <span class="iconContainer">
+              <img src="/assets/images/phoneMark.png" />
+            </span>
+            <span>064 123 45 67 </span></c-col
+          >
         </div>
+      </c-col>
+    </c-row>
+    <div class="submitView">
+      <button cButton class="submitButton" type="submit">Pošalji</button>
     </div>
+  </div>
 </div>

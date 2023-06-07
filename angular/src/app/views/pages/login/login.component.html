@@ -1,52 +1,49 @@
 <div class="backgroundImage">
   <div class="body flex-grow-1 px-3">
-    <div class="body flex-grow-1 px-3">
-      <c-container breakpoint="lg" class="h-auto">
-        <c-row>
-          <c-col xs="7"></c-col>
-          <c-col xs="5" class="backgroundView">
-            <div class="content">
-              <c-row>
-                <c-col> <p class="titleText">Sign in</p> </c-col>
-                <c-col> </c-col>
-              </c-row>
-              <form cForm>
-                <div class="mb-3">
-                  <label cLabel for="inputUsername" class="textInputField"
-                    >Korisničko ime</label
-                  >
-                  <input cFormControl id="inputUsername" type="email" [(ngModel)]="username" />
-                </div>
-                <div class="mb-3">
-                  <label cLabel for="inputPassword" class="textInputField"
-                    >Lozinka</label
-                  >
-                  <input cFormControl id="inputPassword" type="email" [(ngModel)]="password" />
-                </div>
-                <button
-                  [cModalToggle]="verticallyCenteredModal.id"
-                  type="button"
-                  class="btn btn-link forgottenPassword"
+    <c-container breakpoint="lg" class="h-auto">
+      <c-row>
+        <c-col xs="7"></c-col>
+        <c-col xs="5" class="backgroundView">
+          <div class="content">
+            <c-row>
+              <c-col> <p class="titleText">Sign in</p> </c-col>
+            </c-row>
+            <form cForm>
+              <div class="mb-3">
+                <label cLabel for="inputEmail-1" class="textInputField"
+                  >Korisničko ime</label
                 >
-                  Zaboravili ste lozinku?
-                </button>
-                <input
-                  cButton
-                  class="submitButton"
-                  type="submit"
-                  value="Sign in"
-                  (click)="goDashboardHome()"
-                />
-                <p class="descriptionText">
-                  Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-                  lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-                </p>
-              </form>
-            </div>
-          </c-col>
-        </c-row>
-      </c-container>
-    </div>
+                <input cFormControl id="inputEmail-1" type="email" />
+              </div>
+              <div class="mb-3">
+                <label cLabel for="inputEmail-1" class="textInputField"
+                  >Lozinka</label
+                >
+                <input cFormControl id="inputEmail-1" type="email" />
+              </div>
+              <button
+                [cModalToggle]="verticallyCenteredModal.id"
+                type="button"
+                class="btn btn-link forgottenPassword"
+              >
+                Zaboravili ste lozinku?
+              </button>
+              <input
+                cButton
+                class="submitButton"
+                type="submit"
+                value="Sign in"
+                (click)="goDashboardHome()"
+              />
+              <p class="descriptionText">
+                Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+                lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+              </p>
+            </form>
+          </div>
+        </c-col>
+      </c-row>
+    </c-container>
 
     <c-modal
       #verticallyCenteredModal

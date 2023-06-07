@@ -5,74 +5,70 @@ import { map, catchError, retry } from 'rxjs/operators';
 import { LoginResultDto } from '../model/schemas';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BaseService {
+  constructor(public http: HttpClient) {}
 
-    constructor(public http: HttpClient) { 
-    }
+  public get isCallInProgress() {
+    return this.callInProgress > 0;
+  }
 
-    public get isCallInProgress() { 
-        return this.callInProgress > 0; 
-    }
+  private callInProgress: number = 0;
 
-    private callInProgress: number = 0;
+  startCall() {
+    this.callInProgress++;
+  }
 
-    startCall() {
-        this.callInProgress++;
-    }
+  finishCall() {
+    this.callInProgress--;
+  }
 
-    finishCall() {
-        this.callInProgress--;
-    }
+  request<T>(
+    verb: string,
+    url: string,
+    body?: string,
+    responseType?: 'json' | 'text' | 'blob' | 'arraybuffer',
+    withCredentials?: boolean
+  ): any {
+    this.startCall();
 
-    request<T>(verb: string, url: string, body?: string, responseType?: 'json' | 'text' | 'blob' | 'arraybuffer', withCredentials? : boolean) : any {
-        
-        this.startCall();
+    let response: Observable<string> = this.http.request(verb, url, {
+      body: body,
+      responseType: responseType,
+      withCredentials: withCredentials,
+    });
 
-        let response: Observable<string> = this.http
-            .request(
-                verb, 
-                url, 
-                { 
-                    body: body,
-                    responseType: responseType,
-                    withCredentials: withCredentials
-                }
-            );
+    this.finishCall();
 
-        this.finishCall() ;
+    return response;
+  }
 
-        return response;
-    }
+  public getTextResponse<T>(url: string): any {
+    return this.request<T>('GET', url, undefined, 'text');
+  }
 
+  public get<T>(url: string): any {
+    return this.request<T>('GET', url, undefined, 'json');
+  }
 
-    public getTextResponse<T>(url: string) : any {
-        return this.request<T>('GET', url, undefined, 'text');
-    }
+  public deleteWithTextResponse<T>(url: string): any {
+    return this.request<T>('DELETE', url, undefined, 'text');
+  }
 
-    public get<T>(url: string) : any {
-        return this.request<T>('GET', url, undefined, 'json');
-    }
+  public delete<T>(url: string, data: Object): any {
+    return this.request<T>('DELETE', url, JSON.stringify(data), 'json');
+  }
 
-    public deleteWithTextResponse<T>(url: string) : any {
-        return this.request<T>('DELETE', url, undefined, 'text');
-    }
+  public post<T>(url: string, data: Object, withCredentials?: boolean): any {
+    return this.request<T>('POST', url, JSON.stringify(data), 'json');
+  }
 
-    public delete<T>(url: string, data: Object) : any {
-        return this.request<T>('DELETE', url, JSON.stringify(data), 'json');
-    }
-
-    public post<T>(url: string, data: Object, withCredentials?: boolean) : any {
-        return this.request<T>('POST', url, JSON.stringify(data), 'json');
-    }
-
-    public patch<T>(url: string, data: Object) : any {
-        return this.request<T>('PATCH', url, JSON.stringify(data), 'json');
-    }
-
+  public patch<T>(url: string, data: Object): any {
+    return this.request<T>('PATCH', url, JSON.stringify(data), 'json');
+  }
 }
 
 function handleHttpError(error: any) {
-    throw new Error('Function not implemented.');
+  throw new Error('Function not implemented.');
 }

@@ -7,6 +7,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PopoverModule } from '@coreui/angular';
 import { TableModule } from '@coreui/angular';
+import { WidgetModule } from '@coreui/angular';
+import { ChartjsModule } from '@coreui/angular-chartjs';
+import { AccordionModule } from '@coreui/angular';
 
 import {
   HttpClientModule,
@@ -65,6 +68,9 @@ import { LoginComponent } from './views/pages/login/login.component';
 import { MerchantsComponent } from './views/registry/merchants/merchants.component';
 import { ContactComponent } from './views/contact/contact.component';
 import { SettingsComponent } from './views/settings/settings.component';
+import { RegUsersComponent } from './views/registry/regusers/regusers.component';
+import { AdminComponent } from './views/admin/admin.component';
+import { HelppageComponent } from './views/helppage/helppage.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -86,7 +92,10 @@ const APP_CONTAINERS = [
     LoginComponent,
     MerchantsComponent,
     ContactComponent,
-    SettingsComponent
+    SettingsComponent,
+    RegUsersComponent,
+    AdminComponent,
+    HelppageComponent
   ],
   imports: [
     RecaptchaModule,
@@ -124,7 +133,10 @@ const APP_CONTAINERS = [
     ListGroupModule,
     CardModule,
     PopoverModule,
-    TableModule
+    TableModule,
+    WidgetModule,
+    ChartjsModule,
+    AccordionModule
   ],
   providers: [
     {
