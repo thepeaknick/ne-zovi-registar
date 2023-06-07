@@ -1,138 +1,148 @@
 .backgroundImage {
-    background-image: url("../../../../assets/images/dots.svg");    
-    min-height: 82vh;
-    background-size: cover;
+  background-image: url("../../../../assets/images/dots.svg");
+  min-height: 82vh;
+  background-size: cover;
 }
 
 .regusersTable {
-    background-color: white;
-    padding: 5%;
-    border-radius: 25px;
+  background-color: white;
+  padding: 5%;
+  border-radius: 25px;
 
-    font-family: 'Source Sans 3';
-    font-style: normal;
+  font-family: "Source Sans 3";
+  font-style: normal;
 }
 
 .tableAddNewButton {
-    width: 220px;
-    height: 43px;
-    margin-right: 1%;
-    border-color: #95A7C4;
-    border-width: 1px;
-    background-color: #224C8D;
+  width: 220px;
+  height: 43px;
+  margin-right: 1%;
+  border-color: #95a7c4;
+  border-width: 1px;
+  background-color: #224c8d;
 
-    font-weight: 700;
-    color: #FFFFFF;
+  font-weight: 700;
+  color: #ffffff;
 }
 
 .tableButton {
-    width: 188px;
-    height: 43px;
-    margin-right: 1%;
-    border-color: #95A7C4;
-    border-width: 1px;
+  width: 188px;
+  height: 43px;
+  margin-right: 1%;
+  border-color: #95a7c4;
+  border-width: 1px;
 
-    font-weight: 700;
-    color: #133F85;
+  font-weight: 700;
+  color: #133f85;
 }
 
 .leftTableHeader {
-    text-align: left;
+  text-align: left;
 }
 
 .rightTableHeader {
-    text-align: right;
+  text-align: right;
 }
 
-.tableData { 
-    padding-top: 3%;
-    justify-content: center;
-    text-align: center;
+.tableData {
+  padding-top: 3%;
+  justify-content: center;
+  text-align: center;
 }
 
 .tableHeader {
-    font-weight: 700;
-    font-size: 16.3583px;
-    line-height: 23px;
-    color: #224C8D;
+  font-weight: 700;
+  font-size: 16.3583px;
+  line-height: 23px;
+  color: #224c8d;
 }
 
 .tableContent {
-    font-weight: 400;
-    font-size: 16.3023px;
-    line-height: 23px;
-    color: #001942;
+  font-weight: 400;
+  font-size: 16.3023px;
+  line-height: 23px;
+  color: #001942;
 }
 
 c-modal {
-    width: 100%;
+  width: 100%;
 }
 
 .modalHeader {
-    background-color: #EBF1F8;
-    padding:0;
+  background-color: #ebf1f8;
+  padding: 0;
 }
 
 c-modal-header {
-    background-color: #EBF1F8;
-    background-image: url("../../../../assets/images/dots.svg");    
-    background-size: contain;
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;    // z-index: -1;
-    padding: 5%
+  background-color: #ebf1f8;
+  background-image: url("../../../../assets/images/dots.svg");
+  background-size: contain;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px; // z-index: -1;
+  padding: 5%;
 }
 
 c-modal-body {
-    padding: 5%
+  padding: 5%;
 }
 
-.modalHeader {  
-    font-weight: 700;
-    font-size: 27.679px;
-    line-height: 20px;
-    color: #133F85;
+.modalHeader {
+  font-weight: 700;
+  font-size: 27.679px;
+  line-height: 20px;
+  color: #133f85;
 }
 
 .modalTitleText {
-    font-weight: 700;
-    font-size: 23.227px;
-    line-height: 33px;
-    color: #001942;
+  font-weight: 700;
+  font-size: 23.227px;
+  line-height: 33px;
+  color: #001942;
 }
 
 .textInputField {
-    font-weight: 700;
-    font-size: 16.259px;
-    line-height: 23px;
-    color: #444444;;
-  }
+  font-weight: 700;
+  font-size: 16.259px;
+  line-height: 23px;
+  color: #444444;
+}
 
 .submitButton {
-    width: 188px;
-    height: 50px;
-    background: #224c8d;
-    border-radius: 5px;
-  
-    font-size: 100%;
-    line-height: 30px;
-    color: #ffffff;
-    margin-top: 10%;
-    margin-right: 5%
+  width: 188px;
+  height: 50px;
+  background: #224c8d;
+  border-radius: 5px;
+
+  font-size: 100%;
+  line-height: 30px;
+  color: #ffffff;
+  margin-top: 10%;
+  margin-right: 5%;
+}
+.addPhoneButton {
+  width: 188px;
+  height: 50px;
+  background: #224c8d;
+  border-radius: 5px;
+
+  font-size: 100%;
+  line-height: 30px;
+  color: #ffffff;
 }
 
 .cancelButton {
-    width: 188px;
-    height: 50px;
-    background: #E4E9F0;;
-    border-radius: 5px;
-    border-color: #444444;
-  
-    font-size: 100%;
-    line-height: 30px;
-    color: #444444;
-    margin-top: 10%;
+  width: 188px;
+  height: 50px;
+  background: #e4e9f0;
+  border-radius: 5px;
+  border-color: #444444;
+
+  font-size: 100%;
+  line-height: 30px;
+  color: #444444;
+  margin-top: 10%;
 }
 
 .modalRowButtons {
-    text-align: center;
+  text-align: center;
 }
