@@ -1,0 +1,63 @@
+.adminScreen {
+    background-image: url("../../../assets/images/dots.svg");    
+    background-size: cover;
+
+    font-family: 'Source Sans 3';
+    font-style: normal;
+}
+
+.widgetView {
+    border-radius: 25px;
+    background-color: white;
+}
+
+.charts {
+    margin-top: 2%;
+}
+
+.chartView {
+    padding: 5%;
+    background-color: white;
+    border-radius: 25px;
+}
+
+.lineChartTitle {
+    font-weight: 700;
+    font-size: 25.607px;
+    line-height: 36px;
+    color: #133F85;
+}
+
+.lineChartButton {
+    width: 188px;
+    height: 43px;
+    margin-right: 1%;
+    border-color: #95A7C4;
+    border-width: 1px;
+
+    font-family: 'Source Sans 3';
+    font-style: normal;
+    font-weight: 700;
+    color: #133F85;
+}
+
+.pieChartTitle {
+    padding: 5%;
+    font-weight: 700;
+    font-size: 25.607px;
+    line-height: 36px;
+    color: #133F85;
+}
+
+img {
+    border-radius: 20px;
+}
+
+c-widget-stat-a {
+    font-weight: 700;
+    font-size: 36.083px;
+    line-height: 51px;
+    color: #133F85;
+}
+
+
