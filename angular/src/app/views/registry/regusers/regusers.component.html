@@ -1,1 +1,164 @@
-<p>regusers works!</p>
+<div class="backgroundImage">
+
+    <div class="regusersTable">
+        <c-row>
+            <c-col xs="6" class="leftTableHeader">
+                <button
+                    cButton
+                    [cModalToggle]="addNewReguserModal.id"
+                    type="button"
+                    class="tableAddNewButton"
+                    shape="rounded-pill"
+                >
+                    + Dodaj novog obveznika
+                </button>
+            </c-col>
+            <c-col xs="6" class="rightTableHeader">
+                <button 
+                    [cPopover]="popoverHtml"
+                    cPopoverPlacement="bottom"
+                    [cPopoverTrigger]="'click'"
+                    cButton
+                    class="tableButton"
+                    color="white"
+                    shape="rounded-pill"
+                >
+                    Prikaz po strani &#8659;
+                    <ng-template #popoverHtml>
+                        <div class="popover-body">
+                            10<br/>20<br/>30<br/>40<br/>50 
+                        </div>
+                    </ng-template>
+                </button>
+                <button cButton class="tableButton" color="white" shape="rounded-pill">Export data</button>
+            </c-col>
+        </c-row>
+        <div class="tableData">
+            <table cTable hover>
+                <thead class="tableHeader">
+                <tr>
+                    <th scope="col">Ime firme</th>
+                    <th scope="col">PIB</th>
+                    <th scope="col">Matični broj</th>
+                    <th scope="col">Datum upisa</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody class="tableContent">
+                    <tr>
+                        <td>06X XXX XXXX</td>
+                        <td>20 Jan, 2022</td>
+                        <td>06X XXX XXXX</td>
+                        <td>20 Jan, 2022</td>
+                        <td>edit</td>
+                    </tr>
+                    <tr>
+                        <td>06X XXX XXXX</td>
+                        <td>20 Jan, 2022</td>
+                        <td>06X XXX XXXX</td>
+                        <td>20 Jan, 2022</td>
+                        <td>edit</td>
+                    </tr>
+                    <tr>
+                        <td>06X XXX XXXX</td>
+                        <td>20 Jan, 2022</td>
+                        <td>06X XXX XXXX</td>
+                        <td>20 Jan, 2022</td>
+                        <td>edit</td>
+                    </tr>
+                    <tr>
+                        <td>06X XXX XXXX</td>
+                        <td>20 Jan, 2022</td>
+                        <td>06X XXX XXXX</td>
+                        <td>20 Jan, 2022</td>
+                        <td>edit</td>
+                    </tr>
+                    <tr>
+                        <td>06X XXX XXXX</td>
+                        <td>20 Jan, 2022</td>
+                        <td>06X XXX XXXX</td>
+                        <td>20 Jan, 2022</td>
+                        <td>edit</td>
+                    </tr>
+                    <tr>
+                        <td>06X XXX XXXX</td>
+                        <td>20 Jan, 2022</td>
+                        <td>06X XXX XXXX</td>
+                        <td>20 Jan, 2022</td>
+                        <td>edit</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <c-modal
+      #addNewReguserModal
+      alignment="center"
+      id="addNewReguserModal"
+      size="lg"
+    >
+        <c-modal-header>
+            <p class="modalHeader">Dodaj novog obveznika</p>
+            <button
+                [cModalToggle]="addNewReguserModal.id"
+                cButtonClose
+            ></button>
+        </c-modal-header>
+        <c-modal-body>
+            <p class="modalTitleText">Podaci o obvezniku</p>
+            <form cForm class="row g-3">
+                <c-col [xs]="8">
+                    <div class="mb-3">
+                        <label cLabel for="regUserName" class="textInputField">
+                            Ime obveznika
+                        </label>
+                        <input cFormControl id="regUserName" type="text" placeholder="Lorem ipsum"/>
+                      </div>
+                      <div class="mb-3">
+                        <label cLabel for="regUserAddress" class="textInputField">
+                            Lozinka
+                        </label>
+                        <input cFormControl id="regUserAddress" type="text" placeholder="Lorem ipsum"/>
+                      </div>
+                      <div class="mb-3">
+                        <c-row>
+                            <c-col>
+                                <label cLabel for="regUserUsername" class="textInputField">
+                                    Korisničko ime
+                                </label>
+                                <input cFormControl id="regUserUsername" type="text" placeholder="imefirme@adresa.com"/>
+                            </c-col>
+                            <c-col>
+                                <label cLabel for="regUserPassword" class="textInputField">
+                                    Lozinka
+                                </label>
+                                <input cFormControl id="regUserPassword" type="text" placeholder="xxxxxxxxx"/>
+                            </c-col>
+                        </c-row>
+                      </div>
+                      <div class="mb-3">
+                        <label cLabel for="regUserEmail" class="textInputField">
+                            E-mail
+                        </label>
+                        <input cFormControl id="regUserEmail" type="email" placeholder="imefirme@adresa.com"/>
+                      </div>
+                </c-col>
+                <c-col [xs]="4">
+                    <div class="mb-3">
+                        <label cLabel for="pib" class="textInputField">PIB</label>
+                        <input cFormControl id="pib" type="text" placeholder="xxxxxxxxx"/>
+                    </div>
+                    <div class="mb-3">
+                        <label cLabel for="mb" class="textInputField">Matični broj</label>
+                        <input cFormControl id="mb" type="text" placeholder="xxxxxxxxx"/>
+                    </div>
+                </c-col>
+                <div class="mb-3">
+                    <input cButton class="submitButton" type="submit" value="Sačuvaj izmene"/>
+                    <input [cModalToggle]="addNewReguserModal.id" cButtonClose class="cancelButton" type="submit" value="Cancel"/>
+                </div>
+            </form>
+        </c-modal-body>
+    </c-modal>
+    </div>

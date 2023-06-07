@@ -1,9 +1,160 @@
-<p>users works!</p>
+<div class="backgroundImage">
+    <div class="regusersTable">
+        <c-row>
+            <c-col xs="6" class="leftTableHeader">
+                <button
+                    cButton
+                    [cModalToggle]="addNewUserModal.id"
+                    type="button"
+                    class="tableAddNewButton"
+                    shape="rounded-pill"
+                >
+                    + Dodaj novog korisnika
+                </button>
+            </c-col>
+            <c-col xs="6" class="rightTableHeader">
+                <button 
+                    [cPopover]="popoverHtml"
+                    cPopoverPlacement="bottom"
+                    [cPopoverTrigger]="'click'"
+                    cButton
+                    class="tableButton"
+                    color="white"
+                    shape="rounded-pill"
+                >
+                    Prikaz po strani &#8659;
+                    <ng-template #popoverHtml>
+                        <div class="popover-body">
+                            10<br/>20<br/>30<br/>40<br/>50 
+                        </div>
+                    </ng-template>
+                </button>
+            </c-col>
+        </c-row>
+        <div class="tableData">
+            <table cTable hover>
+                <thead class="tableHeader">
+                <tr>
+                    <th scope="col">Broj telefona</th>
+                    <th scope="col">Datum upisa/ispisa</th>
+                    <th scope="col">Izmena podataka</th>
+                    <th scope="col">Obriši korisnika</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody class="tableContent">
+                    <tr>
+                        <td>06X XXX XXXX</td>
+                        <td>20 Jan, 2022</td>
+                        <td>edit</td>
+                        <td>delete</td>
+                    </tr>
+                    <tr>
+                        <td>06X XXX XXXX</td>
+                        <td>20 Jan, 2022</td>
+                        <td>edit</td>
+                        <td>delete</td>
+                    </tr>
+                    <tr>
+                        <td>06X XXX XXXX</td>
+                        <td>20 Jan, 2022</td>
+                        <td>edit</td>
+                        <td>delete</td>
+                    </tr>
+                    <tr>
+                        <td>06X XXX XXXX</td>
+                        <td>20 Jan, 2022</td>
+                        <td>edit</td>
+                        <td>delete</td>
+                    </tr>
+                    <tr>
+                        <td>06X XXX XXXX</td>
+                        <td>20 Jan, 2022</td>
+                        <td>edit</td>
+                        <td>delete</td>
+                    </tr>
+                    <tr>
+                        <td>06X XXX XXXX</td>
+                        <td>20 Jan, 2022</td>
+                        <td>edit</td>
+                        <td>delete</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-<select aria-label="Large select example" cSelect class="mb-3" sizing="lg">
-    <option *ngFor="let user of users">
-      <span>{{ user.phoneNumber }} {{ user.createdModifiedOn }}</span>
-    </option>
-</select>
-
-<span>{{ phoneNumber }}</span>
+    <c-modal
+        #addNewUserModal
+        alignment="center"
+        id="addNewUserModal"
+        size="lg"
+    >
+        <c-modal-header>
+            <p class="modalHeader">Dodaj novog korisnika</p>
+            <button
+                [cModalToggle]="addNewUserModal.id"
+                cButtonClose
+            ></button>
+        </c-modal-header>
+        <c-modal-body>
+            <form cForm class="row g-3">
+                <c-row>
+                    <c-col [xs]="8">
+                        <div class="mb-3">
+                            <p class="modalTitleText">Podaci o korisniku</p>
+                        </div>
+                    </c-col>
+                    <!-- <c-col [xs]="4">
+                        <div class="mb-3">
+                            <input cButton class="submitButton" type="submit" value="+ broj telefona"/>
+                        </div>
+                    </c-col> -->
+                </c-row>
+                <c-col [xs]="8">
+                    
+                    <div class="mb-3">
+                        <label cLabel for="regUserName" class="textInputField">
+                            Broj telefona korisnika
+                        </label>
+                        <input cFormControl id="regUserName" type="text" placeholder="Lorem ipsum"/>
+                    </div>
+                    <div class="mb-3">
+                        <c-row>
+                            <c-col>
+                                <label cLabel for="regUserUsername" class="textInputField">
+                                    Korisničko ime
+                                </label>
+                                <input cFormControl id="regUserUsername" type="text" placeholder="imefirme@adresa.com"/>
+                            </c-col>
+                            <c-col>
+                                <label cLabel for="regUserPassword" class="textInputField">
+                                    Lozinka
+                                </label>
+                                <input cFormControl id="regUserPassword" type="text" placeholder="xxxxxxxxx"/>
+                            </c-col>
+                        </c-row>
+                    </div>
+                </c-col>
+                <c-col [xs]="4">
+                    <div class="mb-3">
+                        <label cLabel for="pib" class="textInputField">Operater</label>
+                        <select aria-label="Default select example" cSelect>
+                            <option value="1">Yettel</option>
+                            <option value="2">mts</option>
+                            <option value="3">A1</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label cLabel for="mb" class="textInputField">JMBG</label>
+                        <input cFormControl id="mb" type="text" placeholder="xxxxxxxxx"/>
+                    </div>
+                </c-col>
+                <div class="mb-3">
+                    <input cButton class="submitButton" type="submit" value="Dodaj korisnika"/>
+                    <input [cModalToggle]="addNewUserModal.id" cButtonClose class="cancelButton" type="submit" value="Cancel"/>
+                </div>
+          </form>
+        </c-modal-body>
+    </c-modal>
+</div>
