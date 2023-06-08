@@ -79,11 +79,11 @@ export class LoginComponent implements OnInit {
                     break;
   
                   case RoleType.Trgovac:
-                    returnUrl = '/registry/merchants';
+                    returnUrl = '/registry/users';
                     break;
   
                   case RoleType.Obveznik:
-                    returnUrl = '/registry/regusers';
+                    returnUrl = '/registry/users';
                     break;
   
                   default:

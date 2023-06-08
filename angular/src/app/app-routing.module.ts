@@ -12,6 +12,7 @@ import { HelppageComponent } from './views/helppage/helppage.component';
 import { SettingsComponent } from './views/settings/settings.component';
 import { ContactComponent } from './views/contact/contact.component';
 import { HomeComponent } from './home/home.component';
+import { AuthGuard } from './domain/services/auth-guard';
 
 const routes: Routes = [
   {
@@ -29,30 +30,58 @@ const routes: Routes = [
       {
         path: 'registry/users',
         component: UsersComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin', 'Obveznik', 'Trgovac']
+        }
       },
       {
         path: 'registry/regusers',
         component: RegUsersComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin']
+        }
       },
       {
         path: 'registry/merchants',
         component: MerchantsComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin']
+        }
       },
       {
         path: 'admin',
         component: AdminComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin']
+        }
       },
       {
         path: 'settings',
         component: SettingsComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin', 'Obveznik', 'Trgovac']
+        }
       },
       {
         path: 'help',
         component: HelppageComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin', 'Obveznik', 'Trgovac']
+        }
       },
       {
         path: 'contact',
         component: ContactComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin', 'Obveznik', 'Trgovac']
+        }
       },
     ],
   },
@@ -68,7 +97,7 @@ const routes: Routes = [
         component: LoginComponent,
         data: {
           title: 'Prijava',
-        },
+        }
       },
       {
         path: 'search',

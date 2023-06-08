@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AppConfiguration } from './app-configuration.service';
 import { LoginResultDto, RefreshTokenResultDto, RegUserDetailsDto, TokenResult } from '../model/schemas';
-import { Observable, map } from 'rxjs';
+import { Observable, map, mergeMap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -13,33 +13,28 @@ export class AuthenticationService {
     private http: HttpClient
   ) {}
 
-  login(username: string, password: string): Observable<void> {
+  login(username: string, password: string) {
     return this.http
       .post<LoginResultDto>(`${this.config.apiUrl}${this.config.apiLoginUrl}`, {
         username,
         password,
       })
-      .pipe(map((loginResult: LoginResultDto) => {
-        // set token don't bother with user
-        this.setToken(loginResult);
-        console.log('set token');
-
-        this.http
-          .get<RegUserDetailsDto>(`${this.config.apiUrl}${this.config.apiRegUserDetailsUrl}/${loginResult.regUserId}`)
-          .subscribe((regUserDetail: RegUserDetailsDto) => {
-              // set user
-              if(regUserDetail !== undefined)
-                AuthenticationService.CurrentUser = regUserDetail;
-        
-              console.log('DONE');
-          });
-        
-
-          
-
-
-        this.startRefreshTokenTimer();
-      }));
+      .pipe(
+        mergeMap((loginResult: LoginResultDto) => {
+          // set token don't bother with user
+          this.setToken(loginResult);
+          this.startRefreshTokenTimer();
+          console.log('set token');
+          return this.http
+            .get<RegUserDetailsDto>(`${this.config.apiUrl}${this.config.apiRegUserDetailsUrl}/${loginResult.regUserId}`)
+            .pipe(map((regUserDetail: RegUserDetailsDto) => {
+                // set user
+                if(regUserDetail !== undefined)
+                  AuthenticationService.CurrentUser = regUserDetail;
+                return regUserDetail;
+            }));
+        })
+      );
   }
 
   logout(): Observable<void> {
@@ -130,6 +125,14 @@ export class AuthenticationService {
 
   private stopRefreshTokenTimer() {
     clearTimeout(this.refreshTokenTimeout);
+  }
+
+  waitForCondition(ms: number, condition: Function) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while(currentDate - date < ms || condition());
   }
 
 }

@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
 
-import { navItems } from './_nav';
+import { navItems, ICustomNavData } from './_nav';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/domain/services/authentication.service';
+import { RoleType } from 'src/app/domain/model/schemas';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,7 +23,46 @@ export class DefaultLayoutComponent {
   constructor(private route: ActivatedRoute) {
     this.id = 0;
     this.role = 0;
+
+    // filter navitems by user role
+    let currentUser = AuthenticationService.CurrentUser;
+    let role = RoleType.Potrosac;
+    if(currentUser)
+      role = currentUser.role;
+
+    this.navItems = this.filterNavItems(navItems, [ RoleType[role] ]) ?? [];
+
     // console.log(this.router.getCurrentNavigation().extras.queryParams); // should log out 'bar'
+  }
+  
+  filterNavItems(navItems: ICustomNavData[] | undefined, roles: string[]): ICustomNavData[] | undefined {
+    let newNavItems: ICustomNavData[] | undefined = undefined;
+
+    if(navItems)
+    {
+      newNavItems = [];
+      navItems.forEach((navItem) => {
+        if(navItem.roles === undefined && navItem.children === undefined)
+          newNavItems?.push(navItem);
+        else
+        {
+          let found = false;
+          roles.forEach(r => { found = found || navItem.roles === undefined || navItem.roles.indexOf(r) >= 0; });
+
+          if(found){
+            let newNavItem: ICustomNavData = {
+              ...navItem,
+              children: this.filterNavItems(navItem.children, roles)
+            }
+            
+            newNavItems?.push(newNavItem);
+          }
+        }
+      
+      });
+    }
+
+    return newNavItems;
   }
 
   ngOnInit() {
@@ -43,3 +84,4 @@ export class DefaultLayoutComponent {
     // '--my-another-css-var': 'red',
   };
 }
+
