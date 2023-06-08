@@ -8,33 +8,25 @@
             <c-row>
               <c-col> <p class="titleText">Sign in</p> </c-col>
             </c-row>
-            <form cForm>
+            <form cForm [formGroup]="loginForm" >
               <div class="mb-3">
-                <label cLabel for="inputEmail-1" class="textInputField"
-                  >Korisničko ime</label
-                >
-                <input cFormControl id="inputEmail-1" type="email" />
+                <label cLabel for="username" class="textInputField">Korisničko ime</label>
+                <input cFormControl formControlName="username" id="username" type="text" />
               </div>
               <div class="mb-3">
-                <label cLabel for="inputEmail-1" class="textInputField"
-                  >Lozinka</label
-                >
-                <input cFormControl id="inputEmail-1" type="email" />
+                <label cLabel for="password" class="textInputField">Lozinka</label>
+                <input cFormControl formControlName="password" id="password" type="password" />
               </div>
               <button
                 [cModalToggle]="verticallyCenteredModal.id"
                 type="button"
-                class="btn btn-link forgottenPassword"
-              >
-                Zaboravili ste lozinku?
-              </button>
+                class="btn btn-link forgottenPassword"> ste lozinku?</button>
               <input
                 cButton
                 class="submitButton"
                 type="submit"
                 value="Sign in"
-                (click)="goDashboardHome()"
-              />
+                (click)="goDashboardHome()"/>
               <p class="descriptionText">
                 Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
                 lorem ipsum lorem ipsum lorem ipsum lorem ipsum

@@ -73,57 +73,30 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
     return event;
   }
 
-  private processFailureResult(
-    request: HttpRequest<any>,
-    error: HttpEvent<any>
-  ): Observable<HttpEvent<any>> {
+
+  private processFailureResult(request: HttpRequest<any>, error: HttpEvent<any>) : Observable<HttpEvent<any>> {
     if (error instanceof HttpErrorResponse) {
-      if (
-        //TODO: Bad solution, but inevitable
-        (error as unknown as HttpErrorResponse).error.includes('ne postoji')
-      ) {
-        return of(
-          new HttpResponse<any>({
-            body: '',
-            status: 204, // no content
-            statusText: 'OK',
-          })
-        );
-      }
+        console.error("NeZoviHttpInterceptor: Received error from " + request.url + ":" + JSON.stringify(error));
+        if ((error.status === 401 || error.status === 403) && !this.isLoginPageUrl()) {
+            this.authenticationService.logout();
+        }
+        else if(error.status === 404)
+        {
+            return of(new HttpResponse<any>({
+                body: error,
+                status: 204, // no content
+                statusText: "OK",
+            }));
+        }
 
-      console.error(
-        'NeZoviHttpInterceptor: Received error from ' +
-          request.url +
-          ':' +
-          JSON.stringify(error)
-      );
-      if (
-        (error.status === 401 || error.status === 403) &&
-        !this.isLoginPageUrl()
-      ) {
-        this.authenticationService.logout();
-      } else if (error.status === 404) {
-        return of(
-          new HttpResponse<any>({
-            body: error,
-            status: 204, // no content
-            statusText: 'OK',
-          })
-        );
-      }
-
-      return of(error);
+        return of(error);
     }
-
-    console.error(
-      'NeZoviHttpInterceptor: Received error: ' + JSON.stringify(error)
-    );
-    return of(
-      new HttpResponse<any>({
+    
+    console.error("NeZoviHttpInterceptor: Received error: " + JSON.stringify(error));
+    return of(new HttpResponse<any>({
         body: error,
-        status: 0,
-      })
-    );
+        status: 0
+    }));
   }
 
   private isAbsoluteUrl(urlString: string): boolean {

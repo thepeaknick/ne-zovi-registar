@@ -17,6 +17,7 @@ export interface LoginRequest {
 }
 
 export interface LoginResultDto {
+  regUserId: string;
   accessToken: string;
   refreshToken: RefreshToken;
 }
@@ -70,6 +71,17 @@ export interface RegUserDto {
   guidId: string;
   name: string;
   id: number;
+}
+
+export interface RegUserDetailsDto {
+  guidId: string;
+  firstName: string;
+  lastName: string;
+  companyName: string;
+  address: string;
+  regNumber: string;
+  taxNumber: string;
+  role : RoleType;
 }
 
 export interface RegisterRegUserRequest {

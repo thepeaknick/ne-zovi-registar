@@ -23,7 +23,7 @@ export class RegUserService extends BaseService {
         return this.authenticationService.login(request.username, request.password);
     }
 
-    logoutRegUser(): void {
+    logoutRegUser(): Observable<void> {
         return this.authenticationService.logout();
     }
 

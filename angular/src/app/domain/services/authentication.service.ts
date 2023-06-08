@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AppConfiguration } from './app-configuration.service';
-import { RefreshTokenResultDto, TokenResult } from '../model/schemas';
-import { catchError, map } from 'rxjs';
+import { LoginResultDto, RefreshTokenResultDto, RegUserDetailsDto, TokenResult } from '../model/schemas';
+import { Observable, map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -13,30 +13,47 @@ export class AuthenticationService {
     private http: HttpClient
   ) {}
 
-  login(username: string, password: string) {
+  login(username: string, password: string): Observable<void> {
     return this.http
-      .post<TokenResult>(`${this.config.apiUrl}${this.config.apiLoginUrl}`, {
+      .post<LoginResultDto>(`${this.config.apiUrl}${this.config.apiLoginUrl}`, {
         username,
         password,
       })
-      .subscribe((token: TokenResult) => {
-        AuthenticationService.Token = token;
+      .pipe(map((loginResult: LoginResultDto) => {
+        // set token don't bother with user
+        this.setToken(loginResult);
+        console.log('set token');
+
+        this.http
+          .get<RegUserDetailsDto>(`${this.config.apiUrl}${this.config.apiRegUserDetailsUrl}/${loginResult.regUserId}`)
+          .subscribe((regUserDetail: RegUserDetailsDto) => {
+              // set user
+              if(regUserDetail !== undefined)
+                AuthenticationService.CurrentUser = regUserDetail;
+        
+              console.log('DONE');
+          });
+        
+
+          
+
+
         this.startRefreshTokenTimer();
-        console.log('DONE');
-      });
+      }));
   }
 
-  logout() {
-    this.http
+  logout(): Observable<void> {
+    return this.http
       .post<any>(`${this.config.apiUrl}${this.config.apiLogoutUrl}`, {})
-      .subscribe();
-
-    this.stopRefreshTokenTimer();
-    AuthenticationService.Token = null;
-    this.router.navigate([`${this.config.loginPage}`]);
+      .pipe(map(() => {
+        this.stopRefreshTokenTimer();
+        AuthenticationService.Token = null;
+        AuthenticationService.CurrentUser = null;
+        this.router.navigate([`${this.config.loginPage}`]);
+      }));
   }
 
-  refreshToken() {
+  refreshToken(): Observable<void> {
     let token: TokenResult = AuthenticationService.Token;
     return this.http
       .post<RefreshTokenResultDto>(
@@ -46,32 +63,61 @@ export class AuthenticationService {
           refreshToken: token.refreshToken.tokenString,
         }
       )
-      .subscribe((token: RefreshTokenResultDto) => {
+      .pipe(map((token: RefreshTokenResultDto) => {
         AuthenticationService.Token = {
           accessToken: token.accessToken,
           refreshToken: token.refreshToken,
         };
         this.startRefreshTokenTimer();
-      });
+      }));
   }
 
   // token store
 
+  static _REGUSER_ITEM = '_REGUSER_ITEM';
   static _TOKEN_ITEM = '_TOKEN_ITEM';
+
   static set Token(token: TokenResult | null | string) {
     if (token)
       if (typeof token === 'string')
         localStorage.setItem(this._TOKEN_ITEM, token);
-      else localStorage.setItem(this._TOKEN_ITEM, JSON.stringify(token));
-    else localStorage.removeItem(this._TOKEN_ITEM);
+      else 
+        localStorage.setItem(this._TOKEN_ITEM, JSON.stringify(token));
+    else 
+      localStorage.removeItem(this._TOKEN_ITEM);
   }
 
   static get Token(): TokenResult {
-    return JSON.parse(localStorage.getItem(this._TOKEN_ITEM) ?? '{}');
+    let item = localStorage.getItem(this._TOKEN_ITEM);
+    return item ? JSON.parse(item) : null;
+  }
+
+  static set CurrentUser(regUserDetail: RegUserDetailsDto | null | string) {
+    if (regUserDetail)
+      if (typeof regUserDetail === 'string')
+        localStorage.setItem(this._REGUSER_ITEM, regUserDetail);
+      else 
+        localStorage.setItem(this._REGUSER_ITEM, JSON.stringify(regUserDetail));
+    else 
+      localStorage.removeItem(this._REGUSER_ITEM);
+  }
+
+  static get CurrentUser(): RegUserDetailsDto | null {
+    let item = localStorage.getItem(this._REGUSER_ITEM);
+    return item ? JSON.parse(item) : null;
+  }
+
+  private setToken(loginResult: LoginResultDto | null) {
+    AuthenticationService.Token = 
+      loginResult  
+      ? {
+        accessToken: loginResult.accessToken,
+        refreshToken: loginResult.refreshToken
+      }
+      : null; 
   }
 
   // helper methods
-
   private refreshTokenTimeout: any;
 
   private startRefreshTokenTimer() {
@@ -85,4 +131,6 @@ export class AuthenticationService {
   private stopRefreshTokenTimer() {
     clearTimeout(this.refreshTokenTimeout);
   }
+
 }
+
