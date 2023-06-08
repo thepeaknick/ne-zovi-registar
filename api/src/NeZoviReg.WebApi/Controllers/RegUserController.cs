@@ -91,7 +91,7 @@ public class RegUserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
-    [HttpPatch("forgotpassword")]
+    [HttpPatch("resetpassword")]
     [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
     [HasPermission(PermissionType.All)]
     public async Task<IActionResult> ChangeRegUserPassword([FromBody] ChangeRegUserPasswordRequest request, CancellationToken cancellationToken)
