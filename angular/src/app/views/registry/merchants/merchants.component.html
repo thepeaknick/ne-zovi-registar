@@ -1,145 +1,203 @@
 <div class="backgroundImage">
-
-<div class="merchantTable">
+  <div class="merchantTable">
     <div class="tableButtonsView">
-    <c-row>
-            <c-col xs="6" class="leftTableHeader">
-                <button
-                    cButton
-                    [cModalToggle]="addNewMerchantModal.id"
-                    type="button"
-                    class="tableAddNewButton"
-                    shape="rounded-pill"
-                >
-                    + Dodaj novog trgovca
-                </button>
-            </c-col>
-            <c-col xs="6" class="rightTableHeader">
-                <button 
-                    [cPopover]="popoverHtml"
-                    cPopoverPlacement="bottom"
-                    [cPopoverTrigger]="'click'"
-                    cButton
-                    class="tableButton"
-                    color="white"
-                    shape="rounded-pill"
-                >
-                    Prikaz po strani &#8659;
-                    <ng-template #popoverHtml>
-                        <div class="popover-body">
-                            10<br/>20<br/>30<br/>40<br/>50 
-                        </div>
-                    </ng-template>
-                </button>
-                <button cButton class="tableButton" color="white" shape="rounded-pill">Export data</button>
-            </c-col>
-        </c-row>
+      <c-row>
+        <c-col xs="6" class="leftTableHeader">
+          <button
+            cButton
+            [cModalToggle]="addNewMerchantModal.id"
+            type="button"
+            class="tableAddNewButton"
+            shape="rounded-pill"
+          >
+            + Dodaj novog trgovca
+          </button>
+        </c-col>
+        <c-col xs="6" class="rightTableHeader">
+          <button
+            [cPopover]="popoverHtml"
+            cPopoverPlacement="bottom"
+            [cPopoverTrigger]="'click'"
+            cButton
+            class="tableButton"
+            color="white"
+            shape="rounded-pill"
+          >
+            Prikaz po strani &#8659;
+            <ng-template #popoverHtml>
+              <div class="popover-body">10<br />20<br />30<br />40<br />50</div>
+            </ng-template>
+          </button>
+          <button
+            cButton
+            class="tableButton"
+            color="white"
+            shape="rounded-pill"
+          >
+            Export data
+          </button>
+        </c-col>
+      </c-row>
     </div>
     <div class="tableData">
-        <table cTable hover>
-            <thead class="tableHeader">
-            <tr>
-                <th scope="col">Broj telefona</th>
-                <th scope="col">Datum upisa/ispisa</th>
-            </tr>
-            </thead>
-            <tbody class="tableContent">
-                <tr>
-                    <td>06X XXX XXXX</td>
-                    <td>20 Jan, 2022</td>
-                </tr>
-                <tr>
-                    <td>06X XXX XXXX</td>
-                    <td>20 Jan, 2022</td>
-                </tr>
-                <tr>
-                    <td>06X XXX XXXX</td>
-                    <td>20 Jan, 2022</td>
-                </tr>
-                <tr>
-                    <td>06X XXX XXXX</td>
-                    <td>20 Jan, 2022</td>
-                </tr>
-                <tr>
-                    <td>06X XXX XXXX</td>
-                    <td>20 Jan, 2022</td>
-                </tr>
-                <tr>
-                    <td>06X XXX XXXX</td>
-                    <td>20 Jan, 2022</td>
-                </tr>
-            </tbody>
-        </table>
+      <table cTable hover>
+        <thead class="tableHeader">
+          <tr>
+            <th scope="col">Ime firme</th>
+            <th scope="col">PIB</th>
+            <th scope="col">Matični broj</th>
+            <th scope="col">Datum upisa</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody class="tableContent">
+          <tr>
+            <td>TEHNOMANIJA</td>
+            <td>XXXXXXXXX</td>
+            <td>XXXXXXXX</td>
+            <td>20 Jan, 2022</td>
+            <td>edit</td>
+          </tr>
+          <tr>
+            <td>GIGATRON</td>
+            <td>XXXXXXXXX</td>
+            <td>XXXXXXXX</td>
+            <td>20 Jan, 2022</td>
+            <td>edit</td>
+          </tr>
+          <tr>
+            <td>COMTRADE</td>
+            <td>XXXXXXXXX</td>
+            <td>XXXXXXXX</td>
+            <td>20 Jan, 2022</td>
+            <td>edit</td>
+          </tr>
+          <tr>
+            <td>SBB DOO BEOGRAD</td>
+            <td>XXXXXXXXX</td>
+            <td>XXXXXXXX</td>
+            <td>20 Jan, 2022</td>
+            <td>edit</td>
+          </tr>
+          <tr>
+            <td>ORION TELEKOM DOO</td>
+            <td>XXXXXXXXX</td>
+            <td>XXXXXXXX</td>
+            <td>20 Jan, 2022</td>
+            <td>edit</td>
+          </tr>
+          <tr>
+            <td>SPORT VISION DOO</td>
+            <td>XXXXXXXXX</td>
+            <td>XXXXXXXX</td>
+            <td>20 Jan, 2022</td>
+            <td>edit</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-</div>
+  </div>
 
-<c-modal
-      #addNewMerchantModal
-      alignment="center"
-      id="addNewMerchantModal"
-      size="lg"
-    >
-        <c-modal-header>
-            <p class="modalHeader">Dodaj novog trgovca</p>
-            <button
-                [cModalToggle]="addNewMerchantModal.id"
-                cButtonClose
-            ></button>
-        </c-modal-header>
-        <c-modal-body>
-            <p class="modalTitleText">Podaci o trgovcu</p>
-            <form cForm class="row g-3">
-                <c-col [xs]="8">
-                    <div class="mb-3">
-                        <label cLabel for="merchantName" class="textInputField">
-                            Ime obveznika
-                        </label>
-                        <input cFormControl id="merchantName" type="text" placeholder="Lorem ipsum"/>
-                      </div>
-                      <div class="mb-3">
-                        <label cLabel for="merchantAddress" class="textInputField">
-                            Adresa trgovca
-                        </label>
-                        <input cFormControl id="merchantAddress" type="text" placeholder="Lorem ipsum"/>
-                      </div>
-                      <div class="mb-3">
-                        <c-row>
-                            <c-col>
-                                <label cLabel for="merchantUsername" class="textInputField">
-                                    Korisničko ime
-                                </label>
-                                <input cFormControl id="merchantUsername" type="text" placeholder="imefirme@adresa.com"/>
-                            </c-col>
-                            <c-col>
-                                <label cLabel for="merchantPassword" class="textInputField">
-                                    Lozinka
-                                </label>
-                                <input cFormControl id="merchantPassword" type="text" placeholder="xxxxxxxxx"/>
-                            </c-col>
-                        </c-row>
-                      </div>
-                      <div class="mb-3">
-                        <label cLabel for="merchantEmail" class="textInputField">
-                            E-mail
-                        </label>
-                        <input cFormControl id="merchantEmail" type="email" placeholder="imefirme@adresa.com"/>
-                      </div>
-                </c-col>
-                <c-col [xs]="4">
-                    <div class="mb-3">
-                        <label cLabel for="pib" class="textInputField">PIB</label>
-                        <input cFormControl id="pib" type="text" placeholder="xxxxxxxxx"/>
-                    </div>
-                    <div class="mb-3">
-                        <label cLabel for="mb" class="textInputField">Matični broj</label>
-                        <input cFormControl id="mb" type="text" placeholder="xxxxxxxxx"/>
-                    </div>
-                </c-col>
-                <div class="mb-3">
-                    <input cButton class="submitButton" type="submit" value="Sačuvaj izmene"/>
-                    <input [cModalToggle]="addNewMerchantModal.id" cButtonClose class="cancelButton" type="submit" value="Cancel"/>
-                </div>
-            </form>
-        </c-modal-body>
-    </c-modal>
+  <c-modal
+    #addNewMerchantModal
+    alignment="center"
+    id="addNewMerchantModal"
+    size="lg"
+  >
+    <c-modal-header>
+      <p class="modalHeader">Dodaj novog trgovca</p>
+      <button [cModalToggle]="addNewMerchantModal.id" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+      <p class="modalTitleText">Podaci o trgovcu</p>
+      <form cForm class="row g-3">
+        <c-col [xs]="8">
+          <div class="mb-3">
+            <label cLabel for="merchantName" class="textInputField">
+              Ime obveznika
+            </label>
+            <input
+              cFormControl
+              id="merchantName"
+              type="text"
+              placeholder="Lorem ipsum"
+            />
+          </div>
+          <div class="mb-3">
+            <label cLabel for="merchantAddress" class="textInputField">
+              Adresa trgovca
+            </label>
+            <input
+              cFormControl
+              id="merchantAddress"
+              type="text"
+              placeholder="Lorem ipsum"
+            />
+          </div>
+          <div class="mb-3">
+            <c-row>
+              <c-col>
+                <label cLabel for="merchantUsername" class="textInputField">
+                  Korisničko ime
+                </label>
+                <input
+                  cFormControl
+                  id="merchantUsername"
+                  type="text"
+                  placeholder="imefirme@adresa.com"
+                />
+              </c-col>
+              <c-col>
+                <label cLabel for="merchantPassword" class="textInputField">
+                  Lozinka
+                </label>
+                <input
+                  cFormControl
+                  id="merchantPassword"
+                  type="text"
+                  placeholder="xxxxxxxxx"
+                />
+              </c-col>
+            </c-row>
+          </div>
+          <div class="mb-3">
+            <label cLabel for="merchantEmail" class="textInputField">
+              E-mail
+            </label>
+            <input
+              cFormControl
+              id="merchantEmail"
+              type="email"
+              placeholder="imefirme@adresa.com"
+            />
+          </div>
+        </c-col>
+        <c-col [xs]="4">
+          <div class="mb-3">
+            <label cLabel for="pib" class="textInputField">PIB</label>
+            <input cFormControl id="pib" type="text" placeholder="xxxxxxxxx" />
+          </div>
+          <div class="mb-3">
+            <label cLabel for="mb" class="textInputField">Matični broj</label>
+            <input cFormControl id="mb" type="text" placeholder="xxxxxxxxx" />
+          </div>
+        </c-col>
+        <div class="mb-3">
+          <input
+            cButton
+            class="submitButton"
+            type="submit"
+            value="Dodaj trgovca"
+          />
+          <input
+            [cModalToggle]="addNewMerchantModal.id"
+            cButtonClose
+            class="cancelButton"
+            type="submit"
+            value="Cancel"
+          />
+        </div>
+      </form>
+    </c-modal-body>
+  </c-modal>
 </div>

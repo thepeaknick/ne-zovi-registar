@@ -1,21 +1,26 @@
 .headerContainer {
-    height: 13vh;
-    vertical-align: middle;
+  height: 10vh;
+  vertical-align: middle;
 }
 
 .headerTitle {
-    font-family: 'Source Sans 3';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 34.919px;
-    line-height: 50px;
-    color: #224C8D;
+  font-family: "Source Sans 3";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 34.919px;
+  line-height: 50px;
+  color: #224c8d;
 }
 
 .searchButton {
-    border-radius: 40px;
-    border-width: 1;
-    border-color: lightgrey;
-    background: white;
-    
+  border-radius: 40px;
+  border-width: 1;
+  border-color: lightgrey;
+  background: white;
+}
+.defaultHeader {
+  width: 100%;
+}
+#accountData {
+  float: right;
 }
