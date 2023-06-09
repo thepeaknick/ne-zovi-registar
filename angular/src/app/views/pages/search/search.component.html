@@ -24,18 +24,17 @@
                   [(ngModel)]="phoneNumber"
                 />
               </div>
-              <div>
-                <re-captcha
-                  class="recaptcha"
-                  id="recaptcha"
-                  name="recaptcha"
-                  #recaptcha="ngModel"
-                  [(ngModel)]="token"
-                  required
-                  [class.is-invalid]="
-                    recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
-                  "
-                ></re-captcha>
+              <div class="recaptcha">
+                  <re-captcha
+                    id="recaptcha"
+                    name="recaptcha"
+                    #recaptcha="ngModel"
+                    [(ngModel)]="token"
+                    required
+                    [class.is-invalid]="
+                      recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
+                    "
+                  ></re-captcha>
                 <div
                   *ngIf="
                     (recaptcha.invalid &&
