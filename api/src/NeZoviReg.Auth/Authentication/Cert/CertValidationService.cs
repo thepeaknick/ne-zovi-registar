@@ -16,7 +16,7 @@ public class CertValidationService : ICertValidationService
         _cache = cache;
     }
 
-    public async Task<RegUser?> ValidateCertificate(X509Certificate2 clientCertificate, CancellationToken cancellationToken = default)
+    public Task<RegUser?> ValidateCertificate(X509Certificate2 clientCertificate, CancellationToken cancellationToken = default)
     {
         /*return await _cache.GetAsync(CacheKeyPrefix.Cert, clientCertificate.Thumbprint,
             async () =>
@@ -27,6 +27,6 @@ public class CertValidationService : ICertValidationService
             return regUser;
         }, cancellationToken);*/
 
-        return default;
+        return Task.FromResult<RegUser?>(default);
     }
 }

@@ -12,12 +12,12 @@ public class SendEmailCommandValidator : AbstractValidator<SendEmailCommand>
     {
         RuleFor(x => x.EmailFrom)!
             .NotEmpty<SendEmailCommand, string, bool>(RegErrors.Email.Empty.Message)
-            .RegexFormat<SendEmailCommand, bool>(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", RegErrors.Email.InvalidFormat.Message);;
+            .RegexFormat<SendEmailCommand, bool>(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", RegErrors.Email.InvalidFormat.Message);
 
         RuleFor(x => x.PhoneNumber)!
             .NotEmpty<SendEmailCommand, string, bool>(PhoneNumber.Empty.Message)
             .MaximumLength<SendEmailCommand, bool>(Domain.Model.Domain.User.PhoneNumberMaxLength, PhoneNumber.TooLong.Message)
-            .RegexFormat<SendEmailCommand, bool>(@"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$", PhoneNumber.InvalidFormat.Message);;
+            .RegexFormat<SendEmailCommand, bool>(@"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$", PhoneNumber.InvalidFormat.Message);
 
         When(x => string.IsNullOrEmpty(x.CompanyName), () =>
         {

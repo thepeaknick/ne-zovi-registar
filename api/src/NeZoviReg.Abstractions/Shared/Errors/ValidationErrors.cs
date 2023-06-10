@@ -60,6 +60,10 @@ public static class RegErrors
         public static readonly Error NotLoggedIn = new(
             ErrorCode.Empty,
             "Ulogujte se u sistem.");
+        
+        public static readonly Error EmailNotSent = new(
+            ErrorCode.InternalServerError,
+            "Email nije poslat.");
     }
 
     public static class Operater
@@ -245,6 +249,14 @@ public static class RegErrors
         public static readonly Error AccessTokenExpired = new(
             ErrorCode.Empty,
             "Access token je istekao. Ulogujte se ponovo.");
+        
+        public static readonly Error ForgotPasswordTokenEmpty = new(
+            ErrorCode.Empty,
+            "Token za reset lozinke je obavezan.");
+        
+        public static readonly Error ForgotPasswordTokenExpiredOrNotValid = new(
+            ErrorCode.Empty,
+            "Token za reset lozinke je istekao ili nije validan. Probajte ponovo.");
 
         public static readonly Error RefreshTokenEmpty = new(
             ErrorCode.Empty,

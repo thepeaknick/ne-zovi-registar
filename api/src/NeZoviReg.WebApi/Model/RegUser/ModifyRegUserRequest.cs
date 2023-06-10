@@ -3,6 +3,7 @@
 namespace NeZoviReg.WebApi.Model.RegUser;
 
 public record ModifyRegUserRequest(string? Name = default,
+    string? Email = default,
     string? Address = default,
     string? RegNumber = default,
     string? TaxNumber = default,

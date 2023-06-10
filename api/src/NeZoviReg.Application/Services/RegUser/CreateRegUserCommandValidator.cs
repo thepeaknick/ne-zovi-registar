@@ -4,6 +4,7 @@ using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using static NeZoviReg.Abstractions.Shared.Errors.RegErrors;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 using NeZoviReg.Abstractions.Messaging.Domain.Model;
+using NeZoviReg.Abstractions.Shared.Errors;
 
 namespace NeZoviReg.Application.Services.RegUser;
 
@@ -15,6 +16,10 @@ public class CreateRegUserCommandValidator : AbstractValidator<CreateRegUserComm
             .NotEmpty<CreateRegUserCommand, string, RegUserDto>(CompanyName.Empty.Message)
             .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.CompanyNameMaxLength, CompanyName.TooLong.Message);
 
+        RuleFor(x => x.Email)!
+            .NotEmpty<CreateRegUserCommand, string, RegUserDto>(RegErrors.Email.Empty.Message)
+            .RegexFormat<CreateRegUserCommand, RegUserDto>(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", RegErrors.Email.InvalidFormat.Message);
+        
         RuleFor(x => x.FirstName)
             .NotEmpty<CreateRegUserCommand, string, RegUserDto>(FirstName.Empty.Message)
             .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.FirstNameMaxLength, FirstName.TooLong.Message);

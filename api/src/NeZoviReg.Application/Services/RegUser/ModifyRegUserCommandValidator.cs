@@ -30,6 +30,13 @@ public class ModifyRegUserCommandValidator : AbstractValidator<ModifyRegUserComm
                 }
             });
         });
+        
+        When(x => !string.IsNullOrEmpty(x.Email), () =>
+        {
+            RuleFor(x => x.Email)!
+                .MaximumLength<ModifyRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.EmailMaxLength, RegErrors.Email.TooLong.Message)
+                .RegexFormat<ModifyRegUserCommand, RegUserDto>(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", RegErrors.Email.InvalidFormat.Message);
+        });
 
         When(x => !string.IsNullOrEmpty(x.Address), () =>
         {

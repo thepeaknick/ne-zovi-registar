@@ -1,5 +1,3 @@
-﻿using NeZoviReg.Abstractions.Shared.Model.Auth;
+﻿namespace NeZoviReg.Abstractions.Messaging.Auth.Model;
 
-namespace NeZoviReg.Abstractions.Messaging.Auth.Model;
-
-public record LoginResultDto(Guid RegUserId, string AccessToken, RefreshToken RefreshToken);
+public record LoginResultDto(Guid RegUserId, string AccessToken, string AccessTokenExpTime, string RefreshToken, string RefreshTokenExpTime);

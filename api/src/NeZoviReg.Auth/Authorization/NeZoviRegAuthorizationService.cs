@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.Eventing.Reader;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -54,12 +53,12 @@ public class NeZoviRegAuthorizationService : DefaultAuthorizationService, INeZov
 
         var regUserWithPermissions = await GetCachedUserWithPermissions(id, cancellationToken);
 
-        bool HasPermission(PermissionType perm)
+        bool WithPermission(PermissionType perm)
         {
             return (regUserWithPermissions.Permissions ?? new()).Any(permissionType => (permissionType & perm) == permissionType);
         }
 
-       return regUserWithPermissions.RegUser.RefreshToken is not null && HasPermission((PermissionType)enumPermission);
+       return regUserWithPermissions.RegUser.RefreshToken is not null && WithPermission((PermissionType)enumPermission);
     }
 
     private async Task<RegUserWithPermissions> GetCachedUserWithPermissions(Guid regUserId, CancellationToken cancellationToken = default)
