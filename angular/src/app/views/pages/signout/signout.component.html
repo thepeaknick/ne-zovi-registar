@@ -1,0 +1,19 @@
+
+<c-modal
+      #verticallyCenteredModal
+      alignment="center"
+      id="verticallyCenteredModal"
+      visible="true"
+    >
+    <c-modal-header>
+        <p class="modalHeader">Pokušacate da napustite stranicu registra "Ne zovi"</p>
+        <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+      </c-modal-header>
+      <c-modal-body>
+        <p class="modalBodyTitle">Da li ste sigurni?</p>
+        <form cForm>
+          <input cButton class="signOutButton" type="submit" value="Sign out" />
+          <input cButton class="cancelButton" type="submit" value="Cancel" />
+        </form>
+      </c-modal-body>
+</c-modal>

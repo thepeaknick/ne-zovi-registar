@@ -55,4 +55,9 @@ export const navItems: INavData[] = [
     url: '/contact',
     iconComponent: { name: 'cil-envelope-closed' }
   },
+  {
+    name: 'Sign out',
+    url: '/pages/signout',
+    iconComponent: { name: 'cil-exit-to-app' }
+  },
 ];
