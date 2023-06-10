@@ -48,8 +48,8 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginR
 
         return new LoginResultDto(regUser.GuidId, 
             loginResult.AccessToken, 
-            loginResult.AccessTokenExpTime.ToString("dd.MM.yy HH:mm"), 
+            $"{loginResult.AccessTokenExpTime:dd.MM.yy HH:mm}", 
             loginResult.RefreshToken.TokenString,
-            loginResult.RefreshToken.ExpireAt.ToString("dd.MM.yy HH:mm"));
+            $"{loginResult.RefreshToken.ExpireAt:dd.MM.yy HH:mm}");
     }
 }
