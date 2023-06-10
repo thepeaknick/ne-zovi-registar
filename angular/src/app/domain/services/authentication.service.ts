@@ -102,6 +102,11 @@ export class AuthenticationService {
     return item ? JSON.parse(item) : null;
   }
 
+  get CurrentUser(): RegUserDetailsDto | null {
+    let item = localStorage.getItem(AuthenticationService._REGUSER_ITEM);
+    return item ? JSON.parse(item) : null;
+  }
+
   private setToken(loginResult: LoginResultDto | null) {
     AuthenticationService.Token = 
       loginResult  

@@ -24,7 +24,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
     private regUserService: RegUserService, 
     private router: Router,
     private route: ActivatedRoute,
-    private authenticationService: AuthenticationService) {
+    public authenticationService: AuthenticationService) {
     super();
   }
 

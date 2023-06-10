@@ -15,7 +15,10 @@
 
 <ng-template #userDropdown>
   <c-dropdown alignment="end" variant="nav-item">
-    <button cButton color="secondary" variant="ghost">Petar Peric</button>
+    <button cButton color="secondary" variant="ghost" cDropdownToggle [caret]="false">
+      {{authenticationService.CurrentUser?.firstName}} 
+      {{authenticationService.CurrentUser?.lastName}} 
+      [ {{authenticationService.CurrentUser?.companyName}} ]</button>
 
     <ul cDropdownMenu class="pt-0 pr-5 w-auto">
       <li>
