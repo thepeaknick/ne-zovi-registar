@@ -2,7 +2,6 @@
 using NeZoviReg.Abstractions.Extensions;
 using static NeZoviReg.Abstractions.Shared.Errors.RegErrors;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
-using NeZoviReg.Abstractions.Messaging.Domain.Model;
 using NeZoviReg.Abstractions.Shared.Errors;
 
 namespace NeZoviReg.Application.Services.RegUser;

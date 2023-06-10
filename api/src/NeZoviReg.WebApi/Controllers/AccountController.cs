@@ -5,11 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 using NeZoviReg.Abstractions.Messaging.Auth.Commands;
 using NeZoviReg.Abstractions.Messaging.Auth.Model;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
-using NeZoviReg.Abstractions.Messaging.Domain.Model;
 using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using NeZoviReg.Auth.Authorization;
 using NeZoviReg.WebApi.Model.RegUser;
-using NeZoviReg.WebApi.Model.Token;
 
 namespace NeZoviReg.WebApi.Controllers;
 

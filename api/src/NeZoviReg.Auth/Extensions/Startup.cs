@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NeZoviReg.Abstractions.Email;
 using NeZoviReg.Auth.Authentication.Cert;
 using NeZoviReg.Auth.Authentication.Jwt;
 using NeZoviReg.Auth.Authorization;

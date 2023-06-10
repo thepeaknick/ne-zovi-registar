@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.Design.Serialization;
-using System.Net.Mail;
+﻿using System.Net.Mail;
 
 namespace NeZoviReg.Abstractions.Email;
 
