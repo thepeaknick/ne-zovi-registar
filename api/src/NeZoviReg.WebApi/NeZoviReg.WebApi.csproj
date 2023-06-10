@@ -31,4 +31,11 @@
     <ProjectReference Include="..\NeZoviReg.Composition\NeZoviReg.Composition.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Templates\reset_password.html" />
+    <Content Include="Templates\reset_password.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

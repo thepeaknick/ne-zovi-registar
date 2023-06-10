@@ -18,6 +18,10 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
         builder.Property(x => x.CompanyName)
             .IsRequired()
             .HasMaxLength(RegUser.CompanyNameMaxLength);
+        
+        builder.Property(x => x.Email)
+            .IsRequired()
+            .HasMaxLength(RegUser.EmailMaxLength);
 
         builder.Property(x => x.Address)
             .IsRequired()
@@ -50,8 +54,14 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
         builder.Property(x => x.RefreshToken);
 
         builder.Property(x => x.RefreshTokenExpirationTime);
+        
+        builder.Property(x => x.ForgotPasswordToken);
+
+        builder.Property(x => x.ForgotPasswordTokenExpirationTime);
 
         builder.HasIndex(x => x.CompanyName).IsUnique();
+        
+        builder.HasIndex(x => x.Email).IsUnique();
 
         builder.HasIndex(x => x.RegNumber).IsUnique();
 
@@ -62,14 +72,15 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
         builder.Navigation(n => n.RegUserRoles)
             .UsePropertyAccessMode(PropertyAccessMode.Field);
 
-        builder.HasData(Create("RATEL", "Palmotićeva 2", "17606590", "103986571", "Ime", "Prezime", "ratel", "test123"));
+        builder.HasData(Create("RATEL", "markobubulj.test@gmail.com", "Palmotićeva 2", "17606590", "103986571", "Ime", "Prezime", "ratel", "test123"));
 
     }
 
-    private static RegUser Create(string companyName, string address, string regNumber, string taxNumber, string firstName, string lastName, string userName, string password)
+    private static RegUser Create(string companyName, string email, string address, string regNumber, string taxNumber, string firstName, string lastName, string userName, string password)
     {
         var regUser = new RegUser(1, companyName, userName)
             .WithAddress(address)
+            .WithEmail(email)
             .WithRegNumber(regNumber)
             .WithTaxNumber(taxNumber)
             .WithName(firstName, lastName)

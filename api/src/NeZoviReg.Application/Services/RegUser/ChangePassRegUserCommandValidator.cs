@@ -7,16 +7,16 @@ using NeZoviReg.Abstractions.Shared.Errors;
 
 namespace NeZoviReg.Application.Services.RegUser;
 
-public class ChangePassRegUserCommandValidator : AbstractValidator<ChangePassRegUserCommand>
+public class ChangePassRegUserCommandValidator : AbstractValidator<ChangePassCommand>
 {
     public ChangePassRegUserCommandValidator()
     {
         RuleFor(x => x.UserName)
-            .NotEmpty<ChangePassRegUserCommand, string, RegUserDto>(RegErrors.RegUser.NotLoggedIn.Message);
+            .NotEmpty<ChangePassCommand, string, bool>(RegErrors.RegUser.NotLoggedIn.Message);
 
         RuleFor(x => x.NewPassword)
-            .NotEmpty<ChangePassRegUserCommand, string, RegUserDto>(Password.Empty.Message)
-            .MaximumLength<ChangePassRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.PasswordMaxLength,
+            .NotEmpty<ChangePassCommand, string, bool>(Password.Empty.Message)
+            .MaximumLength<ChangePassCommand, bool>(Domain.Model.Domain.RegUser.PasswordMaxLength,
                 Password.TooLong.Message);
     }
 }

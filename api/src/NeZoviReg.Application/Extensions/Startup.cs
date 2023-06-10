@@ -30,7 +30,7 @@ public static class Startup
             .ValidateDataAnnotations();
 
         services.AddTransient<IEmailSender, EmailSender>();
-
+        
         return services;
     }
 

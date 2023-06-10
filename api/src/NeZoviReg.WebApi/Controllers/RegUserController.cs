@@ -53,7 +53,7 @@ public class RegUserController : NeZoviRegBaseController
     [HasPermission(PermissionType.RegUsersOnly)]
     public async Task<IActionResult> RegisterRegUser([FromBody] RegisterRegUserRequest request, CancellationToken cancellationToken)
     {
-        var command = new CreateRegUserCommand(request.Name, request.Address, request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
+        var command = new CreateRegUserCommand(request.Name, request.Email, request.Address, request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
                 request.UserName, request.Password, request.Roles)
             .AddAppUser(AppUser.UserName);
 
@@ -68,7 +68,7 @@ public class RegUserController : NeZoviRegBaseController
     [HasPermission(PermissionType.All)]
     public async Task<IActionResult> ModifyRegUser([FromBody] ModifyRegUserRequest request, CancellationToken cancellationToken)
     {
-        var command = new ModifyRegUserCommand(AppUser.Id, request.Name, request.Address, request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
+        var command = new ModifyRegUserCommand(AppUser.Id, request.Name, request.Email, request.Address, request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
                 request.UserName, request.Roles.ToIntList())
             .AddAppUser(AppUser.UserName);
 
@@ -82,21 +82,8 @@ public class RegUserController : NeZoviRegBaseController
     [HasPermission(PermissionType.RegUsersOnly)]
     public async Task<IActionResult> ModifyRegUser(Guid regUserId, [FromBody] ModifyRegUserRequest request, CancellationToken cancellationToken)
     {
-        var command = new ModifyRegUserCommand(regUserId, request.Name, request.Address, request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
+        var command = new ModifyRegUserCommand(regUserId, request.Name, request.Email, request.Address, request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
                 request.UserName, request.Roles.ToIntList())
-            .AddAppUser(AppUser.UserName);
-
-        var result = await Sender.Send(command, cancellationToken);
-
-        return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
-    }
-
-    [HttpPatch("resetpassword")]
-    [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
-    [HasPermission(PermissionType.All)]
-    public async Task<IActionResult> ChangeRegUserPassword([FromBody] ChangeRegUserPasswordRequest request, CancellationToken cancellationToken)
-    {
-        var command = new ChangePassRegUserCommand(AppUser.UserName, request.Password, request.NewPassword)
             .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);

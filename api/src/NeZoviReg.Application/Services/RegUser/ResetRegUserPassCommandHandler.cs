@@ -4,21 +4,20 @@ using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
-using NeZoviReg.Abstractions.Messaging.Domain.Model;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Events;
 
 namespace NeZoviReg.Application.Services.RegUser;
 
-internal sealed class ChangePassRegUserCommandHandler : ICommandHandler<ChangePassCommand, bool>
+internal sealed class ResetRegUserPassCommandHandler : ICommandHandler<ResetPassCommand, bool>
 {
-    private readonly ILogger<ChangePassRegUserCommandHandler> _logger;
+    private readonly ILogger<ResetRegUserPassCommandHandler> _logger;
     private readonly IRegUserDataStore _regUserDataStore;
     private readonly IPublisher _publisher;
     private readonly IUnitOfWork _unitOfWork;
 
-    public ChangePassRegUserCommandHandler(ILogger<ChangePassRegUserCommandHandler> logger,
+    public ResetRegUserPassCommandHandler(ILogger<ResetRegUserPassCommandHandler> logger,
         IRegUserDataStore regUserDataStore,
         IPublisher publisher,
         IUnitOfWork unitOfWork)
@@ -29,16 +28,22 @@ internal sealed class ChangePassRegUserCommandHandler : ICommandHandler<ChangePa
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Result<bool>> Handle(ChangePassCommand command, CancellationToken cancellationToken)
+    public async Task<Result<bool>> Handle(ResetPassCommand command, CancellationToken cancellationToken)
     {
-        var regUser = await _regUserDataStore.GetByUsernameAndPassword(command.UserName, command.Password, cancellationToken);
+        var regUser = await _regUserDataStore.GetByEmail(command.Email, cancellationToken);
 
         if (regUser is null)
         {
-            return Result.Failure<bool>(RegErrors.RegUser.InvalidCredentials);
+            return Result.Failure<bool>(RegErrors.RegUser.Unknown);
         }
-
-        regUser.WithPassword(command.NewPassword);
+        
+        if (regUser.ForgotPasswordToken != command.Token
+            || regUser.ForgotPasswordTokenExpirationTime < DateTime.Now)
+        {
+            return Result.Failure<bool>(RegErrors.Token.ForgotPasswordTokenExpiredOrNotValid);
+        }
+        
+        regUser.WithPassword(command.Password);
 
         _regUserDataStore.Update(regUser);
 

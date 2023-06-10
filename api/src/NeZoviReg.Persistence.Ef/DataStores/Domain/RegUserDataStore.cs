@@ -49,6 +49,10 @@ public class RegUserDataStore : IRegUserDataStore
         await _dbContext.Set<RegUser>()
             .SingleOrDefaultAsync(x => x.Username == username && x.Password == RegUser.Encode(password), cancellationToken);
 
+    public async Task<RegUser?> GetByEmail(string email, CancellationToken cancellationToken = default)=>
+        await _dbContext.Set<RegUser>()
+            .SingleOrDefaultAsync(x => x.Email == email, cancellationToken);
+
     public async Task<List<RegUser>> GetByRole(RoleType role, CancellationToken cancellationToken = default) =>
         await _dbContext.Set<RegUser>()
             .Include(u => u.RegUserRoles)

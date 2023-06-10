@@ -17,6 +17,7 @@ public class RegUser : Entity
     public const int TaxNumberMaxLength = 9;
     public const int PasswordMaxLength = 255;
     public const int UsernameMaxLength = 255;
+    public const int EmailMaxLength = 50;
 
     public RegUser()
     : base()
@@ -45,6 +46,8 @@ public class RegUser : Entity
     public string FirstName { get; private set; }
 
     public string LastName { get; private set; }
+    
+    public string Email { get; private set; }
 
     public string FullName => $"Naziv={CompanyName}, Adresa={Address}, MatičniBroj={RegNumber}, Pib={TaxNumber}";
 
@@ -53,6 +56,10 @@ public class RegUser : Entity
     public string? RefreshToken { get; private set; }
 
     public DateTime? RefreshTokenExpirationTime { get; private set; }
+    
+    public string? ForgotPasswordToken { get; private set; }
+    
+    public DateTime? ForgotPasswordTokenExpirationTime { get; private set; }
 
     private string? _password;
     public string? Password
@@ -77,6 +84,13 @@ public class RegUser : Entity
         return this;
     }
 
+    public RegUser WithEmail(string? email)
+    {
+        Email = email ?? Email;
+
+        return this;
+    }
+    
     public RegUser WithRegNumber(string? regNumb)
     {
         RegNumber = regNumb ?? RegNumber;
@@ -162,6 +176,20 @@ public class RegUser : Entity
     public RegUser WithRefreshTokenExpTime(DateTime? expTime)
     {
         RefreshTokenExpirationTime = expTime ?? RefreshTokenExpirationTime;
+
+        return this;
+    }
+    
+    public RegUser WithForgotPasswordToken(string? token)
+    {
+        ForgotPasswordToken = token ?? ForgotPasswordToken;
+
+        return this;
+    }
+    
+    public RegUser WithForgotPasswordTokenExpTime(DateTime? expTime)
+    {
+        ForgotPasswordTokenExpirationTime = expTime ?? ForgotPasswordTokenExpirationTime;
 
         return this;
     }

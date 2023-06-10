@@ -3,6 +3,7 @@
 namespace NeZoviReg.WebApi.Model.RegUser;
 
 public record RegisterRegUserRequest(string Name,
+    string Email,
     string Address,
     string RegNumber,
     string TaxNumber,
