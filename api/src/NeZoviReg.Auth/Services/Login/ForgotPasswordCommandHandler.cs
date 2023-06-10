@@ -50,7 +50,7 @@ internal sealed class ForgotPasswordCommandHandler : ICommandHandler<ForgotPassC
 
         var htmlContent = await CreateEmailBody(tokenResult);
 
-        if (!await _emailSender.SendEmailAsync(_options.EmailFrom, _options.Subject, htmlContent, true,
+        if (!await _emailSender.SendEmailAsync(_options.EmailFrom!, _options.Subject!, htmlContent, true,
                 cancellationToken)) 
             return Result.Failure<string>(RegErrors.RegUser.EmailNotSent);
         
@@ -67,7 +67,7 @@ internal sealed class ForgotPasswordCommandHandler : ICommandHandler<ForgotPassC
 
     private async Task<string> CreateEmailBody(TokenResult tokenResult)
     {
-        using StreamReader SourceReader = File.OpenText(_options.HtmlTemplatePath);
+        using StreamReader SourceReader = File.OpenText(_options.HtmlTemplatePath!);
         var body = await SourceReader.ReadToEndAsync();
         
         body = body.Replace("{Link}", $"{_options.CallBackUrl}?token={tokenResult.AccessToken}");
