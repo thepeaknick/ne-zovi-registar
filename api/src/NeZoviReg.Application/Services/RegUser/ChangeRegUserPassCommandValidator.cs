@@ -6,9 +6,9 @@ using NeZoviReg.Abstractions.Shared.Errors;
 
 namespace NeZoviReg.Application.Services.RegUser;
 
-public class ChangePassRegUserCommandValidator : AbstractValidator<ChangePassCommand>
+public class ChangeRegUserPassCommandValidator : AbstractValidator<ChangePassCommand>
 {
-    public ChangePassRegUserCommandValidator()
+    public ChangeRegUserPassCommandValidator()
     {
         RuleFor(x => x.UserName)
             .NotEmpty<ChangePassCommand, string, bool>(RegErrors.RegUser.NotLoggedIn.Message);

@@ -10,14 +10,14 @@ using NeZoviReg.Abstractions.Shared.Events;
 
 namespace NeZoviReg.Application.Services.RegUser;
 
-internal sealed class ChangePassRegUserCommandHandler : ICommandHandler<ChangePassCommand, bool>
+internal sealed class ChangeRegUserPassCommandHandler : ICommandHandler<ChangePassCommand, bool>
 {
-    private readonly ILogger<ChangePassRegUserCommandHandler> _logger;
+    private readonly ILogger<ChangeRegUserPassCommandHandler> _logger;
     private readonly IRegUserDataStore _regUserDataStore;
     private readonly IPublisher _publisher;
     private readonly IUnitOfWork _unitOfWork;
 
-    public ChangePassRegUserCommandHandler(ILogger<ChangePassRegUserCommandHandler> logger,
+    public ChangeRegUserPassCommandHandler(ILogger<ChangeRegUserPassCommandHandler> logger,
         IRegUserDataStore regUserDataStore,
         IPublisher publisher,
         IUnitOfWork unitOfWork)
