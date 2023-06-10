@@ -12,6 +12,7 @@ import { HelppageComponent } from './views/helppage/helppage.component';
 import { SettingsComponent } from './views/settings/settings.component';
 import { ContactComponent } from './views/contact/contact.component';
 import { HomeComponent } from './home/home.component';
+import { SignOutComponent } from './views/pages/signout/signout.component';
 import { AuthGuard } from './domain/services/auth-guard';
 
 const routes: Routes = [
@@ -82,6 +83,10 @@ const routes: Routes = [
         data: {
           role: ['Admin', 'Obveznik', 'Trgovac']
         }
+      },
+      {
+        path: 'pages/signout',
+        component: SignOutComponent,
       },
     ],
   },

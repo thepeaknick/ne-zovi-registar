@@ -64,6 +64,14 @@
     margin-top: 5%;
 }
 
+.modalSubmitButton {
+    width: 342px;
+    height: 50px;
+    background: #224C8D;
+    border-radius: 5px;
+    align-items: center;
+}
+
 .descriptionTitleText {
     margin-top: 10%;
     font-weight: 700;
@@ -78,3 +86,30 @@
     line-height: 22px;
     color: #001942;
 }
+
+.modalImage {
+    padding: 5%;
+}
+
+.modalTitle {
+    font-weight: 700;
+    font-size: 29.262px;
+    line-height: 42px;
+    color: #133F85;
+}
+
+.modalSubtitle {
+    font-weight: 400;
+    font-size: 16.386px;
+    line-height: 23px;
+    color: #3F6AA3;
+}
+
+c-modal {
+    text-align: center;
+}
+
+c-modal-footer {
+    justify-content: center;
+}   
+
