@@ -23,31 +23,6 @@ public class RegUserController : NeZoviRegBaseController
     {
     }
 
-    [HttpPost("login")]
-    [ProducesResponseType(typeof(LoginResultDto), (int) HttpStatusCode.OK)]
-    [AllowAnonymous]
-    public async Task<IActionResult> LoginRegUser([FromBody] LoginRequest request, CancellationToken cancellationToken)
-    {
-        var command = new LoginCommand(request.Username, request.Password);
-
-        var result = await Sender.Send(command, cancellationToken);
-
-        return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
-
-    }
-
-    [HttpPost("logout")]
-    [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
-    [HasPermission(PermissionType.All)]
-    public async Task<IActionResult> LogoutRegUser(CancellationToken cancellationToken)
-    {
-        var command = new LogoutCommand(AppUser.Id);
-
-        var result = await Sender.Send(command, cancellationToken);
-
-        return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
-    }
-
     [HttpPost("register")]
     [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
     [HasPermission(PermissionType.RegUsersOnly)]
