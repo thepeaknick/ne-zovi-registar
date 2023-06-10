@@ -20,7 +20,7 @@ internal sealed class ForgotPasswordCommandHandler : ICommandHandler<ForgotPassC
     private readonly IUnitOfWork _unitOfWork;
     private readonly ForgotPasswordOptions _options;
     private readonly ILogger<ForgotPasswordCommandHandler> _logger;
-
+    
     public ForgotPasswordCommandHandler(
         IRegUserDataStore regUserDataStore,
         IJwtProvider jwtProvider,
@@ -48,7 +48,7 @@ internal sealed class ForgotPasswordCommandHandler : ICommandHandler<ForgotPassC
         
         var tokenResult = await _jwtProvider.GenerateTokenAsync(regUser, cancellationToken);
 
-        var htmlContent = await CreateEmailBody(tokenResult, command.HtmlTemplatePath);
+        var htmlContent = await CreateEmailBody(tokenResult);
 
         if (!await _emailSender.SendEmailAsync(_options.EmailFrom, _options.Subject, htmlContent, true,
                 cancellationToken)) 
@@ -65,21 +65,12 @@ internal sealed class ForgotPasswordCommandHandler : ICommandHandler<ForgotPassC
 
     }
 
-    private async Task<string> CreateEmailBody(TokenResult tokenResult, string templatePath)
+    private async Task<string> CreateEmailBody(TokenResult tokenResult)
     {
-        var body = await GetTemplate(templatePath);
+        using StreamReader SourceReader = File.OpenText(_options.HtmlTemplatePath);
+        var body = await SourceReader.ReadToEndAsync();
+        
         body = body.Replace("{Link}", $"{_options.CallBackUrl}?token={tokenResult.AccessToken}");
-
         return body;
-    }
-    
-    private async Task<string> GetTemplate(string templatePath)
-    {
-        var template = $"{templatePath}{Path.DirectorySeparatorChar}Templates{Path.DirectorySeparatorChar}{"reset_password.html"}";
-
-        using StreamReader SourceReader = File.OpenText(template);
-        var templateBody = await SourceReader.ReadToEndAsync();
-
-        return templateBody;
     }
 }

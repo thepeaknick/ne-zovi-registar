@@ -16,13 +16,11 @@ namespace NeZoviReg.WebApi.Controllers;
 [Route("account")]
 public class AccountController : NeZoviRegBaseController
 {
-    private readonly IWebHostEnvironment _environment;
-
     public AccountController(ISender sender,
-        ILogger<AccountController> logger, IWebHostEnvironment environment)
+        ILogger<AccountController> logger)
         : base(sender, logger)
     {
-        _environment = environment;
+        
     }
 
     [HttpPost("resetpassword")]
@@ -43,7 +41,7 @@ public class AccountController : NeZoviRegBaseController
     [HasPermission(PermissionType.All)]
     public async Task<IActionResult> ForgotRegUserPassword(string email, CancellationToken cancellationToken)
     {
-        var command = new ForgotPassCommand(email, _environment.ContentRootPath)
+        var command = new ForgotPassCommand(email)
             .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);

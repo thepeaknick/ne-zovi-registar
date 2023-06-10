@@ -25,5 +25,8 @@ public class ForgotPasswordOptions
     public string Password { get; set; }
     
     [Required]
+    public string HtmlTemplatePath { get; set; }
+    
+    [Required]
     public string CallBackUrl { get; set; }
 }
