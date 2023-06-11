@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
-using NeZoviReg.Abstractions.Messaging.Domain.Model;
+using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
 using NeZoviReg.Abstractions.Messaging.Domain.Queries.User;
 using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using NeZoviReg.Auth.Authorization;
@@ -25,7 +25,7 @@ public class UserController : NeZoviRegBaseController
     [HasPermission(PermissionType.Write)]
     public async Task<IActionResult> AddUser([FromBody] AddUserRequest request, CancellationToken cancellationToken)
     {
-        var command = new AddUserCommand(request.FirstName, request.LastName, request.PhoneNumber, request.Jmbg, request.OperatorId)
+        var command = new AddUserCommand(request.FirstName, request.LastName, request.PhoneNumbers, request.Jmbg, request.OperatorId)
             .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);

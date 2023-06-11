@@ -2,7 +2,7 @@
 using NeZoviReg.Abstractions.Extensions;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
-using NeZoviReg.Abstractions.Messaging.Domain.Model;
+using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using static NeZoviReg.Abstractions.Shared.Errors.RegErrors;

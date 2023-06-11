@@ -5,7 +5,7 @@ using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
-using NeZoviReg.Abstractions.Messaging.Domain.Model;
+using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Events;

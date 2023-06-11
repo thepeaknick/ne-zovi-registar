@@ -1,4 +1,4 @@
-﻿using NeZoviReg.Abstractions.Messaging.Domain.Model;
+﻿using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
 
 namespace NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
 

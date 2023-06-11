@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using NeZoviReg.Abstractions.Messaging.Domain.Model;
+using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
+using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
 using NeZoviReg.Domain.Model.Domain;
 
 namespace NeZoviReg.Application.Mapping;

@@ -4,7 +4,7 @@ using NeZoviReg.Abstractions.Extensions;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using static NeZoviReg.Abstractions.Shared.Errors.RegErrors;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
-using NeZoviReg.Abstractions.Messaging.Domain.Model;
+using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 
 namespace NeZoviReg.Application.Services.RegUser;
 

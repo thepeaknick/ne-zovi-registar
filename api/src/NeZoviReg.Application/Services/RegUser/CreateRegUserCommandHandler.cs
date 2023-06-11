@@ -5,7 +5,7 @@ using NeZoviReg.Abstractions.Infrastructure.DataStores.Auth;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
-using NeZoviReg.Abstractions.Messaging.Domain.Model;
+using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 using NeZoviReg.Abstractions.Shared;
 
 namespace NeZoviReg.Application.Services.RegUser;

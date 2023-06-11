@@ -6,7 +6,7 @@ using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using NeZoviReg.Auth.Authorization;
 using NeZoviReg.WebApi.Model.RegUser;
 using System.Net;
-using NeZoviReg.Abstractions.Messaging.Domain.Model;
+using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 using NeZoviReg.Abstractions.Messaging.Domain.Queries.RegUser;
 
 namespace NeZoviReg.WebApi.Controllers;

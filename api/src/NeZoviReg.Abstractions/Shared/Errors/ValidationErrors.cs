@@ -226,6 +226,14 @@ public static class RegErrors
         public static readonly Error Empty = new(
             ErrorCode.Empty,
             "Broj telefona je prazan.");
+        
+        public static readonly Error EmptyList = new(
+            ErrorCode.Empty,
+            "Brojevi telefona su prazni.");
+        
+        public static readonly Error DuplicatesInList = new(
+            ErrorCode.Empty,
+            "Brojevi telefona moraju biti jedinstveni.");
 
         public static readonly Error TooLong = new(
             ErrorCode.TooLong,
@@ -235,9 +243,13 @@ public static class RegErrors
             ErrorCode.InvalidFormat,
             "Format Broj telefona nije ispravan.");
 
+        public static readonly Error OneOfAlreadyInUse = new(
+            ErrorCode.AlreadyInUse,
+            $"Broj telefona je već u registru.");
+        
         public static readonly Func<string, Error> AlreadyInUse = phone => new(
             ErrorCode.AlreadyInUse,
-            $"Korisnik sa brojem '{phone}' je već u registru.");
+            $"Broj telefona'{phone}' je već u registru.");
     }
 
     public static class Token
