@@ -71,6 +71,7 @@ import { SettingsComponent } from './views/settings/settings.component';
 import { RegUsersComponent } from './views/registry/regusers/regusers.component';
 import { AdminComponent } from './views/admin/admin.component';
 import { HelppageComponent } from './views/helppage/helppage.component';
+import { SignOutComponent } from './views/pages/signout/signout.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -95,7 +96,8 @@ const APP_CONTAINERS = [
     SettingsComponent,
     RegUsersComponent,
     AdminComponent,
-    HelppageComponent
+    HelppageComponent,
+    SignOutComponent
   ],
   imports: [
     RecaptchaModule,
@@ -124,7 +126,6 @@ const APP_CONTAINERS = [
     ButtonGroupModule,
     ReactiveFormsModule,
     FormsModule,
-    SidebarModule,
     SharedModule,
     TabsModule,
     ListGroupModule,

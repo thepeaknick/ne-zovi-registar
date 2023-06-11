@@ -28,7 +28,7 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const started = Date.now();
-    console.log('NeZoviHttpInterceptor: Intercepted ' + request.url);
+    console.debug('NeZoviHttpInterceptor: Intercepted ' + request.url);
 
     let newUrl: string | undefined = undefined;
     if (!this.isAbsoluteUrl(request.url)) {
@@ -55,7 +55,6 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
     });
 
     //finally, perform the actual invoking of the http request
-    console.log('before hande');
     return next.handle(modifiedRequest).pipe(
       tap({ next: (event: HttpEvent<any>) => this.processOkResult(event) }),
       catchError((error: any) => {
@@ -70,6 +69,7 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
   private processOkResult(event: HttpEvent<any>): HttpEvent<any> {
     if (event instanceof HttpResponse) {
       if (event.status == 200) {
+        console.log(event);
       }
     }
 
@@ -80,7 +80,6 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     error: HttpEvent<any>
   ): Observable<HttpEvent<any>> {
-    console.log('inter');
     if (error instanceof HttpErrorResponse) {
       console.error(
         'NeZoviHttpInterceptor: Received error from ' +
@@ -88,6 +87,22 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
           ':' +
           JSON.stringify(error)
       );
+
+      // TEMP workaround
+      console.log(request.url);
+      if (request.url.includes('/users/')) {
+        if (error.status == 404) {
+          return of(
+            new HttpResponse<any>({
+              body: '',
+              status: 204, // no content
+              statusText: 'OK',
+            })
+          );
+        }
+        console.log('Dohvatanje broja');
+      }
+
       if (
         (error.status === 401 || error.status === 403) &&
         !this.isLoginPageUrl()

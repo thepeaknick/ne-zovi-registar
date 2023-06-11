@@ -65,6 +65,7 @@
           cButton
           class="submitButton"
           type="submit"
+          [cModalToggle]="verticallyCenteredModal.id"
           value="Promeni lozinku"
         />
         <p class="descriptionTitleText">Lorem ipsum</p>
@@ -75,4 +76,34 @@
       </form>
     </c-col>
   </c-row>
+
+
+  <c-modal
+      #verticallyCenteredModal
+      alignment="center"
+      id="verticallyCenteredModal"
+    >
+      <c-modal-header>
+        <button
+          [cModalToggle]="verticallyCenteredModal.id"
+          cButtonClose
+        ></button>
+      </c-modal-header>
+      
+      <c-modal-body>
+        <img src="/assets/images/exclamationmark.png"  class="modalImage"/>
+        <p cModalTitle class="modalTitle">Uspešno ste promenili lozinku!</p>
+        <p class="modalSubtitle">Lorem ipsum lorem ipsum lorem ipsum lorem<br />
+        ipsum lorem ipsum</p>
+      </c-modal-body>
+      <c-modal-footer>
+        <input
+          cButton
+          [cModalToggle]="verticallyCenteredModal.id"
+          class="modalSubmitButton"
+          type="submit"
+          value="DONE"
+        />
+      </c-modal-footer>
+    </c-modal>
 </div>
