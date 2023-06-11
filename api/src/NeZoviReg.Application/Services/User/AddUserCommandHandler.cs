@@ -32,6 +32,6 @@ internal sealed class AddUserCommandHandler : ICommandHandler<AddUserCommand, Us
 
         await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
 
-        return new UserDto(user.PhoneNumber, user.CreatedOn);
+        return new UserDto(user.PhoneNumber, $"{user.CreatedOn:dd.MM.yy HH:mm}");
     }
 }

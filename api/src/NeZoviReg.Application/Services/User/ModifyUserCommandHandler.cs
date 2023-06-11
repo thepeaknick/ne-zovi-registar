@@ -39,6 +39,6 @@ internal sealed class ModifyUserCommandHandler : ICommandHandler<ModifyUserComma
 
         await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
 
-        return new UserDto(user.PhoneNumber, user.ModifiedOn.GetValueOrDefault());
+        return new UserDto(user.PhoneNumber, $"{user.ModifiedOn.GetValueOrDefault():dd.MM.yy HH:mm}");
     }
 }
