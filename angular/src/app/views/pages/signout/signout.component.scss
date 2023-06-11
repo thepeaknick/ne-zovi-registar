@@ -1,33 +1,65 @@
-c-modal {
-    font-family: 'Source Sans 3';
+.backgroundImage {
+    background-image: url("../../../../assets/images/dots.svg");
+    min-height: 82vh;
+    background-size: cover;
+  }
+  
+.signoutForm {
+    background-color: white;
+    padding: 5%;
+    border-radius: 25px;
+  
+    font-family: "Source Sans 3";
     font-style: normal;
 }
 
-c-modal-header {
-    background-color: #EBF1F8;
-    background-image: url("../../../../assets/images/dots.svg");    
-    background-size: contain;
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;    // z-index: -1;
-    padding: 5%;
-}
 
-c-modal-body {
-    padding: 5%
-}
 
-.modalHeader {  
+
+// c-modal {
+//     font-family: 'Source Sans 3';
+//     font-style: normal;
+// }
+
+// c-modal-header {
+//     background-color: #EBF1F8;
+//     background-image: url("../../../../assets/images/dots.svg");    
+//     background-size: contain;
+//     border-top-left-radius: 25px;
+//     border-top-right-radius: 25px;    // z-index: -1;
+//     padding: 5%;
+// }
+
+// c-modal-body {
+//     padding: 5%
+// }
+
+// .modalHeader {  
+//     font-weight: 700;
+//     font-size: 27.679px;
+//     color: #133F85;
+// }
+
+// .modalBodyTitle {
+//     font-weight: 700;
+//     font-size: 26.53px;
+//     line-height: 38px;
+//     color: #001942;
+//     padding-top: 10%;
+// }
+
+.signoutHeader {  
     font-weight: 700;
     font-size: 27.679px;
     color: #133F85;
 }
 
-.modalBodyTitle {
+.signoutBodyTitle {
     font-weight: 700;
     font-size: 26.53px;
     line-height: 38px;
     color: #001942;
-    padding-top: 10%;
+    padding-top: 5%;
 }
 
 .signOutButton {
@@ -39,7 +71,7 @@ c-modal-body {
     font-size: 100%;
     line-height: 30px;
     color: #ffffff;
-    margin-top: 10%;
+    margin-top: 5%;
     margin-right: 5%
 }
 
@@ -53,5 +85,5 @@ c-modal-body {
     font-size: 100%;
     line-height: 30px;
     color: #444444;
-    margin-top: 10%;
+    margin-top: 5%;
 }
