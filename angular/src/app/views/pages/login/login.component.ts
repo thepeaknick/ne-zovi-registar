@@ -39,6 +39,8 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
+
+    this.regUserService.logoutRegUser();
   }
 
   // convenience getter for easy access to form fields

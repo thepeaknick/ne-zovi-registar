@@ -46,10 +46,12 @@ export class AuthenticationService {
   }
 
   logout(): Observable<void> {
+    console.log('LOG OUT');
     return this.http
       .post<any>(`${this.config.apiUrl}${this.config.apiLogoutUrl}`, {})
       .pipe(
         map(() => {
+          console.log('LOG OUT!');
           this.stopRefreshTokenTimer();
           AuthenticationService.Token = null;
           AuthenticationService.CurrentUser = null;

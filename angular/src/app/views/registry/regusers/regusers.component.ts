@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RegUserDto, RoleType } from 'src/app/domain/model/schemas';
 import { RegUserService } from 'src/app/domain/services/reguser.service';
 
@@ -11,7 +11,7 @@ import { RegUserService } from 'src/app/domain/services/reguser.service';
 export class RegUsersComponent implements OnInit {
   constructor(private regUserService: RegUserService) {}
 
-  private regUsers: RegUserDto[] = [];
+  @Input() public regUsers: RegUserDto[] = [];
 
   ngOnInit(): void {
     this.regUserService.getRegUsers(RoleType.Obveznik).subscribe({
@@ -19,6 +19,10 @@ export class RegUsersComponent implements OnInit {
         (this.regUsers = regUsers instanceof HttpErrorResponse ? [] : regUsers),
       complete: () => this.addRegUsers(),
     });
+    // 2023-06-11T12:58:03.3910839
+    const date = new Date('2023-06-11T12:58:03.3910839');
+    console.log('ASD');
+    console.log(date);
   }
 
   addRegUsers() {

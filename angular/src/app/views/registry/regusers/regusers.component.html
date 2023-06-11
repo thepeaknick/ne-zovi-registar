@@ -44,46 +44,11 @@
           </tr>
         </thead>
         <tbody class="tableContent">
-          <tr>
-            <td>TELEKOM SRBIJA AD BEOGRAD</td>
-            <td>XXXXXXXXX</td>
-            <td>XXXXXXXX</td>
-            <td>20 Jan, 2022</td>
-            <td>edit</td>
-          </tr>
-          <tr>
-            <td>YETTEL D.O.O.</td>
-            <td>XXXXXXXXX</td>
-            <td>XXXXXXXX</td>
-            <td>20 Jan, 2022</td>
-            <td>edit</td>
-          </tr>
-          <tr>
-            <td>SOFTNET DOO BEOGRAD</td>
-            <td>XXXXXXXXX</td>
-            <td>XXXXXXXX</td>
-            <td>20 Jan, 2022</td>
-            <td>edit</td>
-          </tr>
-          <tr>
-            <td>SBB DOO BEOGRAD</td>
-            <td>XXXXXXXXX</td>
-            <td>XXXXXXXX</td>
-            <td>20 Jan, 2022</td>
-            <td>edit</td>
-          </tr>
-          <tr>
-            <td>ORION TELEKOM DOO</td>
-            <td>XXXXXXXXX</td>
-            <td>XXXXXXXX</td>
-            <td>20 Jan, 2022</td>
-            <td>edit</td>
-          </tr>
-          <tr>
-            <td>SAT-TRAKT DOO BAČKA TOPOLA</td>
-            <td>XXXXXXXXX</td>
-            <td>XXXXXXXX</td>
-            <td>20 Jan, 2022</td>
+          <tr *ngFor="let item of regUsers">
+            <td>{{ item.name }}</td>
+            <td>{{ item.taxNumber }}</td>
+            <td>{{ item.regNumber }}</td>
+            <td>{{ item.createdOn | date : "dd MMM, YY" }}</td>
             <td>edit</td>
           </tr>
         </tbody>

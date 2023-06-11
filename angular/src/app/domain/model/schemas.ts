@@ -70,7 +70,7 @@ export interface RefreshTokenResultDto {
 export interface RegUserDto {
   regNumber: string;
   taxNumber: string;
-  // createdOn: '2023-06-11T12:58:03.3910839';
+  createdOn: string;
   guidId: string;
   name: string;
   id: number;
