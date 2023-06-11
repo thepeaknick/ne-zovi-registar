@@ -29,27 +29,27 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Result<RegUserDto>> Handle(ModifyRegUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result<RegUserDto>> Handle(ModifyRegUserCommand command, CancellationToken cancellationToken)
     {
-        var regUser = await _regUserDataStore.GetByGuidId(request.RegUserId, cancellationToken);
+        var regUser = await _regUserDataStore.GetByGuidId(command.RegUserId, cancellationToken);
 
         if (regUser is null)
         {
-            return Result.Failure<RegUserDto>(RegErrors.RegUser.NotFound(request.RegUserId));
+            return Result.Failure<RegUserDto>(RegErrors.RegUser.NotFound(command.RegUserId));
         }
 
         regUser
-            .WithCompanyName(request.CompanyName)
-            .WithAddress(request.Address)
-            .WithRegNumber(request.RegNumber)
-            .WithTaxNumber(request.TaxNumber)
-            .WithName(request.FirstName, request.LastName)
-            .WithUserName(request.UserName)
-            .WithRoles(request.Roles);
+            .WithCompanyName(command.CompanyName)
+            .WithAddress(command.Address)
+            .WithRegNumber(command.RegNumber)
+            .WithTaxNumber(command.TaxNumber)
+            .WithName(command.FirstName, command.LastName)
+            .WithUserName(command.UserName)
+            .WithRoles(command.Roles);
 
         _regUserDataStore.Update(regUser);
 
-        await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 
         await _publisher.Publish(new RegUserModifiedEvent
         {

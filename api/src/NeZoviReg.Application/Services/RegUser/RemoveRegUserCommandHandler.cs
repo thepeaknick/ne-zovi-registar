@@ -20,7 +20,8 @@ internal sealed class RemoveRegUserCommandHandler : ICommandHandler<RemoveRegUse
 
     public RemoveRegUserCommandHandler(ILogger<RemoveRegUserCommandHandler> logger,
         IRegUserDataStore regUserDataStore,
-        IUnitOfWork unitOfWork, IPublisher publisher)
+        IUnitOfWork unitOfWork,
+        IPublisher publisher)
     {
         _logger = logger;
         _regUserDataStore = regUserDataStore;
@@ -28,18 +29,18 @@ internal sealed class RemoveRegUserCommandHandler : ICommandHandler<RemoveRegUse
         _publisher = publisher;
     }
 
-    public async Task<Result<RegUserDto>> Handle(RemoveRegUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result<RegUserDto>> Handle(RemoveRegUserCommand command, CancellationToken cancellationToken)
     {
-        var regUser = await _regUserDataStore.GetByGuidId(request.RegUserId, cancellationToken);
+        var regUser = await _regUserDataStore.GetByGuidId(command.RegUserId, cancellationToken);
 
         if (regUser is null)
         {
-            return Result.Failure<RegUserDto>(RegErrors.RegUser.NotFound(request.RegUserId));
+            return Result.Failure<RegUserDto>(RegErrors.RegUser.NotFound(command.RegUserId));
         }
 
         _regUserDataStore.Remove(regUser);
 
-        await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 
         await _publisher.Publish(new RegUserDeletedEvent
         {

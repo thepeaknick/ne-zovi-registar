@@ -1,6 +1,11 @@
 import { INavData } from '@coreui/angular';
 
-export const navItems: INavData[] = [
+export interface ICustomNavData extends INavData {
+  roles?: string[];
+  children?: ICustomNavData[];
+}
+
+export const navItems: ICustomNavData[] = [
   {
     name: 'Početna',
     url: '/admin',
@@ -23,11 +28,13 @@ export const navItems: INavData[] = [
         name: 'Obveznici',
         url: '/registry/regusers',
         iconComponent: { name: 'cil-briefcase' },
+        roles: ['Admin']
       },
       {
         name: 'Trgovci',
         url: '/registry/merchants',
         iconComponent: { name: 'cil-cart' },
+        roles: ['Admin']
       },
     ]
   },

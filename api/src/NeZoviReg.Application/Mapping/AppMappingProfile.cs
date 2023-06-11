@@ -13,5 +13,8 @@ public class AppMappingProfile : Profile
 
         CreateMap<RegUser, RegUserDto>()
             .ConstructUsing(s => new RegUserDto(s.GuidId, s.CompanyName, s.Id));
+
+        CreateMap<RegUser, RegUserDetailsDto>()
+            .ConstructUsing(s => new RegUserDetailsDto(s.GuidId, s.FirstName, s.LastName, s.CompanyName, s.Address, s.RegNumber, s.TaxNumber, s.RegUserRoles.First().RoleId));
     }
 }

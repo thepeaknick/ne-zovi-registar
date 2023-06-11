@@ -9,14 +9,14 @@ namespace NeZoviReg.Domain.Model.Domain;
 /// </summary>
 public class RegUser : Entity
 {
-    public static int CompanyNameMaxLength = 100;
-    public static int FirstNameMaxLength = 100;
-    public static int LastNameMaxLength = 100;
-    public static int AddressMaxLength = 100;
-    public static int RegNumberMaxLength = 8;
-    public static int TaxNumberMaxLength = 9;
-    public static int PasswordMaxLength = 255;
-    public static int UsernameMaxLength = 255;
+    public const int CompanyNameMaxLength = 100;
+    public const int FirstNameMaxLength = 100;
+    public const int LastNameMaxLength = 100;
+    public const int AddressMaxLength = 100;
+    public const int RegNumberMaxLength = 8;
+    public const int TaxNumberMaxLength = 9;
+    public const int PasswordMaxLength = 255;
+    public const int UsernameMaxLength = 255;
 
     public RegUser()
     : base()

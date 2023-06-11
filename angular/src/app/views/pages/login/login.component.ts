@@ -1,49 +1,104 @@
 import { Component, OnInit } from '@angular/core';
 import { RegUserService } from 'src/app/domain/services/reguser.service';
-
-import { NavigationEnd, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/domain/services/authentication.service';
+import { first } from 'rxjs';
+import { RegUserDetailsDto, RoleType } from 'src/app/domain/model/schemas';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
+
 export class LoginComponent implements OnInit {
-  token: string | undefined;
 
-  constructor(private regUserService: RegUserService, private router: Router) {
-    this.token = undefined;
-  }
+  loginForm!: FormGroup;
+  loading = false;
+  submitted = false;
+  error = '';
 
-  goDashboardHome(): void {
-    const navigationDetails: string[] = ['/admin'];
-    this.router.navigate(navigationDetails);
+  username = '';
+  password = '';
 
-    //TODO: Swiftch case ADMIN, MERCHANT, OPERATOR
+  constructor(
+    private regUserService: RegUserService, 
+    private router: Router,
+    private route: ActivatedRoute,
+    private authenticationService: AuthenticationService,
+    private formBuilder: FormBuilder) {
+
+      // if user is already logged in navigate to home page
+      //if(AuthenticationService.Token !== null)
+      //  this.router.navigate(['/']);
+
   }
 
   ngOnInit() {
-    /*
-    let after: Date = new Date();
-    after.setMonth(3);
-    
-    this.userService
-      .allUsers(after)
-      .subscribe(users => this.users = users);
-    */
 
-    this.regUserService.loginRegUser({
-      username: 'ratel',
-      password: 'test123',
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
+  }
 
-    /*
-    let response = this.userService
-      .getUser('0652015766')
+  // convenience getter for easy access to form fields
+  get fields() { return this.loginForm.controls; }
+
+  goDashboardHome(): void {
+
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.loginForm.invalid) {
+        return;
+    }
+
+    this.loading = true;
+    this.regUserService
+      .loginRegUser({
+          username: this.fields['username'].value, 
+          password: this.fields['password'].value 
+      })
       .subscribe({
-        next: pn => { this.phoneNumber = pn; },
-        error: err => { this.phoneNumber = 'unknown'; }
+          next: () => {
+            console.log('login');
+            // get return url from route parameters or default to '/'
+            let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
+            if(returnUrl === '/') {
+              let user: RegUserDetailsDto | null = AuthenticationService.CurrentUser;
+              console.log(JSON.stringify(user));
+
+              if(user) {
+                switch(user.role)
+                {
+                  case RoleType.Admin:
+                    returnUrl = '/admin';
+                    break;
+  
+                  case RoleType.Trgovac:
+                    returnUrl = '/registry/users';
+                    break;
+  
+                  case RoleType.Obveznik:
+                    returnUrl = '/registry/users';
+                    break;
+  
+                  default:
+                    this.authenticationService.logout();
+                }
+              }
+            }
+
+            // navigate
+            this.router.navigate([returnUrl]);
+          },
+          error: error => {
+              this.error = error;
+              this.loading = false;
+          }
       });
-      */
   }
 }

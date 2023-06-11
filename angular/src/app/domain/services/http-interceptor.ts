@@ -28,7 +28,7 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const started = Date.now();
-    console.debug('NeZoviHttpInterceptor: Intercepted ' + request.url);
+    console.log('NeZoviHttpInterceptor: Intercepted ' + request.url);
 
     let newUrl: string | undefined = undefined;
     if (!this.isAbsoluteUrl(request.url)) {
@@ -55,9 +55,12 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
     });
 
     //finally, perform the actual invoking of the http request
+    console.log('before hande');
     return next.handle(modifiedRequest).pipe(
       tap({ next: (event: HttpEvent<any>) => this.processOkResult(event) }),
-      catchError((error: any) => this.processFailureResult(request, error)),
+      catchError((error: any) => {
+        return this.processFailureResult(request, error);
+      }),
       finalize(() => {
         const elapsed = Date.now() - started;
       })
@@ -77,20 +80,8 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     error: HttpEvent<any>
   ): Observable<HttpEvent<any>> {
+    console.log('inter');
     if (error instanceof HttpErrorResponse) {
-      if (
-        //TODO: Bad solution, but inevitable
-        (error as unknown as HttpErrorResponse).error.includes('ne postoji')
-      ) {
-        return of(
-          new HttpResponse<any>({
-            body: '',
-            status: 204, // no content
-            statusText: 'OK',
-          })
-        );
-      }
-
       console.error(
         'NeZoviHttpInterceptor: Received error from ' +
           request.url +

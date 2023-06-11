@@ -22,12 +22,12 @@ internal sealed class RegUsersQueryHandler : IQueryHandler<RegUsersQuery, List<R
         _mapper = mapper;
     }
 
-    public async Task<Result<List<RegUserDto>>> Handle(RegUsersQuery request, CancellationToken cancellationToken)
+    public async Task<Result<List<RegUserDto>>> Handle(RegUsersQuery query, CancellationToken cancellationToken)
     {
-        var users = await _regUserDataStore.GetByRole(request.Role, cancellationToken);
+        var users = await _regUserDataStore.GetByRole(query.Role, cancellationToken);
 
         return users.Any()
             ? _mapper.Map<List<RegUserDto>>(users)
-            : Result.Failure<List<RegUserDto>>(RegErrors.RegUser.RolesNotFound(request.Role.ToString()));
+            : Result.Failure<List<RegUserDto>>(RegErrors.RegUser.RolesNotFound(query.Role.ToString()));
     }
 }

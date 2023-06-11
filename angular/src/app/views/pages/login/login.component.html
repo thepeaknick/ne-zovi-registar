@@ -8,18 +8,28 @@
             <c-row>
               <c-col> <p class="titleText">Sign in</p> </c-col>
             </c-row>
-            <form cForm>
+            <form cForm [formGroup]="loginForm">
               <div class="mb-3">
-                <label cLabel for="inputEmail-1" class="textInputField"
+                <label cLabel for="username" class="textInputField"
                   >Korisničko ime</label
                 >
-                <input cFormControl id="inputEmail-1" type="email" />
+                <input
+                  cFormControl
+                  formControlName="username"
+                  id="username"
+                  type="text"
+                />
               </div>
               <div class="mb-3">
-                <label cLabel for="inputEmail-1" class="textInputField"
+                <label cLabel for="password" class="textInputField"
                   >Lozinka</label
                 >
-                <input cFormControl id="inputEmail-1" type="password" />
+                <input
+                  cFormControl
+                  formControlName="password"
+                  id="password"
+                  type="password"
+                />
               </div>
               <button
                 [cModalToggle]="verticallyCenteredModal.id"

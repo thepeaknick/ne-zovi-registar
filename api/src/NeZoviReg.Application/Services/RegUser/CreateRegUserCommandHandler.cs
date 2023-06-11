@@ -27,21 +27,21 @@ internal sealed class CreateRegUserCommandHandler : ICommandHandler<CreateRegUse
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Result<RegUserDto>> Handle(CreateRegUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result<RegUserDto>> Handle(CreateRegUserCommand command, CancellationToken cancellationToken)
     {
-        var rolles = await _authDataStore.GetRollesAsync(request.Roles, cancellationToken);
+        var rolles = await _authDataStore.GetRollesAsync(command.Roles, cancellationToken);
 
-        var regUser = new Domain.Model.Domain.RegUser(request.CompanyName, request.UserName)
-            .WithAddress(request.Address)
-            .WithRegNumber(request.RegNumber)
-            .WithTaxNumber(request.TaxNumber)
-            .WithName(request.FirstName, request.LastName)
-            .WithPassword(request.Password)
+        var regUser = new Domain.Model.Domain.RegUser(command.CompanyName, command.UserName)
+            .WithAddress(command.Address)
+            .WithRegNumber(command.RegNumber)
+            .WithTaxNumber(command.TaxNumber)
+            .WithName(command.FirstName, command.LastName)
+            .WithPassword(command.Password)
             .WithRoles(rolles.Select(r => r.Id).ToList());
 
         await _regUserDataStore.Add(regUser, cancellationToken);
 
-        await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 
         return new RegUserDto(regUser.GuidId, regUser.FullName, regUser.Id);
     }

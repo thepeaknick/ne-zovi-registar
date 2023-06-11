@@ -8,6 +8,7 @@ export class AppConfiguration {
   public apiUrl: string = '';
   public apiLoginUrl: string = '';
   public apiLogoutUrl: string = '';
+  public apiRegUserDetailsUrl: string = '';
   public apiRefreshTokenUrl: string = '';
   public loginPage: string = '';
 
