@@ -7,6 +7,10 @@
     <UserSecretsId>5efa82d3-8b63-4d22-ae4d-a95c428afb5b</UserSecretsId>    
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DocumentationFile>bin\Debug\NeZoviReg.WebApi.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Certificate" Version="7.0.4" />

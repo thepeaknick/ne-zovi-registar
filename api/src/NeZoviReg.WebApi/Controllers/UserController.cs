@@ -20,6 +20,12 @@ public class UserController : NeZoviRegBaseController
     {
     }
 
+    /// <summary>
+    /// Registruj novog potrošača.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpPost("add")]
     [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
     [HasPermission(PermissionType.Write)]
@@ -33,6 +39,13 @@ public class UserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
+    /// <summary>
+    /// Izmeni registrovanog potrošača.
+    /// </summary>
+    /// <param name="phoneNumber"></param>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpPatch("{phoneNumber}")]
     [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
     [HasPermission(PermissionType.Write)]
@@ -46,6 +59,12 @@ public class UserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
+    /// <summary>
+    /// Obriši registrovanog potrošača.
+    /// </summary>
+    /// <param name="phoneNumber"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpDelete("{phoneNumber}")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     [HasPermission(PermissionType.Delete)]
@@ -58,7 +77,12 @@ public class UserController : NeZoviRegBaseController
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
-
+    /// <summary>
+    /// Registar svih potrošača.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpGet("all")]
     [ProducesResponseType(typeof(List<UserDto>), (int)HttpStatusCode.OK)]
     [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
@@ -71,6 +95,12 @@ public class UserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 
+    /// <summary>
+    /// Proveri da li broj telefona u registru.
+    /// </summary>
+    /// <param name="phoneNumber"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpGet("{phoneNumber}")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     [AllowAnonymous]

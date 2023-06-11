@@ -17,8 +17,15 @@ public class AccountController : NeZoviRegBaseController
     public AccountController(ISender sender,
         ILogger<AccountController> logger)
         : base(sender, logger)
-    { }
+    {
+    }
 
+    /// <summary>
+    /// Uloguj se.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpPost("login")]
     [ProducesResponseType(typeof(LoginResultDto), (int) HttpStatusCode.OK)]
     [AllowAnonymous]
@@ -29,11 +36,15 @@ public class AccountController : NeZoviRegBaseController
         var result = await Sender.Send(command, cancellationToken);
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
-
     }
 
+    /// <summary>
+    /// Izloguj se.
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpPost("logout")]
-    [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(bool), (int) HttpStatusCode.OK)]
     [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
     public async Task<IActionResult> LogoutRegUser(CancellationToken cancellationToken)
     {
@@ -43,11 +54,18 @@ public class AccountController : NeZoviRegBaseController
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
-    
+
+    /// <summary>
+    /// Promeni lozinku.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpPost("resetpassword")]
-    [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(bool), (int) HttpStatusCode.OK)]
     [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
-    public async Task<IActionResult> ChangeRegUserPassword([FromBody] ChangeRegUserPasswordRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> ChangeRegUserPassword([FromBody] ChangeRegUserPasswordRequest request,
+        CancellationToken cancellationToken)
     {
         var command = new ChangePassCommand(AppUser.UserName, request.Password, request.NewPassword)
             .AddAppUser(AppUser.UserName);
@@ -56,9 +74,16 @@ public class AccountController : NeZoviRegBaseController
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
-    
+
+    /// <summary>
+    /// Zaboravo si lozinku?
+    /// Pošalji link na mejl korisnika registra.
+    /// </summary>
+    /// <param name="email"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpGet("forgotpassword/{email:required}")]
-    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(string), (int) HttpStatusCode.OK)]
     [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
     public async Task<IActionResult> ForgotRegUserPassword(string email, CancellationToken cancellationToken)
     {
@@ -69,11 +94,18 @@ public class AccountController : NeZoviRegBaseController
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
-    
+
+    /// <summary>
+    /// Resetuj zaboravljenu lozinku korisnika registra.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpPost("forgotpassword")]
-    [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(bool), (int) HttpStatusCode.OK)]
     [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
-    public async Task<IActionResult> ResetRegUserPassword([FromBody] ResetRegUserPasswordRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> ResetRegUserPassword([FromBody] ResetRegUserPasswordRequest request,
+        CancellationToken cancellationToken)
     {
         var command = new ResetPassCommand(request.Email, request.Token, request.Password)
             .AddAppUser(AppUser.UserName);
