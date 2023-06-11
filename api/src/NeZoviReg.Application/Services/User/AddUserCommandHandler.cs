@@ -1,10 +1,12 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Globalization;
+using Microsoft.Extensions.Logging;
 using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
 using NeZoviReg.Abstractions.Messaging.Domain.Model;
 using NeZoviReg.Abstractions.Shared;
+using NeZoviReg.Application.Extensions;
 
 namespace NeZoviReg.Application.Services.User;
 
@@ -32,6 +34,6 @@ internal sealed class AddUserCommandHandler : ICommandHandler<AddUserCommand, Us
 
         await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
 
-        return new UserDto(user.PhoneNumber, $"{user.CreatedOn:dd.MM.yy HH:mm}");
+        return new UserDto(user.PhoneNumber, user.CreatedOn);
     }
 }

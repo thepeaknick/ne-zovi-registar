@@ -1,3 +1,3 @@
 ﻿namespace NeZoviReg.Abstractions.Messaging.Auth.Model;
 
-public record LoginResultDto(Guid RegUserId, string AccessToken, string AccessTokenExpTime, string RefreshToken, string RefreshTokenExpTime);
+public record LoginResultDto(Guid RegUserId, string AccessToken, DateTime AccessTokenExpTime, string RefreshToken, DateTime RefreshTokenExpTime);

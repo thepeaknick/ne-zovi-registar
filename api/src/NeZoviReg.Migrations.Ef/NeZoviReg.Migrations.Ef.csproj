@@ -10,7 +10,6 @@
   <ItemGroup>
     <None Remove="appsettings.my.json" />
     <None Remove="migrations.json" />
-    <None Remove="migrations.my.json" />
   </ItemGroup>
 
   <ItemGroup>    

@@ -35,6 +35,6 @@ internal sealed class RemoveUserCommandHandler : ICommandHandler<RemoveUserComma
 
         await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
 
-        return new UserDto(user.PhoneNumber, $"{DateTime.Now:dd.MM.yy HH:mm}");
+        return new UserDto(user.PhoneNumber, DateTime.Now);
     }
 }

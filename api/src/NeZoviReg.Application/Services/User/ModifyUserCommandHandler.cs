@@ -6,6 +6,7 @@ using NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
 using NeZoviReg.Abstractions.Messaging.Domain.Model;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
+using NeZoviReg.Application.Extensions;
 
 namespace NeZoviReg.Application.Services.User;
 
@@ -39,6 +40,6 @@ internal sealed class ModifyUserCommandHandler : ICommandHandler<ModifyUserComma
 
         await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
 
-        return new UserDto(user.PhoneNumber, $"{user.ModifiedOn.GetValueOrDefault():dd.MM.yy HH:mm}");
+        return new UserDto(user.PhoneNumber, user.ModifiedOn);
     }
 }
