@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Auth;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
@@ -15,16 +16,18 @@ internal sealed class CreateRegUserCommandHandler : ICommandHandler<CreateRegUse
     private readonly IRegUserDataStore _regUserDataStore;
     private readonly IAuthDataStore _authDataStore;
     private readonly IUnitOfWork _unitOfWork;
-
+    private readonly IMapper _mapper;
+    
     public CreateRegUserCommandHandler(ILogger<CreateRegUserCommandHandler> logger,
         IRegUserDataStore regUserDataStore,
         IAuthDataStore authDataStore,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork, IMapper mapper)
     {
         _logger = logger;
         _regUserDataStore = regUserDataStore;
         _authDataStore = authDataStore;
         _unitOfWork = unitOfWork;
+        _mapper = mapper;
     }
 
     public async Task<Result<RegUserDto>> Handle(CreateRegUserCommand command, CancellationToken cancellationToken)
@@ -44,6 +47,6 @@ internal sealed class CreateRegUserCommandHandler : ICommandHandler<CreateRegUse
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 
-        return new RegUserDto(regUser.GuidId, regUser.FullName, regUser.Id);
+        return _mapper.Map<RegUserDto>(regUser);
     }
 }
