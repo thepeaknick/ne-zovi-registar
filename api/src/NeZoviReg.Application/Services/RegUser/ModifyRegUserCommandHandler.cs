@@ -40,6 +40,7 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
 
         regUser
             .WithCompanyName(command.CompanyName)
+            .WithEmail(command.Email)
             .WithAddress(command.Address)
             .WithRegNumber(command.RegNumber)
             .WithTaxNumber(command.TaxNumber)

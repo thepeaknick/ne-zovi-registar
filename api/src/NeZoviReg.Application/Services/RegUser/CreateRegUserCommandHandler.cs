@@ -33,6 +33,7 @@ internal sealed class CreateRegUserCommandHandler : ICommandHandler<CreateRegUse
 
         var regUser = new Domain.Model.Domain.RegUser(command.CompanyName, command.UserName)
             .WithAddress(command.Address)
+            .WithEmail(command.Email)
             .WithRegNumber(command.RegNumber)
             .WithTaxNumber(command.TaxNumber)
             .WithName(command.FirstName, command.LastName)
