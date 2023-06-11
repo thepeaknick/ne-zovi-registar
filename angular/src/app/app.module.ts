@@ -71,7 +71,6 @@ import { SettingsComponent } from './views/settings/settings.component';
 import { RegUsersComponent } from './views/registry/regusers/regusers.component';
 import { AdminComponent } from './views/admin/admin.component';
 import { HelppageComponent } from './views/helppage/helppage.component';
-import { SignOutComponent } from './views/pages/signout/signout.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -97,7 +96,6 @@ const APP_CONTAINERS = [
     RegUsersComponent,
     AdminComponent,
     HelppageComponent,
-    SignOutComponent
   ],
   imports: [
     RecaptchaModule,

@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 
 import { navItems } from './_nav';
 import { ActivatedRoute, Router } from '@angular/router';
+import { cilExitToApp } from '@coreui/icons';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,6 +10,9 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./default-layout.component.scss'],
 })
 export class DefaultLayoutComponent {
+
+  icons = { cilExitToApp };
+
   public navItems = navItems;
 
   public perfectScrollbarConfig = {
