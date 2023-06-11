@@ -9,7 +9,7 @@ public class AppMappingProfile : Profile
     public AppMappingProfile()
     {
         CreateMap<User, UserDto>()
-            .ConstructUsing(s => new UserDto(s.PhoneNumber, s.ModifiedOn ?? s.CreatedOn));
+            .ConstructUsing(s => new UserDto(s.PhoneNumber, s.ModifiedOn != null ? $"{s.ModifiedOn:dd.MM.yy HH:mm}" : $"{s.CreatedOn:dd.MM.yy HH:mm}"));
 
         CreateMap<RegUser, RegUserDto>()
             .ConstructUsing(s => new RegUserDto(s.GuidId, s.CompanyName, s.Id));
