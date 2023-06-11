@@ -37,7 +37,6 @@ export class RegUserService extends BaseService {
   }
 
   loginRegUser(request: LoginRequest) {
-    console.log('reg login');
     return this.authenticationService.login(request.username, request.password);
   }
 

@@ -8,10 +8,15 @@ import {
   HttpResponse,
   HttpResponseBase,
 } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { LoginResultDto, TokenResult } from '../model/schemas';
+import {
+  LoginResultDto,
+  RegUserDetailsDto,
+  RoleType,
+  TokenResult,
+} from '../model/schemas';
 import { AppConfiguration } from './app-configuration.service';
 import { AuthenticationService } from './authentication.service';
 
@@ -69,7 +74,6 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
   private processOkResult(event: HttpEvent<any>): HttpEvent<any> {
     if (event instanceof HttpResponse) {
       if (event.status == 200) {
-        console.log(event);
       }
     }
 
@@ -101,7 +105,15 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
           );
         }
         console.log('Dohvatanje broja');
+      } else {
+        if (request.url.includes('/regusers/login')) {
+          if (error.status == 400) {
+            return throwError(() => error.error);
+          }
+          console.log('Login');
+        }
       }
+      // TEMP workaround END
 
       if (
         (error.status === 401 || error.status === 403) &&
@@ -118,7 +130,9 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
         );
       }
 
-      return of(error);
+      // return throwError(() => error);
+      return throwError(() => error);
+      // return of(error);
     }
 
     console.error(

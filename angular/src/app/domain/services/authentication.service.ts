@@ -19,7 +19,6 @@ export class AuthenticationService {
   ) {}
 
   login(username: string, password: string) {
-    console.log('auth login');
     return this.http
       .post<LoginResultDto>(`${this.config.apiUrl}${this.config.apiLoginUrl}`, {
         username,
@@ -30,7 +29,6 @@ export class AuthenticationService {
           // set token don't bother with user
           this.setToken(loginResult);
           this.startRefreshTokenTimer();
-          console.log('set token');
           return this.http
             .get<RegUserDetailsDto>(
               `${this.config.apiUrl}${this.config.apiRegUserDetailsUrl}/${loginResult.regUserId}`
