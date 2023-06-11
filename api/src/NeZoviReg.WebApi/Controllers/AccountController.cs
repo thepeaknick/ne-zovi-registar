@@ -34,7 +34,7 @@ public class AccountController : NeZoviRegBaseController
 
     [HttpPost("logout")]
     [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
-    [HasPermission(PermissionType.All)]
+    [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
     public async Task<IActionResult> LogoutRegUser(CancellationToken cancellationToken)
     {
         var command = new LogoutCommand(AppUser.Id);
@@ -46,7 +46,7 @@ public class AccountController : NeZoviRegBaseController
     
     [HttpPost("resetpassword")]
     [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
-    [HasPermission(PermissionType.All)]
+    [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
     public async Task<IActionResult> ChangeRegUserPassword([FromBody] ChangeRegUserPasswordRequest request, CancellationToken cancellationToken)
     {
         var command = new ChangePassCommand(AppUser.UserName, request.Password, request.NewPassword)
@@ -59,7 +59,7 @@ public class AccountController : NeZoviRegBaseController
     
     [HttpGet("forgotpassword/{email:required}")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
-    [HasPermission(PermissionType.All)]
+    [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
     public async Task<IActionResult> ForgotRegUserPassword(string email, CancellationToken cancellationToken)
     {
         var command = new ForgotPassCommand(email)
@@ -72,7 +72,7 @@ public class AccountController : NeZoviRegBaseController
     
     [HttpPost("forgotpassword")]
     [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
-    [HasPermission(PermissionType.All)]
+    [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
     public async Task<IActionResult> ResetRegUserPassword([FromBody] ResetRegUserPasswordRequest request, CancellationToken cancellationToken)
     {
         var command = new ResetPassCommand(request.Email, request.Token, request.Password)

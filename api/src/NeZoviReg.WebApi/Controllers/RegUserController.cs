@@ -37,7 +37,7 @@ public class RegUserController : NeZoviRegBaseController
 
     [HttpPatch("modify")]
     [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
-    [HasPermission(PermissionType.All)]
+    [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
     public async Task<IActionResult> ModifyRegUser([FromBody] ModifyRegUserRequest request, CancellationToken cancellationToken)
     {
         var command = new ModifyRegUserCommand(AppUser.Id, request.Name, request.Email, request.Address, request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
@@ -78,7 +78,7 @@ public class RegUserController : NeZoviRegBaseController
 
     [HttpGet("{regUserId:required}")]
     [ProducesResponseType(typeof(RegUserDetailsDto), (int)HttpStatusCode.OK)]
-    [HasPermission(PermissionType.All)]
+    [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
     public async Task<IActionResult> GetRegUser(Guid regUserId, CancellationToken cancellationToken)
     {
         var command = new RegUserQuery(regUserId);
@@ -102,7 +102,7 @@ public class RegUserController : NeZoviRegBaseController
 
     [HttpPost("email")]
     [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
-    [HasPermission(PermissionType.All)]
+    [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
     public async Task<IActionResult> SendEmail([FromBody] SendEmailRequest request, CancellationToken cancellationToken)
     {
         var command = new SendEmailCommand(request.FirstName, request.LastName, request.CompanyName, request.EmailFrom, request.PhoneNumber, request.Content)

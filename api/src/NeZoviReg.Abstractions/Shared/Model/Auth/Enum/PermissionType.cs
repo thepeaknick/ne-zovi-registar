@@ -9,7 +9,5 @@ public enum PermissionType
 
     Delete = 8,
 
-    Read = 16,
-
-    All = RegUsersOnly | Read
+    Read = 16
 }

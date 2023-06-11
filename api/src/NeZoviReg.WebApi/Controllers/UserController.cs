@@ -61,7 +61,7 @@ public class UserController : NeZoviRegBaseController
 
     [HttpGet("all")]
     [ProducesResponseType(typeof(List<UserDto>), (int)HttpStatusCode.OK)]
-    [HasPermission(PermissionType.All)]
+    [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
     public async Task<IActionResult> AllUsers([FromBody] AllUsersRequest request, CancellationToken cancellationToken)
     {
         var command = new AllUsersQuery(request.After);
