@@ -1,7 +1,9 @@
 {
   "apiUrl": "https://localhost:7058/v1",
-  "apiLoginUrl": "/regusers/login",
-  "apiLogoutUrl": "/regusers/logout",
+  "apiLoginUrl": "/account/login",
+  "apiLogoutUrl": "/account/logout",
+  "apiResetPasswordUrl": "/account/resetpassword",
+  "apiForgotPasswordUrl": "/account/forgotpassword",
   "apiRegUserDetailsUrl": "/regusers",
   "apiRefreshTokenUrl": "/refresh-token",
   "loginPage": "./login"

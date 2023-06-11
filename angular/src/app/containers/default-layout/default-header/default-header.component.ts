@@ -21,7 +21,6 @@ export class DefaultHeaderComponent extends HeaderComponent {
 
   constructor(
     private classToggler: ClassToggleService,
-    private regUserService: RegUserService, 
     private router: Router,
     private route: ActivatedRoute,
     public authenticationService: AuthenticationService) {
@@ -29,8 +28,8 @@ export class DefaultHeaderComponent extends HeaderComponent {
   }
 
   logout() {
-    this.regUserService
-      .logoutRegUser()
+    this.authenticationService
+      .logout()
       .subscribe(() => {
         console.log('Logged out!');
         this.router.navigate(['/']);

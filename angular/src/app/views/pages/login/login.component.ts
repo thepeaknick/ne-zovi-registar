@@ -15,6 +15,7 @@ import { RegUserDetailsDto, RoleType } from 'src/app/domain/model/schemas';
 export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
+  forgotPasswordForm!: FormGroup;
   loading = false;
   submitted = false;
   error = '';
@@ -41,6 +42,10 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
+
+    this.forgotPasswordForm = this.formBuilder.group({
+      inputEmail: ['', Validators.email]
+    });
   }
 
   // convenience getter for easy access to form fields
@@ -56,11 +61,11 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.regUserService
-      .loginRegUser({
-          username: this.fields['username'].value, 
-          password: this.fields['password'].value 
-      })
+    this.authenticationService
+      .login(
+          this.fields['username'].value, 
+          this.fields['password'].value 
+      )
       .subscribe({
           next: () => {
             console.log('login');
@@ -100,5 +105,19 @@ export class LoginComponent implements OnInit {
               this.loading = false;
           }
       });
+  }
+
+
+  submitForgotPassword()
+  {
+    // stop here if form is invalid
+    if (this.forgotPasswordForm.invalid) {
+      return;
+    }
+
+    let email: string = this.forgotPasswordForm.controls['inputEmail'].value;
+
+    this.authenticationService
+      .forgotPasswordSendEMail(email);
   }
 }

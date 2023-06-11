@@ -7,8 +7,15 @@ export interface AddUserRequest {
 }
 
 export interface ChangeRegUserPasswordRequest {
+  username: string;
   password: string;
   newPassword: string;
+}
+
+export interface ResetRegUserPasswordRequest {
+  email: string;
+  token: string;
+  password: string;
 }
 
 export interface LoginRequest {
@@ -19,7 +26,9 @@ export interface LoginRequest {
 export interface LoginResultDto {
   regUserId: string;
   accessToken: string;
-  refreshToken: RefreshToken;
+  accessTokenExpTime: string;
+  refreshToken: string;
+  refreshTokenExpTime: string;
 }
 
 export enum RoleType {

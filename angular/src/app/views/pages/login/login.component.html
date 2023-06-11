@@ -20,7 +20,7 @@
               <button
                 [cModalToggle]="verticallyCenteredModal.id"
                 type="button"
-                class="btn btn-link forgottenPassword"> ste lozinku?</button>
+                class="btn btn-link forgottenPassword">Zaboravili ste lozinku?</button>
               <input
                 cButton
                 class="submitButton"
@@ -51,12 +51,12 @@
       <c-modal-body>
         <img src="/assets/images/exclamationmark.png" />
         <h5 cModalTitle>Zaboravljena lozinka</h5>
-        Unesite vašu e-mail adresu a koju će biti poslat<br />
+        Unesite vašu e-mail adresu na koju će biti poslat<br />
         link za promenu vaše lozinke
 
-        <form cForm>
+        <form cForm [formGroup]="forgotPasswordForm" (ngSubmit)="submitForgotPassword()">
           <div class="mb-1">
-            <input cFormControl id="inputEmail" type="email" />
+            <input cFormControl formControlName="inputEmail" id="inputEmail" type="email" />
           </div>
           <input cButton color="primary" type="submit" value="Pošalji" />
         </form>

@@ -37,7 +37,7 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
 
     //if we have a token - add it
     let setHeaders: { [name: string]: string | string[] } | undefined = {};
-    let tokenResult: TokenResult = AuthenticationService.Token;
+    let tokenResult: LoginResultDto = AuthenticationService.Token;
     if (tokenResult) {
       setHeaders = {
         Authorization: 'Bearer ' + tokenResult.accessToken,
