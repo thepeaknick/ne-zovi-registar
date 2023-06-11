@@ -64,7 +64,7 @@ public class RegUserController : NeZoviRegBaseController
     }
 
     [HttpDelete("{regUserId:required}")]
-    [ProducesResponseType(typeof(RegUserDto), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
     [HasPermission(PermissionType.RegUsersOnly)]
     public async Task<IActionResult> RemoveRegUser(Guid regUserId, CancellationToken cancellationToken)
     {
