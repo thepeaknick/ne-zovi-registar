@@ -11,7 +11,7 @@ public class EmailSender :IEmailSender
     private readonly EmailSenderOptions _options;
     private readonly ILogger<EmailSender> _logger;
 
-    public EmailSender(ILogger<EmailSender> logger, IOptionsSnapshot<EmailSenderOptions> options)
+    public EmailSender(ILogger<EmailSender> logger, IOptions<EmailSenderOptions> options)
     {
         _logger = logger;
         _options = options.Value;
