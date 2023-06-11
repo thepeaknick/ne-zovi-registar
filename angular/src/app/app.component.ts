@@ -7,11 +7,7 @@ import {
   NavigationError,
 } from '@angular/router';
 
-import { IconSetService } from '@coreui/icons-angular';
-import { iconSubset } from './icons/icon-subset';
 import { Title } from '@angular/platform-browser';
-
-import { cilEnvelopeOpen, flagSet } from '@coreui/icons';
 
 @Component({
   selector: 'app-root',
@@ -21,14 +17,8 @@ export class AppComponent implements OnInit {
   title = 'Ne zovi';
   currentRoute: string;
 
-  constructor(
-    private router: Router,
-    private titleService: Title,
-    private iconSetService: IconSetService
-  ) {
+  constructor(private router: Router, private titleService: Title) {
     titleService.setTitle(this.title);
-    // iconSet singleton
-    iconSetService.icons = { ...iconSubset };
 
     this.currentRoute = '';
     this.router.events.subscribe((event: Event) => {
@@ -45,8 +35,6 @@ export class AppComponent implements OnInit {
 
       if (event instanceof NavigationError) {
         // Hide progress spinner or progress bar
-
-        // Present error to user
         console.log(event.error);
       }
     });

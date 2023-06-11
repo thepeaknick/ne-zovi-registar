@@ -93,7 +93,7 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
       );
 
       // TEMP workaround
-      console.log(request.url);
+      console.debug(request.url);
       if (request.url.includes('/users/')) {
         if (error.status == 404) {
           return of(
@@ -104,13 +104,11 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
             })
           );
         }
-        console.log('Dohvatanje broja');
       } else {
         if (request.url.includes('/regusers/login')) {
           if (error.status == 400) {
             return throwError(() => error.error);
           }
-          console.log('Login');
         }
       }
       // TEMP workaround END

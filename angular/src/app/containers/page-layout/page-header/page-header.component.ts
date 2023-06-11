@@ -24,8 +24,6 @@ export class PageHeaderComponent extends HeaderComponent {
   }
 
   ngOnInit() {
-    // console.log(this.router.url);
-
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
         if (this.router.url === '/login') {

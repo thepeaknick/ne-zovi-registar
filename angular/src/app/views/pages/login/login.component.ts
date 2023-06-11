@@ -59,12 +59,9 @@ export class LoginComponent implements OnInit {
       .loginRegUser({
         username: this.fields['username'].value,
         password: this.fields['password'].value,
-        // username: 'rateasd',
-        // password: '123asd',
       })
       .subscribe({
         next: () => {
-          console.log('login');
           this.showLoginErrorMessage = false;
           // get return url from route parameters or default to '/'
           let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -101,9 +98,7 @@ export class LoginComponent implements OnInit {
           this.error = error;
           this.loading = false;
           if (error.status == 400) {
-            // show message
             this.showLoginErrorMessage = true;
-            console.error(error.status);
           }
         },
       });

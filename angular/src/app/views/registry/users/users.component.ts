@@ -17,7 +17,6 @@ export class UsersComponent implements OnInit {
   divs: number[] = [1];
 
   createDiv() {
-    console.log('qwe');
     this.divs.push(this.divs.length);
   }
 

@@ -1,4 +1,9 @@
-import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
+import {
+  RECAPTCHA_SETTINGS,
+  RecaptchaFormsModule,
+  RecaptchaModule,
+  RecaptchaSettings,
+} from 'ng-recaptcha';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
@@ -97,7 +102,7 @@ const APP_CONTAINERS = [
     RegUsersComponent,
     AdminComponent,
     HelppageComponent,
-    SignOutComponent
+    SignOutComponent,
   ],
   imports: [
     RecaptchaModule,
@@ -137,7 +142,7 @@ const APP_CONTAINERS = [
     TableModule,
     WidgetModule,
     ChartjsModule,
-    AccordionModule
+    AccordionModule,
   ],
   providers: [
     {

@@ -27,38 +27,40 @@ export class DefaultLayoutComponent {
     // filter navitems by user role
     let currentUser = AuthenticationService.CurrentUser;
     let role = RoleType.Potrosac;
-    if(currentUser)
-      role = currentUser.role;
+    if (currentUser) role = currentUser.role;
 
-    this.navItems = this.filterNavItems(navItems, [ RoleType[role] ]) ?? [];
-
-    // console.log(this.router.getCurrentNavigation().extras.queryParams); // should log out 'bar'
+    this.navItems = this.filterNavItems(navItems, [RoleType[role]]) ?? [];
   }
-  
-  filterNavItems(navItems: ICustomNavData[] | undefined, roles: string[]): ICustomNavData[] | undefined {
+
+  filterNavItems(
+    navItems: ICustomNavData[] | undefined,
+    roles: string[]
+  ): ICustomNavData[] | undefined {
     let newNavItems: ICustomNavData[] | undefined = undefined;
 
-    if(navItems)
-    {
+    if (navItems) {
       newNavItems = [];
       navItems.forEach((navItem) => {
-        if(navItem.roles === undefined && navItem.children === undefined)
+        if (navItem.roles === undefined && navItem.children === undefined)
           newNavItems?.push(navItem);
-        else
-        {
+        else {
           let found = false;
-          roles.forEach(r => { found = found || navItem.roles === undefined || navItem.roles.indexOf(r) >= 0; });
+          roles.forEach((r) => {
+            found =
+              found ||
+              navItem.roles === undefined ||
+              navItem.roles.indexOf(r) >= 0;
+          });
 
-          if(found){
+          if (found) {
             let newNavItem: ICustomNavData = {
               ...navItem,
-              children: this.filterNavItems(navItem.children, roles)
-            }
-            
+              children: this.filterNavItems(navItem.children, roles),
+            };
+
             newNavItems?.push(newNavItem);
           }
         }
-      
       });
     }
 
@@ -67,7 +69,7 @@ export class DefaultLayoutComponent {
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
-      console.log(params); // { order: "popular" }
+      console.log(params);
 
       this.id = params['id'];
       this.role = params['userRole'];
@@ -84,4 +86,3 @@ export class DefaultLayoutComponent {
     // '--my-another-css-var': 'red',
   };
 }
-
