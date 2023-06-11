@@ -13,10 +13,7 @@
     <None Remove="migrations.my.json" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Include="migrations.my.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+  <ItemGroup>    
     <Content Include="migrations.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
