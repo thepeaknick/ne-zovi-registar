@@ -20,9 +20,6 @@ export class RegUsersComponent implements OnInit {
       complete: () => this.addRegUsers(),
     });
     // 2023-06-11T12:58:03.3910839
-    const date = new Date('2023-06-11T12:58:03.3910839');
-    console.log('ASD');
-    console.log(date);
   }
 
   addRegUsers() {

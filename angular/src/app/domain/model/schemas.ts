@@ -121,3 +121,7 @@ export interface UserDto {
 export interface RegUserId {
   guId: string;
 }
+
+export interface DateDto {
+  after: string;
+}
