@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Options;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
-using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
 using NeZoviReg.Abstractions.Options;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
