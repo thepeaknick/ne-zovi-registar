@@ -1,9 +1,3 @@
-.backgroundImage {
-  background-image: url("../../../../assets/images/dots.svg");
-  min-height: 82vh;
-  background-size: cover;
-}
-
 .regusersTable {
   background-color: white;
   padding: 5%;
@@ -75,7 +69,6 @@ c-modal {
 
 c-modal-header {
   background-color: #ebf1f8;
-  background-image: url("../../../../assets/images/dots.svg");
   background-size: contain;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px; // z-index: -1;

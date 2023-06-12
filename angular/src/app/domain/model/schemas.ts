@@ -77,6 +77,9 @@ export interface RefreshTokenResultDto {
 }
 
 export interface RegUserDto {
+  regNumber: string;
+  taxNumber: string;
+  createdOn: string;
   guidId: string;
   name: string;
   id: number;
@@ -90,7 +93,7 @@ export interface RegUserDetailsDto {
   address: string;
   regNumber: string;
   taxNumber: string;
-  role : RoleType;
+  role: RoleType;
 }
 
 export interface RegisterRegUserRequest {
@@ -117,4 +120,8 @@ export interface UserDto {
 
 export interface RegUserId {
   guId: string;
+}
+
+export interface DateDto {
+  after: string;
 }

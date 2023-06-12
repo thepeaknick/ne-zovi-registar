@@ -14,7 +14,7 @@ export class SearchComponent {
   phoneNumber: string;
 
   @Input() isFound: Boolean = false;
-  @Input() show: Boolean = false;
+  @Input() showSearchMessage: Boolean = false;
 
   constructor(private userService: UserService) {
     this.token = undefined;
@@ -27,10 +27,10 @@ export class SearchComponent {
         this.phoneNumber = value;
         if (this.phoneNumber.length > 0) {
           this.isFound = true;
-          this.show = true;
+          this.showSearchMessage = true;
         } else {
           this.isFound = false;
-          this.show = true;
+          this.showSearchMessage = true;
         }
       });
     } else {

@@ -1,39 +1,49 @@
 <ng-container>
   <c-header>
-    <c-container fluid>
-      <a class="header-brand" href="#">
-        <img
-          src="/assets/brand/ratellogo.png"
-          alt=""
-          height="100"
-          class="d-inline-block align-middle"
-          alt="Ratel Logo"
-        />
-      </a>
-      <span id="header-title">
-        <h2>Dobrodošli u registar "Ne Zovi"</h2>
-        <h4>Tekst podnaslova u dužini do 50 karaktera</h4>
-      </span>
+    <c-container>
+      <c-row>
+        <c-col xs="3">
+          <a class="header-brand" href="#">
+            <img
+              src="/assets/brand/ratellogo.png"
+              alt=""
+              class="headerImage"
+              alt="Ratel Logo"
+            />
+          </a>
+        </c-col>
+        <c-col xs="6">
+          <span>
+            <h2>Dobrodošli u registar "Ne Zovi"</h2>
+            <h4>Tekst podnaslova u dužini do 50 karaktera</h4>
+          </span>
+        </c-col>
+        <c-col xs="3"> 
+          <div class="headerButtonView">
+          <button
+            *ngIf="isLogin"
+            cButton
+            color="secondary"
+            variant="ghost"
+            (click)="goBack()"
+            class="headerButton"
+          >
+            <img src="/assets/icons/loginicon.svg" class="headerButtonImage"/><span>Nazad</span>
+          </button>
 
-      <button
-        *ngIf="isLogin"
-        cButton
-        color="secondary"
-        variant="ghost"
-        (click)="goBack()"
-      >
-        <img src="/assets/icons/loginicon.svg" /><span>Nazad</span>
-      </button>
-
-      <button
-        *ngIf="isSearch"
-        cButton
-        color="secondary"
-        variant="ghost"
-        (click)="goToSignIn()"
-      >
-        <img src="/assets/icons/loginicon.svg" /><span>Sign in</span>
-      </button>
+          <button
+            *ngIf="isSearch"
+            cButton
+            color="secondary"
+            variant="ghost"
+            (click)="goToSignIn()"
+            class="headerButton"
+          >
+            <img src="/assets/icons/loginicon.svg" class="headerButtonImage"/><span>Sign in</span>
+          </button>
+        </div>
+        </c-col>  
+      </c-row>
     </c-container>
   </c-header>
 </ng-container>

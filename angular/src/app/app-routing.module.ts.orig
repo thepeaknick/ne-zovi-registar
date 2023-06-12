@@ -12,7 +12,11 @@ import { HelppageComponent } from './views/helppage/helppage.component';
 import { SettingsComponent } from './views/settings/settings.component';
 import { ContactComponent } from './views/contact/contact.component';
 import { HomeComponent } from './home/home.component';
+<<<<<<< HEAD
 import { AuthGuard } from './domain/services/auth-guard';
+import { SignOutComponent } from './views/pages/signout/signout.component';
+=======
+>>>>>>> 134dd7f3f3b19b22fb7f5226d6490c7cd00b8028
 
 const routes: Routes = [
   {
@@ -83,6 +87,17 @@ const routes: Routes = [
           role: ['Admin', 'Obveznik', 'Trgovac'],
         },
       },
+<<<<<<< HEAD
+      {
+        path: 'pages/signout',
+        component: SignOutComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin', 'Obveznik', 'Trgovac'],
+        },
+      },
+=======
+>>>>>>> 134dd7f3f3b19b22fb7f5226d6490c7cd00b8028
     ],
   },
   {

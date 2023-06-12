@@ -2,13 +2,17 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AppConfiguration } from './app-configuration.service';
-import { LoginResultDto, RefreshTokenResultDto, RegUserDetailsDto, TokenResult } from '../model/schemas';
+import {
+  LoginResultDto,
+  RefreshTokenResultDto,
+  RegUserDetailsDto,
+  TokenResult,
+} from '../model/schemas';
 import { Observable, map, mergeMap } from 'rxjs';
 import { BaseService } from './base.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService extends BaseService {
-  
   constructor(
     private config: AppConfiguration,
     private router: Router,
@@ -28,28 +32,35 @@ export class AuthenticationService extends BaseService {
           // set token don't bother with user
           AuthenticationService.Token = loginResult;
           this.startRefreshTokenTimer();
-          console.log('set token');
           return this.http
-            .get<RegUserDetailsDto>(`${this.config.apiUrl}${this.config.apiRegUserDetailsUrl}/${loginResult.regUserId}`)
-            .pipe(map((regUserDetail: RegUserDetailsDto) => {
+            .get<RegUserDetailsDto>(
+              `${this.config.apiUrl}${this.config.apiRegUserDetailsUrl}/${loginResult.regUserId}`
+            )
+            .pipe(
+              map((regUserDetail: RegUserDetailsDto) => {
                 // set user
-                if(regUserDetail !== undefined)
+                if (regUserDetail !== undefined)
                   AuthenticationService.CurrentUser = regUserDetail;
                 return regUserDetail;
-            }));
+              })
+            );
         })
       );
   }
 
   logout(): Observable<void> {
+    console.log('LOG OUT');
     return this.http
       .post<any>(`${this.config.apiUrl}${this.config.apiLogoutUrl}`, {})
-      .pipe(map(() => {
-        this.stopRefreshTokenTimer();
-        AuthenticationService.Token = null;
-        AuthenticationService.CurrentUser = null;
-        this.router.navigate([`${this.config.loginPage}`]);
-      }));
+      .pipe(
+        map(() => {
+          console.log('LOG OUT!');
+          this.stopRefreshTokenTimer();
+          AuthenticationService.Token = null;
+          AuthenticationService.CurrentUser = null;
+          this.router.navigate([`${this.config.loginPage}`]);
+        })
+      );
   }
 
   refreshToken(): Observable<void> {
@@ -68,65 +79,61 @@ export class AuthenticationService extends BaseService {
           token.refreshToken = newToken.refreshToken.tokenString;
           AuthenticationService.Token = token;
           this.startRefreshTokenTimer();
-      }));
+        })
+      );
   }
 
   forgotPasswordSendEMail(email: string) {
-    this
-      .getTextResponse(
-        `${this.config.apiUrl}${this.config.apiForgotPasswordUrl}/${email}`
-      )
-      .subscribe((token: any) => {
-        if(token)
-        {
-          // display message OK
-          this.router.navigate(['/']);
-        }
-        else
-        {
-          // display error message 
-        }
-      });
+    this.getTextResponse(
+      `${this.config.apiUrl}${this.config.apiForgotPasswordUrl}/${email}`
+    ).subscribe((token: any) => {
+      if (token) {
+        // display message OK
+        this.router.navigate(['/']);
+      } else {
+        // display error message
+      }
+    });
   }
 
   forgotPasswordResetPassword(email: string, token: string, password: string) {
     return this.http
-      .post<boolean>(`${this.config.apiUrl}${this.config.apiForgotPasswordUrl}`, {
-        email,
-        token,
-        password
-      })
-      .subscribe(result => {
-        if(result)
+      .post<boolean>(
+        `${this.config.apiUrl}${this.config.apiForgotPasswordUrl}`,
         {
+          email,
+          token,
+          password,
+        }
+      )
+      .subscribe((result) => {
+        if (result) {
           // display message OK
           this.refreshToken();
           this.router.navigate(['/']);
-        }
-        else
-        {
-          // display error message 
+        } else {
+          // display error message
         }
       });
   }
 
   resetPassword(username: string, password: string, newPassword: string) {
     return this.http
-      .post<boolean>(`${this.config.apiUrl}${this.config.apiResetPasswordUrl}`, {
-        username,
-        password,
-        newPassword
-      })
-      .subscribe(result => {
-        if(result)
+      .post<boolean>(
+        `${this.config.apiUrl}${this.config.apiResetPasswordUrl}`,
         {
+          username,
+          password,
+          newPassword,
+        }
+      )
+      .subscribe((result) => {
+        if (result) {
           // display message OK
           this.refreshToken();
           this.router.navigate(['/']);
-        }
-        else
-        {
-          // display error message 
+        } else {
+          // display error message
         }
       });
   }
@@ -140,10 +147,8 @@ export class AuthenticationService extends BaseService {
     if (token)
       if (typeof token === 'string')
         localStorage.setItem(this._TOKEN_ITEM, token);
-      else 
-        localStorage.setItem(this._TOKEN_ITEM, JSON.stringify(token));
-    else 
-      localStorage.removeItem(this._TOKEN_ITEM);
+      else localStorage.setItem(this._TOKEN_ITEM, JSON.stringify(token));
+    else localStorage.removeItem(this._TOKEN_ITEM);
   }
 
   static get Token(): LoginResultDto {
@@ -155,10 +160,9 @@ export class AuthenticationService extends BaseService {
     if (regUserDetail)
       if (typeof regUserDetail === 'string')
         localStorage.setItem(this._REGUSER_ITEM, regUserDetail);
-      else 
+      else
         localStorage.setItem(this._REGUSER_ITEM, JSON.stringify(regUserDetail));
-    else 
-      localStorage.removeItem(this._REGUSER_ITEM);
+    else localStorage.removeItem(this._REGUSER_ITEM);
   }
 
   static get CurrentUser(): RegUserDetailsDto | null {
@@ -191,8 +195,6 @@ export class AuthenticationService extends BaseService {
     let currentDate = null;
     do {
       currentDate = Date.now();
-    } while(currentDate - date < ms || condition());
+    } while (currentDate - date < ms || condition());
   }
-
 }
-

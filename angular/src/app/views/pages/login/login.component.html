@@ -8,25 +8,47 @@
             <c-row>
               <c-col> <p class="titleText">Sign in</p> </c-col>
             </c-row>
-            <form cForm [formGroup]="loginForm" >
+            <form cForm [formGroup]="loginForm">
               <div class="mb-3">
-                <label cLabel for="username" class="textInputField">Korisničko ime</label>
-                <input cFormControl formControlName="username" id="username" type="text" />
+                <label cLabel for="username" class="textInputField"
+                  >Korisničko ime</label
+                >
+                <input
+                  cFormControl
+                  formControlName="username"
+                  id="username"
+                  type="text"
+                />
               </div>
               <div class="mb-3">
-                <label cLabel for="password" class="textInputField">Lozinka</label>
-                <input cFormControl formControlName="password" id="password" type="password" />
+                <label cLabel for="password" class="textInputField"
+                  >Lozinka</label
+                >
+                <input
+                  cFormControl
+                  formControlName="password"
+                  id="password"
+                  type="password"
+                />
               </div>
               <button
                 [cModalToggle]="verticallyCenteredModal.id"
                 type="button"
-                class="btn btn-link forgottenPassword">Zaboravili ste lozinku?</button>
+                class="btn btn-link forgottenPassword"
+              >
+                Zaboravili ste lozinku?
+              </button>
+              <h2 *ngIf="showLoginErrorMessage" class="loginResultText red">
+                NEISPRAVNO KORISNIČKO IME ILI LOZINKA
+              </h2>
+
               <input
                 cButton
                 class="submitButton"
                 type="submit"
                 value="Sign in"
-                (click)="goDashboardHome()"/>
+                (click)="goDashboardHome()"
+              />
               <p class="descriptionText">
                 Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
                 lorem ipsum lorem ipsum lorem ipsum lorem ipsum
@@ -54,9 +76,18 @@
         Unesite vašu e-mail adresu na koju će biti poslat<br />
         link za promenu vaše lozinke
 
-        <form cForm [formGroup]="forgotPasswordForm" (ngSubmit)="submitForgotPassword()">
+        <form
+          cForm
+          [formGroup]="forgotPasswordForm"
+          (ngSubmit)="submitForgotPassword()"
+        >
           <div class="mb-1">
-            <input cFormControl formControlName="inputEmail" id="inputEmail" type="email" />
+            <input
+              cFormControl
+              formControlName="inputEmail"
+              id="inputEmail"
+              type="email"
+            />
           </div>
           <input cButton color="primary" type="submit" value="Pošalji" />
         </form>

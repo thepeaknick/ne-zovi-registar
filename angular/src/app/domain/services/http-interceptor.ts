@@ -8,10 +8,15 @@ import {
   HttpResponse,
   HttpResponseBase,
 } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { LoginResultDto, TokenResult } from '../model/schemas';
+import {
+  LoginResultDto,
+  RegUserDetailsDto,
+  RoleType,
+  TokenResult,
+} from '../model/schemas';
 import { AppConfiguration } from './app-configuration.service';
 import { AuthenticationService } from './authentication.service';
 
@@ -57,7 +62,9 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
     //finally, perform the actual invoking of the http request
     return next.handle(modifiedRequest).pipe(
       tap({ next: (event: HttpEvent<any>) => this.processOkResult(event) }),
-      catchError((error: any) => this.processFailureResult(request, error)),
+      catchError((error: any) => {
+        return this.processFailureResult(request, error);
+      }),
       finalize(() => {
         const elapsed = Date.now() - started;
       })
@@ -73,30 +80,68 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
     return event;
   }
 
-
-  private processFailureResult(request: HttpRequest<any>, error: HttpEvent<any>) : Observable<HttpEvent<any>> {
+  private processFailureResult(
+    request: HttpRequest<any>,
+    error: HttpEvent<any>
+  ): Observable<HttpEvent<any>> {
     if (error instanceof HttpErrorResponse) {
-        console.error("NeZoviHttpInterceptor: Received error from " + request.url + ":" + JSON.stringify(error));
-        if ((error.status === 401 || error.status === 403) && !this.isLoginPageUrl()) {
-            this.authenticationService.logout();
-        }
-        else if(error.status === 404)
-        {
-            return of(new HttpResponse<any>({
-                body: error,
-                status: 204, // no content
-                statusText: "OK",
-            }));
-        }
+      console.error(
+        'NeZoviHttpInterceptor: Received error from ' +
+          request.url +
+          ':' +
+          JSON.stringify(error)
+      );
 
-        return of(error);
+      // TEMP workaround
+      console.debug(request.url);
+      if (request.url.includes('/users/')) {
+        if (error.status == 404) {
+          return of(
+            new HttpResponse<any>({
+              body: '',
+              status: 204, // no content
+              statusText: 'OK',
+            })
+          );
+        }
+      } else {
+        if (request.url.includes('/regusers/login')) {
+          if (error.status == 400) {
+            return throwError(() => error.error);
+          }
+        }
+      }
+      // TEMP workaround END
+
+      if (
+        (error.status === 401 || error.status === 403) &&
+        !this.isLoginPageUrl()
+      ) {
+        this.authenticationService.logout();
+      } else if (error.status === 404) {
+        return of(
+          new HttpResponse<any>({
+            body: error,
+            status: 204, // no content
+            statusText: 'OK',
+          })
+        );
+      }
+
+      // return throwError(() => error);
+      return throwError(() => error);
+      // return of(error);
     }
-    
-    console.error("NeZoviHttpInterceptor: Received error: " + JSON.stringify(error));
-    return of(new HttpResponse<any>({
+
+    console.error(
+      'NeZoviHttpInterceptor: Received error: ' + JSON.stringify(error)
+    );
+    return of(
+      new HttpResponse<any>({
         body: error,
-        status: 0
-    }));
+        status: 0,
+      })
+    );
   }
 
   private isAbsoluteUrl(urlString: string): boolean {

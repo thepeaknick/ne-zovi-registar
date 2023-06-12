@@ -62,9 +62,4 @@ export const navItems: ICustomNavData[] = [
     url: '/contact',
     iconComponent: { name: 'cil-envelope-closed' }
   },
-  {
-    name: 'Sign out',
-    url: '/pages/signout',
-    iconComponent: { name: 'cil-exit-to-app' }
-  },
 ];

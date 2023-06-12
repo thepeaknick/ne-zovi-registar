@@ -22,7 +22,16 @@
   >
   </c-sidebar-brand>
 
-  <c-sidebar-nav [navItems]="navItems" dropdownMode="path"> </c-sidebar-nav>
+  <c-sidebar-nav [navItems]="navItems" dropdownMode="path">
+    <button
+      [cModalToggle]="theverticallyCenteredModal.id"
+      type="button"
+      class="signoutSidebarButton"
+    >
+      <svg [cIcon]="icons.cilExitToApp" class="signoutIcon"></svg>
+      Sign out
+    </button>
+  </c-sidebar-nav>
 
   <c-sidebar-toggler
     *ngIf="!sidebar.narrow"
@@ -51,3 +60,38 @@
   <!--app footer-->
   <!-- <app-default-footer></app-default-footer> -->
 </div>
+
+<c-modal
+  #theverticallyCenteredModal
+  alignment="center"
+  id="theverticallyCenteredModal"
+>
+  <c-modal-header>
+    <p class="modalHeader">
+      Pokušavate da napustite stranicu registra "Ne zovi"
+    </p>
+    <button
+      [cModalToggle]="theverticallyCenteredModal.id"
+      cButtonClose
+    ></button>
+  </c-modal-header>
+  <c-modal-body>
+    <p class="modalBodyTitle">Da li ste sigurni?</p>
+    <form cForm>
+      <input
+        cButton
+        class="signOutButton"
+        type="submit"
+        value="Sign out"
+        (click)="logout()"
+      />
+      <input
+        cButton
+        class="cancelButton"
+        type="submit"
+        value="Cancel"
+        [cModalToggle]="theverticallyCenteredModal.id"
+      />
+    </form>
+  </c-modal-body>
+</c-modal>

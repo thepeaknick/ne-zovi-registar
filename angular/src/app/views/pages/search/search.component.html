@@ -25,16 +25,16 @@
                 />
               </div>
               <div class="recaptcha">
-                  <re-captcha
-                    id="recaptcha"
-                    name="recaptcha"
-                    #recaptcha="ngModel"
-                    [(ngModel)]="token"
-                    required
-                    [class.is-invalid]="
-                      recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
-                    "
-                  ></re-captcha>
+                <re-captcha
+                  id="recaptcha"
+                  name="recaptcha"
+                  #recaptcha="ngModel"
+                  [(ngModel)]="token"
+                  required
+                  [class.is-invalid]="
+                    recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
+                  "
+                ></re-captcha>
                 <div
                   *ngIf="
                     (recaptcha.invalid &&
@@ -53,10 +53,16 @@
                 type="submit"
                 value="Pretraga"
               />
-              <h2 *ngIf="show && isFound" class="searchResultText green">
+              <h2
+                *ngIf="showSearchMessage && isFound"
+                class="searchResultText green"
+              >
                 TELEFONSKI BROJ JE REGISTROVAN U BAZI
               </h2>
-              <h2 *ngIf="show && !isFound" class="searchResultText red">
+              <h2
+                *ngIf="showSearchMessage && !isFound"
+                class="searchResultText red"
+              >
                 TELEFONSKI BROJ NIJE REGISTROVAN U BAZI
               </h2>
               <p class="descriptionText">

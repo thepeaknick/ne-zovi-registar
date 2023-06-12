@@ -9,30 +9,29 @@ import { RegUserService } from 'src/app/domain/services/reguser.service';
 @Component({
   selector: 'app-default-header',
   templateUrl: './default-header.component.html',
-  styleUrls: ['./default-header.component.scss']
+  styleUrls: ['./default-header.component.scss'],
 })
 export class DefaultHeaderComponent extends HeaderComponent {
+  @Input() sidebarId: string = 'sidebar';
 
-  @Input() sidebarId: string = "sidebar";
-
-  public newMessages = new Array(4)
-  public newTasks = new Array(5)
-  public newNotifications = new Array(5)
+  public newMessages = new Array(4);
+  public newTasks = new Array(5);
+  public newNotifications = new Array(5);
 
   constructor(
     private classToggler: ClassToggleService,
+    private regUserService: RegUserService,
     private router: Router,
     private route: ActivatedRoute,
-    public authenticationService: AuthenticationService) {
+    public authenticationService: AuthenticationService
+  ) {
     super();
   }
 
   logout() {
-    this.authenticationService
-      .logout()
-      .subscribe(() => {
-        console.log('Logged out!');
-        this.router.navigate(['/']);
+    this.authenticationService.logout().subscribe(() => {
+      console.log('Logged out!');
+      this.router.navigate(['/']);
     });
   }
 }
