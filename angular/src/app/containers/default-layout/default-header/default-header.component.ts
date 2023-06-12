@@ -23,13 +23,14 @@ export class DefaultHeaderComponent extends HeaderComponent {
     private regUserService: RegUserService,
     private router: Router,
     private route: ActivatedRoute,
-    private authenticationService: AuthenticationService
+    public authenticationService: AuthenticationService
   ) {
     super();
   }
 
   logout() {
-    this.regUserService.logoutRegUser().subscribe(() => {
+    this.authenticationService.logout().subscribe(() => {
+      console.log('Logged out!');
       this.router.navigate(['/']);
     });
   }

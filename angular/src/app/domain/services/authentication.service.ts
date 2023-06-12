@@ -9,14 +9,17 @@ import {
   TokenResult,
 } from '../model/schemas';
 import { Observable, map, mergeMap } from 'rxjs';
+import { BaseService } from './base.service';
 
 @Injectable({ providedIn: 'root' })
-export class AuthenticationService {
+export class AuthenticationService extends BaseService {
   constructor(
     private config: AppConfiguration,
     private router: Router,
-    private http: HttpClient
-  ) {}
+    http: HttpClient
+  ) {
+    super(http);
+  }
 
   login(username: string, password: string) {
     return this.http
@@ -27,7 +30,7 @@ export class AuthenticationService {
       .pipe(
         mergeMap((loginResult: LoginResultDto) => {
           // set token don't bother with user
-          this.setToken(loginResult);
+          AuthenticationService.Token = loginResult;
           this.startRefreshTokenTimer();
           return this.http
             .get<RegUserDetailsDto>(
@@ -61,24 +64,78 @@ export class AuthenticationService {
   }
 
   refreshToken(): Observable<void> {
-    let token: TokenResult = AuthenticationService.Token;
+    let token: LoginResultDto = AuthenticationService.Token;
     return this.http
       .post<RefreshTokenResultDto>(
         `${this.config.apiUrl}${this.config.apiRefreshTokenUrl}`,
         {
           accessToken: token.accessToken,
-          refreshToken: token.refreshToken.tokenString,
+          refreshToken: token.refreshToken,
         }
       )
       .pipe(
-        map((token: RefreshTokenResultDto) => {
-          AuthenticationService.Token = {
-            accessToken: token.accessToken,
-            refreshToken: token.refreshToken,
-          };
+        map((newToken: RefreshTokenResultDto) => {
+          token.accessToken = newToken.accessToken;
+          token.refreshToken = newToken.refreshToken.tokenString;
+          AuthenticationService.Token = token;
           this.startRefreshTokenTimer();
         })
       );
+  }
+
+  forgotPasswordSendEMail(email: string) {
+    this.getTextResponse(
+      `${this.config.apiUrl}${this.config.apiForgotPasswordUrl}/${email}`
+    ).subscribe((token: any) => {
+      if (token) {
+        // display message OK
+        this.router.navigate(['/']);
+      } else {
+        // display error message
+      }
+    });
+  }
+
+  forgotPasswordResetPassword(email: string, token: string, password: string) {
+    return this.http
+      .post<boolean>(
+        `${this.config.apiUrl}${this.config.apiForgotPasswordUrl}`,
+        {
+          email,
+          token,
+          password,
+        }
+      )
+      .subscribe((result) => {
+        if (result) {
+          // display message OK
+          this.refreshToken();
+          this.router.navigate(['/']);
+        } else {
+          // display error message
+        }
+      });
+  }
+
+  resetPassword(username: string, password: string, newPassword: string) {
+    return this.http
+      .post<boolean>(
+        `${this.config.apiUrl}${this.config.apiResetPasswordUrl}`,
+        {
+          username,
+          password,
+          newPassword,
+        }
+      )
+      .subscribe((result) => {
+        if (result) {
+          // display message OK
+          this.refreshToken();
+          this.router.navigate(['/']);
+        } else {
+          // display error message
+        }
+      });
   }
 
   // token store
@@ -86,7 +143,7 @@ export class AuthenticationService {
   static _REGUSER_ITEM = '_REGUSER_ITEM';
   static _TOKEN_ITEM = '_TOKEN_ITEM';
 
-  static set Token(token: TokenResult | null | string) {
+  static set Token(token: LoginResultDto | null | string) {
     if (token)
       if (typeof token === 'string')
         localStorage.setItem(this._TOKEN_ITEM, token);
@@ -94,7 +151,7 @@ export class AuthenticationService {
     else localStorage.removeItem(this._TOKEN_ITEM);
   }
 
-  static get Token(): TokenResult {
+  static get Token(): LoginResultDto {
     let item = localStorage.getItem(this._TOKEN_ITEM);
     return item ? JSON.parse(item) : null;
   }
@@ -113,22 +170,18 @@ export class AuthenticationService {
     return item ? JSON.parse(item) : null;
   }
 
-  private setToken(loginResult: LoginResultDto | null) {
-    AuthenticationService.Token = loginResult
-      ? {
-          accessToken: loginResult.accessToken,
-          refreshToken: loginResult.refreshToken,
-        }
-      : null;
+  get CurrentUser(): RegUserDetailsDto | null {
+    let item = localStorage.getItem(AuthenticationService._REGUSER_ITEM);
+    return item ? JSON.parse(item) : null;
   }
 
   // helper methods
   private refreshTokenTimeout: any;
 
   private startRefreshTokenTimer() {
-    let tokens: TokenResult = AuthenticationService.Token;
+    let tokens: LoginResultDto = AuthenticationService.Token;
     // set a timeout to refresh the token a minute before it expires
-    const expires = new Date(tokens.refreshToken.expireAt);
+    const expires = new Date(tokens.refreshTokenExpTime);
     const timeout = expires.getTime() - Date.now() - 60 * 1000;
     this.refreshTokenTimeout = setTimeout(() => this.refreshToken(), timeout);
   }

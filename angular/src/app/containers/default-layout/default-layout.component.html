@@ -22,11 +22,12 @@
   >
   </c-sidebar-brand>
 
-  <c-sidebar-nav [navItems]="navItems" dropdownMode="path"> 
+  <c-sidebar-nav [navItems]="navItems" dropdownMode="path">
     <button
-      [cModalToggle]="verticallyCenteredModal.id"
+      [cModalToggle]="theverticallyCenteredModal.id"
       type="button"
-      class="signoutSidebarButton">
+      class="signoutSidebarButton"
+    >
       <svg [cIcon]="icons.cilExitToApp" class="signoutIcon"></svg>
       Sign out
     </button>
@@ -58,24 +59,39 @@
   </div>
   <!--app footer-->
   <!-- <app-default-footer></app-default-footer> -->
-  
 </div>
 
-
 <c-modal
-      #verticallyCenteredModal
-      alignment="center"
-      id="verticallyCenteredModal"
-    >
-    <c-modal-header>
-        <p class="modalHeader">Pokušacate da napustite stranicu registra "Ne zovi"</p>
-        <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
-      </c-modal-header>
-      <c-modal-body>
-        <p class="modalBodyTitle">Da li ste sigurni?</p>
-        <form cForm>
-          <input cButton class="signOutButton" type="submit" value="Sign out"/>
-          <input cButton class="cancelButton" type="submit" value="Cancel" [cModalToggle]="verticallyCenteredModal.id"/>
-        </form>
-      </c-modal-body>
+  #theverticallyCenteredModal
+  alignment="center"
+  id="theverticallyCenteredModal"
+>
+  <c-modal-header>
+    <p class="modalHeader">
+      Pokušavate da napustite stranicu registra "Ne zovi"
+    </p>
+    <button
+      [cModalToggle]="theverticallyCenteredModal.id"
+      cButtonClose
+    ></button>
+  </c-modal-header>
+  <c-modal-body>
+    <p class="modalBodyTitle">Da li ste sigurni?</p>
+    <form cForm>
+      <input
+        cButton
+        class="signOutButton"
+        type="submit"
+        value="Sign out"
+        (click)="logout()"
+      />
+      <input
+        cButton
+        class="cancelButton"
+        type="submit"
+        value="Cancel"
+        [cModalToggle]="theverticallyCenteredModal.id"
+      />
+    </form>
+  </c-modal-body>
 </c-modal>

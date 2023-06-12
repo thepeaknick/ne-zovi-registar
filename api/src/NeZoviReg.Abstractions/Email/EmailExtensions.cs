@@ -4,19 +4,24 @@ namespace NeZoviReg.Abstractions.Email;
 
 public static class EmailExtensions
 {
-    public static async Task<bool> SendEmailAsync(this IEmailSender sender, string emailFrom, string subject,
-        string content, CancellationToken cancellationToken)
+    public static async Task<bool> SendEmailAsync(this IEmailSender sender, 
+        string emailFrom, 
+        string subject,
+        string content, 
+        bool isHtml = false,
+        CancellationToken cancellationToken = default)
     {
         using var message = new MailMessage
         {
             Body = content,
+            IsBodyHtml = isHtml,
             From = new MailAddress(emailFrom),
             Subject = subject
         };
 
         return await sender.SendEmailAsync(message, cancellationToken);
     }
-
+    
     /*private static void AddRange(this MailAddressCollection collection, IEnumerable<MailAddress> addresses)
     {
         foreach (var address in addresses ?? Enumerable.Empty<MailAddress>())

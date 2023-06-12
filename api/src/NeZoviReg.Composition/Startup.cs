@@ -13,8 +13,7 @@ public static class Startup
     {
         return services
             .AddAppAbstractions(configuration)
-            .AddCors()
-            .ConfigureAuth()
+            .ConfigureAuth(configuration)
             .ConfigureAppCore(configuration)
             .ConfigurePersistence(configuration);
     }

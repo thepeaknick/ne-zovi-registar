@@ -3,8 +3,19 @@ import { Component, Input } from '@angular/core';
 import { navItems, ICustomNavData } from './_nav';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/domain/services/authentication.service';
-import { cilExitToApp } from '@coreui/icons';
+import {
+  cilExitToApp,
+  cilUser,
+  cilSpreadsheet,
+  cilGroup,
+  cilBriefcase,
+  cilCart,
+  cilSettings,
+  cilPuzzle,
+  cilEnvelopeClosed,
+} from '@coreui/icons';
 import { RoleType } from 'src/app/domain/model/schemas';
+import { IconSetService } from '@coreui/icons-angular';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +23,6 @@ import { RoleType } from 'src/app/domain/model/schemas';
   styleUrls: ['./default-layout.component.scss'],
 })
 export class DefaultLayoutComponent {
-
   icons = { cilExitToApp };
 
   public navItems = navItems;
@@ -24,7 +34,12 @@ export class DefaultLayoutComponent {
   private id: Number;
   @Input() role: Number;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    public iconSet: IconSetService,
+    public authenticationService: AuthenticationService,
+    private router: Router
+  ) {
     this.id = 0;
     this.role = 0;
 
@@ -34,6 +49,18 @@ export class DefaultLayoutComponent {
     if (currentUser) role = currentUser.role;
 
     this.navItems = this.filterNavItems(navItems, [RoleType[role]]) ?? [];
+
+    iconSet.icons = {
+      cilExitToApp,
+      cilUser,
+      cilSpreadsheet,
+      cilGroup,
+      cilBriefcase,
+      cilCart,
+      cilSettings,
+      cilPuzzle,
+      cilEnvelopeClosed,
+    };
   }
 
   filterNavItems(
@@ -69,6 +96,13 @@ export class DefaultLayoutComponent {
     }
 
     return newNavItems;
+  }
+
+  logout() {
+    this.authenticationService.logout().subscribe(() => {
+      console.log('Logged out!');
+      this.router.navigate(['/']);
+    });
   }
 
   ngOnInit() {

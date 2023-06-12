@@ -10,11 +10,11 @@ namespace NeZoviReg.Application.Services.RegUser;
 
 internal sealed class SendEmailCommandHandler : ICommandHandler<SendEmailCommand, bool>
 {
-    private readonly ILogger<CreateRegUserCommandHandler> _logger;
+    private readonly ILogger<SendEmailCommandHandler> _logger;
     private readonly IEmailSender _emailSender;
     private readonly IUnitOfWork _unitOfWork;
 
-    public SendEmailCommandHandler(ILogger<CreateRegUserCommandHandler> logger,
+    public SendEmailCommandHandler(ILogger<SendEmailCommandHandler> logger,
         IUnitOfWork unitOfWork, IEmailSender emailSender)
     {
         _logger = logger;
@@ -26,7 +26,7 @@ internal sealed class SendEmailCommandHandler : ICommandHandler<SendEmailCommand
     {
         var subject = CreateEmailSubject(command);
 
-        return await _emailSender.SendEmailAsync(command.EmailFrom!, subject, command.Content!, cancellationToken);
+        return await _emailSender.SendEmailAsync(command.EmailFrom!, subject, command.Content!, cancellationToken:cancellationToken);
     }
 
 

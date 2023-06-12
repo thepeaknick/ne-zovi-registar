@@ -57,7 +57,7 @@ internal sealed class JwtProvider : IJwtProvider
         var refreshToken = new RefreshToken(GenerateRefreshTokenString(),
             now.AddDays(_options.RefreshTokenExpirationInDays));
 
-        return Task.FromResult(new TokenResult(tokenValue, refreshToken));
+        return Task.FromResult(new TokenResult(tokenValue, token.ValidTo.ToLocalTime(), refreshToken));
     }
 
     private static string GenerateRefreshTokenString()
