@@ -101,7 +101,6 @@ const APP_CONTAINERS = [
     RegUsersComponent,
     AdminComponent,
     HelppageComponent,
-    SignOutComponent,
   ],
   imports: [
     RecaptchaModule,
