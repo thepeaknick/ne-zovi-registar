@@ -4,7 +4,7 @@ c-header {
   background-image: url("/assets/brand/headerbackground.png");
   background-size: contain;
   height: 18vh;
-  width: 80%;
+  width: 70%;
   min-height: 130px;
 }
 
@@ -14,22 +14,68 @@ button img {
 }
 
 span {
-  vertical-align: middle;
   font-family: "Source Sans 3";
   color: #3f6aa3;
 }
 
 span h2 {
   font-weight: 800;
-  font-size: 1.8vw;
+  font-size: 2.0vw;
 }
 
 span h4 {
   font-weight: 400;
-  font-size: 1.2vw;
+  font-size: 1.6vw;
   margin-bottom: 0px;
 }
 
-span#header-title {
-  margin-right: 20%;
+@media screen and (max-width: 1000px) {
+  c-row {
+    display: block;
+  }
+  c-col {
+    width: 100%;
+    text-align: center
+  }
+  c-header {
+    margin-bottom: 20%
+  }
+  .headerButtonView {
+    text-align: center !important;
+  }
+  span h2 {
+    font-weight: 800;
+    font-size: 3.5vw; 
+    margin-top: 20px;
+  }
+  span h4 {
+    font-weight: 400;
+    font-size: 3.0vw;
+    
+  }
 }
+
+.headerImage {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.headerButtonImage {
+  max-width: 20%;
+  max-height: 20%;
+}
+
+.header > .container, .header > .container-fluid, .header > .container-sm, .header > .container-md, .header > .container-lg, .header > .container-xl, .header > .container-xxl, .header .navbar > .container, .header .navbar > .container-fluid, .header .navbar > .container-sm, .header .navbar > .container-md, .header .navbar > .container-lg, .header .navbar > .container-xl, .header .navbar > .container-xxl {
+  display: initial !important;
+}
+
+
+.headerButtonView {
+  text-align: right;
+}
+
+.headerButton {
+  // vertical-align: middle;
+  height: 50%
+}
+
