@@ -38,6 +38,25 @@ public class UserController : NeZoviRegBaseController
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
+    
+    /// <summary>
+    /// Registruj listu potrošača.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpPost("bulkadd")]
+    [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
+    [HasPermission(PermissionType.Write)]
+    public async Task<IActionResult> AddUsers([FromBody] BulkAddUsersRequest request, CancellationToken cancellationToken)
+    {
+        var command = new AddUsersCommand(request.Users)
+            .AddAppUser(AppUser.UserName);
+
+        var result = await Sender.Send(command, cancellationToken);
+
+        return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
+    }
 
     /// <summary>
     /// Izmeni registrovanog potrošača.

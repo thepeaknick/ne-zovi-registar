@@ -3,6 +3,7 @@ using System.Net.Mail;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NeZoviReg.Abstractions.Email;
+using NeZoviReg.Abstractions.Options;
 
 namespace NeZoviReg.Application.Email;
 

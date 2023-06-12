@@ -11,6 +11,11 @@ public class User : Entity
     public const int  PhoneNumberMaxLength = 25;
     public const int  JmbgMaxLength = 13;
 
+    public User()
+    {
+        CreatedOn = DateTime.Now;
+    }
+
     public User(string firstName, string lastName, string phoneNumber)
     {
         FirstName = firstName;

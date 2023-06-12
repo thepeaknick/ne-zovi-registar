@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 #pragma warning disable CS8618
 
-namespace NeZoviReg.Abstractions.Email;
+namespace NeZoviReg.Abstractions.Options;
 
 public class EmailSenderOptions
 {

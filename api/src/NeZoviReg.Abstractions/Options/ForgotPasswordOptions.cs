@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NeZoviReg.Auth.Services.Login;
+namespace NeZoviReg.Abstractions.Options;
 
 public class ForgotPasswordOptions
 {
