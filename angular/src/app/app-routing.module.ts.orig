@@ -14,9 +14,9 @@ import { ContactComponent } from './views/contact/contact.component';
 import { HomeComponent } from './home/home.component';
 <<<<<<< HEAD
 import { AuthGuard } from './domain/services/auth-guard';
-=======
 import { SignOutComponent } from './views/pages/signout/signout.component';
->>>>>>> 5f9f11813ec01d4e7f9a55ffc5169505423c4b59
+=======
+>>>>>>> 134dd7f3f3b19b22fb7f5226d6490c7cd00b8028
 
 const routes: Routes = [
   {
@@ -36,61 +36,68 @@ const routes: Routes = [
         component: UsersComponent,
         canActivate: [AuthGuard],
         data: {
-          role: ['Admin', 'Obveznik', 'Trgovac']
-        }
+          role: ['Admin', 'Obveznik', 'Trgovac'],
+        },
       },
       {
         path: 'registry/regusers',
         component: RegUsersComponent,
         canActivate: [AuthGuard],
         data: {
-          role: ['Admin']
-        }
+          role: ['Admin'],
+        },
       },
       {
         path: 'registry/merchants',
         component: MerchantsComponent,
         canActivate: [AuthGuard],
         data: {
-          role: ['Admin']
-        }
+          role: ['Admin'],
+        },
       },
       {
         path: 'admin',
         component: AdminComponent,
         canActivate: [AuthGuard],
         data: {
-          role: ['Admin']
-        }
+          role: ['Admin'],
+        },
       },
       {
         path: 'settings',
         component: SettingsComponent,
         canActivate: [AuthGuard],
         data: {
-          role: ['Admin', 'Obveznik', 'Trgovac']
-        }
+          role: ['Admin', 'Obveznik', 'Trgovac'],
+        },
       },
       {
         path: 'help',
         component: HelppageComponent,
         canActivate: [AuthGuard],
         data: {
-          role: ['Admin', 'Obveznik', 'Trgovac']
-        }
+          role: ['Admin', 'Obveznik', 'Trgovac'],
+        },
       },
       {
         path: 'contact',
         component: ContactComponent,
         canActivate: [AuthGuard],
         data: {
-          role: ['Admin', 'Obveznik', 'Trgovac']
-        }
+          role: ['Admin', 'Obveznik', 'Trgovac'],
+        },
       },
+<<<<<<< HEAD
       {
         path: 'pages/signout',
         component: SignOutComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin', 'Obveznik', 'Trgovac'],
+        },
       },
+=======
+>>>>>>> 134dd7f3f3b19b22fb7f5226d6490c7cd00b8028
     ],
   },
   {
@@ -105,7 +112,7 @@ const routes: Routes = [
         component: LoginComponent,
         data: {
           title: 'Prijava',
-        }
+        },
       },
       {
         path: 'search',

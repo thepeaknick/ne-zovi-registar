@@ -2,9 +2,12 @@ import { Component, Input } from '@angular/core';
 
 import { navItems, ICustomNavData } from './_nav';
 import { ActivatedRoute, Router } from '@angular/router';
+<<<<<<< HEAD
 import { AuthenticationService } from 'src/app/domain/services/authentication.service';
-import { cilExitToApp } from '@coreui/icons';
 import { RoleType } from 'src/app/domain/model/schemas';
+=======
+import { cilExitToApp } from '@coreui/icons';
+>>>>>>> 134dd7f3f3b19b22fb7f5226d6490c7cd00b8028
 
 @Component({
   selector: 'app-dashboard',

@@ -5,3 +5,93 @@ c-sidebar {
 c-sidebar-brand {
     padding: 10%;
 }
+  
+.signoutForm {
+    background-color: white;
+    padding: 5%;
+    border-radius: 25px;
+  
+    font-family: "Source Sans 3";
+    font-style: normal;
+}
+
+c-modal {
+    font-family: 'Source Sans 3';
+    font-style: normal;
+}
+
+c-modal-header {
+    background-color: #EBF1F8;
+    background-image: url("../../../assets/images/dots.svg");    
+    background-size: contain;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;    // z-index: -1;
+    padding: 5%;
+}
+
+c-modal-body {
+    padding: 5%
+}
+
+.modalHeader {  
+    font-weight: 700;
+    font-size: 27.679px;
+    color: #133F85;
+}
+
+.modalBodyTitle {
+    font-weight: 700;
+    font-size: 26.53px;
+    line-height: 38px;
+    color: #001942;
+    padding-top: 5%;
+}
+
+.signOutButton {
+    width: 188px;
+    height: 50px;
+    background: #224c8d;
+    border-radius: 5px;
+  
+    font-size: 100%;
+    line-height: 30px;
+    color: #ffffff;
+    margin-top: 5%;
+    margin-right: 5%
+}
+
+.cancelButton {
+    width: 188px;
+    height: 50px;
+    background: #E4E9F0;;
+    border-radius: 5px;
+    border-color: #444444;
+  
+    font-size: 100%;
+    line-height: 30px;
+    color: #444444;
+    margin-top: 5%;
+}
+
+.signoutSidebarButton {
+    text-align: left;
+    border-radius: 20px;
+    margin-right: 15%;
+    font-family: "Source Sans 3";
+    padding: var(--cui-sidebar-nav-link-padding-y) var(--cui-sidebar-nav-link-padding-x);
+    color: var(--cui-sidebar-nav-link-color);
+    text-decoration: none;
+    white-space: nowrap;
+    background: var(--cui-sidebar-nav-link-bg);
+    border: var(--cui-sisdebar-nav-link-border);    
+}
+
+.signoutSidebarButton:hover {
+    background-color:rgba(255, 255, 255, 0.05);
+    transition: 0.7s;
+}
+
+.signoutIcon {
+    margin-left: 10px;
+    margin-right: 20px;
+}
