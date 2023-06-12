@@ -83,12 +83,12 @@ public class UserController : NeZoviRegBaseController
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    [HttpGet("all")]
+    [HttpGet("all/{after:datetime?}")]
     [ProducesResponseType(typeof(List<UserDto>), (int)HttpStatusCode.OK)]
     [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
-    public async Task<IActionResult> AllUsers([FromBody] AllUsersRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> AllUsers(DateTime? after, CancellationToken cancellationToken)
     {
-        var command = new AllUsersQuery(request.After);
+        var command = new AllUsersQuery(after);
 
         var result = await Sender.Send(command, cancellationToken);
 
@@ -101,7 +101,7 @@ public class UserController : NeZoviRegBaseController
     /// <param name="phoneNumber"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    [HttpGet("{phoneNumber}")]
+    [HttpGet("{phoneNumber:required}")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     [AllowAnonymous]
     public async Task<IActionResult> GetUser(string phoneNumber, CancellationToken cancellationToken)
