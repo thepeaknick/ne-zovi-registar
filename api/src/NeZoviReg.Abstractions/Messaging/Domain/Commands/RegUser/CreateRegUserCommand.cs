@@ -1,4 +1,4 @@
-﻿using NeZoviReg.Abstractions.Messaging.Domain.Model;
+﻿using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 using RoleType = NeZoviReg.Abstractions.Shared.Model.Auth.Enum.RoleType;
 
 namespace NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;

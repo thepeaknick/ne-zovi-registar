@@ -1,4 +1,4 @@
-﻿namespace NeZoviReg.Abstractions.Messaging.Domain.Model;
+﻿namespace NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 
 public sealed record RegUserDetailsDto(Guid GuidId,
     string FirstName,

@@ -4,14 +4,13 @@ using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
-using NeZoviReg.Abstractions.Messaging.Domain.Model;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Events;
 
 namespace NeZoviReg.Application.Services.RegUser;
 
-internal sealed class RemoveRegUserCommandHandler : ICommandHandler<RemoveRegUserCommand, RegUserDto>
+internal sealed class RemoveRegUserCommandHandler : ICommandHandler<RemoveRegUserCommand, bool>
 {
     private readonly ILogger<RemoveRegUserCommandHandler> _logger;
     private readonly IRegUserDataStore _regUserDataStore;
@@ -29,13 +28,13 @@ internal sealed class RemoveRegUserCommandHandler : ICommandHandler<RemoveRegUse
         _publisher = publisher;
     }
 
-    public async Task<Result<RegUserDto>> Handle(RemoveRegUserCommand command, CancellationToken cancellationToken)
+    public async Task<Result<bool>> Handle(RemoveRegUserCommand command, CancellationToken cancellationToken)
     {
         var regUser = await _regUserDataStore.GetByGuidId(command.RegUserId, cancellationToken);
 
         if (regUser is null)
         {
-            return Result.Failure<RegUserDto>(RegErrors.RegUser.NotFound(command.RegUserId));
+            return Result.Failure<bool>(RegErrors.RegUser.NotFound(command.RegUserId));
         }
 
         _regUserDataStore.Remove(regUser);
@@ -47,6 +46,6 @@ internal sealed class RemoveRegUserCommandHandler : ICommandHandler<RemoveRegUse
             RegUserId = regUser.GuidId
         }, cancellationToken);
 
-        return new RegUserDto(regUser.GuidId, regUser.FullName);
+        return true;
     }
 }

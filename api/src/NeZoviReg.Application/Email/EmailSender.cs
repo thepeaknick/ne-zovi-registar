@@ -8,18 +8,18 @@ namespace NeZoviReg.Application.Email;
 
 public class EmailSender :IEmailSender
 {
-    private readonly IOptionsSnapshot<EmailSenderOptions> _options;
+    private readonly EmailSenderOptions _options;
     private readonly ILogger<EmailSender> _logger;
 
-    public EmailSender(ILogger<EmailSender> logger, IOptionsSnapshot<EmailSenderOptions> options)
+    public EmailSender(ILogger<EmailSender> logger, IOptions<EmailSenderOptions> options)
     {
         _logger = logger;
-        _options = options;
+        _options = options.Value;
     }
 
     public async Task<bool> SendEmailAsync(MailMessage message, CancellationToken cancellationToken)
     {
-        if (!_options.Value.EmailEnabled)
+        if (!_options.EmailEnabled)
         {
             _logger.LogDebug("EmailSender is disabled");
             return false;
@@ -27,7 +27,7 @@ public class EmailSender :IEmailSender
 
         LogMessage(message);
 
-        message.To.Add(new MailAddress(_options.Value.EmailTo));
+        message.To.Add(new MailAddress(_options.EmailTo));
 
         using var client = SmtpClient;
 
@@ -43,10 +43,11 @@ public class EmailSender :IEmailSender
     {
         get
         {
-            var client = new SmtpClient(_options.Value.SmtpServer, _options.Value.Port);
-            client.EnableSsl = true;
+            var client = new SmtpClient(_options.SmtpServer, _options.Port);
+            client.EnableSsl = _options.EnableSsl;
             client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential(_options.Value.Username, _options.Value.Password);
+            if(!string.IsNullOrEmpty(_options.Username) && !string.IsNullOrEmpty(_options.Password))
+                client.Credentials = new NetworkCredential(_options.Username, _options.Password);
 
             return client;
         }

@@ -3,7 +3,7 @@ using NeZoviReg.Abstractions.Extensions;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using static NeZoviReg.Abstractions.Shared.Errors.RegErrors;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
-using NeZoviReg.Abstractions.Messaging.Domain.Model;
+using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 using NeZoviReg.Abstractions.Shared.Errors;
 
 namespace NeZoviReg.Application.Services.RegUser;
@@ -50,6 +50,10 @@ public class CreateRegUserCommandValidator : AbstractValidator<CreateRegUserComm
             .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.PasswordMaxLength,
                 Password.TooLong.Message);
 
+        RuleFor(x => x.Email).MustAsync((mail, cancellationToken) =>
+                regUserDataStore.IsEmailUniqueAsync(mail, cancellationToken: cancellationToken))
+            .WithMessage(x => RegErrors.Email.AlreadyInUse(x.Email).Message);
+        
         RuleFor(x => x.CompanyName).MustAsync((name, cancellationToken) =>
                 regUserDataStore.IsCompanyNameUniqueAsync(name, cancellationToken: cancellationToken))
             .WithMessage(x => CompanyName.AlreadyInUse(x.CompanyName).Message);
@@ -63,7 +67,7 @@ public class CreateRegUserCommandValidator : AbstractValidator<CreateRegUserComm
             .WithMessage(x => TaxNumber.AlreadyInUse(x.TaxNumber).Message);
 
         RuleFor(x => x.UserName).MustAsync((userName, cancellationToken) =>
-                regUserDataStore.IsUsernamelUniqueAsync(userName, cancellationToken: cancellationToken))
+                regUserDataStore.IsUsernameUniqueAsync(userName, cancellationToken: cancellationToken))
             .WithMessage(x => UserName.AlreadyInUse(x.UserName).Message);
     }
 }

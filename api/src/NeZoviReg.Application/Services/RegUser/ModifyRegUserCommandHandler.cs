@@ -1,10 +1,11 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.Extensions.Logging;
 using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
-using NeZoviReg.Abstractions.Messaging.Domain.Model;
+using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Events;
@@ -17,16 +18,18 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
     private readonly IRegUserDataStore _regUserDataStore;
     private readonly IPublisher _publisher;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
 
     public ModifyRegUserCommandHandler(ILogger<ModifyRegUserCommandHandler> logger,
         IRegUserDataStore regUserDataStore,
         IPublisher publisher,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork, IMapper mapper)
     {
         _logger = logger;
         _regUserDataStore = regUserDataStore;
         _publisher = publisher;
         _unitOfWork = unitOfWork;
+        _mapper = mapper;
     }
 
     public async Task<Result<RegUserDto>> Handle(ModifyRegUserCommand command, CancellationToken cancellationToken)
@@ -40,6 +43,7 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
 
         regUser
             .WithCompanyName(command.CompanyName)
+            .WithEmail(command.Email)
             .WithAddress(command.Address)
             .WithRegNumber(command.RegNumber)
             .WithTaxNumber(command.TaxNumber)
@@ -56,6 +60,6 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
             RegUserId = regUser.GuidId
         }, cancellationToken);
 
-        return new RegUserDto(regUser.GuidId, regUser.FullName, regUser.Id);
+        return _mapper.Map<RegUserDto>(regUser);
     }
 }

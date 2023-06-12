@@ -15,6 +15,12 @@ public class TokenController : NeZoviRegBaseController
         : base(sender, logger)
     { }
 
+    /// <summary>
+    /// Resetuj sigurnosni token za pristup registru.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpPost("refresh-token")]
     [ProducesResponseType(typeof(RefreshTokenResultDto), (int)HttpStatusCode.OK)]
     [AllowAnonymous]

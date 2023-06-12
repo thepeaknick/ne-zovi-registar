@@ -16,11 +16,11 @@ public class EmailSenderOptions
     [Required]
     public string EmailTo { get; set; }
 
-    [Required]
-    public string Username { get; set; }
+    public bool EnableSsl { get; set; }
 
-    [Required]
-    public string Password { get; set; }
+    public string? Username { get; set; }
+
+    public string? Password { get; set; }
 
     public bool EmailEnabled { get; set; }
 }
