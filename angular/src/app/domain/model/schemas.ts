@@ -26,9 +26,9 @@ export interface LoginRequest {
 export interface LoginResultDto {
   regUserId: string;
   accessToken: string;
-  accessTokenExpTime: string;
+  accessTokenExpTime: string; // "format": "date-time"
   refreshToken: string;
-  refreshTokenExpTime: string;
+  refreshTokenExpTime: string; // "format": "date-time"
 }
 
 export enum RoleType {
@@ -73,7 +73,9 @@ export interface RefreshTokenRequest {
 
 export interface RefreshTokenResultDto {
   accessToken: string;
-  refreshToken: RefreshToken;
+  accessTokenExpTime: string; // "format": "date-time"
+  refreshToken: string;
+  refreshTokenExpTime: string; // "format": "date-time"
 }
 
 export interface RegUserDto {

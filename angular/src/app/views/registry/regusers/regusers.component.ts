@@ -17,24 +17,14 @@ export class RegUsersComponent implements OnInit {
     this.regUserService.getRegUsers(RoleType.Obveznik).subscribe({
       next: (regUsers: RegUserDto[]) =>
         (this.regUsers = regUsers instanceof HttpErrorResponse ? [] : regUsers),
-      complete: () => this.addRegUsers(),
+      complete: () => this.completeAllRegUsers(),
     });
     // 2023-06-11T12:58:03.3910839
   }
 
-  addRegUsers() {
+  completeAllRegUsers() {
     if (this.regUsers.length === 0) {
-      this.regUserService.registerRegUser({
-        name: 'Yettel',
-        address: 'Yettel Srbija',
-        firstName: 'YUserName',
-        lastName: 'YUserLastname',
-        password: 'test123',
-        regNumber: '123456',
-        roles: [RoleType.Obveznik],
-        taxNumber: '123456789',
-        userName: 'yettel',
-      });
+      console.log('nema registrovanih obveznika');
     }
   }
 }

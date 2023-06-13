@@ -76,7 +76,10 @@ export class AuthenticationService extends BaseService {
       .pipe(
         map((newToken: RefreshTokenResultDto) => {
           token.accessToken = newToken.accessToken;
-          token.refreshToken = newToken.refreshToken.tokenString;
+          token.accessTokenExpTime = newToken.accessTokenExpTime;
+          token.refreshToken = newToken.refreshToken;
+          token.refreshTokenExpTime = newToken.refreshTokenExpTime;
+
           AuthenticationService.Token = token;
           this.startRefreshTokenTimer();
         })
@@ -175,7 +178,7 @@ export class AuthenticationService extends BaseService {
   private startRefreshTokenTimer() {
     let tokens: LoginResultDto = AuthenticationService.Token;
     // set a timeout to refresh the token a minute before it expires
-    const expires = new Date(tokens.refreshTokenExpTime);
+    const expires = new Date(tokens.accessTokenExpTime);
     const timeout = expires.getTime() - Date.now() - 60 * 1000;
     this.refreshTokenTimeout = setTimeout(() => this.refreshToken(), timeout);
   }

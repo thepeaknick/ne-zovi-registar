@@ -30,9 +30,6 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder
   ) {
-    // if user is already logged in navigate to home page
-    //if(AuthenticationService.Token !== null)
-    //  this.router.navigate(['/']);
   }
 
   ngOnInit() {

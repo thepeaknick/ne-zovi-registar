@@ -58,7 +58,7 @@
       <button [cModalToggle]="addNewUserModal.id" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-      <form cForm class="row g-3">
+      <form cForm class="row g-3" [formGroup]="addNewUserForm">
         <c-row>
           <c-col [xs]="9">
             <div class="mb-3">
@@ -144,7 +144,8 @@
             class="cancelButton"
             type="submit"
             value="Cancel"
-          />
+            (click)="submitNewUser()"
+            />
         </div>
       </form>
     </c-modal-body>
