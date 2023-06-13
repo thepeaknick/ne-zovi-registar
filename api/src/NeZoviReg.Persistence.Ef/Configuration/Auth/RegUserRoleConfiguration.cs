@@ -23,7 +23,7 @@ public class RegUserRoleConfiguration : IEntityTypeConfiguration<RegUserRole>
         builder.HasOne(sc => sc.Role)
             .WithMany(s => s.RegUserRoles)
             .HasForeignKey(sc => sc.RoleId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.ClientNoAction);
 
         builder.HasOne(sc => sc.RegUser)
             .WithMany(s => s.RegUserRoles)
