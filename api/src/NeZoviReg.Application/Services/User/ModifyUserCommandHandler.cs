@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
@@ -14,12 +15,14 @@ internal sealed class ModifyUserCommandHandler : ICommandHandler<ModifyUserComma
     private readonly ILogger<ModifyUserCommandHandler> _logger;
     private readonly IUserDataStore _userDataStore;
     private readonly IUnitOfWork _unitOfWork;
-
-    public ModifyUserCommandHandler(ILogger<ModifyUserCommandHandler> logger, IUserDataStore userDataStore, IUnitOfWork unitOfWork)
+    private readonly IMapper _mapper;
+    
+    public ModifyUserCommandHandler(ILogger<ModifyUserCommandHandler> logger, IUserDataStore userDataStore, IUnitOfWork unitOfWork, IMapper mapper)
     {
         _logger = logger;
         _userDataStore = userDataStore;
         _unitOfWork = unitOfWork;
+        _mapper = mapper;
     }
 
     public async Task<Result<UserDto>> Handle(ModifyUserCommand request, CancellationToken cancellationToken)
@@ -39,6 +42,6 @@ internal sealed class ModifyUserCommandHandler : ICommandHandler<ModifyUserComma
 
         await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
 
-        return new UserDto(user.PhoneNumber, user.ModifiedOn);
+        return _mapper.Map<UserDto>(user);
     }
 }

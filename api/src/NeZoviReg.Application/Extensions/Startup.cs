@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NeZoviReg.Abstractions.Behaviors;
 using NeZoviReg.Abstractions.Email;
+using NeZoviReg.Abstractions.Options;
 using NeZoviReg.Application.Email;
 
 namespace NeZoviReg.Application.Extensions;
@@ -25,6 +26,10 @@ public static class Startup
 
     private static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddOptions<BulkOptions>()
+            .Bind(configuration.GetSection(BulkOptions.SectionName))
+            .ValidateDataAnnotations();
+        
         services.AddOptions<EmailSenderOptions>()
             .Bind(configuration.GetSection(EmailSenderOptions.SectionName))
             .ValidateDataAnnotations();

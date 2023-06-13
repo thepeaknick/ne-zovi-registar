@@ -20,7 +20,6 @@ public static class RegErrors
         public static readonly Error ForbiddenAccess = new(
             ErrorCode.Forbidden,
             "Korisnik nije autorizovan za traženi zahtev.");
-
     }
 
     public static class RegUser
@@ -38,8 +37,8 @@ public static class RegErrors
             "Tražena rola nije pronađena.");
 
         public static readonly Func<RoleType, Error> RoleNotFound = role => new Error(
-             ErrorCode.NotFound,
-             $"{role} nije pronađen.");
+            ErrorCode.NotFound,
+            $"{role} nije pronađen.");
 
         public static readonly Func<string, Error> RolesNotFound = role => new Error(
             ErrorCode.NotFound,
@@ -60,7 +59,7 @@ public static class RegErrors
         public static readonly Error NotLoggedIn = new(
             ErrorCode.Empty,
             "Ulogujte se u sistem.");
-        
+
         public static readonly Error EmailNotSent = new(
             ErrorCode.InternalServerError,
             "Email nije poslat.");
@@ -69,8 +68,8 @@ public static class RegErrors
     public static class Operater
     {
         public static readonly Error Empty = new(
-             ErrorCode.Empty,
-             "Operator je obavezan.");
+            ErrorCode.Empty,
+            "Operator je obavezan.");
     }
 
     public static class CompanyName
@@ -167,6 +166,10 @@ public static class RegErrors
             return new(ErrorCode.NotFound,
                 $"Nema novih korisnika u registru{afterStr}.");
         };
+        
+        public static readonly Func<int, Error> BatchSizeExceeded = count => new(
+            ErrorCode.TooLong,
+            $"Maximalan broj potrošača u bulk-u je {count}.");
     }
 
     public static class Email
@@ -226,11 +229,11 @@ public static class RegErrors
         public static readonly Error Empty = new(
             ErrorCode.Empty,
             "Broj telefona je prazan.");
-        
+
         public static readonly Error EmptyList = new(
             ErrorCode.Empty,
             "Brojevi telefona su prazni.");
-        
+
         public static readonly Error DuplicatesInList = new(
             ErrorCode.Empty,
             "Brojevi telefona moraju biti jedinstveni.");
@@ -246,7 +249,7 @@ public static class RegErrors
         public static readonly Error OneOfAlreadyInUse = new(
             ErrorCode.AlreadyInUse,
             $"Broj telefona je već u registru.");
-        
+
         public static readonly Func<string, Error> AlreadyInUse = phone => new(
             ErrorCode.AlreadyInUse,
             $"Broj telefona'{phone}' je već u registru.");
@@ -261,11 +264,11 @@ public static class RegErrors
         public static readonly Error AccessTokenExpired = new(
             ErrorCode.Empty,
             "Access token je istekao. Ulogujte se ponovo.");
-        
+
         public static readonly Error ForgotPasswordTokenEmpty = new(
             ErrorCode.Empty,
             "Token za reset lozinke je obavezan.");
-        
+
         public static readonly Error ForgotPasswordTokenExpiredOrNotValid = new(
             ErrorCode.Empty,
             "Token za reset lozinke je istekao ili nije validan. Probajte ponovo.");
