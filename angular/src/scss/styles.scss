@@ -70,3 +70,7 @@ c-sidebar-nav-group.show c-sidebar-nav c-sidebar-nav-link:last-child a:after {
   padding: 0;
   opacity: 1;
 }
+
+c-sidebar-nav-group c-sidebar-nav-link a {
+  margin-left: 1em;
+}

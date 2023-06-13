@@ -51,46 +51,11 @@
           </tr>
         </thead>
         <tbody class="tableContent">
-          <tr>
-            <td>TEHNOMANIJA</td>
-            <td>XXXXXXXXX</td>
-            <td>XXXXXXXX</td>
-            <td>20 Jan, 2022</td>
-            <td>edit</td>
-          </tr>
-          <tr>
-            <td>GIGATRON</td>
-            <td>XXXXXXXXX</td>
-            <td>XXXXXXXX</td>
-            <td>20 Jan, 2022</td>
-            <td>edit</td>
-          </tr>
-          <tr>
-            <td>COMTRADE</td>
-            <td>XXXXXXXXX</td>
-            <td>XXXXXXXX</td>
-            <td>20 Jan, 2022</td>
-            <td>edit</td>
-          </tr>
-          <tr>
-            <td>SBB DOO BEOGRAD</td>
-            <td>XXXXXXXXX</td>
-            <td>XXXXXXXX</td>
-            <td>20 Jan, 2022</td>
-            <td>edit</td>
-          </tr>
-          <tr>
-            <td>ORION TELEKOM DOO</td>
-            <td>XXXXXXXXX</td>
-            <td>XXXXXXXX</td>
-            <td>20 Jan, 2022</td>
-            <td>edit</td>
-          </tr>
-          <tr>
-            <td>SPORT VISION DOO</td>
-            <td>XXXXXXXXX</td>
-            <td>XXXXXXXX</td>
-            <td>20 Jan, 2022</td>
+          <tr *ngFor="let item of regUsers">
+            <td>{{ item.name }}</td>
+            <td>{{ item.taxNumber }}</td>
+            <td>{{ item.regNumber }}</td>
+            <td>{{ item.createdOn | date : "dd MMM, YY" }}</td>
             <td>edit</td>
           </tr>
         </tbody>

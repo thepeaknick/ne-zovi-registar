@@ -2,22 +2,18 @@
 
 <c-container class="headerContainer">
   <c-row class="defaultHeader">
-    <c-col xs="9">
-      <p class="headerTitle">Aministratorska platforma</p>
+    <c-col xs="8" class="headerColumn">
+      <p class="headerTitle">Administratorska platforma</p>
     </c-col>
-    <c-col xs="3">
-      <c-header-nav class="ms-3" id="accountData">
-        <ng-container *ngTemplateOutlet="userDropdown"></ng-container>
-      </c-header-nav>
+    <c-col xs="4" class="headerColumn">
+      <div class="userColumn">
+        <button cButton color="secondary" variant="ghost" (click)="logout()">
+          {{ authenticationService.CurrentUser?.firstName }}
+          {{ authenticationService.CurrentUser?.lastName }}
+          [ {{ authenticationService.CurrentUser?.companyName }} ]
+        </button>
+      </div>
     </c-col>
   </c-row>
 </c-container>
 
-<ng-template #userDropdown>
-  <button cButton color="secondary" variant="ghost" (click)="logout()">
-    {{ authenticationService.CurrentUser?.firstName }}
-    {{ authenticationService.CurrentUser?.lastName }}
-    [ {{ authenticationService.CurrentUser?.companyName }} ]
-  </button>
-</ng-template>
-<!--</c-header>-->
