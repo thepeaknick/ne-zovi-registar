@@ -33,6 +33,7 @@ export class DefaultLayoutComponent {
 
   private id: Number;
   @Input() role: Number;
+  @Input() currentUsername: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -45,6 +46,7 @@ export class DefaultLayoutComponent {
 
     // filter navitems by user role
     let currentUser = AuthenticationService.CurrentUser;
+    this.currentUsername = AuthenticationService.CurrentUserName;
     let role = RoleType.Potrosac;
     if (currentUser) role = currentUser.role;
 
@@ -99,9 +101,16 @@ export class DefaultLayoutComponent {
   }
 
   logout() {
-    this.authenticationService.logout().subscribe(() => {
-      console.log('Logged out!');
-      this.router.navigate(['/']);
+    this.authenticationService.logout().subscribe({
+      next: () => {
+        console.log('Logged out!');
+        this.router.navigate(['/']);
+      },
+      error: (error) => {
+        console.log(error);
+        console.log('Logged out!');
+        this.router.navigate(['/']);
+      },
     });
   }
 

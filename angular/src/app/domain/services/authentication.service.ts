@@ -39,8 +39,10 @@ export class AuthenticationService extends BaseService {
             .pipe(
               map((regUserDetail: RegUserDetailsDto) => {
                 // set user
-                if (regUserDetail !== undefined)
+                if (regUserDetail !== undefined) {
                   AuthenticationService.CurrentUser = regUserDetail;
+                  AuthenticationService.CurrentUserName = username;
+                }
                 return regUserDetail;
               })
             );
@@ -49,12 +51,10 @@ export class AuthenticationService extends BaseService {
   }
 
   logout(): Observable<void> {
-    console.log('LOG OUT');
     return this.http
       .post<any>(`${this.config.apiUrl}${this.config.apiLogoutUrl}`, {})
       .pipe(
         map(() => {
-          console.log('LOG OUT!');
           this.stopRefreshTokenTimer();
           AuthenticationService.Token = null;
           AuthenticationService.CurrentUser = null;
@@ -97,51 +97,31 @@ export class AuthenticationService extends BaseService {
   }
 
   forgotPasswordResetPassword(email: string, token: string, password: string) {
-    return this.http
-      .post<boolean>(
-        `${this.config.apiUrl}${this.config.apiForgotPasswordUrl}`,
-        {
-          email,
-          token,
-          password,
-        }
-      )
-      .subscribe((result) => {
-        if (result) {
-          // display message OK
-          this.refreshToken();
-          this.router.navigate(['/']);
-        } else {
-          // display error message
-        }
-      });
+    return this.http.post<boolean>(
+      `${this.config.apiUrl}${this.config.apiForgotPasswordUrl}`,
+      {
+        email,
+        token,
+        password,
+      }
+    );
   }
 
-  resetPassword(username: string, password: string, newPassword: string) {
-    return this.http
-      .post<boolean>(
-        `${this.config.apiUrl}${this.config.apiResetPasswordUrl}`,
-        {
-          username,
-          password,
-          newPassword,
-        }
-      )
-      .subscribe((result) => {
-        if (result) {
-          // display message OK
-          this.refreshToken();
-          this.router.navigate(['/']);
-        } else {
-          // display error message
-        }
-      });
+  resetPassword(password: string, newPassword: string) {
+    return this.http.post<boolean>(
+      `${this.config.apiUrl}${this.config.apiResetPasswordUrl}`,
+      {
+        password,
+        newPassword,
+      }
+    );
   }
 
   // token store
 
   static _REGUSER_ITEM = '_REGUSER_ITEM';
   static _TOKEN_ITEM = '_TOKEN_ITEM';
+  static _USERNAME = '_USERNAME';
 
   static set Token(token: LoginResultDto | null | string) {
     if (token)
@@ -154,6 +134,20 @@ export class AuthenticationService extends BaseService {
   static get Token(): LoginResultDto {
     let item = localStorage.getItem(this._TOKEN_ITEM);
     return item ? JSON.parse(item) : null;
+  }
+
+  static set CurrentUserName(currentUsername: string) {
+    if (currentUsername)
+      if (typeof currentUsername === 'string')
+        localStorage.setItem(this._USERNAME, currentUsername);
+      else
+        localStorage.setItem(this._USERNAME, JSON.stringify(currentUsername));
+    else localStorage.removeItem(this._USERNAME);
+  }
+
+  static get CurrentUserName(): string {
+    let item = localStorage.getItem(this._USERNAME);
+    return item ? item : '';
   }
 
   static set CurrentUser(regUserDetail: RegUserDetailsDto | null | string) {
