@@ -29,12 +29,14 @@ internal sealed class LogoutCommandHandler : ICommandHandler<LogoutCommand, bool
         _publisher = publisher;
     }
 
-    public async Task<Result<bool>> Handle(LogoutCommand request, CancellationToken cancellationToken)
+    public async Task<Result<bool>> Handle(LogoutCommand command, CancellationToken cancellationToken)
     {
-        var regUser = await _regUserDataStore.GetByGuidId(request.GuidId, cancellationToken);
+        var regUser = await _regUserDataStore.GetByGuidId(command.GuidId, cancellationToken);
 
         if (regUser is null)
         {
+            _logger.LogInformation($"RegUser with GuidId={command.GuidId} does not exist.");
+            
             return Result.Failure<bool>(RegErrors.RegUser.Unknown);
         }
 
@@ -42,7 +44,7 @@ internal sealed class LogoutCommandHandler : ICommandHandler<LogoutCommand, bool
 
         _regUserDataStore.Update(regUser);
 
-        await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 
         await _publisher.Publish(new RegUserModifiedEvent
         {

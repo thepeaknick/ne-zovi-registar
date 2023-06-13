@@ -22,12 +22,12 @@ internal sealed class GetUserQueryHandler : IQueryHandler<GetUserQuery, UserDto>
         _mapper = mapper;
     }
 
-    public async Task<Result<UserDto>> Handle(GetUserQuery request, CancellationToken cancellationToken)
+    public async Task<Result<UserDto>> Handle(GetUserQuery query, CancellationToken cancellationToken)
     {
-        var user = await _userDataStore.GetByPhoneNumber(request.PhoneNumber, cancellationToken);
+        var user = await _userDataStore.GetByPhoneNumber(query.PhoneNumber, cancellationToken);
 
         return user is null
-            ? Result.Failure<UserDto>(RegErrors.User.NotFound(request.PhoneNumber))
+            ? Result.Failure<UserDto>(RegErrors.User.NotFound(query.PhoneNumber))
             : _mapper.Map<UserDto>(user);
     }
 }

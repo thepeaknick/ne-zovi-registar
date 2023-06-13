@@ -37,6 +37,8 @@ internal sealed class RefreshTokenCommandHandler : ICommandHandler<RefreshTokenC
 
         if (regUser is null)
         {
+            _logger.LogInformation($"RegUser with AccessToken={command.AccessToken};RefreshToken={command.RefreshToken} does not exist.");
+            
             return Result.Failure<RefreshTokenResultDto>(RegErrors.RegUser.NotRegistered);
         }
 

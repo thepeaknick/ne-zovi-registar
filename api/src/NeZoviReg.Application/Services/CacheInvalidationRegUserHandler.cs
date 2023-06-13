@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
 using NeZoviReg.Abstractions.Shared.Caching;
 using NeZoviReg.Abstractions.Shared.Events;
 
@@ -9,18 +10,24 @@ internal class CacheInvalidationRegUserHandler :
     INotificationHandler<RegUserDeletedEvent>
 {
     private readonly ICacheService _cacheService;
-
-    public CacheInvalidationRegUserHandler(ICacheService cacheService)
+    private readonly ILogger<CacheInvalidationRegUserHandler> _logger;
+    
+    public CacheInvalidationRegUserHandler(ICacheService cacheService, ILogger<CacheInvalidationRegUserHandler> logger)
     {
         _cacheService = cacheService;
+        _logger = logger;
     }
 
     public Task Handle(RegUserModifiedEvent notification, CancellationToken cancellationToken)
     {
+        _logger.LogInformation($"RegUserModifiedEvent RegUserId={notification.RegUserId} published.");
+        
         return HandleInternal(notification.RegUserId, cancellationToken);
     }
     public Task Handle(RegUserDeletedEvent notification, CancellationToken cancellationToken)
     {
+        _logger.LogInformation($"RegUserDeletedEvent RegUserId={notification.RegUserId} published.");
+        
         return HandleInternal(notification.RegUserId, cancellationToken);
     }
 

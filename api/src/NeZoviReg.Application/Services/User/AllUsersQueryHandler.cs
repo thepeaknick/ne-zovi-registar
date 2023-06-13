@@ -22,12 +22,12 @@ internal sealed class AllUsersQueryHandler : IQueryHandler<AllUsersQuery, List<U
         _mapper = mapper;
     }
 
-    public async Task<Result<List<UserDto>>> Handle(AllUsersQuery request, CancellationToken cancellationToken)
+    public async Task<Result<List<UserDto>>> Handle(AllUsersQuery query, CancellationToken cancellationToken)
     {
-        var users = await _userDataStore.GetAll(request.After, cancellationToken);
+        var users = await _userDataStore.GetAll(query.After, cancellationToken);
 
         return users.Any()
             ? _mapper.Map<List<UserDto>>(users).ToList()
-            : Result.Failure<List<UserDto>>(RegErrors.User.NotFoundAfter(request.After));
+            : Result.Failure<List<UserDto>>(RegErrors.User.NotFoundAfter(query.After));
     }
 }

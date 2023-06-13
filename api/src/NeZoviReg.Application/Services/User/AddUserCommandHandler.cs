@@ -24,20 +24,20 @@ internal sealed class AddUserCommandHandler : ICommandHandler<AddUserCommand, Li
         _mapper = mapper;
     }
 
-    public async Task<Result<List<UserDto>>> Handle(AddUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result<List<UserDto>>> Handle(AddUserCommand command, CancellationToken cancellationToken)
     {
         var result = new List<UserDto>();
         
-        foreach (var phoneNumber in request.PhoneNumbers)
+        foreach (var phoneNumber in command.PhoneNumbers)
         {
             var user =
-                new Domain.Model.Domain.User(request.FirstName, request.LastName, phoneNumber)
-                    .AddJmbg(request.Jmbg)
-                    .AddOperator(request.OperatorId);
+                new Domain.Model.Domain.User(command.FirstName, command.LastName, phoneNumber)
+                    .AddJmbg(command.Jmbg)
+                    .AddOperator(command.OperatorId);
 
             await _userDataStore.AddAsync(user, cancellationToken);
 
-            await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
+            await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
             
             result.Add(_mapper.Map<UserDto>(user));
         }

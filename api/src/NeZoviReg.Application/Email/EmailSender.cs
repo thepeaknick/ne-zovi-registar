@@ -61,7 +61,7 @@ public class EmailSender :IEmailSender
 
         var to = string.Join(",", message.To.Select(x => x.Address));
 
-        _logger.LogDebug($"Sending email to:{to}; subject:{message.Subject}", to, message.Subject);
+        _logger.LogDebug($"Sending email from={message.From!.Address}; to:{to}; subject:{message.Subject}", to, message.Subject);
     }
 
 }
