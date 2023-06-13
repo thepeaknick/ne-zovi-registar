@@ -49,6 +49,7 @@ internal sealed class RefreshTokenCommandHandler : ICommandHandler<RefreshTokenC
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 
-        return new RefreshTokenResultDto(refrehTokenResult.AccessToken, refrehTokenResult.RefreshToken.TokenString);
+        return new RefreshTokenResultDto(refrehTokenResult.AccessToken, refrehTokenResult.AccessTokenExpTime,
+            refrehTokenResult.RefreshToken.TokenString, refrehTokenResult.RefreshToken.ExpireAt);
     }
 }

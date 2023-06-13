@@ -96,9 +96,9 @@ internal sealed class JwtProvider : IJwtProvider
             throw new RefreshTokenExpiredException($"Invalid token, RegUser.RefreshToken={regUser.RefreshToken}");
         }
 
-        var tokens = await GenerateTokenAsync(regUser, cancellationToken);
+        var tokenResult = await GenerateTokenAsync(regUser, cancellationToken);
 
-        return new RefreshTokenResult(regUser, tokens.AccessToken, tokens.RefreshToken);
+        return new RefreshTokenResult(regUser, tokenResult.AccessToken, tokenResult.AccessTokenExpTime, tokenResult.RefreshToken);
     }
 
     private PrincipalWithToken DecodeJwtToken(string token)
