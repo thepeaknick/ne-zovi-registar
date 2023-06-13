@@ -41,39 +41,9 @@
           </tr>
         </thead>
         <tbody class="tableContent">
-          <tr>
-            <td>06X XXX XXXX</td>
-            <td>20 Jan, 2022</td>
-            <td>edit</td>
-            <td><img src="assets/images/trashCan.png" /></td>
-          </tr>
-          <tr>
-            <td>06X XXX XXXX</td>
-            <td>20 Jan, 2022</td>
-            <td>edit</td>
-            <td><img src="assets/images/trashCan.png" /></td>
-          </tr>
-          <tr>
-            <td>06X XXX XXXX</td>
-            <td>20 Jan, 2022</td>
-            <td>edit</td>
-            <td><img src="assets/images/trashCan.png" /></td>
-          </tr>
-          <tr>
-            <td>06X XXX XXXX</td>
-            <td>20 Jan, 2022</td>
-            <td>edit</td>
-            <td><img src="assets/images/trashCan.png" /></td>
-          </tr>
-          <tr>
-            <td>06X XXX XXXX</td>
-            <td>20 Jan, 2022</td>
-            <td>edit</td>
-            <td><img src="assets/images/trashCan.png" /></td>
-          </tr>
-          <tr>
-            <td>06X XXX XXXX</td>
-            <td>20 Jan, 2022</td>
+          <tr *ngFor="let item of users">
+            <td>{{ item.phoneNumber }}</td>
+            <td>{{ item.createdModifiedOn | date : "dd MMM, YY" }}</td>
             <td>edit</td>
             <td><img src="assets/images/trashCan.png" /></td>
           </tr>

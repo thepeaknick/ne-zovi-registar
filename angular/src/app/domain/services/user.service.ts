@@ -41,10 +41,6 @@ export class UserService extends BaseService {
 
   // TODO: get/post?
   allUsers(after: Date): Observable<UserDto[]> {
-    return this.post<UserDto[]>('/users/all', after).pipe(
-      map((result: UserDto[]) => {
-        result instanceof HttpResponse ? [] : result;
-      })
-    );
+    return this.get<UserDto[]>('/users/all?after=' + after);
   }
 }
