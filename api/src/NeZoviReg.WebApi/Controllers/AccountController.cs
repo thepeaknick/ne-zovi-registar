@@ -84,7 +84,7 @@ public class AccountController : NeZoviRegBaseController
     /// <returns></returns>
     [HttpGet("forgotpassword/{email:required}")]
     [ProducesResponseType(typeof(string), (int) HttpStatusCode.OK)]
-    [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
+    [AllowAnonymous]
     public async Task<IActionResult> ForgotRegUserPassword(string email, CancellationToken cancellationToken)
     {
         var command = new ForgotPassCommand(email)
@@ -103,7 +103,7 @@ public class AccountController : NeZoviRegBaseController
     /// <returns></returns>
     [HttpPost("forgotpassword")]
     [ProducesResponseType(typeof(bool), (int) HttpStatusCode.OK)]
-    [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
+    [AllowAnonymous]
     public async Task<IActionResult> ResetRegUserPassword([FromBody] ResetRegUserPasswordRequest request,
         CancellationToken cancellationToken)
     {
