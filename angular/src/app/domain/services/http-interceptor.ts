@@ -94,23 +94,13 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
 
       // TEMP workaround
       console.debug(request.url);
-      if (request.url.includes('/users/')) {
-        if (error.status == 404) {
-          return of(
-            new HttpResponse<any>({
-              body: '',
-              status: 204, // no content
-              statusText: 'OK',
-            })
-          );
-        }
-      } else {
-        if (request.url.includes('/regusers/login')) {
-          if (error.status == 400) {
-            return throwError(() => error.error);
-          }
+
+      if (request.url.includes('/regusers/login')) {
+        if (error.status == 400) {
+          return throwError(() => error.error);
         }
       }
+
       // TEMP workaround END
 
       if (
