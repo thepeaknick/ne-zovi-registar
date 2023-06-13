@@ -7,13 +7,6 @@
     </c-col>
     <c-col xs="4" class="headerColumn">
       <div class="userColumn">Username: {{ currentUsername }}</div>
-      <div class="userColumn">
-        <button cButton color="secondary" variant="ghost">
-          {{ authenticationService.CurrentUser?.firstName }}
-          {{ authenticationService.CurrentUser?.lastName }}
-          [ {{ authenticationService.CurrentUser?.companyName }} ]
-        </button>
-      </div>
     </c-col>
   </c-row>
 </c-container>
