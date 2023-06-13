@@ -7,7 +7,7 @@
     </c-col>
     <c-col xs="4" class="headerColumn">
       <div class="userColumn">
-        <button cButton color="secondary" variant="ghost" (click)="logout()">
+        <button cButton color="secondary" variant="ghost">
           {{ authenticationService.CurrentUser?.firstName }}
           {{ authenticationService.CurrentUser?.lastName }}
           [ {{ authenticationService.CurrentUser?.companyName }} ]

@@ -27,11 +27,4 @@ export class DefaultHeaderComponent extends HeaderComponent {
   ) {
     super();
   }
-
-  logout() {
-    this.authenticationService.logout().subscribe(() => {
-      console.log('Logged out!');
-      this.router.navigate(['/']);
-    });
-  }
 }
