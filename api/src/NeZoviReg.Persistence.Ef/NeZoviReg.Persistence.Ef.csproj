@@ -14,9 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NeZoviReg.Abstractions\NeZoviReg.Abstractions.csproj" PrivateAssets="All" />
-    <ProjectReference Include="..\NeZoviReg.Application\NeZoviReg.Application.csproj" PrivateAssets="All" />
-    <ProjectReference Include="..\NeZoviReg.Auth\NeZoviReg.Auth.csproj" PrivateAssets="All" />
+    <ProjectReference Include="..\NeZoviReg.Abstractions\NeZoviReg.Abstractions.csproj" />
+    <ProjectReference Include="..\NeZoviReg.Application\NeZoviReg.Application.csproj" />
+    <ProjectReference Include="..\NeZoviReg.Auth\NeZoviReg.Auth.csproj"/>
     <ProjectReference Include="..\NeZoviReg.Domain\NeZoviReg.Domain.csproj" PrivateAssets="All" />
   </ItemGroup>
 
