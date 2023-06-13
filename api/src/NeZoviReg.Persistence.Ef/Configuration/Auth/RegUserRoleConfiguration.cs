@@ -28,7 +28,7 @@ public class RegUserRoleConfiguration : IEntityTypeConfiguration<RegUserRole>
         builder.HasOne(sc => sc.RegUser)
             .WithMany(s => s.RegUserRoles)
             .HasForeignKey(sc => sc.RegUserId)
-            .OnDelete(DeleteBehavior.ClientNoAction);
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasData(Create(1, RoleType.Admin));
 

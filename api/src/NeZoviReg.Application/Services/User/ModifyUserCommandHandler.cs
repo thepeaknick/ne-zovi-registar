@@ -25,22 +25,24 @@ internal sealed class ModifyUserCommandHandler : ICommandHandler<ModifyUserComma
         _mapper = mapper;
     }
 
-    public async Task<Result<UserDto>> Handle(ModifyUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result<UserDto>> Handle(ModifyUserCommand command, CancellationToken cancellationToken)
     {
-        var user = await _userDataStore.GetByPhoneNumber(request.PhoneNumber, cancellationToken);
+        var user = await _userDataStore.GetByPhoneNumber(command.PhoneNumber, cancellationToken);
 
         if (user is null)
         {
-            return Result.Failure<UserDto>(RegErrors.User.NotFound(request.PhoneNumber));
+            _logger.LogInformation($"User with PhoneNumber={command.PhoneNumber} does not exist.");
+            
+            return Result.Failure<UserDto>(RegErrors.User.NotFound(command.PhoneNumber));
         }
 
-        user.AddName(request.FirstName, request.LastName)
-            .AddJmbg(request.Jmbg)
-            .AddPhoneNumber(request.NewPhoneNumber);
+        user.AddName(command.FirstName, command.LastName)
+            .AddJmbg(command.Jmbg)
+            .AddPhoneNumber(command.NewPhoneNumber);
 
         _userDataStore.Update(user);
 
-        await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 
         return _mapper.Map<UserDto>(user);
     }

@@ -34,6 +34,8 @@ internal sealed class ChangeRegUserPassCommandHandler : ICommandHandler<ChangePa
 
         if (regUser is null)
         {
+            _logger.LogInformation($"RegUser with UserName={command.UserName} does not exist.");
+            
             return Result.Failure<bool>(RegErrors.RegUser.InvalidCredentials);
         }
 
@@ -47,7 +49,7 @@ internal sealed class ChangeRegUserPassCommandHandler : ICommandHandler<ChangePa
         {
             RegUserId = regUser.GuidId
         }, cancellationToken);
-
+        
         return true;
     }
 }

@@ -34,6 +34,8 @@ internal sealed class ResetRegUserPassCommandHandler : ICommandHandler<ResetPass
 
         if (regUser is null)
         {
+            _logger.LogInformation($"RegUser with Email={command.Email} does not exist.");
+
             return Result.Failure<bool>(RegErrors.RegUser.Unknown);
         }
         

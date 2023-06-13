@@ -38,6 +38,8 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
 
         if (regUser is null)
         {
+            _logger.LogInformation($"RegUser with RegUserId={command.RegUserId} does not exist.");
+            
             return Result.Failure<RegUserDto>(RegErrors.RegUser.NotFound(command.RegUserId));
         }
 
@@ -59,7 +61,7 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
         {
             RegUserId = regUser.GuidId
         }, cancellationToken);
-
-        return _mapper.Map<RegUserDto>(regUser);
+        
+       return _mapper.Map<RegUserDto>(regUser);
     }
 }

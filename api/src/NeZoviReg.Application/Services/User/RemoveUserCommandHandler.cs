@@ -15,25 +15,28 @@ internal sealed class RemoveUserCommandHandler : ICommandHandler<RemoveUserComma
     private readonly IUserDataStore _userDataStore;
     private readonly IUnitOfWork _unitOfWork;
 
-    public RemoveUserCommandHandler(ILogger<RemoveUserCommandHandler> logger, IUserDataStore userDataStore, IUnitOfWork unitOfWork)
+    public RemoveUserCommandHandler(ILogger<RemoveUserCommandHandler> logger, IUserDataStore userDataStore,
+        IUnitOfWork unitOfWork)
     {
         _logger = logger;
         _userDataStore = userDataStore;
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Result<UserDto>> Handle(RemoveUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result<UserDto>> Handle(RemoveUserCommand command, CancellationToken cancellationToken)
     {
-        var user = await _userDataStore.GetByPhoneNumber(request.PhoneNumber, cancellationToken);
+        var user = await _userDataStore.GetByPhoneNumber(command.PhoneNumber, cancellationToken);
 
         if (user is null)
         {
-            return Result.Failure<UserDto>(RegErrors.User.NotFound(request.PhoneNumber));
+            _logger.LogInformation($"User with PhoneNumber={command.PhoneNumber} does not exist.");
+
+            return Result.Failure<UserDto>(RegErrors.User.NotFound(command.PhoneNumber));
         }
 
         _userDataStore.Remove(user);
 
-        await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 
         return new UserDto(user.PhoneNumber, DateTime.Now);
     }

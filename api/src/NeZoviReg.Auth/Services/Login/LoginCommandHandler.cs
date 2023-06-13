@@ -29,12 +29,14 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginR
         _logger = logger;
     }
 
-    public async Task<Result<LoginResultDto>> Handle(LoginCommand request, CancellationToken cancellationToken)
+    public async Task<Result<LoginResultDto>> Handle(LoginCommand command, CancellationToken cancellationToken)
     {
-        var regUser = await _regUserDataStore.GetByUsernameAndPassword(request.UserName, request.Password, cancellationToken);
+        var regUser = await _regUserDataStore.GetByUsernameAndPassword(command.UserName, command.Password, cancellationToken);
 
         if (regUser is null)
         {
+            _logger.LogInformation($"RegUser with UserName={command.UserName} does not exist.");
+            
             return Result.Failure<LoginResultDto>(RegErrors.RegUser.InvalidCredentials);
         }
 
@@ -44,7 +46,7 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginR
             .WithRefreshTokenExpTime(loginResult.RefreshToken.ExpireAt);
         _regUserDataStore.Update(regUser);
 
-        await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 
         return new LoginResultDto(regUser.GuidId, 
             loginResult.AccessToken, 

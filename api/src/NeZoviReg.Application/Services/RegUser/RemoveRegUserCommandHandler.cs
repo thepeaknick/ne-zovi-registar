@@ -34,6 +34,8 @@ internal sealed class RemoveRegUserCommandHandler : ICommandHandler<RemoveRegUse
 
         if (regUser is null)
         {
+            _logger.LogInformation($"RegUser with RegUserId={command.RegUserId} does not exist.");
+                
             return Result.Failure<bool>(RegErrors.RegUser.NotFound(command.RegUserId));
         }
 
