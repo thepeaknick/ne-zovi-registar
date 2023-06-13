@@ -7,9 +7,12 @@
   font-family: "Source Sans 3";
   font-style: normal;
   font-weight: 700;
-  font-size: 34.919px;
+  font-size: 3.0vw;
   line-height: 50px;
   color: #224c8d;
+
+  vertical-align: middle;
+  display: table-cell
 }
 
 .searchButton {
@@ -23,4 +26,29 @@
 }
 #accountData {
   float: right;
+}
+
+.userColumn {
+  text-align: right;
+  vertical-align: middle;
+  display: table-cell
+}
+
+.headerColumn {
+  display: table;
+}
+
+@media screen and (max-width: 650px) {
+  .headerTitle {
+    font-family: "Source Sans 3";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 3.5vw;
+    line-height: 50px;
+    color: #224c8d;
+  }
+  .userColumn {
+    text-align: right;
+    width: 25vw;
+  }
 }
