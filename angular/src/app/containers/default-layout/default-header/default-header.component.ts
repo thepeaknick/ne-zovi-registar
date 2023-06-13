@@ -17,6 +17,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
   public newMessages = new Array(4);
   public newTasks = new Array(5);
   public newNotifications = new Array(5);
+  @Input() currentUsername: string;
 
   constructor(
     private classToggler: ClassToggleService,
@@ -26,5 +27,6 @@ export class DefaultHeaderComponent extends HeaderComponent {
     public authenticationService: AuthenticationService
   ) {
     super();
+    this.currentUsername = AuthenticationService.CurrentUserName;
   }
 }

@@ -7,12 +7,12 @@
   font-family: "Source Sans 3";
   font-style: normal;
   font-weight: 700;
-  font-size: 3.0vw;
+  font-size: 3vw;
   line-height: 50px;
   color: #224c8d;
 
   vertical-align: middle;
-  display: table-cell
+  display: table-cell;
 }
 
 .searchButton {
@@ -29,9 +29,10 @@
 }
 
 .userColumn {
+  font-family: "Source Sans 3";
   text-align: right;
   vertical-align: middle;
-  display: table-cell
+  display: table-cell;
 }
 
 .headerColumn {

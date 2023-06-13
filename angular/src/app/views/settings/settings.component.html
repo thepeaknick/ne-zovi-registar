@@ -37,37 +37,63 @@
       <form cRow>
         <label cLabel class="textInputFieldLabel"> Korisničko ime </label>
         <c-input-group class="mb-3">
-          <input cFormControl placeholder="Uneti" />
+          <input
+            cFormControl
+            placeholder="Uneti"
+            value="{{ currentUsername }}"
+            [disabled]="userNameDisabled"
+          />
           <button
             cButton
             class="editUsernameButton"
             id="editUsername"
             type="button"
+            (click)="toggleUserNameInput()"
           >
             Edit
           </button>
         </c-input-group>
       </form>
-      <form cForm>
+      <form cForm [formGroup]="resetPasswordForm">
         <div class="mb-3">
-          <label cLabel for="newPassword1" class="textInputFieldLabel">
-            Nova lozinka
-          </label>
-          <input cFormControl id="newPassword1" type="password" />
-        </div>
-        <div class="mb-3">
-          <label cLabel for="newPassword2" class="textInputFieldLabel">
+          <label cLabel for="password" class="textInputFieldLabel">
             Lozinka
           </label>
-          <input cFormControl id="newPassword2" type="password" />
+          <input
+            cFormControl
+            [(ngModel)]="password"
+            id="password"
+            formControlName="password"
+            type="password"
+          />
         </div>
+        <div class="mb-3">
+          <label cLabel for="newPassword" class="textInputFieldLabel">
+            Nova lozinka
+          </label>
+          <input
+            cFormControl
+            [(ngModel)]="newPassword"
+            id="newPassword"
+            formControlName="newPassword"
+            type="password"
+          />
+        </div>
+        <h2
+          *ngIf="showPasswordChangeErrorMessage"
+          class="passwordChangeResultText red"
+        >
+          NEUSPEŠNO PROMENJENA LOZINKA
+        </h2>
+
         <input
           cButton
           class="submitButton"
           type="submit"
-          [cModalToggle]="verticallyCenteredModal.id"
           value="Promeni lozinku"
+          (click)="changePassword()"
         />
+
         <p class="descriptionTitleText">Lorem ipsum</p>
         <p class="descriptionSubtitleText">
           Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
@@ -77,33 +103,33 @@
     </c-col>
   </c-row>
 
-
   <c-modal
-      #verticallyCenteredModal
-      alignment="center"
-      id="verticallyCenteredModal"
-    >
-      <c-modal-header>
-        <button
-          [cModalToggle]="verticallyCenteredModal.id"
-          cButtonClose
-        ></button>
-      </c-modal-header>
-      
-      <c-modal-body>
-        <img src="/assets/images/exclamationmark.png"  class="modalImage"/>
-        <p cModalTitle class="modalTitle">Uspešno ste promenili lozinku!</p>
-        <p class="modalSubtitle">Lorem ipsum lorem ipsum lorem ipsum lorem<br />
-        ipsum lorem ipsum</p>
-      </c-modal-body>
-      <c-modal-footer>
-        <input
-          cButton
-          [cModalToggle]="verticallyCenteredModal.id"
-          class="modalSubmitButton"
-          type="submit"
-          value="DONE"
-        />
-      </c-modal-footer>
-    </c-modal>
+    #verticallyCenteredModal
+    alignment="center"
+    id="verticallyCenteredModal"
+    [visible]="isConfirmationModalVisible"
+  >
+    <c-modal-header>
+      <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+    </c-modal-header>
+
+    <c-modal-body>
+      <img src="/assets/images/exclamationmark.png" class="modalImage" />
+      <p cModalTitle class="modalTitle">Uspešno ste promenili lozinku!</p>
+      <p class="modalSubtitle">
+        Lorem ipsum lorem ipsum lorem ipsum lorem<br />
+        ipsum lorem ipsum
+      </p>
+    </c-modal-body>
+    <c-modal-footer>
+      <input
+        cButton
+        [cModalToggle]="verticallyCenteredModal.id"
+        class="modalSubmitButton"
+        type="submit"
+        value="DONE"
+        (click)="resetFields()"
+      />
+    </c-modal-footer>
+  </c-modal>
 </div>
