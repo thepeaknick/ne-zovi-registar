@@ -19,7 +19,6 @@ export class RegUsersComponent implements OnInit {
   itemsPerPage = 10;
   currentPage = 0;
   totalPagesNumber = 0;
-  pages: number[] = [];
 
   ngOnInit(): void {
     this.regUserService.getRegUsers(RoleType.Obveznik).subscribe({
@@ -61,9 +60,5 @@ export class RegUsersComponent implements OnInit {
     this.setPage(this.currentPage)
     this.totalPagesNumber = Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
   }
-
-  vars = {
-    '--cui-pagination-active-bg': '#321fdb !important'
-  };
 
 }

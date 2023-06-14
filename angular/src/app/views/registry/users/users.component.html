@@ -50,6 +50,17 @@
         </tbody>
       </table>
     </div>
+    <c-pagination class="custom" >
+      <li cPageItem [disabled]="currentPage === 1">
+        <span cPageLink [routerLink] (click)="setPage(currentPage - 1)">Previous</span>
+      </li>
+      <li *ngFor="let pages of [].constructor(totalPagesNumber); let pageIndex = index" [ngClass]="{ 'active': (currentPage - 1) === pageIndex }">
+        <a cPageLink [routerLink] (click)="setPage(pageIndex + 1)">{{ pageIndex + 1 }}</a>
+      </li>
+      <li cPageItem [disabled]="currentPage === totalPagesNumber">
+        <a cPageLink [routerLink] (click)="setPage(currentPage + 1)">Next</a>
+      </li>
+    </c-pagination>
   </div>
 
   <c-modal #addNewUserModal alignment="center" id="addNewUserModal" size="lg">
