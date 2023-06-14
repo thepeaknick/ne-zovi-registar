@@ -23,15 +23,15 @@ export class SearchComponent {
 
   checkNumber() {
     if (this.token != undefined) {
-      this.userService.getUser(this.phoneNumber).subscribe((value: string) => {
-        this.phoneNumber = value;
-        if (this.phoneNumber.length > 0) {
+      this.userService.getUser(this.phoneNumber).subscribe({
+        next: () => {
           this.isFound = true;
           this.showSearchMessage = true;
-        } else {
+        },
+        error: (error) => {
           this.isFound = false;
           this.showSearchMessage = true;
-        }
+        },
       });
     } else {
       this.showCaptchaMessage = true;
