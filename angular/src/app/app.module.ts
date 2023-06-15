@@ -15,6 +15,7 @@ import { TableModule } from '@coreui/angular';
 import { WidgetModule } from '@coreui/angular';
 import { ChartjsModule } from '@coreui/angular-chartjs';
 import { AccordionModule } from '@coreui/angular';
+import { PaginationModule } from '@coreui/angular';
 
 import {
   HttpClientModule,
@@ -141,6 +142,7 @@ const APP_CONTAINERS = [
     WidgetModule,
     ChartjsModule,
     AccordionModule,
+    PaginationModule
   ],
   providers: [
     {

@@ -134,3 +134,30 @@ c-modal-body {
 .modalRowButtons {
   text-align: center;
 }
+
+.itemPerPageButton {
+  width: 40px;
+  height: 30px;
+  margin-right: 2px;
+  border-color: #95a7c4;
+  border-width: 1px;
+
+  font-size: x-small;
+  font-weight: 700;
+  color: #133f85;
+}
+
+.custom {
+  padding: 5%;
+}
+
+.custom-paginator .page-link.active, .active > .page-link {
+  color: white;
+  background-color: #224c8d;
+  border-color: #224c8d;
+}
+
+.custom-paginator .page-link, .page-link {
+  --cui-pagination-color: #224c8d;
+}
+

@@ -24,7 +24,13 @@
         >
           Prikaz po strani &#8659;
           <ng-template #popoverHtml>
-            <div class="popover-body">10<br />20<br />30<br />40<br />50</div>
+            <div class="popover-body">
+              <c-row>
+                <button cButton class="itemPerPageButton" color="white" shape="rounded-pill" (click)="setItemPerPage(10)" >10</button> 
+                <button cButton class="itemPerPageButton" color="white" shape="rounded-pill" (click)="setItemPerPage(20)" >20</button>  
+                <button cButton class="itemPerPageButton" color="white" shape="rounded-pill" (click)="setItemPerPage(30)" >30</button> 
+              </c-row>  
+            </div>
           </ng-template>
         </button>
         <button cButton class="tableButton" color="white" shape="rounded-pill">
@@ -44,7 +50,7 @@
           </tr>
         </thead>
         <tbody class="tableContent">
-          <tr *ngFor="let item of regUsers">
+          <tr *ngFor="let item of showInTableUsers">
             <td>{{ item.name }}</td>
             <td>{{ item.taxNumber }}</td>
             <td>{{ item.regNumber }}</td>
@@ -54,6 +60,17 @@
         </tbody>
       </table>
     </div>
+    <c-pagination class="custom" >
+      <li cPageItem [disabled]="currentPage === 1">
+        <span cPageLink [routerLink] (click)="setPage(currentPage - 1)">Previous</span>
+      </li>
+      <li *ngFor="let pages of [].constructor(totalPagesNumber); let pageIndex = index" [ngClass]="{ 'active': (currentPage - 1) === pageIndex }">
+        <a cPageLink [routerLink] (click)="setPage(pageIndex + 1)">{{ pageIndex + 1 }}</a>
+      </li>
+      <li cPageItem [disabled]="currentPage === totalPagesNumber">
+        <a cPageLink [routerLink] (click)="setPage(currentPage + 1)">Next</a>
+      </li>
+    </c-pagination>
   </div>
 
   <c-modal

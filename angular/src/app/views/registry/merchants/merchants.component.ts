@@ -13,6 +13,12 @@ export class MerchantsComponent {
 
   @Input() public regUsers: RegUserDto[] = [];
 
+  showInTableUsers: RegUserDto[] = [];
+
+  itemsPerPage = 10;
+  currentPage = 0;
+  totalPagesNumber = 0;
+
   ngOnInit(): void {
     this.regUserService.getRegUsers(RoleType.Trgovac).subscribe({
       next: (regUsers: RegUserDto[]) =>
@@ -37,5 +43,16 @@ export class MerchantsComponent {
         userName: 'yettel',
       });
     }
+  }
+
+  setPage(page: number) {
+    this.currentPage = page;
+    this.showInTableUsers = this.regUsers.slice( (page - 1) * this.itemsPerPage, page * this.itemsPerPage)
+  }
+
+  setItemPerPage(num: number) {
+    this.itemsPerPage = num;
+    this.setPage(this.currentPage)
+    this.totalPagesNumber = Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
   }
 }

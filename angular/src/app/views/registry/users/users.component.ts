@@ -16,6 +16,12 @@ export class UsersComponent implements OnInit {
   phoneNumber: string | null = null;
   divs: number[] = [1];
 
+  showInTableUsers: UserDto[] = [];
+
+  itemsPerPage = 10;
+  currentPage = 0;
+  totalPagesNumber = 0;
+
   createDiv() {
     this.divs.push(this.divs.length);
   }
@@ -40,5 +46,16 @@ export class UsersComponent implements OnInit {
     if (this.users.length === 0) {
       console.log('nema korisnika');
     }
+  }
+
+  setPage(page: number) {
+    this.currentPage = page;
+    this.showInTableUsers = this.users.slice( (page - 1) * this.itemsPerPage, page * this.itemsPerPage)
+  }
+
+  setItemPerPage(num: number) {
+    this.itemsPerPage = num;
+    this.setPage(this.currentPage)
+    this.totalPagesNumber = Math.trunc(this.users.length / this.itemsPerPage) + 1;
   }
 }
