@@ -8,14 +8,15 @@ using NeZoviReg.WebApi.Model.RegUser;
 using System.Net;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 using NeZoviReg.Abstractions.Messaging.Domain.Queries.RegUser;
+using Serilog;
 
 namespace NeZoviReg.WebApi.Controllers;
 
 [Route("regusers")]
 public class RegUserController : NeZoviRegBaseController
 {
-    public RegUserController(ISender sender, ILogger<RegUserController> logger)
-        : base(sender, logger)
+    public RegUserController(ISender sender)
+        : base(sender)
     { }
 
     /// <summary>

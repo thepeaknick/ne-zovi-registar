@@ -7,22 +7,20 @@ using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Events;
+using Serilog;
 
 namespace NeZoviReg.Application.Services.RegUser;
 
 internal sealed class ResetRegUserPassCommandHandler : ICommandHandler<ResetPassCommand, bool>
 {
-    private readonly ILogger<ResetRegUserPassCommandHandler> _logger;
     private readonly IRegUserDataStore _regUserDataStore;
     private readonly IPublisher _publisher;
     private readonly IUnitOfWork _unitOfWork;
 
-    public ResetRegUserPassCommandHandler(ILogger<ResetRegUserPassCommandHandler> logger,
-        IRegUserDataStore regUserDataStore,
+    public ResetRegUserPassCommandHandler(IRegUserDataStore regUserDataStore,
         IPublisher publisher,
         IUnitOfWork unitOfWork)
     {
-        _logger = logger;
         _regUserDataStore = regUserDataStore;
         _publisher = publisher;
         _unitOfWork = unitOfWork;
@@ -34,7 +32,7 @@ internal sealed class ResetRegUserPassCommandHandler : ICommandHandler<ResetPass
 
         if (regUser is null)
         {
-            _logger.LogInformation($"RegUser with Email={command.Email} does not exist.");
+            Log.Information($"RegUser with Email={command.Email} does not exist.");
 
             return Result.Failure<bool>(RegErrors.RegUser.Unknown);
         }
@@ -56,6 +54,8 @@ internal sealed class ResetRegUserPassCommandHandler : ICommandHandler<ResetPass
             RegUserId = regUser.GuidId
         }, cancellationToken);
 
+        Log.Information($"RegUser with Email={command.Email} reset password.");
+        
         return true;
     }
 }

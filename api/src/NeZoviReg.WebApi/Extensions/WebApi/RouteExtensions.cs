@@ -33,7 +33,8 @@ public class RoutePrefixConvention : IApplicationModelConvention
         {
             if (selector.AttributeRouteModel != null)
             {
-                selector.AttributeRouteModel = AttributeRouteModel.CombineAttributeRouteModel(_routePrefix, selector.AttributeRouteModel);
+                selector.AttributeRouteModel =
+                    AttributeRouteModel.CombineAttributeRouteModel(_routePrefix, selector.AttributeRouteModel);
             }
             else
             {

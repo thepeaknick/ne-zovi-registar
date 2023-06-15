@@ -11,13 +11,11 @@ namespace NeZoviReg.Application.Services.User;
 
 internal sealed class GetUserQueryHandler : IQueryHandler<GetUserQuery, UserDto>
 {
-    private readonly ILogger<GetUserQueryHandler> _logger;
     private readonly IUserDataStore _userDataStore;
     private readonly  IMapper _mapper;
 
-    public GetUserQueryHandler(ILogger<GetUserQueryHandler> logger, IUserDataStore userDataStore, IMapper mapper)
+    public GetUserQueryHandler(IUserDataStore userDataStore, IMapper mapper)
     {
-        _logger = logger;
         _userDataStore = userDataStore;
         _mapper = mapper;
     }

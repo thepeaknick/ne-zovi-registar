@@ -14,9 +14,8 @@ namespace NeZoviReg.WebApi.Controllers;
 [Route("account")]
 public class AccountController : NeZoviRegBaseController
 {
-    public AccountController(ISender sender,
-        ILogger<AccountController> logger)
-        : base(sender, logger)
+    public AccountController(ISender sender)
+        : base(sender)
     {
     }
 

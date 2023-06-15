@@ -17,12 +17,10 @@ namespace NeZoviReg.WebApi.Controllers;
 public class NeZoviRegBaseController : ControllerBase
 {
     protected readonly ISender Sender;
-    protected readonly ILogger<NeZoviRegBaseController> Logger;
-
-    protected NeZoviRegBaseController(ISender sender, ILogger<NeZoviRegBaseController> logger)
+    
+    protected NeZoviRegBaseController(ISender sender)
     {
         Sender = sender;
-        Logger = logger;
     }
 
     protected AppUser AppUser => AppUser.GetUser(User);

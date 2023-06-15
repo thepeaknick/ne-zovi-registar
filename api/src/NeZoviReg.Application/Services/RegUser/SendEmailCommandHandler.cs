@@ -5,19 +5,17 @@ using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 using NeZoviReg.Abstractions.Shared;
+using Serilog;
 
 namespace NeZoviReg.Application.Services.RegUser;
 
 internal sealed class SendEmailCommandHandler : ICommandHandler<SendEmailCommand, bool>
 {
-    private readonly ILogger<SendEmailCommandHandler> _logger;
     private readonly IEmailSender _emailSender;
     private readonly IUnitOfWork _unitOfWork;
 
-    public SendEmailCommandHandler(ILogger<SendEmailCommandHandler> logger,
-        IUnitOfWork unitOfWork, IEmailSender emailSender)
+    public SendEmailCommandHandler(IUnitOfWork unitOfWork, IEmailSender emailSender)
     {
-        _logger = logger;
         _unitOfWork = unitOfWork;
         _emailSender = emailSender;
     }
@@ -26,7 +24,8 @@ internal sealed class SendEmailCommandHandler : ICommandHandler<SendEmailCommand
     {
         var subject = CreateEmailSubject(command);
 
-        return await _emailSender.SendEmailAsync(command.EmailFrom!, subject, command.Content!, cancellationToken:cancellationToken);
+        return await _emailSender.SendEmailAsync(command.EmailFrom!, subject, command.Content!,
+            cancellationToken: cancellationToken);
     }
 
 
@@ -38,6 +37,8 @@ internal sealed class SendEmailCommandHandler : ICommandHandler<SendEmailCommand
             $"Naziv: {(command.FirstName != default ? $"{command.FirstName} {command.LastName}" : command.CompanyName)}";
 
         sb.AppendFormat($"{name}, Broj telefona:{command.PhoneNumber}");
+
+        Log.Information($"Created email subject={sb}");
 
         return sb.ToString();
     }

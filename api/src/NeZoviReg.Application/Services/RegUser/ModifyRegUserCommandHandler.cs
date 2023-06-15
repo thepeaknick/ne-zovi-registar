@@ -9,23 +9,21 @@ using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Events;
+using Serilog;
 
 namespace NeZoviReg.Application.Services.RegUser;
 
 internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUserCommand, RegUserDto>
 {
-    private readonly ILogger<ModifyRegUserCommandHandler> _logger;
     private readonly IRegUserDataStore _regUserDataStore;
     private readonly IPublisher _publisher;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public ModifyRegUserCommandHandler(ILogger<ModifyRegUserCommandHandler> logger,
-        IRegUserDataStore regUserDataStore,
+    public ModifyRegUserCommandHandler(IRegUserDataStore regUserDataStore,
         IPublisher publisher,
         IUnitOfWork unitOfWork, IMapper mapper)
     {
-        _logger = logger;
         _regUserDataStore = regUserDataStore;
         _publisher = publisher;
         _unitOfWork = unitOfWork;
@@ -38,7 +36,7 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
 
         if (regUser is null)
         {
-            _logger.LogInformation($"RegUser with RegUserId={command.RegUserId} does not exist.");
+            Log.Information($"RegUser with RegUserId={command.RegUserId} does not exist.");
             
             return Result.Failure<RegUserDto>(RegErrors.RegUser.NotFound(command.RegUserId));
         }
@@ -61,6 +59,8 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
         {
             RegUserId = regUser.GuidId
         }, cancellationToken);
+        
+        Log.Information($"RegUser with RegUserId={command.RegUserId} modified.");
         
        return _mapper.Map<RegUserDto>(regUser);
     }

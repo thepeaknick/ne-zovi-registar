@@ -6,19 +6,18 @@ using NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
+using Serilog;
 
 namespace NeZoviReg.Application.Services.User;
 
 internal sealed class RemoveUserCommandHandler : ICommandHandler<RemoveUserCommand, UserDto>
 {
-    private readonly ILogger<RemoveUserCommandHandler> _logger;
     private readonly IUserDataStore _userDataStore;
     private readonly IUnitOfWork _unitOfWork;
 
-    public RemoveUserCommandHandler(ILogger<RemoveUserCommandHandler> logger, IUserDataStore userDataStore,
+    public RemoveUserCommandHandler(IUserDataStore userDataStore,
         IUnitOfWork unitOfWork)
     {
-        _logger = logger;
         _userDataStore = userDataStore;
         _unitOfWork = unitOfWork;
     }
@@ -29,7 +28,7 @@ internal sealed class RemoveUserCommandHandler : ICommandHandler<RemoveUserComma
 
         if (user is null)
         {
-            _logger.LogInformation($"User with PhoneNumber={command.PhoneNumber} does not exist.");
+            Log.Information($"PhoneNumber={command.PhoneNumber} does not exist.");
 
             return Result.Failure<UserDto>(RegErrors.User.NotFound(command.PhoneNumber));
         }
@@ -38,6 +37,8 @@ internal sealed class RemoveUserCommandHandler : ICommandHandler<RemoveUserComma
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 
+        Log.Information($"PhoneNumber={command.PhoneNumber} removed.");
+        
         return new UserDto(user.PhoneNumber, DateTime.Now);
     }
 }

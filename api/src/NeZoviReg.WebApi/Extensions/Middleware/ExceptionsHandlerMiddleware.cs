@@ -4,16 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Auth.Exceptions;
+using Serilog;
 using static NeZoviReg.WebApi.Extensions.WebApi.WebApiExtensions;
 namespace NeZoviReg.WebApi.Extensions.Middleware;
 
 public class NeZoviExceptionsHandlingMiddleware : IMiddleware
 {
-    private readonly ILogger<NeZoviExceptionsHandlingMiddleware> _logger;
-
-    public NeZoviExceptionsHandlingMiddleware(ILogger<NeZoviExceptionsHandlingMiddleware> logger) =>
-        _logger = logger;
-
+    
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
         try
@@ -68,7 +65,7 @@ public class NeZoviExceptionsHandlingMiddleware : IMiddleware
             RegErrors.App.InternalServerError
         );
 
-        _logger.LogError(e, e.Message);
+        Log.Fatal(e, e.Message);
 
         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
         context.Response.ContentType = "application/json";

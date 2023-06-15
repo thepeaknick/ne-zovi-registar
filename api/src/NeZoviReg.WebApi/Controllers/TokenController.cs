@@ -10,9 +10,8 @@ namespace NeZoviReg.WebApi.Controllers;
 
 public class TokenController : NeZoviRegBaseController
 {
-    public TokenController(ISender sender,
-        ILogger<TokenController> logger)
-        : base(sender, logger)
+    public TokenController(ISender sender)
+        : base(sender)
     { }
 
     /// <summary>

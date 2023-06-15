@@ -7,22 +7,20 @@ using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Events;
+using Serilog;
 
 namespace NeZoviReg.Application.Services.RegUser;
 
 internal sealed class RemoveRegUserCommandHandler : ICommandHandler<RemoveRegUserCommand, bool>
 {
-    private readonly ILogger<RemoveRegUserCommandHandler> _logger;
     private readonly IRegUserDataStore _regUserDataStore;
     private readonly IPublisher _publisher;
     private readonly IUnitOfWork _unitOfWork;
 
-    public RemoveRegUserCommandHandler(ILogger<RemoveRegUserCommandHandler> logger,
-        IRegUserDataStore regUserDataStore,
+    public RemoveRegUserCommandHandler(IRegUserDataStore regUserDataStore,
         IUnitOfWork unitOfWork,
         IPublisher publisher)
     {
-        _logger = logger;
         _regUserDataStore = regUserDataStore;
         _unitOfWork = unitOfWork;
         _publisher = publisher;
@@ -34,7 +32,7 @@ internal sealed class RemoveRegUserCommandHandler : ICommandHandler<RemoveRegUse
 
         if (regUser is null)
         {
-            _logger.LogInformation($"RegUser with RegUserId={command.RegUserId} does not exist.");
+            Log.Information($"RegUser with RegUserId={command.RegUserId} does not exist.");
                 
             return Result.Failure<bool>(RegErrors.RegUser.NotFound(command.RegUserId));
         }
@@ -48,6 +46,8 @@ internal sealed class RemoveRegUserCommandHandler : ICommandHandler<RemoveRegUse
             RegUserId = regUser.GuidId
         }, cancellationToken);
 
+        Log.Information($"RegUser with RegUserId={command.RegUserId} removed.");
+        
         return true;
     }
 }

@@ -11,13 +11,11 @@ namespace NeZoviReg.Application.Services.RegUser;
 
 internal sealed class RegUsersQueryHandler : IQueryHandler<RegUsersQuery, List<RegUserDto>>
 {
-    private readonly ILogger<RegUsersQueryHandler> _logger;
     private readonly IRegUserDataStore _regUserDataStore;
     private readonly IMapper _mapper;
 
-    public RegUsersQueryHandler(ILogger<RegUsersQueryHandler> logger, IRegUserDataStore regUserDataStore, IMapper mapper)
+    public RegUsersQueryHandler(IRegUserDataStore regUserDataStore, IMapper mapper)
     {
-        _logger = logger;
         _regUserDataStore = regUserDataStore;
         _mapper = mapper;
     }

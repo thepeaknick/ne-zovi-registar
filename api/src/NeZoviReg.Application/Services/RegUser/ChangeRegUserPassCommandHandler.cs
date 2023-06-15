@@ -7,22 +7,20 @@ using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Events;
+using Serilog;
 
 namespace NeZoviReg.Application.Services.RegUser;
 
 internal sealed class ChangeRegUserPassCommandHandler : ICommandHandler<ChangePassCommand, bool>
 {
-    private readonly ILogger<ChangeRegUserPassCommandHandler> _logger;
     private readonly IRegUserDataStore _regUserDataStore;
     private readonly IPublisher _publisher;
     private readonly IUnitOfWork _unitOfWork;
 
-    public ChangeRegUserPassCommandHandler(ILogger<ChangeRegUserPassCommandHandler> logger,
-        IRegUserDataStore regUserDataStore,
+    public ChangeRegUserPassCommandHandler(IRegUserDataStore regUserDataStore,
         IPublisher publisher,
         IUnitOfWork unitOfWork)
     {
-        _logger = logger;
         _regUserDataStore = regUserDataStore;
         _publisher = publisher;
         _unitOfWork = unitOfWork;
@@ -34,7 +32,7 @@ internal sealed class ChangeRegUserPassCommandHandler : ICommandHandler<ChangePa
 
         if (regUser is null)
         {
-            _logger.LogInformation($"RegUser with UserName={command.UserName} does not exist.");
+            Log.Information($"RegUser with UserName={command.UserName} does not exist.");
             
             return Result.Failure<bool>(RegErrors.RegUser.InvalidCredentials);
         }
@@ -50,6 +48,8 @@ internal sealed class ChangeRegUserPassCommandHandler : ICommandHandler<ChangePa
         {
             RegUserId = regUser.GuidId
         }, cancellationToken);
+        
+        Log.Information($"RegUser with RegUserId={command.UserName} password changed.");
         
         return true;
     }
