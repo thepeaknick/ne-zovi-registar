@@ -43,6 +43,7 @@ export class MerchantsComponent {
         regNumber: '123456',
         roles: [RoleType.Obveznik],
         taxNumber: '123456789',
+        email: 'asd@asd.com',
         userName: 'yettel',
       });
     }

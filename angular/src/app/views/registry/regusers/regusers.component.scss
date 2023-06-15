@@ -69,7 +69,6 @@ c-modal {
 
 c-modal-header {
   background-color: #ebf1f8;
-  background-image: url("../../../../assets/images/dots.svg");
   background-size: contain;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px; // z-index: -1;
@@ -152,15 +151,48 @@ c-modal-body {
   padding: 5%;
 }
 
-.custom-paginator .page-link.active, .active > .page-link {
+.custom-paginator .page-link.active,
+.active > .page-link {
   color: white;
   background-color: #224c8d;
   border-color: #224c8d;
 }
 
-.custom-paginator .page-link, .page-link {
+.custom-paginator .page-link,
+.page-link {
   --cui-pagination-color: #224c8d;
 }
 
+.modalImage {
+  padding: 5%;
+}
 
+.modalTitle {
+  font-weight: 700;
+  font-size: 29.262px;
+  line-height: 42px;
+  color: #133f85;
+}
 
+.modalSubtitle {
+  font-weight: 400;
+  font-size: 16.386px;
+  line-height: 23px;
+  color: #3f6aa3;
+}
+
+c-modal {
+  text-align: center;
+}
+
+c-modal-footer {
+  justify-content: center;
+}
+
+.modalSubmitButton {
+  width: 342px;
+  height: 50px;
+  background: #224c8d;
+  border-radius: 5px;
+  align-items: center;
+}

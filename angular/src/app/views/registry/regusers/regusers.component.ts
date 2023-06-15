@@ -1,7 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaginationComponent } from '@coreui/angular';
 import { RegUserDto, RoleType } from 'src/app/domain/model/schemas';
+import { AuthenticationService } from 'src/app/domain/services/authentication.service';
 import { RegUserService } from 'src/app/domain/services/reguser.service';
 
 @Component({
@@ -10,9 +12,16 @@ import { RegUserService } from 'src/app/domain/services/reguser.service';
   styleUrls: ['./regusers.component.scss'],
 })
 export class RegUsersComponent implements OnInit {
-  constructor(private regUserService: RegUserService) {}
+  constructor(
+    private regUserService: RegUserService,
+    private formBuilder: FormBuilder,
+    private authenticationService: AuthenticationService
+  ) {}
 
   @Input() public regUsers: RegUserDto[] = [];
+
+  public isAddReguserModalVisible = false;
+  public isSuccessfulyRegisteredUserModalVisible = false;
 
   showInTableUsers: RegUserDto[] = [];
 
@@ -20,12 +29,25 @@ export class RegUsersComponent implements OnInit {
   currentPage = 0;
   totalPagesNumber = 0;
 
+  regUserForm!: FormGroup;
+
   ngOnInit(): void {
+    this.regUserForm = this.formBuilder.group({
+      regUserName: ['', Validators.required],
+      regUserAddress: ['', Validators.required],
+      regUserMB: ['', Validators.required],
+      regUserPIB: ['', Validators.required],
+      regUserUsername: ['', Validators.required],
+      regUserPassword: ['', Validators.required],
+      regUserEmail: ['', Validators.required],
+      regUserFirstName: ['', Validators.required],
+      regUserLastName: ['', Validators.required],
+    });
+
     this.regUserService.getRegUsers(RoleType.Obveznik).subscribe({
       next: (regUsers: RegUserDto[]) =>
         (this.regUsers = regUsers instanceof HttpErrorResponse ? [] : regUsers),
       complete: () => { 
-          console.log(" this.regUsers.length ",  this.regUsers.length); 
           this.totalPagesNumber = (this.regUsers.length % this.itemsPerPage === 0) ? Math.trunc(this.regUsers.length / this.itemsPerPage) : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
           this.setPage(1);
           // this.addRegUsers()
@@ -34,21 +56,78 @@ export class RegUsersComponent implements OnInit {
     this.currentPage = 1;
   }
 
-  addRegUsers() {
-    if (this.regUsers.length === 0) {
-      this.regUserService.registerRegUser({
-        name: 'Yettel',
-        address: 'Yettel Srbija',
-        firstName: 'YUserName',
-        lastName: 'YUserLastname',
+  addRegTestUser() {
+    this.regUserService
+      .registerRegUser({
+        name: 'jetel',
+        address: 'mala4',
+        regNumber: '50505050',
+        taxNumber: '505050505',
+        firstName: 'milenko',
+        lastName: 'milenkovic',
+        userName: 'mmmilenkovic',
         password: 'test123',
-        regNumber: '123456',
+        email: 'jetel@jetel.com',
         roles: [RoleType.Obveznik],
-        taxNumber: '123456789',
-        userName: 'yettel',
+      })
+      .subscribe({
+        next: () => {
+          console.log('XBV');
+        },
+        complete: () => {
+          console.log('lkj');
+        },
       });
-    }
   }
+
+  get fields() {
+    return this.regUserForm.controls;
+  }
+
+  resetFields() {
+    this.regUserForm.reset();
+    // this.newPassword = '';
+    this.toggleConfirmationModal();
+  }
+
+  toggleConfirmationModal() {
+    this.isSuccessfulyRegisteredUserModalVisible =
+      !this.isSuccessfulyRegisteredUserModalVisible;
+  }
+
+  toggleAddRegUsernModal() {
+    this.isAddReguserModalVisible = !this.isAddReguserModalVisible;
+  }
+
+  addRegUsers() {
+    this.regUserService
+      .registerRegUser({
+        name: this.fields['regUserName'].value,
+        address: this.fields['regUserAddress'].value,
+        regNumber: this.fields['regUserMB'].value,
+        taxNumber: this.fields['regUserPIB'].value,
+        firstName: this.fields['regUserFirstName'].value,
+        lastName: this.fields['regUserLastName'].value,
+        userName: this.fields['regUserUsername'].value,
+        password: this.fields['regUserPassword'].value,
+        email: this.fields['regUserEmail'].value,
+        roles: [RoleType.Obveznik],
+      })
+      .subscribe({
+        next: () => {
+          console.log('Successfuly registered user');
+          this.toggleAddRegUsernModal();
+          this.toggleConfirmationModal();
+        },
+        error: (error) => {
+          console.log('Unsuccessfuly registered user complete callback', error);
+        },
+        complete: () => {
+          console.log('Successfuly registered user complete callback');
+        },
+      });
+  }
+
 
   setPage(page: number) {
     this.currentPage = page;
@@ -58,7 +137,7 @@ export class RegUsersComponent implements OnInit {
   setItemPerPage(num: number) {
     this.itemsPerPage = num;
     this.setPage(this.currentPage)
-    this.totalPagesNumber = Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
+    this.totalPagesNumber = (this.regUsers.length % this.itemsPerPage === 0) ? Math.trunc(this.regUsers.length / this.itemsPerPage) : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
   }
 
 }
