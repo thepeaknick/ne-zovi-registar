@@ -26,7 +26,7 @@ export class RegUsersComponent implements OnInit {
         (this.regUsers = regUsers instanceof HttpErrorResponse ? [] : regUsers),
       complete: () => { 
           console.log(" this.regUsers.length ",  this.regUsers.length); 
-          this.totalPagesNumber = Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
+          this.totalPagesNumber = (this.regUsers.length % this.itemsPerPage === 0) ? Math.trunc(this.regUsers.length / this.itemsPerPage) : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
           this.setPage(1);
           // this.addRegUsers()
       },

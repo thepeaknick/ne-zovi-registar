@@ -23,7 +23,11 @@ export class MerchantsComponent {
     this.regUserService.getRegUsers(RoleType.Trgovac).subscribe({
       next: (regUsers: RegUserDto[]) =>
         (this.regUsers = regUsers instanceof HttpErrorResponse ? [] : regUsers),
-      complete: () => this.addRegUsers(),
+      complete: () => { 
+        this.addRegUsers();
+        this.totalPagesNumber = (this.regUsers.length % this.itemsPerPage === 0) ? Math.trunc(this.regUsers.length / this.itemsPerPage) : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
+        this.setPage(1);
+      }
     });
     // 2023-06-11T12:58:03.3910839
   }
@@ -52,6 +56,6 @@ export class MerchantsComponent {
   setItemPerPage(num: number) {
     this.itemsPerPage = num;
     this.setPage(this.currentPage)
-    this.totalPagesNumber = Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
+    this.totalPagesNumber = (this.regUsers.length % this.itemsPerPage === 0) ? Math.trunc(this.regUsers.length / this.itemsPerPage) : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
   }
 }
