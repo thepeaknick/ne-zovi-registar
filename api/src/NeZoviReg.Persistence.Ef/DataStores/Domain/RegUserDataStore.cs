@@ -17,27 +17,27 @@ public class RegUserDataStore : IRegUserDataStore
     public async Task<bool> IsRegNumberUniqueAsync(string regNumber, Guid? excludeId = default, CancellationToken cancellationToken = default)
         => !await _dbContext
             .Set<RegUser>()
-            .AnyAsync(user => user.RegNumber == regNumber && user.GuidId == (excludeId ?? user.GuidId), cancellationToken);
+            .AnyAsync(regUser => regUser.RegNumber == regNumber && regUser.GuidId == (excludeId ?? regUser.GuidId), cancellationToken);
 
     public async Task<bool> IsTaxNumberUniqueAsync(string taxNumber, Guid? excludeId = default, CancellationToken cancellationToken = default)
         => !await _dbContext
             .Set<RegUser>()
-            .AnyAsync(user => user.TaxNumber == taxNumber && user.GuidId == (excludeId ?? user.GuidId), cancellationToken);
+            .AnyAsync(regUser => regUser.TaxNumber == taxNumber && regUser.GuidId == (excludeId ?? regUser.GuidId), cancellationToken);
 
     public async Task<bool> IsCompanyNameUniqueAsync(string name, Guid? excludeId = default, CancellationToken cancellationToken = default)
         => !await _dbContext
             .Set<RegUser>()
-            .AnyAsync(user => user.CompanyName == name && user.GuidId == (excludeId ?? user.GuidId), cancellationToken);
+            .AnyAsync(regUser => regUser.CompanyName == name && regUser.GuidId == (excludeId ?? regUser.GuidId), cancellationToken);
 
     public async Task<bool> IsUsernameUniqueAsync(string username, Guid? excludeId = default, CancellationToken cancellationToken = default)
         => !await _dbContext
             .Set<RegUser>()
-            .AnyAsync(user => user.Username == username && user.GuidId == (excludeId ?? user.GuidId), cancellationToken);
+            .AnyAsync(regUser => regUser.Username == username && regUser.GuidId == (excludeId ?? regUser.GuidId), cancellationToken);
 
     public async Task<bool> IsEmailUniqueAsync(string email, Guid? excludeId = default, CancellationToken cancellationToken = default)
         => !await _dbContext
             .Set<RegUser>()
-            .AnyAsync(user => user.Email == email && user.GuidId == (excludeId ?? user.GuidId), cancellationToken);
+            .AnyAsync(regUser => regUser.Email == email && regUser.GuidId == (excludeId ?? regUser.GuidId), cancellationToken);
 
     public async Task<RegUser?> GetByGuidId(Guid regUserId, CancellationToken cancellationToken = default) =>
         await _dbContext.Set<RegUser>()

@@ -16,8 +16,7 @@ public class RegUserController : NeZoviRegBaseController
 {
     public RegUserController(ISender sender, ILogger<RegUserController> logger)
         : base(sender, logger)
-    {
-    }
+    { }
 
     /// <summary>
     /// Registruj novog korisnika registra.

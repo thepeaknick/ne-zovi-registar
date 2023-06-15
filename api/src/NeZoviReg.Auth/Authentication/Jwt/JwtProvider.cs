@@ -93,7 +93,7 @@ internal sealed class JwtProvider : IJwtProvider
 
         if (regUser.RefreshToken != refreshToken || regUser.RefreshTokenExpirationTime < now)
         {
-            throw new RefreshTokenExpiredException($"Invalid token, RegUser.RefreshToken={regUser.RefreshToken}");
+            throw new RefreshTokenExpiredException($"Invalid token, RegUser.RefreshToken={regUser.RefreshToken} expired or wrong.");
         }
 
         var tokenResult = await GenerateTokenAsync(regUser, cancellationToken);

@@ -38,8 +38,9 @@ internal sealed class ChangeRegUserPassCommandHandler : ICommandHandler<ChangePa
             
             return Result.Failure<bool>(RegErrors.RegUser.InvalidCredentials);
         }
-
-        regUser.WithPassword(command.NewPassword);
+        
+        regUser.WithoutRefreshToken()
+            .WithPassword(command.NewPassword);
 
         _regUserDataStore.Update(regUser);
 
