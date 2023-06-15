@@ -13,7 +13,7 @@ namespace NeZoviReg.WebApi.Model.RegUser;
 /// <param name="FirstName">Ime korisnika</param>
 /// <param name="LastName">Preyime korisnika</param>
 /// <param name="UserName">Korisničko ime korisnika</param>
-/// <param name="Roles">Role korisnika registra</param>
+/// <param name="Role">Rola korisnika registra</param>
 public record ModifyRegUserRequest(string? Name = default,
     string? Email = default,
     string? Address = default,
@@ -22,4 +22,4 @@ public record ModifyRegUserRequest(string? Name = default,
     string? FirstName = default,
     string? LastName = default,
     string? UserName = default,
-    List<RoleType>? Roles = default);
+    RoleType? Role = default);

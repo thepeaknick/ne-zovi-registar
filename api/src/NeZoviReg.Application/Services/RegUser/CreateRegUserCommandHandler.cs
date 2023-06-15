@@ -30,8 +30,6 @@ internal sealed class CreateRegUserCommandHandler : ICommandHandler<CreateRegUse
 
     public async Task<Result<RegUserDto>> Handle(CreateRegUserCommand command, CancellationToken cancellationToken)
     {
-        var rolles = await _authDataStore.GetRollesAsync(command.Roles, cancellationToken);
-
         var regUser = new Domain.Model.Domain.RegUser(command.CompanyName, command.UserName)
             .WithAddress(command.Address)
             .WithEmail(command.Email)
@@ -39,7 +37,7 @@ internal sealed class CreateRegUserCommandHandler : ICommandHandler<CreateRegUse
             .WithTaxNumber(command.TaxNumber)
             .WithName(command.FirstName, command.LastName)
             .WithPassword(command.Password)
-            .WithRoles(rolles.Select(r => r.Id).ToList());
+            .WithRole((int)command.Role);
 
         await _regUserDataStore.Add(regUser, cancellationToken);
 

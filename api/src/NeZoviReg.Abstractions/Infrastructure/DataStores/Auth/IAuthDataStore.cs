@@ -8,7 +8,9 @@ public interface IAuthDataStore
 {
     Task<RegUserWithPermissions> GetUserWithPermissionsAsync(Guid regUserId, CancellationToken cancellationToken);
 
-    Task<List<Role>> GetRollesAsync(CancellationToken cancellationToken);
+    Task<List<Role>> GetRolesAsync(CancellationToken cancellationToken);
 
-    Task<List<Role>> GetRollesAsync(RoleType[] rolles, CancellationToken cancellationToken);
+    Task<List<Role>> GetRolesAsync(RoleType[] roles, CancellationToken cancellationToken);
+    
+    Task<Role?> GetRoleAsync(RoleType role, CancellationToken cancellationToken);
 }

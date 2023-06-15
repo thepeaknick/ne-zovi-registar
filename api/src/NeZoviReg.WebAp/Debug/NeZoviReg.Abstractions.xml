@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NeZoviReg.Abstractions</name>
+    </assembly>
+    <members>
+        <member name="T:NeZoviReg.Abstractions.Messaging.Auth.Model.LoginResultDto">
+            <summary>
+            Prijavljen korisnik registra.
+            </summary>
+            <param name="RegUserId">Guid Id korsnika registra</param>
+            <param name="AccessToken">Pristupni token</param>
+            <param name="AccessTokenExpTime">Datum i vreme isteka pristupnog tokena</param>
+            <param name="RefreshToken">Token za osvežavanje</param>
+            <param name="RefreshTokenExpTime">Datum i vreme isteka tokena za osvežavanje</param>
+        </member>
+        <member name="M:NeZoviReg.Abstractions.Messaging.Auth.Model.LoginResultDto.#ctor(System.Guid,System.String,System.DateTime,System.String,System.DateTime)">
+            <summary>
+            Prijavljen korisnik registra.
+            </summary>
+            <param name="RegUserId">Guid Id korsnika registra</param>
+            <param name="AccessToken">Pristupni token</param>
+            <param name="AccessTokenExpTime">Datum i vreme isteka pristupnog tokena</param>
+            <param name="RefreshToken">Token za osvežavanje</param>
+            <param name="RefreshTokenExpTime">Datum i vreme isteka tokena za osvežavanje</param>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Auth.Model.LoginResultDto.RegUserId">
+            <summary>Guid Id korsnika registra</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Auth.Model.LoginResultDto.AccessToken">
+            <summary>Pristupni token</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Auth.Model.LoginResultDto.AccessTokenExpTime">
+            <summary>Datum i vreme isteka pristupnog tokena</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Auth.Model.LoginResultDto.RefreshToken">
+            <summary>Token za osvežavanje</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Auth.Model.LoginResultDto.RefreshTokenExpTime">
+            <summary>Datum i vreme isteka tokena za osvežavanje</summary>
+        </member>
+        <member name="T:NeZoviReg.Abstractions.Messaging.Auth.Model.RefreshTokenResultDto">
+            <summary>
+            Pristupni token i token za osvežavanje.
+            </summary>
+            <param name="AccessToken">Pristupni token</param>
+            <param name="AccessTokenExpTime">Datum isteka pristupnog tokena</param>
+            <param name="RefreshToken">Token za osvežavanje</param>
+            <param name="RefreshTokenExpTime">Datum isteka tokena za osvežavanje</param>
+        </member>
+        <member name="M:NeZoviReg.Abstractions.Messaging.Auth.Model.RefreshTokenResultDto.#ctor(System.String,System.DateTime,System.String,System.DateTime)">
+            <summary>
+            Pristupni token i token za osvežavanje.
+            </summary>
+            <param name="AccessToken">Pristupni token</param>
+            <param name="AccessTokenExpTime">Datum isteka pristupnog tokena</param>
+            <param name="RefreshToken">Token za osvežavanje</param>
+            <param name="RefreshTokenExpTime">Datum isteka tokena za osvežavanje</param>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Auth.Model.RefreshTokenResultDto.AccessToken">
+            <summary>Pristupni token</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Auth.Model.RefreshTokenResultDto.AccessTokenExpTime">
+            <summary>Datum isteka pristupnog tokena</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Auth.Model.RefreshTokenResultDto.RefreshToken">
+            <summary>Token za osvežavanje</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Auth.Model.RefreshTokenResultDto.RefreshTokenExpTime">
+            <summary>Datum isteka tokena za osvežavanje</summary>
+        </member>
+        <member name="T:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDetailsDto">
+            <summary>
+            Detalji korisnika registra
+            </summary>
+            <param name="GuidId">Guid ID korisniak registra</param>
+            <param name="FirstName">Ime korisnika registra</param>
+            <param name="LastName">Prezime korisniak registra</param>
+            <param name="CompanyName">Naziv firme</param>
+            <param name="Address">Adresa</param>
+            <param name="RegNumber">Matični broj</param>
+            <param name="TaxNumber">PIB</param>
+            <param name="Role">Rola korisnika registra</param>
+        </member>
+        <member name="M:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDetailsDto.#ctor(System.Guid,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Detalji korisnika registra
+            </summary>
+            <param name="GuidId">Guid ID korisniak registra</param>
+            <param name="FirstName">Ime korisnika registra</param>
+            <param name="LastName">Prezime korisniak registra</param>
+            <param name="CompanyName">Naziv firme</param>
+            <param name="Address">Adresa</param>
+            <param name="RegNumber">Matični broj</param>
+            <param name="TaxNumber">PIB</param>
+            <param name="Role">Rola korisnika registra</param>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDetailsDto.GuidId">
+            <summary>Guid ID korisniak registra</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDetailsDto.FirstName">
+            <summary>Ime korisnika registra</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDetailsDto.LastName">
+            <summary>Prezime korisniak registra</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDetailsDto.CompanyName">
+            <summary>Naziv firme</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDetailsDto.Address">
+            <summary>Adresa</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDetailsDto.RegNumber">
+            <summary>Matični broj</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDetailsDto.TaxNumber">
+            <summary>PIB</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDetailsDto.Role">
+            <summary>Rola korisnika registra</summary>
+        </member>
+        <member name="T:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDto">
+            <summary>
+            Korisnik registra
+            </summary>
+            <param name="GuidId">Guid ID korisniak registra</param>
+            <param name="Name">Naziv</param>
+            <param name="RegNumber">Matičcni broj</param>
+            <param name="TaxNumber">PIB</param>
+            <param name="CreatedOn">Datum i vreme kreiranja</param>
+            <param name="Id">Identifikator</param>
+        </member>
+        <member name="M:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDto.#ctor(System.Guid,System.String,System.String,System.String,System.DateTime,System.Nullable{System.Int32})">
+            <summary>
+            Korisnik registra
+            </summary>
+            <param name="GuidId">Guid ID korisniak registra</param>
+            <param name="Name">Naziv</param>
+            <param name="RegNumber">Matičcni broj</param>
+            <param name="TaxNumber">PIB</param>
+            <param name="CreatedOn">Datum i vreme kreiranja</param>
+            <param name="Id">Identifikator</param>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDto.GuidId">
+            <summary>Guid ID korisniak registra</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDto.Name">
+            <summary>Naziv</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDto.RegNumber">
+            <summary>Matičcni broj</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDto.TaxNumber">
+            <summary>PIB</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDto.CreatedOn">
+            <summary>Datum i vreme kreiranja</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDto.Id">
+            <summary>Identifikator</summary>
+        </member>
+        <member name="T:NeZoviReg.Abstractions.Messaging.Domain.Model.User.UserDto">
+            <summary>
+            Registrovan broj telefona.
+            </summary>
+            <param name="PhoneNumber">Broj telefona</param>
+            <param name="CreatedModifiedOn">Datume i vreme registracije/izmene</param>
+        </member>
+        <member name="M:NeZoviReg.Abstractions.Messaging.Domain.Model.User.UserDto.#ctor(System.String,System.Nullable{System.DateTime})">
+            <summary>
+            Registrovan broj telefona.
+            </summary>
+            <param name="PhoneNumber">Broj telefona</param>
+            <param name="CreatedModifiedOn">Datume i vreme registracije/izmene</param>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Domain.Model.User.UserDto.PhoneNumber">
+            <summary>Broj telefona</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Domain.Model.User.UserDto.CreatedModifiedOn">
+            <summary>Datume i vreme registracije/izmene</summary>
+        </member>
+        <member name="T:NeZoviReg.Abstractions.Shared.Model.Auth.Enum.RoleType">
+            <summary>
+            Role korisnika registra
+            </summary>
+        </member>
+        <member name="F:NeZoviReg.Abstractions.Shared.Model.Auth.Enum.RoleType.Admin">
+            <summary>
+            Administrator
+            </summary>
+        </member>
+        <member name="F:NeZoviReg.Abstractions.Shared.Model.Auth.Enum.RoleType.Trgovac">
+            <summary>
+            Trgovac
+            </summary>
+        </member>
+        <member name="F:NeZoviReg.Abstractions.Shared.Model.Auth.Enum.RoleType.Obveznik">
+            <summary>
+            Obveznik
+            </summary>
+        </member>
+        <member name="T:NeZoviReg.Abstractions.Shared.Model.Domain.BulkUser">
+            <summary>
+            Bulk vlasnik broja telefona.
+            </summary>
+            <param name="FirstName">Ime vlasnika broja telefona</param>
+            <param name="LastName">Prezime vlasnika broja telefona</param>
+            <param name="Jmbg">JMBG vlasnika broja telefona</param>
+            <param name="OperatorId">Id operatora(obveznika)</param>
+            <param name="PhoneNumber">Broj telefona</param>
+        </member>
+        <member name="M:NeZoviReg.Abstractions.Shared.Model.Domain.BulkUser.#ctor(System.String,System.String,System.String,System.Int32,System.String)">
+            <summary>
+            Bulk vlasnik broja telefona.
+            </summary>
+            <param name="FirstName">Ime vlasnika broja telefona</param>
+            <param name="LastName">Prezime vlasnika broja telefona</param>
+            <param name="Jmbg">JMBG vlasnika broja telefona</param>
+            <param name="OperatorId">Id operatora(obveznika)</param>
+            <param name="PhoneNumber">Broj telefona</param>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Shared.Model.Domain.BulkUser.FirstName">
+            <summary>Ime vlasnika broja telefona</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Shared.Model.Domain.BulkUser.LastName">
+            <summary>Prezime vlasnika broja telefona</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Shared.Model.Domain.BulkUser.Jmbg">
+            <summary>JMBG vlasnika broja telefona</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Shared.Model.Domain.BulkUser.OperatorId">
+            <summary>Id operatora(obveznika)</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Shared.Model.Domain.BulkUser.PhoneNumber">
+            <summary>Broj telefona</summary>
+        </member>
+    </members>
+</doc>

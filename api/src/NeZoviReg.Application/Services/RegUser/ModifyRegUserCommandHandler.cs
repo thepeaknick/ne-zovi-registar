@@ -49,7 +49,7 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
             .WithTaxNumber(command.TaxNumber)
             .WithName(command.FirstName, command.LastName)
             .WithUserName(command.UserName)
-            .WithRoles(command.Roles);
+            .WithRole(command.Role);
 
         _regUserDataStore.Update(regUser);
 

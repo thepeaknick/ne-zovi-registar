@@ -47,12 +47,18 @@ public class AuthDataStore : IAuthDataStore
 
     }
 
-    public async Task<List<Role>> GetRollesAsync(CancellationToken cancellationToken) =>
+    public async Task<List<Role>> GetRolesAsync(CancellationToken cancellationToken) =>
     await _dbContext.Set<Role>()
         .ToListAsync(cancellationToken);
 
-    public async Task<List<Role>> GetRollesAsync(RoleType[] rolles, CancellationToken cancellationToken) =>
+    public async Task<List<Role>> GetRolesAsync(RoleType[] roles, CancellationToken cancellationToken) =>
             await _dbContext.Set<Role>()
-                .Where(r => rolles.Contains((RoleType)r.Id))
+                .Where(r => roles.Contains((RoleType)r.Id))
                 .ToListAsync(cancellationToken);
+    
+    
+    public async Task<Role?> GetRoleAsync(RoleType role, CancellationToken cancellationToken) =>
+        await _dbContext.Set<Role>()
+            .Where(r => role == (RoleType)r.Id)
+            .FirstOrDefaultAsync(cancellationToken);
 }

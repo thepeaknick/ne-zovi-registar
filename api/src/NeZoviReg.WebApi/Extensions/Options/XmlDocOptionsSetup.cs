@@ -2,18 +2,18 @@
 
 namespace NeZoviReg.WebApi.Extensions.Options;
 
-public class AppOptionsSetup : IConfigureOptions<AppOptions>
+public class XmlDocOptionsSetup : IConfigureOptions<XmlDocOptions>
 {
-    private const string sectionName = @"Application";
+    private const string sectionName = @"XmlDoc";
 
     private readonly IConfiguration _configuration;
 
-    public AppOptionsSetup(IConfiguration configuration)
+    public XmlDocOptionsSetup(IConfiguration configuration)
     {
         _configuration = configuration;
     }
 
-    public void Configure(AppOptions options)
+    public void Configure(XmlDocOptions options)
     {
         _configuration
             .GetSection(sectionName)

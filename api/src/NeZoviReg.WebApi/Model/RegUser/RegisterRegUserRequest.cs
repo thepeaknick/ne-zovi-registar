@@ -14,7 +14,7 @@ namespace NeZoviReg.WebApi.Model.RegUser;
 /// <param name="LastName">Preyime korisnika</param>
 /// <param name="UserName">Korisničko ime korisnika</param>
 /// <param name="Password">Lozinka</param>
-/// <param name="Roles">Role korisnika registra</param>
+/// <param name="Role">Rola korisnika registra</param>
 public record RegisterRegUserRequest(string Name,
     string Email,
     string Address,
@@ -24,4 +24,4 @@ public record RegisterRegUserRequest(string Name,
     string LastName,
     string UserName,
     string Password,
-    RoleType[] Roles);
+    RoleType Role);

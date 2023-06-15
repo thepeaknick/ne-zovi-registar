@@ -19,6 +19,7 @@ public static class Startup
             .AddOptions()
             .AddRateLimiter(configuration)
             .ConfigureOptions<AppOptionsSetup>()
+            .ConfigureOptions<XmlDocOptionsSetup>()
             .ConfigureExceptionHandling(configuration)
             //.AddSingleton<IAuthorizationMiddlewareResultHandler, NeZoviAuthorizationMiddleware>()
             .AddApiVersioning();

@@ -33,7 +33,7 @@ public class RegUserController : NeZoviRegBaseController
     {
         var command = new CreateRegUserCommand(request.Name, request.Email, request.Address, request.RegNumber,
                 request.TaxNumber, request.FirstName, request.LastName,
-                request.UserName, request.Password, request.Roles)
+                request.UserName, request.Password, request.Role)
             .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);
@@ -55,7 +55,7 @@ public class RegUserController : NeZoviRegBaseController
     {
         var command = new ModifyRegUserCommand(AppUser.Id, request.Name, request.Email, request.Address,
                 request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
-                request.UserName, request.Roles.ToIntList())
+                request.UserName, (int?)request.Role)
             .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);
@@ -78,7 +78,7 @@ public class RegUserController : NeZoviRegBaseController
     {
         var command = new ModifyRegUserCommand(regUserId, request.Name, request.Email, request.Address,
                 request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
-                request.UserName, request.Roles.ToIntList())
+                request.UserName, (int?)request.Role)
             .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);

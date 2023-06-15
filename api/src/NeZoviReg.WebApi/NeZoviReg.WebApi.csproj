@@ -11,6 +11,10 @@
     <DocumentationFile>bin\Debug\NeZoviReg.WebApi.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\Release\NeZoviReg.WebApi.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Certificate" Version="7.0.4" />

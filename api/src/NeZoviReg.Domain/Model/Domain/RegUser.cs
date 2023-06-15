@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using NeZoviReg.Domain.Model.Auth;
+
 #pragma warning disable CS8618
 
 namespace NeZoviReg.Domain.Model.Domain;
@@ -20,7 +21,7 @@ public class RegUser : Entity
     public const int EmailMaxLength = 50;
 
     public RegUser()
-    : base()
+        : base()
     {
     }
 
@@ -32,7 +33,7 @@ public class RegUser : Entity
     }
 
     public RegUser(int id, string companyName, string userName)
-               : base(id)
+        : base(id)
     {
         CompanyName = companyName;
         Username = userName;
@@ -46,7 +47,7 @@ public class RegUser : Entity
     public string FirstName { get; private set; }
 
     public string LastName { get; private set; }
-    
+
     public string Email { get; private set; }
 
     public string FullName => $"Naziv={CompanyName}, Adresa={Address}, MatičniBroj={RegNumber}, Pib={TaxNumber}";
@@ -56,12 +57,13 @@ public class RegUser : Entity
     public string? RefreshToken { get; private set; }
 
     public DateTime? RefreshTokenExpirationTime { get; private set; }
-    
+
     public string? ForgotPasswordToken { get; private set; }
-    
+
     public DateTime? ForgotPasswordTokenExpirationTime { get; private set; }
 
     private string? _password;
+
     public string? Password
     {
         get => Decode(_password ?? string.Empty);
@@ -90,7 +92,7 @@ public class RegUser : Entity
 
         return this;
     }
-    
+
     public RegUser WithRegNumber(string? regNumb)
     {
         RegNumber = regNumb ?? RegNumber;
@@ -151,13 +153,6 @@ public class RegUser : Entity
         return this;
     }
 
-    public RegUser WithRole(int roleId)
-    {
-        _regUserRoles.Add(RegUserRole.Create(Id, roleId));
-
-        return this;
-    }
-
     public RegUser WithRefreshToken(string? refreshToken)
     {
         RefreshToken = refreshToken ?? RefreshToken;
@@ -179,14 +174,14 @@ public class RegUser : Entity
 
         return this;
     }
-    
+
     public RegUser WithForgotPasswordToken(string? token)
     {
         ForgotPasswordToken = token ?? ForgotPasswordToken;
 
         return this;
     }
-    
+
     public RegUser WithForgotPasswordTokenExpTime(DateTime? expTime)
     {
         ForgotPasswordTokenExpirationTime = expTime ?? ForgotPasswordTokenExpirationTime;
@@ -208,6 +203,24 @@ public class RegUser : Entity
         {
             _regUserRoles.Add(RegUserRole.Create(Id, roleId));
         }
+
+        return this;
+    }
+
+    public RegUser WithRole(int? roleId)
+    {
+        if (roleId == default) 
+            return this;
+        
+        foreach (var regUserRole in RegUserRoles
+                     .Where(r => r.RoleId != roleId)
+                     .ToList())
+        {
+            regUserRole.PrepareForDelete();
+        }
+
+
+        _regUserRoles.Add(RegUserRole.Create(Id, roleId.Value));
 
         return this;
     }
