@@ -5,15 +5,15 @@ namespace NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 
 public interface IRegUserDataStore
 {
-    Task<bool> IsRegNumberUniqueAsync(string regNumber, Guid? excludeId = default, CancellationToken cancellationToken = default);
+    Task<bool> IsRegNumberExistsAsync(string regNumber, Guid? excludeId = default, CancellationToken cancellationToken = default);
 
-    Task<bool> IsCompanyNameUniqueAsync(string name, Guid? excludeId = default, CancellationToken cancellationToken = default);
+    Task<bool> IsCompanyNameExistsAsync(string name, Guid? excludeId = default, CancellationToken cancellationToken = default);
 
-    Task<bool> IsTaxNumberUniqueAsync(string taxNumber, Guid? excludeId = default, CancellationToken cancellationToken = default);
+    Task<bool> IsTaxNumberExistsAsync(string taxNumber, Guid? excludeId = default, CancellationToken cancellationToken = default);
 
-    Task<bool> IsUsernameUniqueAsync(string username, Guid? excludeId = default, CancellationToken cancellationToken = default);
+    Task<bool> IsUsernameExistsAsync(string username, Guid? excludeId = default, CancellationToken cancellationToken = default);
     
-    Task<bool> IsEmailUniqueAsync(string email, Guid? excludeId = default, CancellationToken cancellationToken = default);
+    Task<bool> IsEmailExistsAsync(string email, Guid? excludeId = default, CancellationToken cancellationToken = default);
 
     Task<RegUser?> GetByUsernameAndPassword(string username, string password, CancellationToken cancellationToken = default);
     
