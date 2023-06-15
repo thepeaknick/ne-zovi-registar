@@ -68,7 +68,7 @@
     </c-modal-header>
     <c-modal-body>
       <p class="modalTitleText">Podaci o obvezniku</p>
-      <form cForm class="row g-3">
+      <form cForm class="row g-3" [formGroup]="regUserForm">
         <c-col [xs]="8">
           <div class="mb-3">
             <label cLabel for="regUserName" class="textInputField">
@@ -76,21 +76,51 @@
             </label>
             <input
               cFormControl
+              formControlName="regUserName"
               id="regUserName"
               type="text"
-              placeholder="Lorem ipsum"
+              placeholder="Ime"
             />
           </div>
           <div class="mb-3">
             <label cLabel for="regUserAddress" class="textInputField">
-              Lozinka
+              Adresa obveznika
             </label>
             <input
               cFormControl
+              formControlName="regUserAddress"
               id="regUserAddress"
               type="text"
-              placeholder="Lorem ipsum"
+              placeholder="Adresa"
             />
+          </div>
+          <div class="mb-3">
+            <c-row>
+              <c-col>
+                <label cLabel for="regUserFirstName" class="textInputField">
+                  Ime
+                </label>
+                <input
+                  cFormControl
+                  formControlName="regUserFirstName"
+                  id="regUserFirstName"
+                  type="text"
+                  placeholder="Ime odgovornog lica"
+                />
+              </c-col>
+              <c-col>
+                <label cLabel for="regUserLastName" class="textInputField">
+                  Prezime
+                </label>
+                <input
+                  cFormControl
+                  formControlName="regUserLastName"
+                  id="regUserLastName"
+                  type="text"
+                  placeholder="Prezime odgovornog lica"
+                />
+              </c-col>
+            </c-row>
           </div>
           <div class="mb-3">
             <c-row>
@@ -100,9 +130,10 @@
                 </label>
                 <input
                   cFormControl
+                  formControlName="regUserUsername"
                   id="regUserUsername"
                   type="text"
-                  placeholder="Korisničko ime"
+                  placeholder="Username"
                 />
               </c-col>
               <c-col>
@@ -111,6 +142,7 @@
                 </label>
                 <input
                   cFormControl
+                  formControlName="regUserPassword"
                   id="regUserPassword"
                   type="text"
                   placeholder="xxxxxxxxx"
@@ -124,20 +156,33 @@
             </label>
             <input
               cFormControl
+              formControlName="regUserEmail"
               id="regUserEmail"
               type="email"
-              placeholder="imefirme@adresa.com"
+              placeholder="Email adresa"
             />
           </div>
         </c-col>
         <c-col [xs]="4">
           <div class="mb-3">
             <label cLabel for="pib" class="textInputField">PIB</label>
-            <input cFormControl id="pib" type="text" placeholder="xxxxxxxxx" />
+            <input
+              cFormControl
+              formControlName="regUserPIB"
+              id="regUserPIB"
+              type="text"
+              placeholder="xxxxxxxxx"
+            />
           </div>
           <div class="mb-3">
             <label cLabel for="mb" class="textInputField">Matični broj</label>
-            <input cFormControl id="mb" type="text" placeholder="xxxxxxxxx" />
+            <input
+              cFormControl
+              formControlName="regUserMB"
+              id="regUserMB"
+              type="text"
+              placeholder="xxxxxxxxx"
+            />
           </div>
         </c-col>
         <div class="mb-3">
@@ -146,6 +191,7 @@
             class="submitButton"
             type="submit"
             value="Dodaj obveznika"
+            (click)="addRegUsers()"
           />
           <input
             [cModalToggle]="addNewReguserModal.id"

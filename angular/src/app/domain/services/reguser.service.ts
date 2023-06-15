@@ -24,19 +24,21 @@ import { BaseService } from './base.service';
 import { Token } from '@angular/compiler';
 import { NeZoviHttpInterceptor } from './http-interceptor';
 import { AuthenticationService } from './authentication.service';
+import { AppConfiguration } from './app-configuration.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RegUserService extends BaseService {
   constructor(
+    private config: AppConfiguration,
     http: HttpClient,
     private authenticationService: AuthenticationService
   ) {
     super(http);
   }
 
-  registerRegUser(request: RegisterRegUserRequest): Observable<RegUserDto[]> {
+  registerRegUser(request: RegisterRegUserRequest): Observable<RegUserDto> {
     return this.post<RegUserDto>('/regusers/register', request);
   }
 

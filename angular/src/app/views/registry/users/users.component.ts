@@ -39,17 +39,6 @@ export class UsersComponent implements OnInit {
   addUsers() {
     if (this.users.length === 0) {
       console.log('nema korisnika');
-      // this.regUserService.registerRegUser({
-      //   name: 'Yettel',
-      //   address: 'Yettel Srbija',
-      //   firstName: 'YUserName',
-      //   lastName: 'YUserLastname',
-      //   password: 'test123',
-      //   regNumber: '123456',
-      //   roles: [RoleType.Obveznik],
-      //   taxNumber: '123456789',
-      //   userName: 'yettel',
-      // });
     }
   }
 }

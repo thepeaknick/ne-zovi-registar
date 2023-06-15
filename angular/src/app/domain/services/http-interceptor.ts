@@ -59,6 +59,7 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
       url: newUrl,
     });
 
+    console.log('123');
     //finally, perform the actual invoking of the http request
     return next.handle(modifiedRequest).pipe(
       tap({ next: (event: HttpEvent<any>) => this.processOkResult(event) }),
@@ -67,6 +68,7 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
       }),
       finalize(() => {
         const elapsed = Date.now() - started;
+        console.log('123');
       })
     );
   }
@@ -74,6 +76,7 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
   private processOkResult(event: HttpEvent<any>): HttpEvent<any> {
     if (event instanceof HttpResponse) {
       if (event.status == 200) {
+        console.log('1234');
       }
     }
 
