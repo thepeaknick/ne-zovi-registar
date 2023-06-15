@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaginationComponent } from '@coreui/angular';
 import { RegUserDto, RoleType } from 'src/app/domain/model/schemas';
+import { AuthenticationService } from 'src/app/domain/services/authentication.service';
 import { RegUserService } from 'src/app/domain/services/reguser.service';
 
 @Component({
@@ -13,10 +14,14 @@ import { RegUserService } from 'src/app/domain/services/reguser.service';
 export class RegUsersComponent implements OnInit {
   constructor(
     private regUserService: RegUserService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authenticationService: AuthenticationService
   ) {}
 
   @Input() public regUsers: RegUserDto[] = [];
+
+  public isAddReguserModalVisible = false;
+  public isSuccessfulyRegisteredUserModalVisible = false;
 
   showInTableUsers: RegUserDto[] = [];
 
@@ -43,7 +48,6 @@ export class RegUsersComponent implements OnInit {
       next: (regUsers: RegUserDto[]) =>
         (this.regUsers = regUsers instanceof HttpErrorResponse ? [] : regUsers),
       complete: () => {
-        console.log(' this.regUsers.length ', this.regUsers.length);
         this.totalPagesNumber =
           Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
         this.setPage(1);
@@ -56,51 +60,75 @@ export class RegUsersComponent implements OnInit {
   }
 
   addRegTestUser() {
-    this.regUserService.registerRegUser({
-      name: 'jetel',
-      address: 'mala4',
-      regNumber: '50505050',
-      taxNumber: '505050505',
-      firstName: 'milenko',
-      lastName: 'milenkovic',
-      userName: 'mmmilenkovic',
-      password: 'test123',
-      email: 'jetel@jetel.com',
-      roles: [RoleType.Obveznik],
-    });
-
-    // this.regUserService.registerRegUser({
-    //   name: this.fields['regUserName'].value,
-    //   address: this.fields['regUserAddress'].value,
-    //   regNumber: this.fields['regUserMB'].value,
-    //   taxNumber: this.fields['regUserPIB'].value,
-    //   firstName: this.fields['regUserFirstName'].value,
-    //   lastName: this.fields['regUserLastName'].value,
-    //   userName: this.fields['regUserUsername'].value,
-    //   password: this.fields['regUserPassword'].value,
-    //   email: this.fields['regUserEmail'].value,
-    //   roles: [RoleType.Obveznik],
-    // });
+    this.regUserService
+      .registerRegUser({
+        name: 'jetel',
+        address: 'mala4',
+        regNumber: '50505050',
+        taxNumber: '505050505',
+        firstName: 'milenko',
+        lastName: 'milenkovic',
+        userName: 'mmmilenkovic',
+        password: 'test123',
+        email: 'jetel@jetel.com',
+        roles: [RoleType.Obveznik],
+      })
+      .subscribe({
+        next: () => {
+          console.log('XBV');
+        },
+        complete: () => {
+          console.log('lkj');
+        },
+      });
   }
 
   get fields() {
     return this.regUserForm.controls;
   }
 
+  resetFields() {
+    this.regUserForm.reset();
+    // this.newPassword = '';
+    this.toggleConfirmationModal();
+  }
+
+  toggleConfirmationModal() {
+    this.isSuccessfulyRegisteredUserModalVisible =
+      !this.isSuccessfulyRegisteredUserModalVisible;
+  }
+
+  toggleAddRegUsernModal() {
+    this.isAddReguserModalVisible = !this.isAddReguserModalVisible;
+  }
+
   addRegUsers() {
-    // if (this.regUsers.length === 0) {
-    //   this.regUserService.registerRegUser({
-    //     name: 'Yettel',
-    //     address: 'Yettel Srbija',
-    //     firstName: 'YUserName',
-    //     lastName: 'YUserLastname',
-    //     password: 'test123',
-    //     regNumber: '123456',
-    //     roles: [RoleType.Obveznik],
-    //     taxNumber: '123456789',
-    //     userName: 'yettel',
-    //   });
-    // }
+    this.regUserService
+      .registerRegUser({
+        name: this.fields['regUserName'].value,
+        address: this.fields['regUserAddress'].value,
+        regNumber: this.fields['regUserMB'].value,
+        taxNumber: this.fields['regUserPIB'].value,
+        firstName: this.fields['regUserFirstName'].value,
+        lastName: this.fields['regUserLastName'].value,
+        userName: this.fields['regUserUsername'].value,
+        password: this.fields['regUserPassword'].value,
+        email: this.fields['regUserEmail'].value,
+        roles: [RoleType.Obveznik],
+      })
+      .subscribe({
+        next: () => {
+          console.log('Successfuly registered user');
+          this.toggleAddRegUsernModal();
+          this.toggleConfirmationModal();
+        },
+        error: (error) => {
+          console.log('Unsuccessfuly registered user complete callback', error);
+        },
+        complete: () => {
+          console.log('Successfuly registered user complete callback');
+        },
+      });
   }
 
   setPage(page: number) {

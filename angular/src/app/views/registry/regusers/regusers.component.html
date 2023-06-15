@@ -4,10 +4,10 @@
       <c-col xs="6" class="leftTableHeader">
         <button
           cButton
-          [cModalToggle]="addNewReguserModal.id"
           type="button"
           class="tableAddNewButton"
           shape="rounded-pill"
+          (click)="toggleAddRegUsernModal()"
         >
           + Dodaj novog obveznika
         </button>
@@ -26,10 +26,34 @@
           <ng-template #popoverHtml>
             <div class="popover-body">
               <c-row>
-                <button cButton class="itemPerPageButton" color="white" shape="rounded-pill" (click)="setItemPerPage(10)" >10</button> 
-                <button cButton class="itemPerPageButton" color="white" shape="rounded-pill" (click)="setItemPerPage(20)" >20</button>  
-                <button cButton class="itemPerPageButton" color="white" shape="rounded-pill" (click)="setItemPerPage(30)" >30</button> 
-              </c-row>  
+                <button
+                  cButton
+                  class="itemPerPageButton"
+                  color="white"
+                  shape="rounded-pill"
+                  (click)="setItemPerPage(10)"
+                >
+                  10
+                </button>
+                <button
+                  cButton
+                  class="itemPerPageButton"
+                  color="white"
+                  shape="rounded-pill"
+                  (click)="setItemPerPage(20)"
+                >
+                  20
+                </button>
+                <button
+                  cButton
+                  class="itemPerPageButton"
+                  color="white"
+                  shape="rounded-pill"
+                  (click)="setItemPerPage(30)"
+                >
+                  30
+                </button>
+              </c-row>
             </div>
           </ng-template>
         </button>
@@ -60,12 +84,22 @@
         </tbody>
       </table>
     </div>
-    <c-pagination class="custom" >
+    <c-pagination class="custom">
       <li cPageItem [disabled]="currentPage === 1">
-        <span cPageLink [routerLink] (click)="setPage(currentPage - 1)">Previous</span>
+        <span cPageLink [routerLink] (click)="setPage(currentPage - 1)"
+          >Previous</span
+        >
       </li>
-      <li *ngFor="let pages of [].constructor(totalPagesNumber); let pageIndex = index" [ngClass]="{ 'active': (currentPage - 1) === pageIndex }">
-        <a cPageLink [routerLink] (click)="setPage(pageIndex + 1)">{{ pageIndex + 1 }}</a>
+      <li
+        *ngFor="
+          let pages of [].constructor(totalPagesNumber);
+          let pageIndex = index
+        "
+        [ngClass]="{ active: currentPage - 1 === pageIndex }"
+      >
+        <a cPageLink [routerLink] (click)="setPage(pageIndex + 1)">{{
+          pageIndex + 1
+        }}</a>
       </li>
       <li cPageItem [disabled]="currentPage === totalPagesNumber">
         <a cPageLink [routerLink] (click)="setPage(currentPage + 1)">Next</a>
@@ -78,10 +112,11 @@
     alignment="center"
     id="addNewReguserModal"
     size="lg"
+    [visible]="isAddReguserModalVisible"
   >
     <c-modal-header>
       <p class="modalHeader">Dodaj novog obveznika</p>
-      <button [cModalToggle]="addNewReguserModal.id" cButtonClose></button>
+      <button (click)="toggleAddRegUsernModal()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
       <p class="modalTitleText">Podaci o obvezniku</p>
@@ -211,14 +246,45 @@
             (click)="addRegUsers()"
           />
           <input
-            [cModalToggle]="addNewReguserModal.id"
             cButtonClose
             class="cancelButton"
             type="submit"
             value="Cancel"
+            (click)="toggleAddRegUsernModal()"
           />
         </div>
       </form>
     </c-modal-body>
+  </c-modal>
+
+  <c-modal
+    #confirmNewReguserModal
+    alignment="center"
+    id="confirmNewReguserModal"
+    [visible]="isSuccessfulyRegisteredUserModalVisible"
+  >
+    <c-modal-header>
+      <button (click)="resetFields()" cButtonClose></button>
+    </c-modal-header>
+
+    <c-modal-body>
+      <img src="/assets/images/exclamationmark.png" class="modalImage" />
+      <p cModalTitle class="modalTitle">
+        Uspešno ste registrovali novog obveznika
+      </p>
+      <p class="modalSubtitle">
+        Lorem ipsum lorem ipsum lorem ipsum lorem<br />
+        ipsum lorem ipsum
+      </p>
+    </c-modal-body>
+    <c-modal-footer>
+      <input
+        cButton
+        class="modalSubmitButton"
+        type="submit"
+        value="DONE"
+        (click)="resetFields()"
+      />
+    </c-modal-footer>
   </c-modal>
 </div>

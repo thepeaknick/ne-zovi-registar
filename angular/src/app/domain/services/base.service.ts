@@ -33,14 +33,11 @@ export class BaseService {
   ): any {
     this.startCall();
 
-    console.log(body);
     let response: Observable<string> = this.http.request(verb, url, {
       body: body,
       responseType: responseType,
       withCredentials: withCredentials,
     });
-
-    console.log(body);
 
     this.finishCall();
 
