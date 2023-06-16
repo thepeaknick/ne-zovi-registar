@@ -55,9 +55,11 @@ export class RegUsersComponent implements OnInit {
         (this.regUsers = regUsers instanceof HttpErrorResponse ? [] : regUsers),
       complete: () => {
         this.totalPagesNumber =
-          Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
+          this.regUsers.length % this.itemsPerPage === 0
+            ? Math.trunc(this.regUsers.length / this.itemsPerPage)
+            : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
         this.setPage(1);
-        // {}
+        // this.addRegUsers()
       },
     });
     this.currentPage = 1;
@@ -153,7 +155,9 @@ export class RegUsersComponent implements OnInit {
     this.itemsPerPage = num;
     this.setPage(this.currentPage);
     this.totalPagesNumber =
-      Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
+      this.regUsers.length % this.itemsPerPage === 0
+        ? Math.trunc(this.regUsers.length / this.itemsPerPage)
+        : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
   }
 
   showEditUserDataModal(guidId: string) {

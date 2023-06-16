@@ -25,7 +25,13 @@
           >
             Prikaz po strani &#8659;
             <ng-template #popoverHtml>
-              <div class="popover-body">10<br />20<br />30<br />40<br />50</div>
+              <div class="popover-body">
+                <c-row>
+                  <button cButton class="itemPerPageButton" color="white" shape="rounded-pill" (click)="setItemPerPage(10)" >10</button> 
+                  <button cButton class="itemPerPageButton" color="white" shape="rounded-pill" (click)="setItemPerPage(20)" >20</button>  
+                  <button cButton class="itemPerPageButton" color="white" shape="rounded-pill" (click)="setItemPerPage(30)" >30</button> 
+                </c-row>  
+              </div>
             </ng-template>
           </button>
           <button
@@ -51,7 +57,7 @@
           </tr>
         </thead>
         <tbody class="tableContent">
-          <tr *ngFor="let item of regUsers">
+          <tr *ngFor="let item of showInTableUsers">
             <td>{{ item.name }}</td>
             <td>{{ item.taxNumber }}</td>
             <td>{{ item.regNumber }}</td>
