@@ -1,7 +1,7 @@
 <div class="backgroundImage">
   <div class="regusersTable">
     <c-row>
-      <c-col xs="6" class="leftTableHeader">
+      <c-col xs="4" class="leftTableHeader">
         <button
           cButton
           type="button"
@@ -12,7 +12,7 @@
           + Dodaj novog obveznika
         </button>
       </c-col>
-      <c-col xs="6" class="rightTableHeader">
+      <c-col xs="8" class="rightTableHeader">
         <button
           [cPopover]="popoverHtml"
           cPopoverPlacement="bottom"
@@ -60,6 +60,28 @@
         <button cButton class="tableButton" color="white" shape="rounded-pill">
           Export data
         </button>
+        <button
+            [cPopover]="popoverHtml1"
+            cPopoverPlacement="bottom"
+            [cPopoverTrigger]="'click'"
+            cButton
+            class="tableButton"
+            color="white"
+            shape="rounded-pill"
+          >
+            Sort
+            <ng-template #popoverHtml1>
+              <div class="popover-body">
+                <c-row class="popover-row">
+                  <c-col>
+                    <button cButton class="sortItemButton" color="white" shape="rounded-pill" (click)="sortByName()" >By Name</button> 
+                    <button cButton class="sortItemButton" color="white" shape="rounded-pill" (click)="sortByCreatedOnASC()" >By Created On ASC</button>  
+                    <button cButton class="sortItemButton" color="white" shape="rounded-pill" (click)="sortByCreatedOnDESC()" >By Created On DESC</button> 
+                  </c-col>
+                </c-row>  
+              </div>
+            </ng-template>
+          </button>
       </c-col>
     </c-row>
     <div class="tableData">

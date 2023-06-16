@@ -62,4 +62,18 @@ export class UsersComponent implements OnInit {
     this.setPage(this.currentPage)
     this.totalPagesNumber = (this.users.length % this.itemsPerPage === 0) ? Math.trunc(this.users.length / this.itemsPerPage) : Math.trunc(this.users.length / this.itemsPerPage) + 1;
   }
+
+  sortByCreatedModifiedOnASC() {
+    var array = this.users;
+    array.sort((a,b) => a.createdModifiedOn.localeCompare(b.createdModifiedOn));
+    this.showInTableUsers = array.slice( (this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage)
+  }
+
+  sortByCreatedModifiedOnDESC() {
+    var array = this.users;
+    array.sort((a,b) => b.createdModifiedOn.localeCompare(a.createdModifiedOn));
+    this.showInTableUsers = array.slice( (this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage)
+  }
+
+  
 }

@@ -140,4 +140,22 @@ export class RegUsersComponent implements OnInit {
     this.totalPagesNumber = (this.regUsers.length % this.itemsPerPage === 0) ? Math.trunc(this.regUsers.length / this.itemsPerPage) : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
   }
 
+  sortByName() {
+    var array = this.regUsers;
+    array.sort((a,b) => a.name.localeCompare(b.name));
+    this.showInTableUsers = array.slice( (this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage)
+  }
+
+  sortByCreatedOnASC() {
+    var array = this.regUsers;
+    array.sort((a,b) => a.createdOn.localeCompare(b.createdOn));
+    this.showInTableUsers = array.slice( (this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage)
+  }
+
+  sortByCreatedOnDESC() {
+    var array = this.regUsers;
+    array.sort((a,b) => b.createdOn.localeCompare(a.createdOn));
+    this.showInTableUsers = array.slice( (this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage)
+  }
+
 }

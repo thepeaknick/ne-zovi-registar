@@ -165,3 +165,22 @@ c-modal-body {
 .custom-paginator .page-link, .page-link {
   --cui-pagination-color: #224c8d;
 }
+
+.sortItemButton {
+  width: 140px;
+  height: 30px;
+  margin-right: 2px;
+  border-color: #95a7c4;
+  border-width: 1px;
+
+  font-size: x-small;
+  font-weight: 700;
+  color: #133f85;
+  
+  margin-top: 2%
+}
+
+.popover-row {
+  text-align: center;
+  width: 165px;
+}

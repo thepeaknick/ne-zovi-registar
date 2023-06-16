@@ -130,11 +130,6 @@ c-modal-body {
   text-align: center;
 }
 
-.popover-body {
-  width: 135px;
-  margin: 5px;
-}
-
 .itemPerPageButton {
   width: 40px;
   height: 30px;
@@ -195,4 +190,23 @@ c-modal-footer {
   background: #224c8d;
   border-radius: 5px;
   align-items: center;
+}
+
+.sortItemButton {
+  width: 140px;
+  height: 30px;
+  margin-right: 2px;
+  border-color: #95a7c4;
+  border-width: 1px;
+
+  font-size: x-small;
+  font-weight: 700;
+  color: #133f85;
+  
+  margin-top: 2%
+}
+
+.popover-row {
+  text-align: center;
+  width: 165px;
 }
