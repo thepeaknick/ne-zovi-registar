@@ -66,6 +66,8 @@ export class RegUsersComponent implements OnInit {
     // 2023-06-11T12:58:03.3910839
   }
 
+  // Data handling
+
   get fields() {
     return this.regUserForm.controls;
   }
@@ -75,25 +77,7 @@ export class RegUsersComponent implements OnInit {
     this.toggleConfirmationModal();
   }
 
-  toggleConfirmationModal() {
-    this.isSuccessfulyRegisteredUserModalVisible =
-      !this.isSuccessfulyRegisteredUserModalVisible;
-  }
-
-  toggleAddRegUsernModal() {
-    this.isAddReguserModalVisible = !this.isAddReguserModalVisible;
-  }
-
-  showAddUserModal() {
-    this.modalAddEditUserTitle = 'Dodaj novog obveznika';
-    this.modalAddEditUserConfirmButton = 'Dodaj obveznika';
-    this.isEditing = false;
-    this.regUserForm.reset();
-    this.toggleAddRegUsernModal();
-  }
-
   modifyRegUser() {
-    console.log('MODIFY REG USER');
     this.regUserService
       .modifyRegUserByGuid(this.editingUserGuidId, {
         name: this.fields['regUserName'].value,
@@ -142,39 +126,23 @@ export class RegUsersComponent implements OnInit {
       });
   }
 
-  setPage(page: number) {
-    this.currentPage = page;
-    this.showInTableUsers = this.regUsers.slice(
-      (page - 1) * this.itemsPerPage,
-      page * this.itemsPerPage
-    );
+  // Modal handling
+
+  toggleConfirmationModal() {
+    this.isSuccessfulyRegisteredUserModalVisible =
+      !this.isSuccessfulyRegisteredUserModalVisible;
   }
 
-  setItemPerPage(num: number) {
-    this.itemsPerPage = num;
-    this.setPage(this.currentPage);
-    this.totalPagesNumber =
-      this.regUsers.length % this.itemsPerPage === 0
-        ? Math.trunc(this.regUsers.length / this.itemsPerPage)
-        : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
+  toggleAddRegUsernModal() {
+    this.isAddReguserModalVisible = !this.isAddReguserModalVisible;
   }
 
-  sortByName() {
-    var array = this.regUsers;
-    array.sort((a,b) => a.name.localeCompare(b.name));
-    this.showInTableUsers = array.slice( (this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage)
-  }
-
-  sortByCreatedOnASC() {
-    var array = this.regUsers;
-    array.sort((a,b) => a.createdOn.localeCompare(b.createdOn));
-    this.showInTableUsers = array.slice( (this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage)
-  }
-
-  sortByCreatedOnDESC() {
-    var array = this.regUsers;
-    array.sort((a,b) => b.createdOn.localeCompare(a.createdOn));
-    this.showInTableUsers = array.slice( (this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage)
+  showAddUserModal() {
+    this.modalAddEditUserTitle = 'Dodaj novog obveznika';
+    this.modalAddEditUserConfirmButton = 'Dodaj obveznika';
+    this.isEditing = false;
+    this.regUserForm.reset();
+    this.toggleAddRegUsernModal();
   }
 
   showEditUserDataModal(guidId: string) {
@@ -203,4 +171,51 @@ export class RegUsersComponent implements OnInit {
     this.toggleAddRegUsernModal();
   }
 
+  // Pagination
+
+  setPage(page: number) {
+    this.currentPage = page;
+    this.showInTableUsers = this.regUsers.slice(
+      (page - 1) * this.itemsPerPage,
+      page * this.itemsPerPage
+    );
+  }
+
+  setItemPerPage(num: number) {
+    this.itemsPerPage = num;
+    this.setPage(this.currentPage);
+    this.totalPagesNumber =
+      this.regUsers.length % this.itemsPerPage === 0
+        ? Math.trunc(this.regUsers.length / this.itemsPerPage)
+        : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
+  }
+
+  // Sort
+
+  sortByName() {
+    var array = this.regUsers;
+    array.sort((a, b) => a.name.localeCompare(b.name));
+    this.showInTableUsers = array.slice(
+      (this.currentPage - 1) * this.itemsPerPage,
+      this.currentPage * this.itemsPerPage
+    );
+  }
+
+  sortByCreatedOnASC() {
+    var array = this.regUsers;
+    array.sort((a, b) => a.createdOn.localeCompare(b.createdOn));
+    this.showInTableUsers = array.slice(
+      (this.currentPage - 1) * this.itemsPerPage,
+      this.currentPage * this.itemsPerPage
+    );
+  }
+
+  sortByCreatedOnDESC() {
+    var array = this.regUsers;
+    array.sort((a, b) => b.createdOn.localeCompare(a.createdOn));
+    this.showInTableUsers = array.slice(
+      (this.currentPage - 1) * this.itemsPerPage,
+      this.currentPage * this.itemsPerPage
+    );
+  }
 }
