@@ -41,6 +41,7 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginR
 
         regUser.WithRefreshToken(loginResult.RefreshToken.TokenString)
             .WithRefreshTokenExpTime(loginResult.RefreshToken.ExpireAt);
+        
         _regUserDataStore.Update(regUser);
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);

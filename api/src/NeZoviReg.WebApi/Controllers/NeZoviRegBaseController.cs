@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using MediatR;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Enums;
@@ -8,6 +9,7 @@ using static NeZoviReg.WebApi.Extensions.WebApi.WebApiExtensions;
 
 namespace NeZoviReg.WebApi.Controllers;
 
+[EnableCors("any")]
 [ApiController]
 [ApiVersion("1.0")]
 [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]

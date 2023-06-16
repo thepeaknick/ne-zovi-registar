@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Cors;
 namespace NeZoviReg.WebApi.Controllers;
 
 [Route("account")]
-[EnableCors("any")]
 public class AccountController : NeZoviRegBaseController
 {
     public AccountController(ISender sender)

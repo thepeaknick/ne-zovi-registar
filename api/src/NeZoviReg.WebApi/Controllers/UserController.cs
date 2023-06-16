@@ -13,7 +13,6 @@ using NeZoviReg.WebApi.Model.User;
 namespace NeZoviReg.WebApi.Controllers;
 
 [Route("users")]
-[EnableCors("any")]
 public class UserController : NeZoviRegBaseController
 {
     public UserController(ISender sender)

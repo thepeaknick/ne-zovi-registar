@@ -9,8 +9,7 @@ using Microsoft.AspNetCore.Cors;
 
 namespace NeZoviReg.WebApi.Controllers;
 
-//[Route("token")]
-[EnableCors("any")]
+[Route("tokens")]
 public class TokenController : NeZoviRegBaseController
 {
     public TokenController(ISender sender)

@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Cors;
 namespace NeZoviReg.WebApi.Controllers;
 
 [Route("regusers")]
-[EnableCors("any")]
 public class RegUserController : NeZoviRegBaseController
 {
     public RegUserController(ISender sender)
