@@ -38,7 +38,7 @@ internal sealed class ChangeRegUserPassCommandHandler : ICommandHandler<ChangePa
         }
         
         regUser.WithoutRefreshToken()
-            .WithPassword(command.NewPassword);
+               .WithPassword(command.NewPassword);
 
         _regUserDataStore.Update(regUser);
 

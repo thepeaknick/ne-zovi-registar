@@ -131,7 +131,7 @@ public class RegUserController : NeZoviRegBaseController
     /// <returns></returns>
     [HttpGet("roles/{role:int}")]
     [ProducesResponseType(typeof(List<RegUserDto>), (int) HttpStatusCode.OK)]
-    [HasPermission(PermissionType.RegUsersOnly)]
+    [HasPermission(PermissionType.Write)]
     public async Task<IActionResult> GetRegUsers(int role, CancellationToken cancellationToken)
     {
         var command = new RegUsersQuery((RoleType) role);
