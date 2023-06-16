@@ -83,7 +83,7 @@
             <param name="TaxNumber">PIB</param>
             <param name="Role">Rola korisnika registra</param>
         </member>
-        <member name="M:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDetailsDto.#ctor(System.Guid,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDetailsDto.#ctor(System.Guid,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             Detalji korisnika registra
             </summary>

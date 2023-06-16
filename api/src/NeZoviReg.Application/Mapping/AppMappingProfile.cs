@@ -23,6 +23,6 @@ public class AppMappingProfile : Profile
 
         CreateMap<RegUser, RegUserDetailsDto>()
             .ConstructUsing(s => new RegUserDetailsDto(s.GuidId, s.FirstName, s.LastName, s.Email, s.CompanyName, s.Address,
-                s.RegNumber, s.TaxNumber, s.RegUserRoles.First().RoleId));
+                s.RegNumber, s.TaxNumber, s.Username, s.RegUserRoles.First().RoleId));
     }
 }
