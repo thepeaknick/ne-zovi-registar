@@ -12,6 +12,9 @@ public class AppMappingProfile : Profile
     {
         CreateMap<User, UserDto>()
             .ConstructUsing(s => new UserDto(s.PhoneNumber, s.ModifiedOn ?? s.CreatedOn));
+        
+        CreateMap<User, UserDetailsDto>()
+            .ConstructUsing(s => new UserDetailsDto(s.PhoneNumber, s.FirstName,s.LastName, s.Jmbg, s.OperatorId));
 
         CreateMap<BulkUser, User>();
 

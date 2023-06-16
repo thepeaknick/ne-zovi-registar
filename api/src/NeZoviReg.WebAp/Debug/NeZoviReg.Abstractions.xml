@@ -159,6 +159,26 @@
         <member name="P:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDto.Id">
             <summary>Identifikator</summary>
         </member>
+        <member name="T:NeZoviReg.Abstractions.Messaging.Domain.Model.User.UserDetailsDto">
+            <summary>
+            Detalji vlasnika registrovanog broj telefona.
+            <param name="PhoneNumber">Broj telefona</param>
+            <param name="Firstname">Ime vlasnika</param>
+            <param name="LastName">Prezime vlasnika</param>
+            <param name="Jmbg">JMBG vlasnika</param>
+            <param name="OperatorId">Id obveznika</param>
+            </summary>
+        </member>
+        <member name="M:NeZoviReg.Abstractions.Messaging.Domain.Model.User.UserDetailsDto.#ctor(System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Detalji vlasnika registrovanog broj telefona.
+            <param name="PhoneNumber">Broj telefona</param>
+            <param name="Firstname">Ime vlasnika</param>
+            <param name="LastName">Prezime vlasnika</param>
+            <param name="Jmbg">JMBG vlasnika</param>
+            <param name="OperatorId">Id obveznika</param>
+            </summary>
+        </member>
         <member name="T:NeZoviReg.Abstractions.Messaging.Domain.Model.User.UserDto">
             <summary>
             Registrovan broj telefona.

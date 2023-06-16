@@ -41,7 +41,12 @@
     <None Remove="Templates\reset_password.html" />
     <Content Include="Templates\reset_password.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>   
+    </Content>
+    <None Include="Web.config">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>   
   </ItemGroup>
 
 </Project>
