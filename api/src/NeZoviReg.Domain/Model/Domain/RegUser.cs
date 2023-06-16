@@ -210,17 +210,13 @@ public class RegUser : Entity
 
     public RegUser WithRole(int? roleId)
     {
-        if (roleId == default) 
+        if (roleId == default || _regUserRoles.Any(x => x.RoleId == roleId))
             return this;
-        
-        foreach (var regUserRole in RegUserRoles
-                     .Where(r => r.RoleId != roleId)
-                     .ToList())
+
+        foreach (var regUserRole in RegUserRoles)
         {
             regUserRole.PrepareForDelete();
         }
-
-
         _regUserRoles.Add(RegUserRole.Create(Id, roleId.Value));
 
         return this;

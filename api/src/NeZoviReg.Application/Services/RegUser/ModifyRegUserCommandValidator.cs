@@ -104,6 +104,15 @@ public class ModifyRegUserCommandValidator : AbstractValidator<ModifyRegUserComm
         {
             RuleFor(x => x.UserName!)
                 .MaximumLength<ModifyRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.UsernameMaxLength, UserName.TooLong.Message);
+            
+            RuleFor(x => x.UserName).CustomAsync(async (userName, ctx, cancellationToken) =>
+            {
+                if (await regUserDataStore.IsUsernameExistsAsync(userName!, ctx.InstanceToValidate.RegUserId,
+                        cancellationToken))
+                {
+                    ctx.AddFailure(UserName.AlreadyInUse(userName!).Message);
+                }
+            });
         });
     }
 }
