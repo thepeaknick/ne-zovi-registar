@@ -23,11 +23,14 @@ export class MerchantsComponent {
     this.regUserService.getRegUsers(RoleType.Trgovac).subscribe({
       next: (regUsers: RegUserDto[]) =>
         (this.regUsers = regUsers instanceof HttpErrorResponse ? [] : regUsers),
-      complete: () => { 
+      complete: () => {
         this.addRegUsers();
-        this.totalPagesNumber = (this.regUsers.length % this.itemsPerPage === 0) ? Math.trunc(this.regUsers.length / this.itemsPerPage) : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
+        this.totalPagesNumber =
+          this.regUsers.length % this.itemsPerPage === 0
+            ? Math.trunc(this.regUsers.length / this.itemsPerPage)
+            : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
         this.setPage(1);
-      }
+      },
     });
     // 2023-06-11T12:58:03.3910839
   }
@@ -41,7 +44,7 @@ export class MerchantsComponent {
         lastName: 'YUserLastname',
         password: 'test123',
         regNumber: '123456',
-        roles: [RoleType.Obveznik],
+        role: RoleType.Obveznik,
         taxNumber: '123456789',
         email: 'asd@asd.com',
         userName: 'yettel',
@@ -51,13 +54,19 @@ export class MerchantsComponent {
 
   setPage(page: number) {
     this.currentPage = page;
-    this.showInTableUsers = this.regUsers.slice( (page - 1) * this.itemsPerPage, page * this.itemsPerPage)
+    this.showInTableUsers = this.regUsers.slice(
+      (page - 1) * this.itemsPerPage,
+      page * this.itemsPerPage
+    );
   }
 
   setItemPerPage(num: number) {
     this.itemsPerPage = num;
-    this.setPage(this.currentPage)
-    this.totalPagesNumber = (this.regUsers.length % this.itemsPerPage === 0) ? Math.trunc(this.regUsers.length / this.itemsPerPage) : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
+    this.setPage(this.currentPage);
+    this.totalPagesNumber =
+      this.regUsers.length % this.itemsPerPage === 0
+        ? Math.trunc(this.regUsers.length / this.itemsPerPage)
+        : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
   }
 
   sortByName() {

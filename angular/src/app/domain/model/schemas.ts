@@ -45,12 +45,13 @@ export enum RoleType {
 export interface ModifyRegUserRequest {
   name: string;
   address: string;
+  email: string;
   regNumber: string;
   taxNumber: string;
   firstName: string;
   lastName: string;
-  userName: string;
-  roles: RoleType[];
+  // userName: string;
+  role: RoleType;
 }
 
 export interface ModifyUserRequest {
@@ -90,6 +91,7 @@ export interface RegUserDetailsDto {
   firstName: string;
   lastName: string;
   companyName: string;
+  email: string;
   address: string;
   regNumber: string;
   taxNumber: string;
@@ -106,7 +108,7 @@ export interface RegisterRegUserRequest {
   userName: string;
   password: string;
   email: string;
-  roles: RoleType[];
+  role: RoleType;
 }
 
 export interface TokenResult {

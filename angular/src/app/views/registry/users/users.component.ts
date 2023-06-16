@@ -31,18 +31,19 @@ export class UsersComponent implements OnInit {
     after.setMonth(3);
 
     this.userService.allUsers(after).subscribe((users) => {
-      console.log('SAD');
-      console.log(users);
       this.users = users instanceof HttpErrorResponse ? [] : users;
     });
     this.userService.allUsers(after).subscribe({
       next: (users: UserDto[]) =>
         (this.users = users instanceof HttpErrorResponse ? [] : users),
-      complete: () => { 
+      complete: () => {
         this.addUsers();
-        this.totalPagesNumber = (this.users.length % this.itemsPerPage === 0) ? Math.trunc(this.users.length / this.itemsPerPage) : Math.trunc(this.users.length / this.itemsPerPage) + 1;
+        this.totalPagesNumber =
+          this.users.length % this.itemsPerPage === 0
+            ? Math.trunc(this.users.length / this.itemsPerPage)
+            : Math.trunc(this.users.length / this.itemsPerPage) + 1;
         this.setPage(1);
-      }
+      },
     });
   }
 
@@ -54,13 +55,19 @@ export class UsersComponent implements OnInit {
 
   setPage(page: number) {
     this.currentPage = page;
-    this.showInTableUsers = this.users.slice( (page - 1) * this.itemsPerPage, page * this.itemsPerPage)
+    this.showInTableUsers = this.users.slice(
+      (page - 1) * this.itemsPerPage,
+      page * this.itemsPerPage
+    );
   }
 
   setItemPerPage(num: number) {
     this.itemsPerPage = num;
-    this.setPage(this.currentPage)
-    this.totalPagesNumber = (this.users.length % this.itemsPerPage === 0) ? Math.trunc(this.users.length / this.itemsPerPage) : Math.trunc(this.users.length / this.itemsPerPage) + 1;
+    this.setPage(this.currentPage);
+    this.totalPagesNumber =
+      this.users.length % this.itemsPerPage === 0
+        ? Math.trunc(this.users.length / this.itemsPerPage)
+        : Math.trunc(this.users.length / this.itemsPerPage) + 1;
   }
 
   sortByCreatedModifiedOnASC() {

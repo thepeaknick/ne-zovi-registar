@@ -1,14 +1,8 @@
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpParams,
-  HttpResponse,
-} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 
-import { map, catchError, retry } from 'rxjs/operators';
 import { AddUserRequest, ModifyUserRequest, UserDto } from '../model/schemas';
 import { BaseService } from './base.service';
 
@@ -39,7 +33,6 @@ export class UserService extends BaseService {
     return this.getTextResponse<string>('/users/' + phoneNumber);
   }
 
-  // TODO: get/post?
   allUsers(after: Date): Observable<UserDto[]> {
     return this.get<UserDto[]>('/users/all?after=' + after);
   }
