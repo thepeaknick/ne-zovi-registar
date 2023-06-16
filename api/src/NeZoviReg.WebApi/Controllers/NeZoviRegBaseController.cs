@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using MediatR;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Enums;
@@ -15,7 +14,6 @@ namespace NeZoviReg.WebApi.Controllers;
 [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.TooManyRequests)]
 [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.InternalServerError)]
 [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
-[EnableCors("any")]
 public class NeZoviRegBaseController : ControllerBase
 {
     protected readonly ISender Sender;

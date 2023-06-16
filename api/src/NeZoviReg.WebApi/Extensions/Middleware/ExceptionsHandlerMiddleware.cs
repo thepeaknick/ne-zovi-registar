@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Auth.Exceptions;
-using NeZoviReg.WebApi.Extensions.WebApi;
 using Serilog;
 using static NeZoviReg.WebApi.Extensions.WebApi.WebApiExtensions;
 namespace NeZoviReg.WebApi.Extensions.Middleware;

@@ -8,10 +8,12 @@ using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using NeZoviReg.Auth.Authorization;
 using NeZoviReg.WebApi.Model.RegUser;
+using Microsoft.AspNetCore.Cors;
 
 namespace NeZoviReg.WebApi.Controllers;
 
 [Route("account")]
+[EnableCors("any")]
 public class AccountController : NeZoviRegBaseController
 {
     public AccountController(ISender sender)

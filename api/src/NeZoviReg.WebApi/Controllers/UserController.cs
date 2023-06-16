@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
@@ -12,6 +13,7 @@ using NeZoviReg.WebApi.Model.User;
 namespace NeZoviReg.WebApi.Controllers;
 
 [Route("users")]
+[EnableCors("any")]
 public class UserController : NeZoviRegBaseController
 {
     public UserController(ISender sender)

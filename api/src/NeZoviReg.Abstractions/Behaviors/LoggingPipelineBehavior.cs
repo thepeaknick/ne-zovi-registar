@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.Extensions.Logging;
 using NeZoviReg.Abstractions.Shared;
 using Serilog;
 

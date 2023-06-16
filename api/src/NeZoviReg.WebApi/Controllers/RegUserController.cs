@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using NeZoviReg.Abstractions.Extensions;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using NeZoviReg.Auth.Authorization;
@@ -8,11 +7,12 @@ using NeZoviReg.WebApi.Model.RegUser;
 using System.Net;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 using NeZoviReg.Abstractions.Messaging.Domain.Queries.RegUser;
-using Serilog;
+using Microsoft.AspNetCore.Cors;
 
 namespace NeZoviReg.WebApi.Controllers;
 
 [Route("regusers")]
+[EnableCors("any")]
 public class RegUserController : NeZoviRegBaseController
 {
     public RegUserController(ISender sender)

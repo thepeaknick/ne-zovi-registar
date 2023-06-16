@@ -1,5 +1,4 @@
-﻿using System.Text;
-using NeZoviReg.Domain.Extensions;
+﻿using NeZoviReg.Domain.Extensions;
 using NeZoviReg.Domain.Model.Auth;
 
 #pragma warning disable CS8618

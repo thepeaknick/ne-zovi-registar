@@ -5,9 +5,12 @@ using Microsoft.AspNetCore.Authorization;
 using NeZoviReg.Abstractions.Messaging.Auth.Commands;
 using NeZoviReg.Abstractions.Messaging.Auth.Model;
 using NeZoviReg.WebApi.Model.Token;
+using Microsoft.AspNetCore.Cors;
 
 namespace NeZoviReg.WebApi.Controllers;
 
+//[Route("token")]
+[EnableCors("any")]
 public class TokenController : NeZoviRegBaseController
 {
     public TokenController(ISender sender)

@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using Microsoft.Extensions.Logging;
 using NeZoviReg.Abstractions.Email;
 using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Abstractions.Messaging;
