@@ -1,8 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PaginationComponent } from '@coreui/angular';
-import { RegUserDto, RoleType } from 'src/app/domain/model/schemas';
+import {
+  RegUserDetailsDto,
+  RegUserDto,
+  RoleType,
+} from 'src/app/domain/model/schemas';
 import { AuthenticationService } from 'src/app/domain/services/authentication.service';
 import { RegUserService } from 'src/app/domain/services/reguser.service';
 
@@ -14,11 +17,13 @@ import { RegUserService } from 'src/app/domain/services/reguser.service';
 export class RegUsersComponent implements OnInit {
   constructor(
     private regUserService: RegUserService,
-    private formBuilder: FormBuilder,
-    private authenticationService: AuthenticationService
+    private formBuilder: FormBuilder
   ) {}
 
   @Input() public regUsers: RegUserDto[] = [];
+  @Input() public modalAddEditUserTitle: string = 'Dodaj novog obveznika';
+  @Input() public modalAddEditUserConfirmButton: string = 'Dodaj obveznika';
+  @Input() public isEditing: boolean = true;
 
   public isAddReguserModalVisible = false;
   public isSuccessfulyRegisteredUserModalVisible = false;
@@ -29,6 +34,7 @@ export class RegUsersComponent implements OnInit {
   currentPage = 0;
   totalPagesNumber = 0;
 
+  private editingUserGuidId = '';
   regUserForm!: FormGroup;
 
   ngOnInit(): void {
@@ -59,37 +65,12 @@ export class RegUsersComponent implements OnInit {
     // 2023-06-11T12:58:03.3910839
   }
 
-  addRegTestUser() {
-    this.regUserService
-      .registerRegUser({
-        name: 'jetel',
-        address: 'mala4',
-        regNumber: '50505050',
-        taxNumber: '505050505',
-        firstName: 'milenko',
-        lastName: 'milenkovic',
-        userName: 'mmmilenkovic',
-        password: 'test123',
-        email: 'jetel@jetel.com',
-        roles: [RoleType.Obveznik],
-      })
-      .subscribe({
-        next: () => {
-          console.log('XBV');
-        },
-        complete: () => {
-          console.log('lkj');
-        },
-      });
-  }
-
   get fields() {
     return this.regUserForm.controls;
   }
 
   resetFields() {
     this.regUserForm.reset();
-    // this.newPassword = '';
     this.toggleConfirmationModal();
   }
 
@@ -102,7 +83,36 @@ export class RegUsersComponent implements OnInit {
     this.isAddReguserModalVisible = !this.isAddReguserModalVisible;
   }
 
-  addRegUsers() {
+  showAddUserModal() {
+    this.modalAddEditUserTitle = 'Dodaj novog obveznika';
+    this.modalAddEditUserConfirmButton = 'Dodaj obveznika';
+    this.isEditing = false;
+    this.regUserForm.reset();
+    this.toggleAddRegUsernModal();
+  }
+
+  modifyRegUser() {
+    console.log('MODIFY REG USER');
+    this.regUserService
+      .modifyRegUserByGuid(this.editingUserGuidId, {
+        name: this.fields['regUserName'].value,
+        address: this.fields['regUserAddress'].value,
+        email: this.fields['regUserEmail'].value,
+        regNumber: this.fields['regUserMB'].value,
+        taxNumber: this.fields['regUserPIB'].value,
+        firstName: this.fields['regUserFirstName'].value,
+        lastName: this.fields['regUserLastName'].value,
+        role: RoleType.Obveznik,
+      })
+      .subscribe({
+        next: () => {},
+        error: (error) => {
+          console.log('Neuspesno promenjeni podaci o obvezniku');
+        },
+      });
+  }
+
+  addRegUser() {
     this.regUserService
       .registerRegUser({
         name: this.fields['regUserName'].value,
@@ -114,7 +124,7 @@ export class RegUsersComponent implements OnInit {
         userName: this.fields['regUserUsername'].value,
         password: this.fields['regUserPassword'].value,
         email: this.fields['regUserEmail'].value,
-        roles: [RoleType.Obveznik],
+        role: RoleType.Obveznik,
       })
       .subscribe({
         next: () => {
@@ -144,5 +154,32 @@ export class RegUsersComponent implements OnInit {
     this.setPage(this.currentPage);
     this.totalPagesNumber =
       Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
+  }
+
+  showEditUserDataModal(guidId: string) {
+    this.isEditing = true;
+    this.modalAddEditUserTitle = 'Izmeni podatke o obvezniku';
+    this.modalAddEditUserConfirmButton = 'Sačuvaj izmene';
+    this.editingUserGuidId = guidId;
+
+    this.regUserService.getRegUserData(guidId).subscribe({
+      next: (regUser: RegUserDetailsDto) => {
+        console.log(regUser.companyName);
+        // popuni formu na modalu
+        this.regUserForm.patchValue({
+          regUserName: regUser.companyName,
+          regUserAddress: regUser.address,
+          regUserMB: regUser.regNumber,
+          regUserPIB: regUser.taxNumber,
+          regUserFirstName: regUser.firstName,
+          regUserLastName: regUser.lastName,
+          regUserEmail: regUser.email,
+        });
+      },
+      error: (error) => {
+        console.log('Neuspesno dohvaceni podaci o obvezniku');
+      },
+    });
+    this.toggleAddRegUsernModal();
   }
 }

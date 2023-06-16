@@ -14,6 +14,7 @@ import {
   ChangeRegUserPasswordRequest,
   LoginRequest,
   ModifyRegUserRequest,
+  RegUserDetailsDto,
   RegUserDto,
   RegisterRegUserRequest,
   RoleType,
@@ -65,5 +66,9 @@ export class RegUserService extends BaseService {
 
   getRegUsers(role: RoleType): Observable<RegUserDto[]> {
     return this.get<RegUserDto[]>(`/regusers/roles/${role}`);
+  }
+
+  getRegUserData(guidId: string): Observable<RegUserDetailsDto> {
+    return this.get<RegUserDetailsDto>(`/regusers/${guidId}`);
   }
 }

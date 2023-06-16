@@ -37,7 +37,7 @@ export class MerchantsComponent {
         lastName: 'YUserLastname',
         password: 'test123',
         regNumber: '123456',
-        roles: [RoleType.Obveznik],
+        role: RoleType.Obveznik,
         taxNumber: '123456789',
         email: 'asd@asd.com',
         userName: 'yettel',
@@ -47,12 +47,16 @@ export class MerchantsComponent {
 
   setPage(page: number) {
     this.currentPage = page;
-    this.showInTableUsers = this.regUsers.slice( (page - 1) * this.itemsPerPage, page * this.itemsPerPage)
+    this.showInTableUsers = this.regUsers.slice(
+      (page - 1) * this.itemsPerPage,
+      page * this.itemsPerPage
+    );
   }
 
   setItemPerPage(num: number) {
     this.itemsPerPage = num;
-    this.setPage(this.currentPage)
-    this.totalPagesNumber = Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
+    this.setPage(this.currentPage);
+    this.totalPagesNumber =
+      Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
   }
 }

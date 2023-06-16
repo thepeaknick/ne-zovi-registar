@@ -7,7 +7,7 @@
           type="button"
           class="tableAddNewButton"
           shape="rounded-pill"
-          (click)="toggleAddRegUsernModal()"
+          (click)="showAddUserModal()"
         >
           + Dodaj novog obveznika
         </button>
@@ -74,12 +74,22 @@
           </tr>
         </thead>
         <tbody class="tableContent">
-          <tr *ngFor="let item of showInTableUsers">
+          <tr *ngFor="let item of showInTableUsers; let i = index">
             <td>{{ item.name }}</td>
             <td>{{ item.taxNumber }}</td>
             <td>{{ item.regNumber }}</td>
             <td>{{ item.createdOn | date : "dd MMM, YY" }}</td>
-            <td>edit</td>
+            <td>
+              <button
+                cButton
+                class="tableButton"
+                (click)="showEditUserDataModal(item.guidId)"
+                color="white"
+                shape="rounded-pill"
+              >
+                edit
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -113,9 +123,10 @@
     id="addNewReguserModal"
     size="lg"
     [visible]="isAddReguserModalVisible"
+    backdrop="static"
   >
     <c-modal-header>
-      <p class="modalHeader">Dodaj novog obveznika</p>
+      <p class="modalHeader">{{ modalAddEditUserTitle }}</p>
       <button (click)="toggleAddRegUsernModal()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
@@ -242,8 +253,8 @@
             cButton
             class="submitButton"
             type="submit"
-            value="Dodaj obveznika"
-            (click)="addRegUsers()"
+            value="{{ modalAddEditUserConfirmButton }}"
+            (click)="isEditing ? modifyRegUser() : addRegUser()"
           />
           <input
             cButtonClose
@@ -262,6 +273,7 @@
     alignment="center"
     id="confirmNewReguserModal"
     [visible]="isSuccessfulyRegisteredUserModalVisible"
+    backdrop="static"
   >
     <c-modal-header>
       <button (click)="resetFields()" cButtonClose></button>
