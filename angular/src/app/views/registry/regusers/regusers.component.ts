@@ -87,6 +87,7 @@ export class RegUsersComponent implements OnInit {
         taxNumber: this.fields['regUserPIB'].value,
         firstName: this.fields['regUserFirstName'].value,
         lastName: this.fields['regUserLastName'].value,
+        userName: this.fields['regUserUserName'].value,
         role: RoleType.Obveznik,
       })
       .subscribe({

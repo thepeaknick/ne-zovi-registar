@@ -2,7 +2,7 @@ export interface AddUserRequest {
   firstName: string;
   lastName: string;
   jmbg: string;
-  phoneNumber: string;
+  phoneNumbers: [string];
   operatorId: number;
 }
 
@@ -50,7 +50,7 @@ export interface ModifyRegUserRequest {
   taxNumber: string;
   firstName: string;
   lastName: string;
-  // userName: string;
+  userName: string;
   role: RoleType;
 }
 

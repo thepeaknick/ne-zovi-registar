@@ -83,6 +83,7 @@ export class MerchantsComponent {
         taxNumber: this.fields['regUserPIB'].value,
         firstName: this.fields['regUserFirstName'].value,
         lastName: this.fields['regUserLastName'].value,
+        userName: this.fields['regUserName'].value,
         role: RoleType.Trgovac,
       })
       .subscribe({

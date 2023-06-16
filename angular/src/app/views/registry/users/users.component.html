@@ -4,10 +4,11 @@
       <c-col xs="4" class="leftTableHeader">
         <button
           cButton
-          [cModalToggle]="addNewUserModal.id"
+          (click)="showAddUserModal()"
           type="button"
           class="tableAddNewButton"
           shape="rounded-pill"
+          *ngIf="canAddUsers"
         >
           + Dodaj novog korisnika
         </button>
@@ -26,33 +27,73 @@
           <ng-template #popoverHtml>
             <div class="popover-body">
               <c-row>
-                <button cButton class="itemPerPageButton" color="white" shape="rounded-pill" (click)="setItemPerPage(10)" >10</button> 
-                <button cButton class="itemPerPageButton" color="white" shape="rounded-pill" (click)="setItemPerPage(20)" >20</button>  
-                <button cButton class="itemPerPageButton" color="white" shape="rounded-pill" (click)="setItemPerPage(30)" >30</button> 
-              </c-row>  
+                <button
+                  cButton
+                  class="itemPerPageButton"
+                  color="white"
+                  shape="rounded-pill"
+                  (click)="setItemPerPage(10)"
+                >
+                  10
+                </button>
+                <button
+                  cButton
+                  class="itemPerPageButton"
+                  color="white"
+                  shape="rounded-pill"
+                  (click)="setItemPerPage(20)"
+                >
+                  20
+                </button>
+                <button
+                  cButton
+                  class="itemPerPageButton"
+                  color="white"
+                  shape="rounded-pill"
+                  (click)="setItemPerPage(30)"
+                >
+                  30
+                </button>
+              </c-row>
             </div>
           </ng-template>
         </button>
         <button
-            [cPopover]="popoverHtml1"
-            cPopoverPlacement="bottom"
-            [cPopoverTrigger]="'click'"
-            cButton
-            class="tableButton"
-            color="white"
-            shape="rounded-pill"
-          >
-            Sort
-            <ng-template #popoverHtml1>
-              <div class="popover-body">
-                <c-row class="popover-row">
-                  <c-col>
-                    <button cButton class="sortItemButton" color="white" shape="rounded-pill" (click)="sortByCreatedModifiedOnASC()" >By Created On ASC</button>  
-                    <button cButton class="sortItemButton" color="white" shape="rounded-pill" (click)="sortByCreatedModifiedOnDESC()" >By Created On DESC</button> 
-                  </c-col>
-                </c-row>  
-              </div>
-            </ng-template>
+          [cPopover]="popoverHtml1"
+          cPopoverPlacement="bottom"
+          [cPopoverTrigger]="'click'"
+          cButton
+          class="tableButton"
+          color="white"
+          shape="rounded-pill"
+        >
+          Sort
+          <ng-template #popoverHtml1>
+            <div class="popover-body">
+              <c-row class="popover-row">
+                <c-col>
+                  <button
+                    cButton
+                    class="sortItemButton"
+                    color="white"
+                    shape="rounded-pill"
+                    (click)="sortByCreatedModifiedOnASC()"
+                  >
+                    By Created On ASC
+                  </button>
+                  <button
+                    cButton
+                    class="sortItemButton"
+                    color="white"
+                    shape="rounded-pill"
+                    (click)="sortByCreatedModifiedOnDESC()"
+                  >
+                    By Created On DESC
+                  </button>
+                </c-col>
+              </c-row>
+            </div>
+          </ng-template>
         </button>
       </c-col>
     </c-row>
@@ -62,8 +103,7 @@
           <tr>
             <th scope="col">Broj telefona</th>
             <th scope="col">Datum upisa/ispisa</th>
-            <th scope="col">Izmena podataka</th>
-            <th scope="col">Obriši broj telefona</th>
+            <th scope="col" *ngIf="canDeleteUsers">Obriši broj telefona</th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -71,18 +111,36 @@
           <tr *ngFor="let item of showInTableUsers">
             <td>{{ item.phoneNumber }}</td>
             <td>{{ item.createdModifiedOn | date : "dd MMM, YY" }}</td>
-            <td>edit</td>
-            <td><img src="assets/images/trashCan.png" /></td>
+            <td *ngIf="canDeleteUsers">
+              <button
+                cButton
+                class="tableButton noBorder"
+                color="white"
+                (click)="deleteNumber(item.phoneNumber)"
+              >
+                <img src="assets/images/trashCan.png" />
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <c-pagination class="custom" >
+    <c-pagination class="custom">
       <li cPageItem [disabled]="currentPage === 1">
-        <span cPageLink [routerLink] (click)="setPage(currentPage - 1)">Previous</span>
+        <span cPageLink [routerLink] (click)="setPage(currentPage - 1)"
+          >Previous</span
+        >
       </li>
-      <li *ngFor="let pages of [].constructor(totalPagesNumber); let pageIndex = index" [ngClass]="{ 'active': (currentPage - 1) === pageIndex }">
-        <a cPageLink [routerLink] (click)="setPage(pageIndex + 1)">{{ pageIndex + 1 }}</a>
+      <li
+        *ngFor="
+          let pages of [].constructor(totalPagesNumber);
+          let pageIndex = index
+        "
+        [ngClass]="{ active: currentPage - 1 === pageIndex }"
+      >
+        <a cPageLink [routerLink] (click)="setPage(pageIndex + 1)">{{
+          pageIndex + 1
+        }}</a>
       </li>
       <li cPageItem [disabled]="currentPage === totalPagesNumber">
         <a cPageLink [routerLink] (click)="setPage(currentPage + 1)">Next</a>
@@ -90,13 +148,20 @@
     </c-pagination>
   </div>
 
-  <c-modal #addNewUserModal alignment="center" id="addNewUserModal" size="lg">
+  <c-modal
+    #addNewUserModal
+    alignment="center"
+    id="addNewUserModal"
+    size="lg"
+    [visible]="isAddUserModalVisible"
+    backdrop="static"
+  >
     <c-modal-header>
       <p class="modalHeader">Dodaj novog korisnika</p>
-      <button [cModalToggle]="addNewUserModal.id" cButtonClose></button>
+      <button (click)="toggleAddUserModal()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-      <form cForm class="row g-3">
+      <form cForm class="row g-3" [formGroup]="userForm">
         <c-row>
           <c-col [xs]="9">
             <div class="mb-3">
@@ -110,35 +175,42 @@
                 class="addPhoneButton"
                 type="submit"
                 value="+ broj telefona"
-                (click)="createDiv()"
+                (click)="addPhoneNumberDiv()"
+                hidden
               />
             </div>
           </c-col>
         </c-row>
         <c-col [xs]="8" id="phoneNumberCol">
-          <label cLabel for="regUserName" class="textInputField">
+          <label cLabel for="userPhoneNumber" class="textInputField">
             Broj telefona korisnika
           </label>
-          <div *ngFor="let div of divs" class="mb-3" id="regUserName{{ div }}">
+          <div
+            *ngFor="let div of divs"
+            class="mb-3"
+            id="userPhoneNumber{{ div }}"
+          >
             <input
               cFormControl
-              id="regUserName"
+              id="userPhoneNumber"
+              formControlName="userPhoneNumber"
               type="text"
-              placeholder="0641234567"
+              placeholder="+381641234567"
             />
           </div>
 
           <div class="mb-3">
             <c-row>
               <c-col>
-                <label cLabel for="regUserUsername" class="tesxtInputField">
+                <label cLabel for="regUserUsername" class="textInputField">
                   Ime
                 </label>
                 <input
                   cFormControl
-                  id="regUserUsername"
+                  formControlName="userFirstName"
+                  id="userFirstName"
                   type="text"
-                  placeholder="Petar"
+                  placeholder="Ime korisnika"
                 />
               </c-col>
               <c-col>
@@ -147,9 +219,10 @@
                 </label>
                 <input
                   cFormControl
-                  id="regUserPassword"
+                  formControlName="userLastName"
+                  id="userLastName"
                   type="text"
-                  placeholder="Petrović"
+                  placeholder="Prezime korisnika"
                 />
               </c-col>
             </c-row>
@@ -158,15 +231,25 @@
         <c-col [xs]="4" id="operatorCol">
           <label cLabel for="pib" class="textInputField">Operator</label>
           <div class="mb-3" *ngFor="let div of divs" id="operatorName{{ div }}">
-            <select aria-label="Default select example" cSelect>
-              <option value="1">Yettel</option>
-              <option value="2">mts</option>
-              <option value="3">A1</option>
+            <select
+              [(ngModel)]="selectedOperator"
+              aria-label="Operator"
+              cSelect
+              formControlName="userOperator"
+            >
+              <option *ngFor="let operator of operators" [ngValue]="operator">
+                {{ operator.name }}
+              </option>
             </select>
           </div>
           <div class="mb-3">
-            <label cLabel for="mb" class="textInputField">JMBG</label>
-            <input cFormControl id="mb" type="text" placeholder="xxxxxxxxx" />
+            <label cLabel for="userJMBG" class="textInputField">JMBG</label>
+            <input
+              cFormControl
+              formControlName="userJMBG"
+              type="text"
+              placeholder="xxxxxxxxx"
+            />
           </div>
         </c-col>
         <div class="mb-3">
@@ -175,6 +258,7 @@
             class="submitButton"
             type="submit"
             value="Dodaj korisnika"
+            (click)="addUserWithNumbers()"
           />
           <input
             [cModalToggle]="addNewUserModal.id"
@@ -182,6 +266,7 @@
             class="cancelButton"
             type="submit"
             value="Cancel"
+            (click)="toggleAddUserModal()"
           />
         </div>
       </form>
