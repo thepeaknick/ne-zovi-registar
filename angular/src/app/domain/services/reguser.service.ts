@@ -1,41 +1,23 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-  HttpParams,
-  HttpResponse,
-} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 
-import { map, catchError, retry, tap } from 'rxjs/operators';
 import {
   ChangeRegUserPasswordRequest,
-  LoginRequest,
   ModifyRegUserRequest,
   RegUserDetailsDto,
   RegUserDto,
   RegisterRegUserRequest,
   RoleType,
-  TokenResult,
-  UserDto,
 } from '../model/schemas';
 import { BaseService } from './base.service';
-import { Token } from '@angular/compiler';
-import { NeZoviHttpInterceptor } from './http-interceptor';
-import { AuthenticationService } from './authentication.service';
-import { AppConfiguration } from './app-configuration.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RegUserService extends BaseService {
-  constructor(
-    private config: AppConfiguration,
-    http: HttpClient,
-    private authenticationService: AuthenticationService
-  ) {
+  constructor(http: HttpClient) {
     super(http);
   }
 

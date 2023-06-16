@@ -6,7 +6,6 @@ import {
   RegUserDto,
   RoleType,
 } from 'src/app/domain/model/schemas';
-import { AuthenticationService } from 'src/app/domain/services/authentication.service';
 import { RegUserService } from 'src/app/domain/services/reguser.service';
 
 @Component({
@@ -168,8 +167,7 @@ export class RegUsersComponent implements OnInit {
 
     this.regUserService.getRegUserData(guidId).subscribe({
       next: (regUser: RegUserDetailsDto) => {
-        console.log(regUser.companyName);
-        // popuni formu na modalu
+        // TODO: Proveri zasto ne radi API
         this.regUserForm.patchValue({
           regUserName: regUser.companyName,
           regUserAddress: regUser.address,
