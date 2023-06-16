@@ -95,6 +95,7 @@ export interface RegUserDetailsDto {
   address: string;
   regNumber: string;
   taxNumber: string;
+  userName: string;
   role: RoleType;
 }
 

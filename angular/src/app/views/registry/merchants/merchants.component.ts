@@ -83,11 +83,13 @@ export class MerchantsComponent {
         taxNumber: this.fields['regUserPIB'].value,
         firstName: this.fields['regUserFirstName'].value,
         lastName: this.fields['regUserLastName'].value,
-        userName: this.fields['regUserName'].value,
+        userName: this.fields['regUserUserName'].value,
         role: RoleType.Trgovac,
       })
       .subscribe({
-        next: () => {},
+        next: () => {
+          console.log('Uspesno promenjeni podaci o trgovcu');
+        },
         error: (error) => {
           console.log('Neuspesno promenjeni podaci o trgovcu');
         },
@@ -159,6 +161,7 @@ export class MerchantsComponent {
           regUserFirstName: regUser.firstName,
           regUserLastName: regUser.lastName,
           regUserEmail: regUser.email,
+          regUserUsername: regUser.userName,
         });
       },
       error: (error) => {
