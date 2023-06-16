@@ -3,6 +3,17 @@
 <c-container class="headerContainer">
   <c-row class="defaultHeader">
     <c-col xs="8" class="headerColumn">
+      <button
+        toggle="visible"
+        cHeaderToggler
+        [cSidebarToggle]="sidebarId"
+        class="ps-1"
+      >
+        <svg 
+          [cIcon]="icons.cilMenu"
+          size="lg"
+        ></svg>
+      </button>
       <p class="headerTitle">Administratorska platforma</p>
     </c-col>
     <c-col xs="4" class="headerColumn">

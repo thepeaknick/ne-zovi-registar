@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClassToggleService, HeaderComponent } from '@coreui/angular';
 import { AuthenticationService } from 'src/app/domain/services/authentication.service';
 import { RegUserService } from 'src/app/domain/services/reguser.service';
+import { cilMenu } from '@coreui/icons';
 
 @Component({
   selector: 'app-default-header',
@@ -13,6 +14,7 @@ import { RegUserService } from 'src/app/domain/services/reguser.service';
 })
 export class DefaultHeaderComponent extends HeaderComponent {
   @Input() sidebarId: string = 'sidebar';
+  icons = { cilMenu };
 
   public newMessages = new Array(4);
   public newTasks = new Array(5);
