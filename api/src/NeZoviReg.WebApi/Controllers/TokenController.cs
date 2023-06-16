@@ -15,7 +15,7 @@ public class TokenController : NeZoviRegBaseController
     { }
 
     /// <summary>
-    /// Resetuj sigurnosni token za pristup registru.
+    /// Korisnik registra. Resetuj sigurnosni token za pristup registru.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>

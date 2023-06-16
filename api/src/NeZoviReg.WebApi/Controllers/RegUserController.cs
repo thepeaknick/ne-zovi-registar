@@ -87,7 +87,7 @@ public class RegUserController : NeZoviRegBaseController
     }
 
     /// <summary>
-    /// Obriši postojećeg korisnika.
+    /// Obriši postojećeg korisnika registra.
     /// </summary>
     /// <param name="regUserId"></param>
     /// <param name="cancellationToken"></param>
@@ -106,7 +106,7 @@ public class RegUserController : NeZoviRegBaseController
     }
 
     /// <summary>
-    /// Detalji registrovanog korisnika.
+    /// Detalji registrovanog korisnika registra.
     /// </summary>
     /// <param name="regUserId"></param>
     /// <param name="cancellationToken"></param>
@@ -142,7 +142,7 @@ public class RegUserController : NeZoviRegBaseController
     }
 
     /// <summary>
-    /// Pošalji mejl.
+    /// Korisnik registra. Pošalji mejl.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>

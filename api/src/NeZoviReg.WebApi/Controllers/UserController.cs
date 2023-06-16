@@ -20,7 +20,7 @@ public class UserController : NeZoviRegBaseController
     }
 
     /// <summary>
-    /// Registruj novog potrošača.
+    /// Registruj novi telefonski broj.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -39,7 +39,7 @@ public class UserController : NeZoviRegBaseController
     }
     
     /// <summary>
-    /// Registruj listu potrošača.
+    /// Registruj listu telefonskih brojeva.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -58,7 +58,7 @@ public class UserController : NeZoviRegBaseController
     }
 
     /// <summary>
-    /// Izmeni registrovanog potrošača.
+    /// Izmeni podatke već registrovanog telefonskog broja.
     /// </summary>
     /// <param name="phoneNumber"></param>
     /// <param name="request"></param>
@@ -78,7 +78,7 @@ public class UserController : NeZoviRegBaseController
     }
 
     /// <summary>
-    /// Obriši registrovanog potrošača.
+    /// Obriši registrovani telefonski broj.
     /// </summary>
     /// <param name="phoneNumber"></param>
     /// <param name="cancellationToken"></param>
@@ -96,7 +96,7 @@ public class UserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
     /// <summary>
-    /// Registar svih potrošača.
+    /// Registrovani telefonski brojevi.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -114,7 +114,7 @@ public class UserController : NeZoviRegBaseController
     }
 
     /// <summary>
-    /// Proveri da li broj telefona u registru.
+    /// Provera da li je telefonski broj registrovan.
     /// </summary>
     /// <param name="phoneNumber"></param>
     /// <param name="cancellationToken"></param>
