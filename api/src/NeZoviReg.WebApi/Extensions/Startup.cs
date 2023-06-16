@@ -118,7 +118,7 @@ public static class Startup
             options.AddPolicy("any",
                 policy =>
                 {
-                    policy.AllowAnyOrigin()
+                    policy.WithOrigins("http://158.180.60.234:*")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
