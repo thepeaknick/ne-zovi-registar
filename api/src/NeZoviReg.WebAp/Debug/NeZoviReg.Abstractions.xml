@@ -76,19 +76,21 @@
             <param name="GuidId">Guid ID korisniak registra</param>
             <param name="FirstName">Ime korisnika registra</param>
             <param name="LastName">Prezime korisniak registra</param>
+            <param name="Email">Email korisnika registra</param>
             <param name="CompanyName">Naziv firme</param>
             <param name="Address">Adresa</param>
             <param name="RegNumber">Matični broj</param>
             <param name="TaxNumber">PIB</param>
             <param name="Role">Rola korisnika registra</param>
         </member>
-        <member name="M:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDetailsDto.#ctor(System.Guid,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDetailsDto.#ctor(System.Guid,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             Detalji korisnika registra
             </summary>
             <param name="GuidId">Guid ID korisniak registra</param>
             <param name="FirstName">Ime korisnika registra</param>
             <param name="LastName">Prezime korisniak registra</param>
+            <param name="Email">Email korisnika registra</param>
             <param name="CompanyName">Naziv firme</param>
             <param name="Address">Adresa</param>
             <param name="RegNumber">Matični broj</param>
@@ -103,6 +105,9 @@
         </member>
         <member name="P:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDetailsDto.LastName">
             <summary>Prezime korisniak registra</summary>
+        </member>
+        <member name="P:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDetailsDto.Email">
+            <summary>Email korisnika registra</summary>
         </member>
         <member name="P:NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser.RegUserDetailsDto.CompanyName">
             <summary>Naziv firme</summary>

@@ -6,6 +6,7 @@
 /// <param name="GuidId">Guid ID korisniak registra</param>
 /// <param name="FirstName">Ime korisnika registra</param>
 /// <param name="LastName">Prezime korisniak registra</param>
+/// <param name="Email">Email korisnika registra</param>
 /// <param name="CompanyName">Naziv firme</param>
 /// <param name="Address">Adresa</param>
 /// <param name="RegNumber">Matični broj</param>
@@ -14,6 +15,7 @@
 public sealed record RegUserDetailsDto(Guid GuidId,
     string FirstName,
     string LastName,
+    string Email,
     string CompanyName,
     string Address,
     string RegNumber,
