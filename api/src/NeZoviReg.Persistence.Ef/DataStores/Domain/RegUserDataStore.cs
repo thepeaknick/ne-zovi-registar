@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
+using NeZoviReg.Domain.Extensions;
 using NeZoviReg.Domain.Model.Domain;
 
 namespace NeZoviReg.Persistence.Ef.DataStores.Domain;
@@ -52,7 +53,7 @@ public class RegUserDataStore : IRegUserDataStore
     public async Task<RegUser?> GetByUsernameAndPassword(string username, string password,
         CancellationToken cancellationToken = default) =>
         await _dbContext.Set<RegUser>()
-            .SingleOrDefaultAsync(x => x.Username == username && x.Password == RegUser.Encode(password), cancellationToken);
+            .SingleOrDefaultAsync(x => x.Username == username && x.Password == password.Encode(), cancellationToken);
 
     public async Task<RegUser?> GetByEmail(string email, CancellationToken cancellationToken = default)=>
         await _dbContext.Set<RegUser>()

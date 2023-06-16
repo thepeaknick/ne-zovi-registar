@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using NeZoviReg.Domain.Extensions;
 using NeZoviReg.Domain.Model.Auth;
 
 #pragma warning disable CS8618
@@ -62,11 +63,11 @@ public class RegUser : Entity
 
     public DateTime? ForgotPasswordTokenExpirationTime { get; private set; }
 
-    private string? _password;
+    private string _password;
 
-    public string? Password
+    public string Password
     {
-        get => Decode(_password ?? string.Empty);
+        get => _password.Decode();
         private set => _password = value;
     }
 
@@ -141,7 +142,7 @@ public class RegUser : Entity
         if (password == default)
             return this;
 
-        Password = Encode(password);
+        Password = password.Encode();
 
         return this;
     }
@@ -224,8 +225,4 @@ public class RegUser : Entity
 
         return this;
     }
-
-    public static string Encode(string value) => Convert.ToBase64String(Encoding.UTF8.GetBytes(value));
-
-    public static string Decode(string value) => Encoding.UTF8.GetString(Convert.FromBase64String(value));
 }
