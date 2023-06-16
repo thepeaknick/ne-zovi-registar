@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <DocumentationFile>..\NeZoviReg.WebAp\Debug\NeZoviReg.Abstractions.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\NeZoviReg.Abstractions.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DocumentationFile>..\NeZoviReg.WebAp\bin\Release\NeZoviReg.Abstractions.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\NeZoviReg.Abstractions.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
