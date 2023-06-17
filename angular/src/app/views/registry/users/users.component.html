@@ -44,7 +44,7 @@
           <tr *ngFor="let item of users">
             <td>{{ item.phoneNumber }}</td>
             <td>{{ item.createdModifiedOn | date : "dd MMM, YY" }}</td>
-            <td>edit</td>
+            <td><img src="assets/images/editImage.svg"></td>
             <td><img src="assets/images/trashCan.png" /></td>
           </tr>
         </tbody>
@@ -70,65 +70,76 @@
               <input
                 cButton
                 class="addPhoneButton"
-                type="submit"
                 value="+ broj telefona"
                 (click)="createDiv()"
               />
             </div>
           </c-col>
         </c-row>
-        <c-col [xs]="8" id="phoneNumberCol">
-          <label cLabel for="regUserName" class="textInputField">
-            Broj telefona korisnika
-          </label>
-          <div *ngFor="let div of divs" class="mb-3" id="regUserName{{ div }}">
-            <input
-              cFormControl
-              id="regUserName"
-              type="text"
-              placeholder="0641234567"
-            />
-          </div>
+        
+        <c-row>
+            <c-col [xs]="8" id="phoneNumberCol">
+            <label cLabel for="phoneNumber" class="textInputField">
+              Broj telefona korisnika
+            </label>
+            <div *ngFor="let div of divs; let i=index" class="mb-3" id="phoneNumber{{ div }}" formControlName="phoneNumber[{{i}}]">
+              <input
+                cFormControl
+                id="phoneNumber"
+                type="text"
+                placeholder="xxxxxxxxx"
+              />
+            </div>
+            </c-col>
+            <c-col [xs]="4" id="operatorCol">
+              <label cLabel for="pib" class="textInputField">Operator</label>
+              <div class="mb-3" *ngFor="let div of divs; let i = index" id="operatorName{{ div }}" formControlName="operatorName[{{i}}]">
+                <select aria-label="Default select example" cSelect>
+                  <option value="1">Yettel</option>
+                  <option value="2">mts</option>
+                  <option value="3">A1</option>
+                </select>
+              </div>
+            </c-col>
+        </c-row>
+        
 
+
+
+
+        
+        <c-col [xs]="8" id="phoneNumberCol">
           <div class="mb-3">
             <c-row>
               <c-col>
-                <label cLabel for="regUserUsername" class="tesxtInputField">
+                <label cLabel for="firstName" class="tesxtInputField">
                   Ime
                 </label>
                 <input
                   cFormControl
-                  id="regUserUsername"
+                  id="firstName"
                   type="text"
-                  placeholder="Petar"
+                  placeholder="Ime korisnika"
                 />
               </c-col>
               <c-col>
-                <label cLabel for="regUserPassword" class="textInputField">
+                <label cLabel for="lastName" class="textInputField">
                   Prezime
                 </label>
                 <input
                   cFormControl
-                  id="regUserPassword"
+                  id="lastName"
                   type="text"
-                  placeholder="Petrović"
+                  placeholder="Prezime korisnika"
                 />
               </c-col>
             </c-row>
           </div>
         </c-col>
         <c-col [xs]="4" id="operatorCol">
-          <label cLabel for="pib" class="textInputField">Operator</label>
-          <div class="mb-3" *ngFor="let div of divs" id="operatorName{{ div }}">
-            <select aria-label="Default select example" cSelect>
-              <option value="1">Yettel</option>
-              <option value="2">mts</option>
-              <option value="3">A1</option>
-            </select>
-          </div>
           <div class="mb-3">
-            <label cLabel for="mb" class="textInputField">JMBG</label>
-            <input cFormControl id="mb" type="text" placeholder="xxxxxxxxx" />
+            <label cLabel for="jmbg" class="textInputField">JMBG</label>
+            <input cFormControl id="jmbg" type="text" placeholder="xxxxxxxxxxxxx" />
           </div>
         </c-col>
         <div class="mb-3">
@@ -137,14 +148,14 @@
             class="submitButton"
             type="submit"
             value="Dodaj korisnika"
+            (click)="submitNewUser()"
           />
           <input
             [cModalToggle]="addNewUserModal.id"
             cButtonClose
             class="cancelButton"
-            type="submit"
             value="Cancel"
-            (click)="submitNewUser()"
+            (click)="cancelNewUser()"
             />
         </div>
       </form>

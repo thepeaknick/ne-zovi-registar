@@ -19,19 +19,27 @@ export class UsersComponent implements OnInit {
     }
 
   @Input() users: UserDto[] = [];
-  phoneNumber: string | null = null;
+  phoneNumber: string[] = [''];
+  operatorName: string[] = [''];
+  firstName: string = '';
+  lastName: string = '';
+  jmbg: string = '';
   divs: number[] = [1];
 
   addNewUserForm!: FormGroup;
 
   createDiv() {
-    this.divs.push(this.divs.length);
+    if(this.divs.length < 5)
+      this.divs.push(this.divs.length);
   }
 
   ngOnInit() {
     this.addNewUserForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
+      phoneNumber: this.formBuilder.array(this.divs, Validators.required),
+      operatorName: this.formBuilder.array(this.divs, Validators.required),
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      jmbg: ['', Validators.required],
     });
 
     let after: Date = new Date();
@@ -44,14 +52,21 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  createPhoneNumbers(): any {
+    throw new Error('Method not implemented.');
+  }
+
   completeAllUsers() {
     if (this.users.length === 0) {
       console.log('nema korisnika');
     }
   }
 
-  submitNewUser()
-  {
+  submitNewUser() {
 
+  }
+
+  cancelNewUser() {
+    this.divs = [1];
   }
 }
