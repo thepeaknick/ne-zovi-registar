@@ -50,24 +50,24 @@ public class CreateRegUserCommandValidator : AbstractValidator<CreateRegUserComm
             .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.PasswordMaxLength,
                 Password.TooLong.Message);
 
-        RuleFor(x => x.Email).MustAsync((mail, cancellationToken) =>
-                regUserDataStore.IsEmailUniqueAsync(mail, cancellationToken: cancellationToken))
+        RuleFor(x => x.Email).MustAsync(async (mail, cancellationToken) =>
+                !(await regUserDataStore.IsEmailExistsAsync(mail, cancellationToken: cancellationToken)))
             .WithMessage(x => RegErrors.Email.AlreadyInUse(x.Email).Message);
         
-        RuleFor(x => x.CompanyName).MustAsync((name, cancellationToken) =>
-                regUserDataStore.IsCompanyNameUniqueAsync(name, cancellationToken: cancellationToken))
+        RuleFor(x => x.CompanyName).MustAsync(async (name, cancellationToken) =>
+                !(await regUserDataStore.IsCompanyNameExistsAsync(name, cancellationToken: cancellationToken)))
             .WithMessage(x => CompanyName.AlreadyInUse(x.CompanyName).Message);
 
-        RuleFor(x => x.RegNumber).MustAsync((regNumb, cancellationToken) =>
-                regUserDataStore.IsRegNumberUniqueAsync(regNumb, cancellationToken: cancellationToken))
+        RuleFor(x => x.RegNumber).MustAsync(async (regNumb, cancellationToken) =>
+                !(await regUserDataStore.IsRegNumberExistsAsync(regNumb, cancellationToken: cancellationToken)))
             .WithMessage(x => RegNumber.AlreadyInUse(x.RegNumber).Message);
 
-        RuleFor(x => x.TaxNumber).MustAsync((taxNumb, cancellationToken) =>
-                regUserDataStore.IsTaxNumberUniqueAsync(taxNumb, cancellationToken: cancellationToken))
+        RuleFor(x => x.TaxNumber).MustAsync(async (taxNumb, cancellationToken) =>
+                !(await regUserDataStore.IsTaxNumberExistsAsync(taxNumb, cancellationToken: cancellationToken)))
             .WithMessage(x => TaxNumber.AlreadyInUse(x.TaxNumber).Message);
 
-        RuleFor(x => x.UserName).MustAsync((userName, cancellationToken) =>
-                regUserDataStore.IsUsernameUniqueAsync(userName, cancellationToken: cancellationToken))
+        RuleFor(x => x.UserName).MustAsync(async (userName, cancellationToken) =>
+                !(await regUserDataStore.IsUsernameExistsAsync(userName, cancellationToken: cancellationToken)))
             .WithMessage(x => UserName.AlreadyInUse(x.UserName).Message);
     }
 }

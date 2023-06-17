@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using NeZoviReg.Abstractions.Extensions;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using NeZoviReg.Auth.Authorization;
@@ -8,16 +7,16 @@ using NeZoviReg.WebApi.Model.RegUser;
 using System.Net;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 using NeZoviReg.Abstractions.Messaging.Domain.Queries.RegUser;
+using Microsoft.AspNetCore.Cors;
 
 namespace NeZoviReg.WebApi.Controllers;
 
 [Route("regusers")]
 public class RegUserController : NeZoviRegBaseController
 {
-    public RegUserController(ISender sender, ILogger<RegUserController> logger)
-        : base(sender, logger)
-    {
-    }
+    public RegUserController(ISender sender)
+        : base(sender)
+    { }
 
     /// <summary>
     /// Registruj novog korisnika registra.
@@ -33,7 +32,7 @@ public class RegUserController : NeZoviRegBaseController
     {
         var command = new CreateRegUserCommand(request.Name, request.Email, request.Address, request.RegNumber,
                 request.TaxNumber, request.FirstName, request.LastName,
-                request.UserName, request.Password, request.Roles)
+                request.UserName, request.Password, request.Role)
             .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);
@@ -55,7 +54,7 @@ public class RegUserController : NeZoviRegBaseController
     {
         var command = new ModifyRegUserCommand(AppUser.Id, request.Name, request.Email, request.Address,
                 request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
-                request.UserName, request.Roles.ToIntList())
+                request.UserName, (int?)request.Role)
             .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);
@@ -78,7 +77,7 @@ public class RegUserController : NeZoviRegBaseController
     {
         var command = new ModifyRegUserCommand(regUserId, request.Name, request.Email, request.Address,
                 request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
-                request.UserName, request.Roles.ToIntList())
+                request.UserName, (int?)request.Role)
             .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);
@@ -87,7 +86,7 @@ public class RegUserController : NeZoviRegBaseController
     }
 
     /// <summary>
-    /// Obriši postojećeg korisnika.
+    /// Obriši postojećeg korisnika registra.
     /// </summary>
     /// <param name="regUserId"></param>
     /// <param name="cancellationToken"></param>
@@ -106,7 +105,7 @@ public class RegUserController : NeZoviRegBaseController
     }
 
     /// <summary>
-    /// Detalji registrovanog korisnika.
+    /// Detalji registrovanog korisnika registra.
     /// </summary>
     /// <param name="regUserId"></param>
     /// <param name="cancellationToken"></param>
@@ -131,7 +130,7 @@ public class RegUserController : NeZoviRegBaseController
     /// <returns></returns>
     [HttpGet("roles/{role:int}")]
     [ProducesResponseType(typeof(List<RegUserDto>), (int) HttpStatusCode.OK)]
-    [HasPermission(PermissionType.RegUsersOnly)]
+    [HasPermission(PermissionType.RegUsersOnly | PermissionType.Write)]
     public async Task<IActionResult> GetRegUsers(int role, CancellationToken cancellationToken)
     {
         var command = new RegUsersQuery((RoleType) role);
@@ -142,7 +141,7 @@ public class RegUserController : NeZoviRegBaseController
     }
 
     /// <summary>
-    /// Pošalji mejl.
+    /// Korisnik registra. Pošalji mejl.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>

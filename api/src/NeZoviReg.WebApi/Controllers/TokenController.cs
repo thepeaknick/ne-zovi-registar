@@ -5,18 +5,19 @@ using Microsoft.AspNetCore.Authorization;
 using NeZoviReg.Abstractions.Messaging.Auth.Commands;
 using NeZoviReg.Abstractions.Messaging.Auth.Model;
 using NeZoviReg.WebApi.Model.Token;
+using Microsoft.AspNetCore.Cors;
 
 namespace NeZoviReg.WebApi.Controllers;
 
+[Route("tokens")]
 public class TokenController : NeZoviRegBaseController
 {
-    public TokenController(ISender sender,
-        ILogger<TokenController> logger)
-        : base(sender, logger)
+    public TokenController(ISender sender)
+        : base(sender)
     { }
 
     /// <summary>
-    /// Resetuj sigurnosni token za pristup registru.
+    /// Korisnik registra. Resetuj sigurnosni token za pristup registru.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>

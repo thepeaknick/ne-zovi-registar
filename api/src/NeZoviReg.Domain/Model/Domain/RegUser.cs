@@ -1,5 +1,6 @@
-﻿using System.Text;
+﻿using NeZoviReg.Domain.Extensions;
 using NeZoviReg.Domain.Model.Auth;
+
 #pragma warning disable CS8618
 
 namespace NeZoviReg.Domain.Model.Domain;
@@ -20,7 +21,7 @@ public class RegUser : Entity
     public const int EmailMaxLength = 50;
 
     public RegUser()
-    : base()
+        : base()
     {
     }
 
@@ -32,7 +33,7 @@ public class RegUser : Entity
     }
 
     public RegUser(int id, string companyName, string userName)
-               : base(id)
+        : base(id)
     {
         CompanyName = companyName;
         Username = userName;
@@ -46,7 +47,7 @@ public class RegUser : Entity
     public string FirstName { get; private set; }
 
     public string LastName { get; private set; }
-    
+
     public string Email { get; private set; }
 
     public string FullName => $"Naziv={CompanyName}, Adresa={Address}, MatičniBroj={RegNumber}, Pib={TaxNumber}";
@@ -56,15 +57,16 @@ public class RegUser : Entity
     public string? RefreshToken { get; private set; }
 
     public DateTime? RefreshTokenExpirationTime { get; private set; }
-    
+
     public string? ForgotPasswordToken { get; private set; }
-    
+
     public DateTime? ForgotPasswordTokenExpirationTime { get; private set; }
 
-    private string? _password;
-    public string? Password
+    private string _password;
+
+    public string Password
     {
-        get => Decode(_password ?? string.Empty);
+        get => _password.Decode();
         private set => _password = value;
     }
 
@@ -90,7 +92,7 @@ public class RegUser : Entity
 
         return this;
     }
-    
+
     public RegUser WithRegNumber(string? regNumb)
     {
         RegNumber = regNumb ?? RegNumber;
@@ -139,7 +141,7 @@ public class RegUser : Entity
         if (password == default)
             return this;
 
-        Password = Encode(password);
+        Password = password.Encode();
 
         return this;
     }
@@ -147,13 +149,6 @@ public class RegUser : Entity
     public RegUser WithUserName(string? userName)
     {
         Username = userName ?? Username;
-
-        return this;
-    }
-
-    public RegUser WithRole(int roleId)
-    {
-        _regUserRoles.Add(RegUserRole.Create(Id, roleId));
 
         return this;
     }
@@ -179,14 +174,14 @@ public class RegUser : Entity
 
         return this;
     }
-    
+
     public RegUser WithForgotPasswordToken(string? token)
     {
         ForgotPasswordToken = token ?? ForgotPasswordToken;
 
         return this;
     }
-    
+
     public RegUser WithForgotPasswordTokenExpTime(DateTime? expTime)
     {
         ForgotPasswordTokenExpirationTime = expTime ?? ForgotPasswordTokenExpirationTime;
@@ -212,7 +207,17 @@ public class RegUser : Entity
         return this;
     }
 
-    public static string Encode(string value) => Convert.ToBase64String(Encoding.UTF8.GetBytes(value));
+    public RegUser WithRole(int? roleId)
+    {
+        if (roleId == default || _regUserRoles.Any(x => x.RoleId == roleId))
+            return this;
 
-    public static string Decode(string value) => Encoding.UTF8.GetString(Convert.FromBase64String(value));
+        foreach (var regUserRole in RegUserRoles)
+        {
+            regUserRole.PrepareForDelete();
+        }
+        _regUserRoles.Add(RegUserRole.Create(Id, roleId.Value));
+
+        return this;
+    }
 }

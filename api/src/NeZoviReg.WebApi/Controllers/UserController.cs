@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
@@ -14,14 +15,13 @@ namespace NeZoviReg.WebApi.Controllers;
 [Route("users")]
 public class UserController : NeZoviRegBaseController
 {
-    public UserController(ISender sender,
-        ILogger<UserController> logger)
-        : base(sender, logger)
+    public UserController(ISender sender)
+        : base(sender)
     {
     }
 
     /// <summary>
-    /// Registruj novog potrošača.
+    /// Registruj novi telefonski broj.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -40,7 +40,7 @@ public class UserController : NeZoviRegBaseController
     }
     
     /// <summary>
-    /// Registruj listu potrošača.
+    /// Registruj listu telefonskih brojeva.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -59,7 +59,7 @@ public class UserController : NeZoviRegBaseController
     }
 
     /// <summary>
-    /// Izmeni registrovanog potrošača.
+    /// Izmeni podatke već registrovanog telefonskog broja.
     /// </summary>
     /// <param name="phoneNumber"></param>
     /// <param name="request"></param>
@@ -79,10 +79,9 @@ public class UserController : NeZoviRegBaseController
     }
 
     /// <summary>
-    /// Obriši registrovanog potrošača.
+    /// Obriši registrovani telefonski broj.
     /// </summary>
-    /// <param name="phoneNumber"></param>
-    /// <param name="cancellationToken"></param>
+    /// <param name="phoneNumber">Borj telefona koji e brišse iz registra</param>
     /// <returns></returns>
     [HttpDelete("{phoneNumber}")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
@@ -97,10 +96,9 @@ public class UserController : NeZoviRegBaseController
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
     /// <summary>
-    /// Registar svih potrošača.
+    /// Registrovani telefonski brojevi.
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
+    /// <param name="after">Datum od kad nam treba sadrzaj registra</param>
     /// <returns></returns>
     [HttpGet("all/{after:datetime?}")]
     [ProducesResponseType(typeof(List<UserDto>), (int)HttpStatusCode.OK)]
@@ -115,10 +113,9 @@ public class UserController : NeZoviRegBaseController
     }
 
     /// <summary>
-    /// Proveri da li broj telefona u registru.
+    /// Provera da li je telefonski broj registrovan.
     /// </summary>
-    /// <param name="phoneNumber"></param>
-    /// <param name="cancellationToken"></param>
+    /// <param name="phoneNumber">Telefonski broj</param>
     /// <returns></returns>
     [HttpGet("{phoneNumber:required}")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
@@ -130,5 +127,22 @@ public class UserController : NeZoviRegBaseController
         var result = await Sender.Send(query, cancellationToken);
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value.PhoneNumber);
+    }
+    
+    /// <summary>
+    /// Detalji vlasnika registrovanog telefonskog broj.
+    /// </summary>
+    /// <param name="phoneNumber">Telefonski broj</param>
+    /// <returns></returns>
+    [HttpGet("{phoneNumber:required}/details")]
+    [ProducesResponseType(typeof(UserDetailsDto), (int)HttpStatusCode.OK)]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetUserDetails(string phoneNumber, CancellationToken cancellationToken)
+    {
+        var query = new GetUserDetailsQuery(phoneNumber);
+
+        var result = await Sender.Send(query, cancellationToken);
+
+        return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
 }

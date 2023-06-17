@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.Extensions.Logging;
 using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
@@ -7,6 +6,7 @@ using NeZoviReg.Abstractions.Messaging.Auth.Commands;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Events;
+using Serilog;
 
 namespace NeZoviReg.Auth.Services.Logout;
 
@@ -15,17 +15,14 @@ internal sealed class LogoutCommandHandler : ICommandHandler<LogoutCommand, bool
     private readonly IRegUserDataStore _regUserDataStore;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IPublisher _publisher;
-    private readonly ILogger<LogoutCommandHandler> _logger;
 
     public LogoutCommandHandler(
         IRegUserDataStore regUserDataStore,
         IUnitOfWork unitOfWork,
-        IPublisher publisher,
-        ILogger<LogoutCommandHandler> logger)
+        IPublisher publisher)
     {
         _regUserDataStore = regUserDataStore;
         _unitOfWork = unitOfWork;
-        _logger = logger;
         _publisher = publisher;
     }
 
@@ -35,7 +32,7 @@ internal sealed class LogoutCommandHandler : ICommandHandler<LogoutCommand, bool
 
         if (regUser is null)
         {
-            _logger.LogInformation($"RegUser with GuidId={command.GuidId} does not exist.");
+            Log.Information($"RegUser with RegUserId={command.GuidId} does not exist.");
             
             return Result.Failure<bool>(RegErrors.RegUser.Unknown);
         }
@@ -51,6 +48,8 @@ internal sealed class LogoutCommandHandler : ICommandHandler<LogoutCommand, bool
             RegUserId = regUser.GuidId
         }, cancellationToken);
 
+        Log.Information($"RegUser with RegUserId={command.GuidId} logged out.");
+        
         return true;
     }
 }

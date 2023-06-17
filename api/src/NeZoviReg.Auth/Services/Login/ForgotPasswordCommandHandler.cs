@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using NeZoviReg.Abstractions.Email;
 using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
@@ -10,6 +9,7 @@ using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Model.Auth;
 using NeZoviReg.Auth.Authentication.Jwt;
+using Serilog;
 
 namespace NeZoviReg.Auth.Services.Login;
 
@@ -20,20 +20,17 @@ internal sealed class ForgotPasswordCommandHandler : ICommandHandler<ForgotPassC
     private readonly IEmailSender _emailSender;
     private readonly IUnitOfWork _unitOfWork;
     private readonly ForgotPasswordOptions _options;
-    private readonly ILogger<ForgotPasswordCommandHandler> _logger;
-    
+
     public ForgotPasswordCommandHandler(
         IRegUserDataStore regUserDataStore,
         IJwtProvider jwtProvider,
         IUnitOfWork unitOfWork,
-        ILogger<ForgotPasswordCommandHandler> logger, 
         IEmailSender emailSender, 
         IOptions<ForgotPasswordOptions> options)
     {
         _regUserDataStore = regUserDataStore;
         _jwtProvider = jwtProvider;
         _unitOfWork = unitOfWork;
-        _logger = logger;
         _emailSender = emailSender;
         _options = options.Value;
     }
@@ -44,6 +41,8 @@ internal sealed class ForgotPasswordCommandHandler : ICommandHandler<ForgotPassC
 
         if (regUser is null)
         {
+            Log.Information($"RegUser with Email={command.Email} does not exist.");
+            
             return Result.Failure<string>(RegErrors.RegUser.Unknown);
         }
         
@@ -62,6 +61,8 @@ internal sealed class ForgotPasswordCommandHandler : ICommandHandler<ForgotPassC
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 
+        Log.Information($"RegUser with Email={command.Email} changed forgotten password.");
+        
         return tokenResult.AccessToken;
 
     }

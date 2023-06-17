@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -9,10 +8,12 @@ namespace NeZoviReg.WebApi.Extensions.Options;
 public class SwaggerGenOptionsSetup : IPostConfigureOptions<SwaggerGenOptions>
 {
     private readonly AppOptions _appOptions;
-
-    public SwaggerGenOptionsSetup(IOptions<AppOptions> appOptions)
+    private readonly XmlDocOptions _xmlDocOptions;
+    
+    public SwaggerGenOptionsSetup(IOptions<AppOptions> appOptions, IOptions<XmlDocOptions> xmlDocOptions)
     {
         _appOptions = appOptions.Value;
+        _xmlDocOptions = xmlDocOptions.Value;
     }
 
     public void PostConfigure(string? name, SwaggerGenOptions options)
@@ -45,11 +46,9 @@ public class SwaggerGenOptionsSetup : IPostConfigureOptions<SwaggerGenOptions>
             Description = _appOptions.Description,
         });
 
-        var assembly = Assembly.GetExecutingAssembly();
-        var filePath = Path.Combine(AppContext.BaseDirectory, $"{assembly.GetName().Name}.xml");
-        if (File.Exists(filePath))
+        foreach (var assembly in _xmlDocOptions.Assemblies)
         {
-            options.IncludeXmlComments(filePath);
+            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{assembly}.xml"));
         }
     }
 }

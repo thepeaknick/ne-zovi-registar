@@ -8,15 +8,9 @@ using NeZoviReg.WebApi.Extensions.WebApi;
 
 namespace NeZoviReg.WebApi.Extensions.Middleware;
 
-public class NeZoviAuthorizationMiddleware: IAuthorizationMiddlewareResultHandler
+public class NeZoviAuthorizationMiddleware : IAuthorizationMiddlewareResultHandler
 {
-    private readonly ILogger<NeZoviAuthorizationMiddleware> _logger;
     private readonly AuthorizationMiddlewareResultHandler _defaultHandler = new();
-
-    public NeZoviAuthorizationMiddleware(ILogger<NeZoviAuthorizationMiddleware> logger)
-    {
-        _logger = logger;
-    }
 
     public async Task HandleAsync(
         RequestDelegate next,
@@ -24,11 +18,13 @@ public class NeZoviAuthorizationMiddleware: IAuthorizationMiddlewareResultHandle
         AuthorizationPolicy policy,
         PolicyAuthorizationResult authorizeResult)
     {
-        if (authorizeResult.Forbidden && authorizeResult.AuthorizationFailure!.FailureReasons.FirstOrDefault()?.Handler is PermissionRequirementHandler)
+        if (authorizeResult.Forbidden &&
+            authorizeResult.AuthorizationFailure!.FailureReasons.FirstOrDefault()?.Handler is
+                PermissionRequirementHandler)
         {
             context.Response.StatusCode = StatusCodes.Status403Forbidden;
             var json = JsonSerializer.Serialize(WebApiExtensions.CreateProblemDetails("Autorizacija neuspešna.",
-                (int)HttpStatusCode.Forbidden,
+                (int) HttpStatusCode.Forbidden,
                 RegErrors.App.ForbiddenAccess
             ));
             await context.Response.WriteAsync(json);
@@ -40,4 +36,3 @@ public class NeZoviAuthorizationMiddleware: IAuthorizationMiddlewareResultHandle
         }
     }
 }
-

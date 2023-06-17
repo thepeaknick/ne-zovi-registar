@@ -8,20 +8,20 @@ using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using NeZoviReg.Auth.Authorization;
 using NeZoviReg.WebApi.Model.RegUser;
+using Microsoft.AspNetCore.Cors;
 
 namespace NeZoviReg.WebApi.Controllers;
 
 [Route("account")]
 public class AccountController : NeZoviRegBaseController
 {
-    public AccountController(ISender sender,
-        ILogger<AccountController> logger)
-        : base(sender, logger)
+    public AccountController(ISender sender)
+        : base(sender)
     {
     }
 
     /// <summary>
-    /// Uloguj se.
+    /// Korisnik registra. Uloguj se.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -39,7 +39,7 @@ public class AccountController : NeZoviRegBaseController
     }
 
     /// <summary>
-    /// Izloguj se.
+    /// Korisnik registra. Izloguj se.
     /// </summary>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
@@ -56,7 +56,7 @@ public class AccountController : NeZoviRegBaseController
     }
 
     /// <summary>
-    /// Promeni lozinku.
+    /// Korisnik registra. Promeni lozinku.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -77,7 +77,7 @@ public class AccountController : NeZoviRegBaseController
 
     /// <summary>
     /// Zaboravo si lozinku?
-    /// Pošalji link na mejl korisnika registra.
+    /// Korisnik registra. Pošalji link na svoj mejl.
     /// </summary>
     /// <param name="email"></param>
     /// <param name="cancellationToken"></param>
@@ -96,7 +96,7 @@ public class AccountController : NeZoviRegBaseController
     }
 
     /// <summary>
-    /// Resetuj zaboravljenu lozinku korisnika registra.
+    /// Korisnik registra. Resetuj zaboravljenu lozinku.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>

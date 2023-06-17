@@ -21,9 +21,11 @@ public static class Startup
             .AddOptions()
             .AddRateLimiter(configuration)
             .ConfigureOptions<AppOptionsSetup>()
+            .ConfigureOptions<XmlDocOptionsSetup>()
             .ConfigureExceptionHandling(configuration)
             //.AddSingleton<IAuthorizationMiddlewareResultHandler, NeZoviAuthorizationMiddleware>()
-            .AddApiVersioning();
+            .AddApiVersioning()
+            .AddCors();
 
     }
 
@@ -109,5 +111,19 @@ public static class Startup
     private static IServiceCollection ConfigureExceptionHandling(this IServiceCollection services, IConfiguration configuration)
     {
         return services.AddTransient<NeZoviExceptionsHandlingMiddleware>();
+    }
+
+    private static IServiceCollection AddCors(this IServiceCollection services)
+    {
+        return services.AddCors(options =>
+        {
+            options.AddPolicy("any",
+                policy =>
+                {
+                    policy.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+        });
     }
 }

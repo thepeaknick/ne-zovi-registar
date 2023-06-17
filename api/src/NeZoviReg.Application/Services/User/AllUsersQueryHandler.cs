@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
@@ -11,13 +10,11 @@ namespace NeZoviReg.Application.Services.User;
 
 internal sealed class AllUsersQueryHandler : IQueryHandler<AllUsersQuery, List<UserDto>>
 {
-    private readonly ILogger<AllUsersQueryHandler> _logger;
     private readonly IUserDataStore _userDataStore;
     private readonly IMapper _mapper;
 
-    public AllUsersQueryHandler(ILogger<AllUsersQueryHandler> logger, IUserDataStore userDataStore, IMapper mapper)
+    public AllUsersQueryHandler(IUserDataStore userDataStore, IMapper mapper)
     {
-        _logger = logger;
         _userDataStore = userDataStore;
         _mapper = mapper;
     }

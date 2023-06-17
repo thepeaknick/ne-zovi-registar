@@ -1,25 +1,21 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
-using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
 using NeZoviReg.Abstractions.Shared;
+using Serilog;
 
 namespace NeZoviReg.Application.Services.User;
 
 internal sealed class AddUsersCommandHandler : ICommandHandler<AddUsersCommand, List<UserDto>>
 {
-    private readonly ILogger<AddUsersCommandHandler> _logger;
     private readonly IUserDataStore _userDataStore;
     private readonly IMapper _mapper;
 
-    public AddUsersCommandHandler(ILogger<AddUsersCommandHandler> logger,
-        IUserDataStore userDataStore,
+    public AddUsersCommandHandler(IUserDataStore userDataStore,
         IMapper mapper)
     {
-        _logger = logger;
         _userDataStore = userDataStore;
         _mapper = mapper;
     }
@@ -30,6 +26,8 @@ internal sealed class AddUsersCommandHandler : ICommandHandler<AddUsersCommand, 
         users.ForEach(u => u.AddCreation(command.AppUser));
 
         await _userDataStore.BulkAddAsync(users, cancellationToken);
+        
+        Log.Information("Bulk add phoneNumbers finished.");
 
         return _mapper.Map<List<UserDto>>(users);
     }

@@ -1,16 +1,25 @@
 ﻿namespace NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 
+/// <summary>
+/// Role korisnika registra
+/// </summary>
 public enum RoleType
 {
     //RATEL or partner
+    /// <summary>
+    /// Administrator
+    /// </summary>
     Admin = 1,
 
     //Content provder
+    /// <summary>
+    /// Trgovac
+    /// </summary>
     Trgovac,
 
     //Operater
-    Obveznik,
-
-    //End user (from RATEL site), only check its own number
-    Potrosac,
+    /// <summary>
+    /// Obveznik
+    /// </summary>
+    Obveznik
 }

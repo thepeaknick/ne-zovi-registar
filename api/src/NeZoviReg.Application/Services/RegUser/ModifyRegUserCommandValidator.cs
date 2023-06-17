@@ -23,7 +23,7 @@ public class ModifyRegUserCommandValidator : AbstractValidator<ModifyRegUserComm
 
             RuleFor(x => x.CompanyName).CustomAsync(async (name, ctx, cancellationToken) =>
             {
-                if (await regUserDataStore.IsCompanyNameUniqueAsync(name!, ctx.InstanceToValidate.RegUserId,
+                if (await regUserDataStore.IsCompanyNameExistsAsync(name!, ctx.InstanceToValidate.RegUserId,
                         cancellationToken))
                 {
                     ctx.AddFailure(CompanyName.AlreadyInUse(name!).Message);
@@ -39,7 +39,7 @@ public class ModifyRegUserCommandValidator : AbstractValidator<ModifyRegUserComm
             
             RuleFor(x => x.Email).CustomAsync(async (mail, ctx, cancellationToken) =>
             {
-                if (await regUserDataStore.IsEmailUniqueAsync(mail!, ctx.InstanceToValidate.RegUserId,
+                if (await regUserDataStore.IsEmailExistsAsync(mail!, ctx.InstanceToValidate.RegUserId,
                         cancellationToken))
                 {
                     ctx.AddFailure(RegErrors.Email.AlreadyInUse(mail!).Message);
@@ -62,7 +62,7 @@ public class ModifyRegUserCommandValidator : AbstractValidator<ModifyRegUserComm
 
             RuleFor(x => x.RegNumber).CustomAsync(async (regNumber, ctx, cancellationToken) =>
             {
-                if (await regUserDataStore.IsRegNumberUniqueAsync(regNumber!, ctx.InstanceToValidate.RegUserId,
+                if (await regUserDataStore.IsRegNumberExistsAsync(regNumber!, ctx.InstanceToValidate.RegUserId,
                         cancellationToken))
                 {
                     ctx.AddFailure(RegNumber.AlreadyInUse(regNumber!).Message);
@@ -78,7 +78,7 @@ public class ModifyRegUserCommandValidator : AbstractValidator<ModifyRegUserComm
 
             RuleFor(x => x.TaxNumber).CustomAsync(async (taxNumber, ctx, cancellationToken) =>
             {
-                if (await regUserDataStore.IsTaxNumberUniqueAsync(taxNumber!, ctx.InstanceToValidate.RegUserId,
+                if (await regUserDataStore.IsTaxNumberExistsAsync(taxNumber!, ctx.InstanceToValidate.RegUserId,
                         cancellationToken))
                 {
                     ctx.AddFailure(TaxNumber.AlreadyInUse(taxNumber!).Message);
@@ -104,6 +104,15 @@ public class ModifyRegUserCommandValidator : AbstractValidator<ModifyRegUserComm
         {
             RuleFor(x => x.UserName!)
                 .MaximumLength<ModifyRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.UsernameMaxLength, UserName.TooLong.Message);
+            
+            RuleFor(x => x.UserName).CustomAsync(async (userName, ctx, cancellationToken) =>
+            {
+                if (await regUserDataStore.IsUsernameExistsAsync(userName!, ctx.InstanceToValidate.RegUserId,
+                        cancellationToken))
+                {
+                    ctx.AddFailure(UserName.AlreadyInUse(userName!).Message);
+                }
+            });
         });
     }
 }
