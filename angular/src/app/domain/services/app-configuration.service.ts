@@ -12,6 +12,7 @@ export class AppConfiguration {
   public apiForgotPasswordUrl: string = '';
   public apiRegUserDetailsUrl: string = '';
   public apiRefreshTokenUrl: string = '';
+  public apiRegisterRegUser: string = '';
   public loginPage: string = '';
 
   ensureInit(): Promise<any> {

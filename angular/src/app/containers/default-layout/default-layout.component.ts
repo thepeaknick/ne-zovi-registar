@@ -103,12 +103,10 @@ export class DefaultLayoutComponent {
   logout() {
     this.authenticationService.logout().subscribe({
       next: () => {
-        console.log('Logged out!');
         this.router.navigate(['/']);
       },
       error: (error) => {
         console.log(error);
-        console.log('Logged out!');
         this.router.navigate(['/']);
       },
     });
@@ -116,8 +114,6 @@ export class DefaultLayoutComponent {
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
-      console.log(params);
-
       this.id = params['id'];
       this.role = params['userRole'];
     });

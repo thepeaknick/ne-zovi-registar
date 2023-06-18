@@ -142,13 +142,13 @@ const APP_CONTAINERS = [
     WidgetModule,
     ChartjsModule,
     AccordionModule,
-    PaginationModule
+    PaginationModule,
   ],
   providers: [
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: {
-        siteKey: '6LdNNmQmAAAAAKEU4pIxQ33-eNhyyGeZ1_CT2IO6',
+        siteKey: '6LeqW6QmAAAAABMPLd2CmYh_sCVKWGRnS1SfW9yK',
       } as RecaptchaSettings,
     },
     { provide: LocationStrategy, useClass: PathLocationStrategy },

@@ -2,7 +2,7 @@ export interface AddUserRequest {
   firstName: string;
   lastName: string;
   jmbg: string;
-  phoneNumber: string;
+  phoneNumbers: [string];
   operatorId: number;
 }
 
@@ -45,12 +45,13 @@ export enum RoleType {
 export interface ModifyRegUserRequest {
   name: string;
   address: string;
+  email: string;
   regNumber: string;
   taxNumber: string;
   firstName: string;
   lastName: string;
   userName: string;
-  roles: RoleType[];
+  role: RoleType;
 }
 
 export interface ModifyUserRequest {
@@ -92,9 +93,11 @@ export interface RegUserDetailsDto {
   firstName: string;
   lastName: string;
   companyName: string;
+  email: string;
   address: string;
   regNumber: string;
   taxNumber: string;
+  userName: string;
   role: RoleType;
 }
 
@@ -107,7 +110,8 @@ export interface RegisterRegUserRequest {
   lastName: string;
   userName: string;
   password: string;
-  roles: RoleType[];
+  email: string;
+  role: RoleType;
 }
 
 export interface TokenResult {

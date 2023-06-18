@@ -24,18 +24,18 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
         // Show progress spinner or progress bar
-        console.log('Route change detected');
+        console.debug('Route change detected');
       }
 
       if (event instanceof NavigationEnd) {
         // Hide progress spinner or progress bar
         this.currentRoute = event.url;
-        console.log(event);
+        console.debug(event);
       }
 
       if (event instanceof NavigationError) {
         // Hide progress spinner or progress bar
-        console.log(event.error);
+        console.debug(event.error);
       }
     });
   }

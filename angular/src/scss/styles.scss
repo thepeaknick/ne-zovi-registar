@@ -74,3 +74,22 @@ c-sidebar-nav-group.show c-sidebar-nav c-sidebar-nav-link:last-child a:after {
 c-sidebar-nav-group c-sidebar-nav-link a {
   margin-left: 1em;
 }
+
+.tableButton {
+  min-width: 70px;
+  height: 43px;
+  margin-right: 1%;
+  border-color: #95a7c4;
+  border-width: 1px;
+
+  font-weight: 700;
+  color: #133f85;
+}
+
+.noBorder {
+  border-width: 0px;
+}
+
+tr {
+  vertical-align: middle;
+}
