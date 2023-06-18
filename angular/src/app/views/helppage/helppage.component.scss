@@ -7,7 +7,7 @@
 }
 
 .faqImage {
-  height: 25vh;
+  // height: 25vh;
   width: 20vw;
 }
 
@@ -31,4 +31,18 @@
   color: #001942;
 
   margin-bottom: 5%;
+}
+
+@media screen and (max-width: 950px) {
+  c-row {
+    display: block;
+  }
+  c-col {
+    width: 100%;
+    text-align: center
+  }
+  .faqImage {
+    // height: 55vh;
+    width: 40vw;
+  }
 }

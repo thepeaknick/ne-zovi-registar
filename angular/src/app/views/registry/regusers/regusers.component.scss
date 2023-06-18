@@ -200,10 +200,9 @@ c-modal-footer {
   width: 165px;
 }
 
-@media screen and (max-width: 650px) {
-  .tableButton {
-      margin: 2%;
-  }
+.tableEditButton {
+  border-width: 1px;
+  border-color: #95a7c4;;
 }
 
 @media screen and (max-width: 950px) {
@@ -214,7 +213,13 @@ c-modal-footer {
     width: 100%;
     text-align: center
   }
+  .tableContent {
+    font-size: 2vw;
+  }
   .tableButton {
     margin: 2%;
+  }
+  .tableEditButton {
+    font-size: 2vw;
   }
 }
