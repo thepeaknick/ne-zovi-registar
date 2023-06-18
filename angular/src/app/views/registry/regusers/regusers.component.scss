@@ -199,3 +199,22 @@ c-modal-footer {
   text-align: center;
   width: 165px;
 }
+
+@media screen and (max-width: 650px) {
+  .tableButton {
+      margin: 2%;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  c-row {
+    display: block;
+  }
+  c-col {
+    width: 100%;
+    text-align: center
+  }
+  .tableButton {
+    margin: 2%;
+  }
+}

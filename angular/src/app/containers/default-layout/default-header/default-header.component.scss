@@ -53,3 +53,16 @@
     width: 25vw;
   }
 }
+
+@media screen and (max-width: 1000px) {
+  c-row {
+    display: block;
+  }
+  c-col {
+    width: 100%;
+    text-align: center
+  }
+  .userColumn {
+    font-size: 2.5vw;
+  }
+}

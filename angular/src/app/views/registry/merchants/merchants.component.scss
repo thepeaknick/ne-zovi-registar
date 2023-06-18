@@ -204,3 +204,16 @@ c-modal-footer {
   border-radius: 5px;
   align-items: center;
 }
+
+@media screen and (max-width: 950px) {
+  c-row {
+    display: block;
+  }
+  c-col {
+    width: 100%;
+    text-align: center
+  }
+  .tableButton {
+    margin: 2%;
+  }
+}

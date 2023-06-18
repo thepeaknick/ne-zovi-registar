@@ -175,3 +175,9 @@ c-modal-body {
   text-align: center;
   width: 165px;
 }
+
+@media screen and (max-width: 650px) {
+  .tableButton {
+      margin: 2%;
+  }
+}
