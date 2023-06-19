@@ -66,3 +66,12 @@ c-widget-stat-a {
 .pieChart {
   height: 100%;
 }
+
+@media screen and (max-width: 750px) {
+  .widgetView {
+    margin: 2%;
+  }
+  .chartView {
+    margin: 2%;
+  }
+}

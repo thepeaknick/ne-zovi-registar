@@ -18,6 +18,12 @@
     </c-col>
     <c-col xs="4" class="headerColumn">
       <div class="userColumn">Username: {{ currentUsername }}</div>
+        <button cButton color="secondary" variant="ghost" (click)="logout()" class="userColumn">
+          {{ authenticationService.CurrentUser?.firstName }}
+          {{ authenticationService.CurrentUser?.lastName }}
+          [ {{ authenticationService.CurrentUser?.companyName }} ]
+        </button>
+      </div>
     </c-col>
   </c-row>
 </c-container>

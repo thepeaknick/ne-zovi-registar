@@ -204,3 +204,27 @@ c-modal-footer {
   border-radius: 5px;
   align-items: center;
 }
+
+.tableEditButton {
+  border-width: 1px;
+  border-color: #95a7c4;;
+}
+
+@media screen and (max-width: 950px) {
+  c-row {
+    display: block;
+  }
+  c-col {
+    width: 100%;
+    text-align: center
+  }
+  .tableContent {
+    font-size: 2vw;
+  }
+  .tableButton {
+    margin: 2%;
+  }
+  .tableEditButton {
+    font-size: 2vw;
+  }
+}

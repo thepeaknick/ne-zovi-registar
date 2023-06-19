@@ -71,3 +71,16 @@
   min-width: 50px;
   display: inline-block;
 }
+
+@media screen and (max-width: 950px) {
+  c-row {
+    display: block;
+  }
+  c-col {
+    width: 100%;
+    text-align: center
+  }
+  .contactInfo {
+    margin-top: 5%;
+  }
+}
