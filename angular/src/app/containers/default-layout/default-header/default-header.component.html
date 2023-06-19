@@ -9,21 +9,23 @@
         [cSidebarToggle]="sidebarId"
         class="ps-1"
       >
-        <svg 
-          [cIcon]="icons.cilMenu"
-          size="lg"
-        ></svg>
+        <svg [cIcon]="icons.cilMenu" size="lg"></svg>
       </button>
       <p class="headerTitle">Administratorska platforma</p>
     </c-col>
     <c-col xs="4" class="headerColumn">
       <div class="userColumn">Username: {{ currentUsername }}</div>
-        <button cButton color="secondary" variant="ghost" (click)="logout()" class="userColumn">
-          {{ authenticationService.CurrentUser?.firstName }}
-          {{ authenticationService.CurrentUser?.lastName }}
-          [ {{ authenticationService.CurrentUser?.companyName }} ]
-        </button>
-      </div>
+      <button
+        cButton
+        color="secondary"
+        variant="ghost"
+        (click)="logout()"
+        class="userColumn"
+      >
+        {{ authenticationService.CurrentUser?.firstName }}
+        {{ authenticationService.CurrentUser?.lastName }}
+        [ {{ authenticationService.CurrentUser?.companyName }} ]
+      </button>
     </c-col>
   </c-row>
 </c-container>
