@@ -7,7 +7,7 @@
   font-family: "Source Sans 3";
   font-style: normal;
   font-weight: 700;
-  font-size: 3vw;
+  font-size: 2.0vw;
   line-height: 50px;
   color: #224c8d;
 
@@ -37,14 +37,19 @@
 
 .headerColumn {
   display: table;
+  text-align: initial;
 }
 
-@media screen and (max-width: 650px) {
+.menuButtonView {
+  line-height: 50px;
+}
+
+@media screen and (max-width: 767px) {
   .headerTitle {
     font-family: "Source Sans 3";
     font-style: normal;
     font-weight: 700;
-    font-size: 3.5vw;
+    font-size: 4.5vw;
     line-height: 50px;
     color: #224c8d;
   }
@@ -52,6 +57,10 @@
     text-align: right;
     width: 25vw;
   }
+}
+
+.menuButton {
+  visibility: hidden;
 }
 
 @media screen and (max-width: 1000px) {
@@ -66,3 +75,10 @@
     font-size: 2.5vw;
   }
 }
+
+@media screen and (max-width: 767px) {
+  .menuButton {
+    visibility: visible;
+  }
+}
+

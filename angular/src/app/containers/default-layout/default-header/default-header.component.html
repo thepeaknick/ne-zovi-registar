@@ -3,28 +3,30 @@
 <c-container class="headerContainer">
   <c-row class="defaultHeader">
     <c-col xs="8" class="headerColumn">
+      <div class="menuButtonView">
       <button
         toggle="visible"
         cHeaderToggler
         [cSidebarToggle]="sidebarId"
-        class="ps-1"
+        class="ps-1, menuButton"
       >
         <svg 
           [cIcon]="icons.cilMenu"
           size="lg"
         ></svg>
       </button>
+    </div>
       <p class="headerTitle">Administratorska platforma</p>
     </c-col>
     <c-col xs="4" class="headerColumn">
-      <div class="userColumn">Username: {{ currentUsername }}</div>
-      <div class="userColumn">
+      <div class="userColumn">{{ currentUsername }} [{{ authenticationService.CurrentUser?.companyName }}]</div>
+      <!-- <div class="userColumn">
         <button cButton color="secondary" variant="ghost" (click)="logout()" class="userColumn">
           {{ authenticationService.CurrentUser?.firstName }}
           {{ authenticationService.CurrentUser?.lastName }}
           [ {{ authenticationService.CurrentUser?.companyName }} ]
         </button>
-      </div>
+      </div> -->
     </c-col>
   </c-row>
 </c-container>
