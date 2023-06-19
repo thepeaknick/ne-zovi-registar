@@ -11,6 +11,8 @@ public interface IUserDataStore
     Task<List<User>> GetAll(DateTime? after, CancellationToken cancellationToken = default);
 
     Task AddAsync(User user, CancellationToken cancellationToken = default);
+    
+    Task BulkAddAsync(List<User> users, CancellationToken cancellationToken = default);
 
     void Update(User user);
 

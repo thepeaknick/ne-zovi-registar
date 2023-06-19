@@ -6,9 +6,8 @@ import {
   LoginResultDto,
   RefreshTokenResultDto,
   RegUserDetailsDto,
-  TokenResult,
 } from '../model/schemas';
-import { Observable, map, mergeMap } from 'rxjs';
+import { Observable, map, mergeMap, of } from 'rxjs';
 import { BaseService } from './base.service';
 
 @Injectable({ providedIn: 'root' })
@@ -23,10 +22,13 @@ export class AuthenticationService extends BaseService {
 
   login(username: string, password: string) {
     return this.http
-      .post<LoginResultDto>(`${this.config.apiUrl}${this.config.apiLoginUrl}`, {
-        username,
-        password,
-      })
+      .post<LoginResultDto>(
+        `${this.config.apiUrl}${this.config.apiLoginUrl}`, 
+        {
+          username,
+          password,
+        }
+      )
       .pipe(
         mergeMap((loginResult: LoginResultDto) => {
           // set token don't bother with user
@@ -55,31 +57,39 @@ export class AuthenticationService extends BaseService {
       .post<any>(`${this.config.apiUrl}${this.config.apiLogoutUrl}`, {})
       .pipe(
         map(() => {
-          this.stopRefreshTokenTimer();
-          AuthenticationService.Token = null;
-          AuthenticationService.CurrentUser = null;
-          this.router.navigate([`${this.config.loginPage}`]);
+          this.redirectToLoginPage();
         })
       );
   }
 
-  refreshToken(): Observable<void> {
+  redirectToLoginPage() {
+    this.stopRefreshTokenTimer();
+    AuthenticationService.Token = null;
+    AuthenticationService.CurrentUser = null;
+    this.router.navigate([`${this.config.loginPage}`]);
+  }
+
+  refreshToken() {
+    console.log('Refreshing token...');
     let token: LoginResultDto = AuthenticationService.Token;
     return this.http
-      .post<RefreshTokenResultDto>(
+      .post<any>(
         `${this.config.apiUrl}${this.config.apiRefreshTokenUrl}`,
         {
           accessToken: token.accessToken,
           refreshToken: token.refreshToken,
         }
       )
-      .pipe(
-        map((newToken: RefreshTokenResultDto) => {
-          token.accessToken = newToken.accessToken;
-          token.refreshToken = newToken.refreshToken.tokenString;
-          AuthenticationService.Token = token;
-          this.startRefreshTokenTimer();
-        })
+      .subscribe(
+        (newToken: any) => {
+              token.accessToken = newToken.accessToken;
+              token.accessTokenExpTime = newToken.accessTokenExpTime;
+              token.refreshToken = newToken.refreshToken;
+              token.refreshTokenExpTime = newToken.refreshTokenExpTime;
+    
+              AuthenticationService.Token = token;
+              this.startRefreshTokenTimer();
+        }
       );
   }
 
@@ -174,8 +184,9 @@ export class AuthenticationService extends BaseService {
 
   private startRefreshTokenTimer() {
     let tokens: LoginResultDto = AuthenticationService.Token;
+    console.log(`Scheduling token refresh (expiration at ${tokens.accessTokenExpTime})`)
     // set a timeout to refresh the token a minute before it expires
-    const expires = new Date(tokens.refreshTokenExpTime);
+    const expires = new Date(tokens.accessTokenExpTime);
     const timeout = expires.getTime() - Date.now() - 60 * 1000;
     this.refreshTokenTimeout = setTimeout(() => this.refreshToken(), timeout);
   }

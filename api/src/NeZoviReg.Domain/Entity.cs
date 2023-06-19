@@ -22,7 +22,7 @@ public abstract class Entity : IEntity, IEquatable<Entity>
 
     public string? ModifiedBy { get; private set; }
 
-    public DateTime CreatedOn { get; private set; }
+    public DateTime CreatedOn { get; protected set; }
 
     public DateTime? ModifiedOn { get; private set; }
 

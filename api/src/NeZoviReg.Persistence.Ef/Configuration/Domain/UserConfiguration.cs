@@ -14,27 +14,28 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.FirstName)
             .IsRequired()
-            .HasMaxLength(100);
+            .HasMaxLength(User.FirstNameMaxLength);
 
         builder.Property(x => x.LastName)
             .IsRequired()
-            .HasMaxLength(100);
+            .HasMaxLength(User.LastNameMaxLength);
 
         builder.Property(x => x.PhoneNumber)
             .IsRequired()
-            .HasMaxLength(25);
+            .HasMaxLength(User.PhoneNumberMaxLength);
 
         builder.Property(x => x.Jmbg)
             .IsRequired()
-            .HasMaxLength(13);
+            .HasMaxLength(User.JmbgMaxLength);
 
         builder.Property(x => x.OperatorId)
-            .IsRequired()
-            .HasMaxLength(25);
+            .IsRequired();
 
         builder.HasOne(kp => kp.Operator)
             .WithMany()
             .HasForeignKey(kp => kp.OperatorId)
             .OnDelete(DeleteBehavior.Cascade);
+        
+        builder.HasIndex(x => x.PhoneNumber).IsUnique();
     }
 }

@@ -5,7 +5,11 @@ import {
   RecaptchaSettings,
 } from 'ng-recaptcha';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import {
+  LocationStrategy,
+  PathLocationStrategy,
+  HashLocationStrategy,
+} from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ReactiveFormsModule } from '@angular/forms';
@@ -148,10 +152,11 @@ const APP_CONTAINERS = [
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: {
-        siteKey: '6LeqW6QmAAAAABMPLd2CmYh_sCVKWGRnS1SfW9yK',
+        // siteKey: '6LdNNmQmAAAAAKEU4pIxQ33-eNhyyGeZ1_CT2IO6', // Localhost
+        siteKey: '6LcmH6omAAAAAADe4m7EJNaymL4t1mT7ac_V6pIj', // Prod
       } as RecaptchaSettings,
     },
-    { provide: LocationStrategy, useClass: PathLocationStrategy },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: UserService, useClass: UserService },
     { provide: RegUserService, useClass: RegUserService },
     { provide: 'BASE_URL', useFactory: getBaseUrl },

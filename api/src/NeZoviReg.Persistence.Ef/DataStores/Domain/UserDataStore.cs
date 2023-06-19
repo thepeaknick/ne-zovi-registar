@@ -27,6 +27,9 @@ public class UserDataStore : IUserDataStore
     public async Task AddAsync(User user, CancellationToken cancellationToken = default) =>
        await _dbContext.Set<User>().AddAsync(user, cancellationToken);
 
+    public async Task BulkAddAsync(List<User> users, CancellationToken cancellationToken = default) =>
+            await _dbContext.Set<User>().BulkInsertAsync(users, cancellationToken);
+
     public void Update(User user) =>
         _dbContext.Set<User>().Update(user);
 

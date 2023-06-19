@@ -1,4 +1,6 @@
-﻿#pragma warning disable CS8618
+﻿using NeZoviReg.Domain.Extensions;
+
+#pragma warning disable CS8618
 namespace NeZoviReg.Domain.Model.Domain;
 
 /// <summary>
@@ -9,7 +11,12 @@ public class User : Entity
     public const int FirstNameMaxLength = 100;
     public const int  LastNameMaxLength = 100;
     public const int  PhoneNumberMaxLength = 25;
-    public const int  JmbgMaxLength = 13;
+    public const int  JmbgMaxLength = 50;
+
+    public User()
+    {
+        CreatedOn = DateTime.Now;
+    }
 
     public User(string firstName, string lastName, string phoneNumber)
     {
@@ -35,7 +42,12 @@ public class User : Entity
 
     public string FullName => $"Ime={FirstName}, Prezime={LastName}, Jmbg={Jmbg}, Broj telefona={PhoneNumber}.";
 
-    public string Jmbg { get; private set; } = string.Empty;
+    private string _jmbg;
+    public string Jmbg
+    {
+        get => _jmbg.Decode();
+        private set => _jmbg = value;
+    }
 
     public RegUser Operator { get; private set; }
     public int OperatorId { get; private set; }
@@ -64,7 +76,10 @@ public class User : Entity
 
     public User AddJmbg(string? jmbg)
     {
-        Jmbg = jmbg ?? Jmbg;
+        if (jmbg == default)
+            return this;
+        
+        Jmbg = jmbg.Encode();
 
         return this;
     }

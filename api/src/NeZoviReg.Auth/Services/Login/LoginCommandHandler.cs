@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using NeZoviReg.Abstractions.Infrastructure.DataStores;
+﻿using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Auth.Commands;
@@ -7,6 +6,7 @@ using NeZoviReg.Abstractions.Messaging.Auth.Model;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Auth.Authentication.Jwt;
+using Serilog;
 
 namespace NeZoviReg.Auth.Services.Login;
 
@@ -15,26 +15,25 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginR
     private readonly IRegUserDataStore _regUserDataStore;
     private readonly IJwtProvider _jwtProvider;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly ILogger<LoginCommandHandler> _logger;
 
     public LoginCommandHandler(
         IRegUserDataStore regUserDataStore,
         IJwtProvider jwtProvider,
-        IUnitOfWork unitOfWork,
-        ILogger<LoginCommandHandler> logger)
+        IUnitOfWork unitOfWork)
     {
         _regUserDataStore = regUserDataStore;
         _jwtProvider = jwtProvider;
         _unitOfWork = unitOfWork;
-        _logger = logger;
     }
 
-    public async Task<Result<LoginResultDto>> Handle(LoginCommand request, CancellationToken cancellationToken)
+    public async Task<Result<LoginResultDto>> Handle(LoginCommand command, CancellationToken cancellationToken)
     {
-        var regUser = await _regUserDataStore.GetByUsernameAndPassword(request.UserName, request.Password, cancellationToken);
+        var regUser = await _regUserDataStore.GetByUsernameAndPassword(command.UserName, command.Password, cancellationToken);
 
         if (regUser is null)
         {
+            Log.Information($"RegUser with UserName={command.UserName} does not exist.");
+            
             return Result.Failure<LoginResultDto>(RegErrors.RegUser.InvalidCredentials);
         }
 
@@ -42,14 +41,17 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginR
 
         regUser.WithRefreshToken(loginResult.RefreshToken.TokenString)
             .WithRefreshTokenExpTime(loginResult.RefreshToken.ExpireAt);
+        
         _regUserDataStore.Update(regUser);
 
-        await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
+        
+        Log.Information($"RegUser with UserName={command.UserName} logged in.");
 
         return new LoginResultDto(regUser.GuidId, 
             loginResult.AccessToken, 
-            $"{loginResult.AccessTokenExpTime:dd.MM.yy HH:mm}", 
+            loginResult.AccessTokenExpTime, 
             loginResult.RefreshToken.TokenString,
-            $"{loginResult.RefreshToken.ExpireAt:dd.MM.yy HH:mm}");
+            loginResult.RefreshToken.ExpireAt);
     }
 }

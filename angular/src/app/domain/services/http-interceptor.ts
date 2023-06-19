@@ -103,11 +103,8 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
 
       // TEMP workaround END
 
-      if (
-        (error.status === 401 || error.status === 403) &&
-        !this.isLoginPageUrl()
-      ) {
-        this.authenticationService.logout();
+      if ((error.status === 401 || error.status === 403) && !this.isLoginPageUrl()) {
+        this.authenticationService.redirectToLoginPage();
       } else if (error.status === 404) {
         return of(
           new HttpResponse<any>({

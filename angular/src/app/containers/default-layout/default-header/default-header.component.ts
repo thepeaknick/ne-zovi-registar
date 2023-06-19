@@ -31,16 +31,4 @@ export class DefaultHeaderComponent extends HeaderComponent {
     super();
     this.currentUsername = AuthenticationService.CurrentUserName;
   }
-
-  logout() {
-    this.authenticationService.logout().subscribe({
-      next: () => {
-        this.router.navigate(['/']);
-      },
-      error: (error) => {
-        console.log(error);
-        this.router.navigate(['/']);
-      },
-    });
-  }
 }

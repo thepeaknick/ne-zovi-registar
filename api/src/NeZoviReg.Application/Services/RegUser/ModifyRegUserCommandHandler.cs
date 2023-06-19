@@ -1,32 +1,32 @@
-﻿using MediatR;
-using Microsoft.Extensions.Logging;
+﻿using AutoMapper;
+using MediatR;
 using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
-using NeZoviReg.Abstractions.Messaging.Domain.Model;
+using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Events;
+using Serilog;
 
 namespace NeZoviReg.Application.Services.RegUser;
 
 internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUserCommand, RegUserDto>
 {
-    private readonly ILogger<ModifyRegUserCommandHandler> _logger;
     private readonly IRegUserDataStore _regUserDataStore;
     private readonly IPublisher _publisher;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
 
-    public ModifyRegUserCommandHandler(ILogger<ModifyRegUserCommandHandler> logger,
-        IRegUserDataStore regUserDataStore,
+    public ModifyRegUserCommandHandler(IRegUserDataStore regUserDataStore,
         IPublisher publisher,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork, IMapper mapper)
     {
-        _logger = logger;
         _regUserDataStore = regUserDataStore;
         _publisher = publisher;
         _unitOfWork = unitOfWork;
+        _mapper = mapper;
     }
 
     public async Task<Result<RegUserDto>> Handle(ModifyRegUserCommand command, CancellationToken cancellationToken)
@@ -35,17 +35,20 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
 
         if (regUser is null)
         {
+            Log.Information($"RegUser with RegUserId={command.RegUserId} does not exist.");
+            
             return Result.Failure<RegUserDto>(RegErrors.RegUser.NotFound(command.RegUserId));
         }
 
         regUser
             .WithCompanyName(command.CompanyName)
+            .WithEmail(command.Email)
             .WithAddress(command.Address)
             .WithRegNumber(command.RegNumber)
             .WithTaxNumber(command.TaxNumber)
             .WithName(command.FirstName, command.LastName)
             .WithUserName(command.UserName)
-            .WithRoles(command.Roles);
+            .WithRole(command.Role);
 
         _regUserDataStore.Update(regUser);
 
@@ -55,7 +58,9 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
         {
             RegUserId = regUser.GuidId
         }, cancellationToken);
-
-        return new RegUserDto(regUser.GuidId, regUser.FullName, regUser.Id);
+        
+        Log.Information($"RegUser with RegUserId={command.RegUserId} modified.");
+        
+       return _mapper.Map<RegUserDto>(regUser);
     }
 }

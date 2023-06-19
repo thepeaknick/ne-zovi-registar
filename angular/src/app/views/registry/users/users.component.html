@@ -103,6 +103,7 @@
           <tr>
             <th scope="col">Broj telefona</th>
             <th scope="col">Datum upisa/ispisa</th>
+            <th scope="col" *ngIf="canEditUsers">Izmeni podatke</th>
             <th scope="col" *ngIf="canDeleteUsers">Obriši broj telefona</th>
             <th scope="col"></th>
           </tr>
@@ -111,6 +112,16 @@
           <tr *ngFor="let item of showInTableUsers">
             <td>{{ item.phoneNumber }}</td>
             <td>{{ item.createdModifiedOn | date : "dd MMM, YY" }}</td>
+            <td *ngIf="canEditUsers">
+              <button
+                cButton
+                class="tableButton noBorder"
+                color="white"
+                (click)="editNumber(item.phoneNumber)"
+              >
+                <img src="assets/images/pen_icon.png" />
+              </button>
+            </td>
             <td *ngIf="canDeleteUsers">
               <button
                 cButton

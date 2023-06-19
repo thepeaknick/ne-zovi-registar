@@ -8,28 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="appsettings.my.json" />
-    <None Remove="migrations.json" />
-    <None Remove="migrations.my.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="migrations.my.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="migrations.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.4">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.4">      
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
+    </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\NeZoviReg.Persistence.Ef\NeZoviReg.Persistence.Ef.csproj" />
@@ -39,4 +24,11 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="appsettings.json" />
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>     
+  </ItemGroup>  
+  
 </Project>

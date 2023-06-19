@@ -4,7 +4,7 @@ namespace NeZoviReg.WebApi.Extensions.Options;
 
 public class AppOptionsSetup : IConfigureOptions<AppOptions>
 {
-    public static string SectionName = @"Application";
+    private const string sectionName = @"Application";
 
     private readonly IConfiguration _configuration;
 
@@ -16,7 +16,7 @@ public class AppOptionsSetup : IConfigureOptions<AppOptions>
     public void Configure(AppOptions options)
     {
         _configuration
-            .GetSection(SectionName)
+            .GetSection(sectionName)
             .Bind(options);
     }
 }

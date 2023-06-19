@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/domain/services/user.service';
-import { RoleType, UserDto } from '../../../domain/model/schemas';
+import { ModifyUserRequest, RoleType, UserDto } from '../../../domain/model/schemas';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from 'src/app/domain/services/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -23,6 +23,7 @@ export class UsersComponent implements OnInit {
     let role = RoleType.Potrosac;
     if (currentUser) role = currentUser.role;
     this.canAddUsers = role == RoleType.Obveznik;
+    this.canEditUsers = role == RoleType.Obveznik;
     this.canDeleteUsers = role == RoleType.Obveznik;
   }
 
@@ -34,6 +35,7 @@ export class UsersComponent implements OnInit {
 
   @Input() users: UserDto[] = [];
   @Input() canAddUsers: boolean = false;
+  @Input() canEditUsers: boolean = false;
   @Input() canDeleteUsers: boolean = false;
   phoneNumber: string | null = null;
   divs: number[] = [1];
@@ -59,6 +61,10 @@ export class UsersComponent implements OnInit {
       userOperator: ['', Validators.required],
     });
 
+    this.reloadUsersAndGoToFirsPage();
+  }
+
+  reloadUsersAndGoToFirsPage() {
     let after: Date = new Date();
     after.setMonth(3);
 
@@ -161,12 +167,34 @@ export class UsersComponent implements OnInit {
       })
       .subscribe({
         next: () => {
-          console.log('Successfuly added user');
+          this.isAddUserModalVisible = false;
+          console.log('Korisnik je uspeno dodat u registar');
         },
         error: (error) => {
-          console.log('Neuspesno promenjeni podaci o obvezniku');
+          console.log('Dodavanje korisnika u registar nije uspelo');
         },
       });
+  }
+
+  editNumber(number: string) {
+    let modifiedUser: ModifyUserRequest = {
+      firstName: '',
+      lastName: '',
+      jmbg: '',
+      phoneNumber: '',
+      operatorId: 0
+    };
+
+    this.userService
+    .modifyUser(number, modifiedUser)
+    .subscribe({
+      next: () => {
+        console.log('Podaci o korisniku su promenjeni uspesno');
+      },
+      error: (error) => {
+        console.log('Neuspesno promenjeni podaci o korisniku');
+      },
+    });
   }
 
   deleteNumber(number: string) {

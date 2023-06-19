@@ -38,6 +38,6 @@ RUN dotnet publish "NeZoviReg.WebApi.csproj" -c Release -o /app/publish /p:UseAp
 
 FROM base AS final
 WORKDIR /app
-COPY --from=migration /app/migration .
+COPY --from=migration /app/migration ./migrations
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "NeZoviReg.WebApi.dll"]

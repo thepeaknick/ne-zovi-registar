@@ -2,8 +2,6 @@
 
 public class AppOptions
 {
-    public const string SectionName = @"Application";
-
     public string Name { get; init; } = string.Empty;
 
     public string Title { get; init; } = string.Empty;

@@ -1,37 +1,47 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AutoMapper;
 using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
-using NeZoviReg.Abstractions.Messaging.Domain.Model;
+using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
 using NeZoviReg.Abstractions.Shared;
+using Serilog;
 
 namespace NeZoviReg.Application.Services.User;
 
-internal sealed class AddUserCommandHandler : ICommandHandler<AddUserCommand, UserDto>
+internal sealed class AddUserCommandHandler : ICommandHandler<AddUserCommand, List<UserDto>>
 {
-    private readonly ILogger<AddUserCommandHandler> _logger;
     private readonly IUserDataStore _userDataStore;
     private readonly IUnitOfWork _unitOfWork;
-
-    public AddUserCommandHandler(ILogger<AddUserCommandHandler> logger, IUserDataStore userDataStore, IUnitOfWork unitOfWork)
+    private readonly IMapper _mapper;
+    
+    public AddUserCommandHandler(IUserDataStore userDataStore, IUnitOfWork unitOfWork, IMapper mapper)
     {
-        _logger = logger;
         _userDataStore = userDataStore;
         _unitOfWork = unitOfWork;
+        _mapper = mapper;
     }
 
-    public async Task<Result<UserDto>> Handle(AddUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result<List<UserDto>>> Handle(AddUserCommand command, CancellationToken cancellationToken)
     {
-        var user =
-            new Domain.Model.Domain.User(request.FirstName, request.LastName, request.PhoneNumber)
-                .AddJmbg(request.Jmbg)
-                .AddOperator(request.OperatorId);
+        var result = new List<UserDto>();
+        
+        foreach (var phoneNumber in command.PhoneNumbers)
+        {
+            var user =
+                new Domain.Model.Domain.User(command.FirstName, command.LastName, phoneNumber)
+                    .AddJmbg(command.Jmbg)
+                    .AddOperator(command.OperatorId);
 
-        await _userDataStore.AddAsync(user, cancellationToken);
+            await _userDataStore.AddAsync(user, cancellationToken);
 
-        await _unitOfWork.SaveChangesAsync(request.AppUser, cancellationToken);
+            await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
+            
+            Log.Information($"PhoneNumber={phoneNumber} added.");
+            
+            result.Add(_mapper.Map<UserDto>(user));
+        }
 
-        return new UserDto(user.PhoneNumber, user.CreatedOn);
+        return result;
     }
 }

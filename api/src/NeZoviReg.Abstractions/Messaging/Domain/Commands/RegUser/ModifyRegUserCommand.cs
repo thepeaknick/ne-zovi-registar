@@ -1,4 +1,4 @@
-﻿using NeZoviReg.Abstractions.Messaging.Domain.Model;
+﻿using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 
 namespace NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 
@@ -12,5 +12,5 @@ public record ModifyRegUserCommand
         string? FirstName = default,
         string? LastName = default,
         string? UserName = default,
-        List<int>? Roles = default)
+        int? Role = default)
     : BaseCommand<RegUserDto>;

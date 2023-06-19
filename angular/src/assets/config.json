@@ -5,7 +5,7 @@
   "apiResetPasswordUrl": "/account/resetpassword",
   "apiForgotPasswordUrl": "/account/forgotpassword",
   "apiRegUserDetailsUrl": "/regusers",
-  "apiRefreshTokenUrl": "/refresh-token",
+  "apiRefreshTokenUrl": "/tokens/refresh-token",
   "apiRegisterRegUser": "/regusers/register",
   "loginPage": "./login"
 }
