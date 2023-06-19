@@ -148,7 +148,8 @@ const APP_CONTAINERS = [
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: {
-        siteKey: '6LdNNmQmAAAAAKEU4pIxQ33-eNhyyGeZ1_CT2IO6',
+        // siteKey: '6LdNNmQmAAAAAKEU4pIxQ33-eNhyyGeZ1_CT2IO6', // Localhost
+        siteKey: '6LcmH6omAAAAAADe4m7EJNaymL4t1mT7ac_V6pIj', // Prod
       } as RecaptchaSettings,
     },
     { provide: LocationStrategy, useClass: PathLocationStrategy },
