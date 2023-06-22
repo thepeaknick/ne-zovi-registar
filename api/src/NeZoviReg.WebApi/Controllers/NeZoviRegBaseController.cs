@@ -48,12 +48,12 @@ public class NeZoviRegBaseController : ControllerBase
         };
     
     
-    protected PageInfo GetPageInfo(int defaultPageSize = 10)
+    protected PageInfo GetPageInfo()
     {
         return new PageInfo
         {
             CurrentCursor = GetFormOrQueryParameter<long?>(PagingParameterName.Cursor) ?? 1,
-            PageSize = GetFormOrQueryParameter<int?>(PagingParameterName.PageSize) ?? defaultPageSize
+            PageSize = GetFormOrQueryParameter<int?>(PagingParameterName.PageSize) ?? PageInfo.DefaultPageSize
         };
     }
 
