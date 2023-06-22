@@ -101,6 +101,7 @@ public class UserController : NeZoviRegBaseController
     /// Primer korišćenja {{baseUrl}}v1/users/all?c=xx&amp;p=yy.
     /// c - vrednost kursora  (default = 0).
     /// p - duzina strane (default = 10)
+    /// (cref="PageInfo").
     /// </summary>
     /// <param name="after">Datum od kad nam treba sadrzaj registra</param>
     /// <returns></returns>
