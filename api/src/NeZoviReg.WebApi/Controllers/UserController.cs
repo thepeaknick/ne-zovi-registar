@@ -99,8 +99,8 @@ public class UserController : NeZoviRegBaseController
     /// <summary>
     /// Registrovani telefonski brojevi.
     /// Primer korišćenja {{baseUrl}}v1/users/all?c=xx&amp;p=yy.
-    /// c - vrednost kursora  (default = 0).
-    /// p - duzina strane (default = 10)
+    /// c - vrednost kursora  (podrazumeva vrednost = 0).
+    /// p - duzina strane (podrazumeva vrednost = 10)
     /// (cref="PageInfo").
     /// </summary>
     /// <param name="after">Datum od kad nam treba sadrzaj registra</param>
