@@ -2,9 +2,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using NeZoviReg.Abstractions.Extensions.Paging;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Enums;
 using NeZoviReg.Abstractions.Shared.Model;
+using NeZoviReg.WebApi.Model.Paging;
 using static NeZoviReg.WebApi.Extensions.WebApi.WebApiExtensions;
 
 namespace NeZoviReg.WebApi.Controllers;
@@ -44,4 +46,33 @@ public class NeZoviRegBaseController : ControllerBase
                         StatusCodes.Status400BadRequest,
                         result.Error))
         };
+    
+    
+    protected PageInfo GetPageInfo(int defaultPageSize = 10)
+    {
+        return new PageInfo
+        {
+            CurrentCursor = GetFormOrQueryParameter<long?>(PagingParameterName.Cursor) ?? 1,
+            PageSize = GetFormOrQueryParameter<int?>(PagingParameterName.PageSize) ?? defaultPageSize
+        };
+    }
+
+    private T GetFormOrQueryParameter<T>(string name)
+    {
+        string value = null;
+        if (Request.HasFormContentType)
+            value = Request.Form.GetFirstOrDefault(name);
+
+        if (value == null)
+            value = Request.Query.GetFirstOrDefault(name);
+
+        if (value == null)
+            return default(T);
+
+        // handle possible nullable structs
+        var type = typeof(T);
+        var underlyingType = Nullable.GetUnderlyingType(type);
+
+        return (T)Convert.ChangeType(value, underlyingType ?? type);
+    }
 }

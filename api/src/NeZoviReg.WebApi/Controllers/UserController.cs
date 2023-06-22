@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using NeZoviReg.Abstractions.Extensions.Paging;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
 using NeZoviReg.Abstractions.Messaging.Domain.Queries.User;
@@ -97,15 +98,19 @@ public class UserController : NeZoviRegBaseController
     }
     /// <summary>
     /// Registrovani telefonski brojevi.
+    /// Primer korišćenja {{baseUrl}}v1/users/all?c=xx&amp;p=yy.
+    /// c - vrednost kursora  (default = 0).
+    /// p - duzina strane (default = 10)
     /// </summary>
     /// <param name="after">Datum od kad nam treba sadrzaj registra</param>
     /// <returns></returns>
     [HttpGet("all/{after:datetime?}")]
-    [ProducesResponseType(typeof(List<UserDto>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(PagedList<UserDto>), (int)HttpStatusCode.OK)]
     [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
     public async Task<IActionResult> AllUsers(DateTime? after, CancellationToken cancellationToken)
     {
-        var command = new AllUsersQuery(after);
+        var command = new AllUsersQuery(after, GetPageInfo());
+        
 
         var result = await Sender.Send(command, cancellationToken);
 

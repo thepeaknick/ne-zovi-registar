@@ -16,12 +16,8 @@
   <ItemGroup>
     <ProjectReference Include="..\NeZoviReg.Abstractions\NeZoviReg.Abstractions.csproj" />
     <ProjectReference Include="..\NeZoviReg.Application\NeZoviReg.Application.csproj" />
-    <ProjectReference Include="..\NeZoviReg.Auth\NeZoviReg.Auth.csproj"/>
+    <ProjectReference Include="..\NeZoviReg.Auth\NeZoviReg.Auth.csproj" />
     <ProjectReference Include="..\NeZoviReg.Domain\NeZoviReg.Domain.csproj" PrivateAssets="All" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Extensions\" />
   </ItemGroup>
 
 </Project>
