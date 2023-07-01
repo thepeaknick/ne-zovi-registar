@@ -10,6 +10,7 @@ public static class AbstractionsExtensions
         return roles?.Select(r=>(int)r).ToList() ?? default;
     }
     
+    
     public static string RemoveWhitespaces(this string source)
     {
         var builder = new StringBuilder(source.Length);
@@ -20,5 +21,10 @@ public static class AbstractionsExtensions
                 builder.Append(c);
         }
         return source.Length == builder.Length ? source : builder.ToString();
+    }
+    
+    public static string RemoveSpaces(this string source)
+    {
+        return source.Replace(" ", string.Empty);
     }
 }

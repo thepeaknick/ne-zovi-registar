@@ -14,7 +14,7 @@ public record GetUserQuery : IQuery<UserDto>
     {
         get
         {
-            _phoneNumber = _phoneNumber.RemoveWhitespaces();
+            _phoneNumber = _phoneNumber.RemoveSpaces();
 
             if (_phoneNumber.StartsWith("06"))
             {
