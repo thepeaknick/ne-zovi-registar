@@ -128,7 +128,10 @@ public class UserController : NeZoviRegBaseController
     [AllowAnonymous]
     public async Task<IActionResult> GetUser(string phoneNumber, CancellationToken cancellationToken)
     {
-        var query = new GetUserQuery(phoneNumber);
+        var query = new GetUserQuery
+        {
+            PhoneNumber = phoneNumber
+        };
 
         var result = await Sender.Send(query, cancellationToken);
 

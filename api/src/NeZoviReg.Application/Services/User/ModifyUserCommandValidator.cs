@@ -40,7 +40,7 @@ public class ModifyUserCommandValidator : AbstractValidator<ModifyUserCommand>
         {
             RuleFor(x => x.NewPhoneNumber)!
                 .MaximumLength<ModifyUserCommand, UserDto>(Domain.Model.Domain.User.PhoneNumberMaxLength, PhoneNumber.TooLong.Message)
-                .RegexFormat<ModifyUserCommand, UserDto>(@"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$", PhoneNumber.InvalidFormat.Message)
+                .RegexFormat<ModifyUserCommand, UserDto>(@"^3816[0-9]{1}[0-9]{6,7}$", PhoneNumber.InvalidFormat.Message)
                 .MustAsync((phone, cancellationToken) => userDataStore.IsPhoneNumberUniqueAsync(phone, cancellationToken))
                 .WithMessage(x => PhoneNumber.AlreadyInUse(x.NewPhoneNumber!).Message);;
         });
