@@ -9,9 +9,13 @@ public class NeZoviRegDbContextFactory : IDesignTimeDbContextFactory<NeZoviRegDa
 {
     public NeZoviRegDataContext CreateDbContext(string[] args)
     {
+        var envName = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
+        Console.WriteLine($"Running in the ENVIRONMENT={envName}");
+        
         IConfigurationRoot configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional:false, true)
+            .AddJsonFile($"appsettings.{envName}.json", optional:true, true)
             .Build();
 
         var connectionString = configuration.GetConnectionString("SqlServerDatabase");
