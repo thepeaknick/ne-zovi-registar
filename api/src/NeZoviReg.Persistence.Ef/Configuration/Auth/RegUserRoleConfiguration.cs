@@ -31,6 +31,7 @@ public class RegUserRoleConfiguration : IEntityTypeConfiguration<RegUserRole>
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasData(Create(1, RoleType.Admin));
+        builder.HasData(Create(2, RoleType.Admin));
 
     }
 
