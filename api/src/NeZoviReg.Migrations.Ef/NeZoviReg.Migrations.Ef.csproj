@@ -30,6 +30,7 @@
     </Content>
     <Content Update="appsettings.my.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </Content>     
   </ItemGroup>  
   
