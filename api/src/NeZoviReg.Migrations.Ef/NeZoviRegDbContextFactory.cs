@@ -9,14 +9,15 @@ public class NeZoviRegDbContextFactory : IDesignTimeDbContextFactory<NeZoviRegDa
 {
     public NeZoviRegDataContext CreateDbContext(string[] args)
     {
-        var envName = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        var envName = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ??
+                      Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
         Console.WriteLine($"Running in the ENVIRONMENT={envName}");
-        
+
         IConfigurationRoot configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional:false, true)
-            .AddJsonFile($"appsettings.{envName}.json", optional:true, true)
-            .AddJsonFile("appsettings.my.json", optional:true, false)
+            .AddJsonFile("appsettings.json", optional: false, true)
+            .AddJsonFile($"appsettings.{envName}.json", optional: true, true)
+            .AddJsonFile("appsettings.my.json", optional: true, true)
             .Build();
 
         /*var connectionString = configuration.GetConnectionString("SqlServerDatabase");
@@ -25,13 +26,11 @@ public class NeZoviRegDbContextFactory : IDesignTimeDbContextFactory<NeZoviRegDa
             {
                 o.MigrationsAssembly("NeZoviReg.Migrations.Ef");
             });*/
-        
+
         var connectionString = configuration.GetConnectionString("MySqlDatabase");
         var builder = new DbContextOptionsBuilder<NeZoviRegDataContext>()
-            .UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), o =>
-            {
-                o.MigrationsAssembly("NeZoviReg.Migrations.Ef");
-            });
+            .UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
+                o => { o.MigrationsAssembly("NeZoviReg.Migrations.Ef"); });
 
         return new NeZoviRegDataContext(builder.Options);
     }
