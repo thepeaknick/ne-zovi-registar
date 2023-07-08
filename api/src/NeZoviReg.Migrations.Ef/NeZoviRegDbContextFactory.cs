@@ -18,10 +18,16 @@ public class NeZoviRegDbContextFactory : IDesignTimeDbContextFactory<NeZoviRegDa
             .AddJsonFile($"appsettings.{envName}.json", optional:true, true)
             .Build();
 
-        var connectionString = configuration.GetConnectionString("SqlServerDatabase");
-
+        /*var connectionString = configuration.GetConnectionString("SqlServerDatabase");
         var builder = new DbContextOptionsBuilder<NeZoviRegDataContext>()
             .UseSqlServer(connectionString, o =>
+            {
+                o.MigrationsAssembly("NeZoviReg.Migrations.Ef");
+            });*/
+        
+        var connectionString = configuration.GetConnectionString("MySqlDatabase");
+        var builder = new DbContextOptionsBuilder<NeZoviRegDataContext>()
+            .UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), o =>
             {
                 o.MigrationsAssembly("NeZoviReg.Migrations.Ef");
             });

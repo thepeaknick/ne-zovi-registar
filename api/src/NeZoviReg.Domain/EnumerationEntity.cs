@@ -1,4 +1,5 @@
 ﻿#pragma warning disable CS8618
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 namespace NeZoviReg.Domain;
@@ -43,7 +44,8 @@ public abstract class EnumerationEntity<TEnum> : IEquatable<EnumerationEntity<TE
 
     public DateTime? ModifiedOn { get; private set; }
 
-    public byte[] Rowversion { get; private set; }
+    [Timestamp]
+    public /*byte[]*/DateTime Rowversion { get; private set; }
 
     public bool Deleted { get; private set; }
 

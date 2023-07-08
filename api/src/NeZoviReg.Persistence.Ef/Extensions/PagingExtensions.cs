@@ -19,7 +19,7 @@ public static class RepositoryExtensions
         int pageSize,
         CancellationToken cancellationToken = default) where T : IEntity
     {
-        return query.GetPagedAsync(new PageInfo { CurrentCursor = cursor, PageSize = pageSize }, cancellationToken);
+        return query.GetPagedAsync(new PageInfo {CurrentCursor = cursor, PageSize = pageSize}, cancellationToken);
     }
 
     public static async Task<PagedList<T>> GetPagedNoCountAsync<T>(this IQueryable<T> query,
@@ -34,8 +34,8 @@ public static class RepositoryExtensions
             .ToListAsync(cancellationToken);
 
         pageInfo.TotalCount = totalCount == 0 ? data.Count : totalCount;
-        pageInfo.CurrentCursor = data[^1].Id;
-        
+        pageInfo.CurrentCursor = data.Any() ? data[^1].Id : pageInfo.CurrentCursor;
+
         return new PagedList<T>(data, pageInfo);
     }
 }

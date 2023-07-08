@@ -1,4 +1,6 @@
-﻿#pragma warning disable CS8618
+﻿using System.ComponentModel.DataAnnotations;
+
+#pragma warning disable CS8618
 namespace NeZoviReg.Domain;
 
 /// <summary>
@@ -28,7 +30,8 @@ public abstract class Entity : IEntity, IEquatable<Entity>
 
     public bool Deleted { get; private set; }
 
-    public byte[] Rowversion { get; private set; }
+    [Timestamp]
+    public /*byte[]*/DateTime Rowversion { get; private set; }
 
     public void AddCreation(string user = "init")
     {

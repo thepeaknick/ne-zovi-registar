@@ -24,8 +24,6 @@ public static class ConfigurationExtension
         if (configConcurrent)
         {
             configuration.Property(i => i.Rowversion)
-                .HasColumnType("timestamp")
-                .HasMaxLength(8)
                 .IsRowVersion();
         }
         else
@@ -55,8 +53,6 @@ public static class ConfigurationExtension
         if (configConcurrent)
         {
             configuration.Property(i => i.Rowversion)
-                .HasColumnType("timestamp")
-                .HasMaxLength(8)
                 .IsRowVersion();
         }
         else
@@ -75,14 +71,12 @@ public static class ConfigurationExtension
             .HasMaxLength(100)
             .IsRequired();
 
-        builder.Property(i => i.CreatedOn)
-            .HasColumnType("datetime2");
+        builder.Property(i => i.CreatedOn);
 
         builder.Property(i => i.ModifiedBy)
             .HasMaxLength(100);
 
-        builder.Property(i => i.ModifiedOn)
-            .HasColumnType("datetime2");
+        builder.Property(i => i.ModifiedOn);
 
         return builder;
     }
