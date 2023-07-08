@@ -45,7 +45,7 @@ public class User : Entity
     private string _jmbg;
     public string Jmbg
     {
-        get => _jmbg.Decode();
+        get => _jmbg.Decrypt();
         private set => _jmbg = value;
     }
 
@@ -79,7 +79,7 @@ public class User : Entity
         if (jmbg == default)
             return this;
         
-        Jmbg = jmbg.Encode();
+        Jmbg = jmbg.Encrypt();
 
         return this;
     }
