@@ -33,7 +33,7 @@ public static class Startup
         builder.AddJsonFile("appsettings.json", false, reloadOnChange);
         if (environment != null)
             builder.AddJsonFile("appsettings." + environment.EnvironmentName + ".json", true, reloadOnChange);
-        return builder.AddJsonFile("appsettings.my.json", true, reloadOnChange);
+        return builder.AddJsonFile("appsettings.my.json", true, false);
     }
 
     private static IServiceCollection AddRateLimiter(this IServiceCollection services, IConfiguration configuration)
