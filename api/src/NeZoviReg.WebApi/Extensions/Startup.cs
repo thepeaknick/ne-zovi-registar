@@ -14,6 +14,7 @@ public static class Startup
     public static IServiceCollection ConfigureWebApi(this IServiceCollection services, IConfiguration configuration)
     {
         return services
+            .AddHttpContextAccessor()
             .AddEndpointsApiExplorer()
             .AddApiDocumentation()
             .AddOptions()
@@ -44,9 +45,9 @@ public static class Startup
 
         return services.AddRateLimiter(options =>
         {
-            options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
-                RateLimitPartition.GetFixedWindowLimiter(
-                    httpContext.Request.Headers.Host.ToString(),
+            options.AddPolicy("Anonymous", httpContext =>
+            
+                RateLimitPartition.GetFixedWindowLimiter(httpContext.Connection.RemoteIpAddress?.ToString() ?? httpContext.Request.Headers.Host.ToString(),
                     _ => new FixedWindowRateLimiterOptions
                     {
                         AutoReplenishment = true,
@@ -55,6 +56,18 @@ public static class Startup
                         QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
                         Window = TimeSpan.FromSeconds(fixedWindowRateLimitOptions.WindowInSeconds)
                     }));
+
+            /*options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
+                RateLimitPartition.GetFixedWindowLimiter(
+                    httpContext.Connection.RemoteIpAddress?.ToString() ?? httpContext.Request.Headers.Host.ToString(),
+                    _ => new FixedWindowRateLimiterOptions
+                    {
+                        AutoReplenishment = true,
+                        PermitLimit = fixedWindowRateLimitOptions.PermitLimit,
+                        QueueLimit = fixedWindowRateLimitOptions.QueueLimit,
+                        QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                        Window = TimeSpan.FromSeconds(fixedWindowRateLimitOptions.WindowInSeconds)
+                    }));*/
 
             options.OnRejected = async (context, cancellationToken) =>
             {

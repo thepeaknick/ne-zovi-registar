@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using NeZoviReg.Abstractions.Extensions.Paging;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Enums;

@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using NeZoviReg.Abstractions.Extensions.Paging;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
@@ -126,6 +127,7 @@ public class UserController : NeZoviRegBaseController
     [HttpGet("{phoneNumber:required}")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     [AllowAnonymous]
+    [EnableRateLimiting("Anonymous")]
     public async Task<IActionResult> GetUser(string phoneNumber, CancellationToken cancellationToken)
     {
         var query = new GetUserQuery
@@ -146,6 +148,7 @@ public class UserController : NeZoviRegBaseController
     [HttpGet("{phoneNumber:required}/details")]
     [ProducesResponseType(typeof(UserDetailsDto), (int)HttpStatusCode.OK)]
     [AllowAnonymous]
+    [EnableRateLimiting("Anonymous")]
     public async Task<IActionResult> GetUserDetails(string phoneNumber, CancellationToken cancellationToken)
     {
         var query = new GetUserDetailsQuery(phoneNumber);

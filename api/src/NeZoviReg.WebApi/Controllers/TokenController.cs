@@ -6,6 +6,7 @@ using NeZoviReg.Abstractions.Messaging.Auth.Commands;
 using NeZoviReg.Abstractions.Messaging.Auth.Model;
 using NeZoviReg.WebApi.Model.Token;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace NeZoviReg.WebApi.Controllers;
 
@@ -25,6 +26,7 @@ public class TokenController : NeZoviRegBaseController
     [HttpPost("refresh-token")]
     [ProducesResponseType(typeof(LoginResultDto), (int)HttpStatusCode.OK)]
     [AllowAnonymous]
+    [EnableRateLimiting("Anonymous")]
     public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request, CancellationToken cancellationToken)
     {
         var command = new RefreshTokenCommand(request.AccessToken, request.RefreshToken);

@@ -9,6 +9,7 @@ using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using NeZoviReg.Auth.Authorization;
 using NeZoviReg.WebApi.Model.RegUser;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace NeZoviReg.WebApi.Controllers;
 
@@ -29,8 +30,10 @@ public class AccountController : NeZoviRegBaseController
     [HttpPost("login")]
     [ProducesResponseType(typeof(LoginResultDto), (int) HttpStatusCode.OK)]
     [AllowAnonymous]
+    [EnableRateLimiting("Anonymous")]
     public async Task<IActionResult> LoginRegUser([FromBody] LoginRequest request, CancellationToken cancellationToken)
     {
+        var t = HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString();
         var command = new LoginCommand(request.Username, request.Password);
 
         var result = await Sender.Send(command, cancellationToken);

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.HttpOverrides;
 using NeZoviReg.Composition;
 using NeZoviReg.WebApi.Extensions;
 using NeZoviReg.WebApi.Extensions.Middleware;
@@ -29,6 +30,12 @@ app.UseSwagger();
 
 //if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+                       ForwardedHeaders.XForwardedProto
+});
 
 app.UseHttpsRedirection();
 
