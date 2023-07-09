@@ -19,6 +19,7 @@ namespace NeZoviReg.WebApi.Controllers;
 [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.TooManyRequests)]
 [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.InternalServerError)]
 [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
+[EnableRateLimiting("Authenticated")]
 public class NeZoviRegBaseController : ControllerBase
 {
     protected readonly ISender Sender;
