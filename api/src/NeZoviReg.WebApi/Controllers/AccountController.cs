@@ -88,6 +88,7 @@ public class AccountController : NeZoviRegBaseController
     [HttpGet("forgotpassword/{email:required}")]
     [ProducesResponseType(typeof(string), (int) HttpStatusCode.OK)]
     [AllowAnonymous]
+    [EnableRateLimiting("Anonymous")]
     public async Task<IActionResult> ForgotRegUserPassword(string email, CancellationToken cancellationToken)
     {
         var command = new ForgotPassCommand(email)
@@ -107,6 +108,7 @@ public class AccountController : NeZoviRegBaseController
     [HttpPost("forgotpassword")]
     [ProducesResponseType(typeof(bool), (int) HttpStatusCode.OK)]
     [AllowAnonymous]
+    [EnableRateLimiting("Anonymous")]
     public async Task<IActionResult> ResetRegUserPassword([FromBody] ResetRegUserPasswordRequest request,
         CancellationToken cancellationToken)
     {
