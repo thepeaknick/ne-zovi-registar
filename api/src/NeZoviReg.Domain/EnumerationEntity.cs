@@ -44,8 +44,8 @@ public abstract class EnumerationEntity<TEnum> : IEquatable<EnumerationEntity<TE
 
     public DateTime? ModifiedOn { get; private set; }
 
-    [Timestamp]
-    public /*byte[]*/DateTime Rowversion { get; private set; }
+    //byte[] for SQL SERVER
+    public /*byte[]*/ DateTime Rowversion { get; private set; }
 
     public bool Deleted { get; private set; }
 

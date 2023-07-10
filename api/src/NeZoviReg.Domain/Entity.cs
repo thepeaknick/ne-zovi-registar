@@ -30,8 +30,8 @@ public abstract class Entity : IEntity, IEquatable<Entity>
 
     public bool Deleted { get; private set; }
 
-    [Timestamp]
-    public /*byte[]*/DateTime Rowversion { get; private set; }
+    //byte[] for SQL SERVER
+   public /*byte[]*/DateTime Rowversion { get; private set; }
 
     public void AddCreation(string user = "init")
     {
