@@ -43,11 +43,12 @@ public static class RepositoryExtensions
                 .Take(pageInfo.PageSize)
                 .OrderBy(p => p.Id)
                 .ToListAsync(cancellationToken);
+
+            pageInfo.CurrentCursor = data.Any() ? data[^1].Id : pageInfo.CurrentCursor;
         }
 
         pageInfo.TotalCount = totalCount == 0 ? data.Count : totalCount;
-        pageInfo.CurrentCursor = data.Any() ? data[^1].Id : pageInfo.CurrentCursor;
-
+        
         return new PagedList<T>(data, pageInfo);
     }
 }
