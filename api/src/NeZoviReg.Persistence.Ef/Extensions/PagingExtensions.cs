@@ -27,11 +27,23 @@ public static class RepositoryExtensions
         int totalCount = 0,
         CancellationToken cancellationToken = default) where T : IEntity
     {
-        List<T> data = await query
-            .Where(p => p.Id > pageInfo.CurrentCursor)
-            .Take(pageInfo.PageSize)
-            .OrderBy(p => p.Id)
-            .ToListAsync(cancellationToken);
+        List<T> data;
+        
+        if (pageInfo.PagingDisabled)
+        {
+            data = await query
+                .Where(p => p.Id > pageInfo.CurrentCursor)
+                .OrderBy(p => p.Id)
+                .ToListAsync(cancellationToken);
+        }
+        else
+        {
+            data = await query
+                .Where(p => p.Id > pageInfo.CurrentCursor)
+                .Take(pageInfo.PageSize)
+                .OrderBy(p => p.Id)
+                .ToListAsync(cancellationToken);
+        }
 
         pageInfo.TotalCount = totalCount == 0 ? data.Count : totalCount;
         pageInfo.CurrentCursor = data.Any() ? data[^1].Id : pageInfo.CurrentCursor;

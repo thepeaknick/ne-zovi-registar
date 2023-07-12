@@ -27,6 +27,11 @@ public class PageInfo
     public int PageSize { get; set; } = DefaultPageSize;
 
     /// <summary>
+    /// Straničenje je isključeno.
+    /// </summary>
+    public bool PagingDisabled => PageSize == -1;
+
+    /// <summary>
     /// Ukupan broj elemenata u traženoj kolekciji.
     /// </summary>
     public int TotalCount { get; set; }
@@ -50,8 +55,8 @@ public class PageInfo
 
     public override string ToString()
     {
-        var tc = TotalCount > 0 && TotalCount < int.MaxValue ? $",Total:{TotalCount}" : null;
+        var tc = TotalCount > 0 && TotalCount < int.MaxValue ? $";Total:{TotalCount}" : null;
 
-        return $"Cursor:{CurrentCursor},PageSize:{PageSize}{tc}";
+        return $"Cursor:{CurrentCursor};PageSize:{PageSize}{tc}";
     }
 }
