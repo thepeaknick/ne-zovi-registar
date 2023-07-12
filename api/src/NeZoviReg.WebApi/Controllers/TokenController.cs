@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using NeZoviReg.Abstractions.Messaging.Auth.Commands;
 using NeZoviReg.Abstractions.Messaging.Auth.Model;
 using NeZoviReg.WebApi.Model.Token;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.RateLimiting;
 
 namespace NeZoviReg.WebApi.Controllers;

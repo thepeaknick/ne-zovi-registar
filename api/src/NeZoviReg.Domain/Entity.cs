@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-#pragma warning disable CS8618
+﻿#pragma warning disable CS8618
 namespace NeZoviReg.Domain;
 
 /// <summary>

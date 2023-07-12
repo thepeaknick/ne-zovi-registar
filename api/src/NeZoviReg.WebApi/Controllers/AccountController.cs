@@ -8,7 +8,6 @@ using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using NeZoviReg.Auth.Authorization;
 using NeZoviReg.WebApi.Model.RegUser;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.RateLimiting;
 
 namespace NeZoviReg.WebApi.Controllers;

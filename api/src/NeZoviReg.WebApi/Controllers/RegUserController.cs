@@ -7,7 +7,6 @@ using NeZoviReg.WebApi.Model.RegUser;
 using System.Net;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 using NeZoviReg.Abstractions.Messaging.Domain.Queries.RegUser;
-using Microsoft.AspNetCore.Cors;
 
 namespace NeZoviReg.WebApi.Controllers;
 

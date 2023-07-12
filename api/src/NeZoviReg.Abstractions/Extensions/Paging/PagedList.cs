@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Text.Json.Serialization;
-
-namespace NeZoviReg.Abstractions.Extensions.Paging;
+﻿namespace NeZoviReg.Abstractions.Extensions.Paging;
 
 /// <summary>
 /// Kolekcija sa opcijom straničenja.
