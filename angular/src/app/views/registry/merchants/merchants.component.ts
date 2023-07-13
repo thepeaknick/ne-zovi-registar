@@ -85,21 +85,10 @@ export class MerchantsComponent {
 
     this.isValidated = true;
 
-    if ( ! (
-      this.fields['regUserName'].valid &&
-      this.fields['regUserAddress'].valid &&
-      this.fields['regUserMB'].valid &&
-      this.fields['regUserPIB'].valid &&
-      this.fields['regUserFirstName'].valid &&
-      this.fields['regUserLastName'].valid &&
-      this.fields['regUserUsername'].valid &&
-      this.fields['regUserPassword'].valid &&
-      this.fields['regUserEmail'].valid
-      )
-    ) {
+    if (!this.allFieldsValidated()) {
       return;
     }
-    
+
     this.regUserService
       .modifyRegUserByGuid(this.editingUserGuidId, {
         name: this.fields['regUserName'].value,
@@ -123,20 +112,10 @@ export class MerchantsComponent {
   }
 
   addRegUser() {
+
     this.isValidated = true;
 
-    if ( ! (
-      this.fields['regUserName'].valid &&
-      this.fields['regUserAddress'].valid &&
-      this.fields['regUserMB'].valid &&
-      this.fields['regUserPIB'].valid &&
-      this.fields['regUserFirstName'].valid &&
-      this.fields['regUserLastName'].valid &&
-      this.fields['regUserUsername'].valid &&
-      this.fields['regUserPassword'].valid &&
-      this.fields['regUserEmail'].valid
-      )
-    ) {
+    if (!this.allFieldsValidated()) {
       return;
     }
     
@@ -261,5 +240,24 @@ export class MerchantsComponent {
       (this.currentPage - 1) * this.itemsPerPage,
       this.currentPage * this.itemsPerPage
     );
+  }
+
+  allFieldsValidated(): Boolean {
+    if  (
+          this.fields['regUserName'].valid &&
+          this.fields['regUserAddress'].valid &&
+          this.fields['regUserMB'].valid &&
+          this.fields['regUserPIB'].valid &&
+          this.fields['regUserFirstName'].valid &&
+          this.fields['regUserLastName'].valid &&
+          this.fields['regUserUsername'].valid &&
+          this.fields['regUserPassword'].valid &&
+          this.fields['regUserEmail'].valid
+        )
+    {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
