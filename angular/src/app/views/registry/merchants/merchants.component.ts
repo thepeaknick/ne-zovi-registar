@@ -82,6 +82,24 @@ export class MerchantsComponent {
   }
 
   modifyRegUser() {
+
+    this.isValidated = true;
+
+    if ( ! (
+      this.fields['regUserName'].valid &&
+      this.fields['regUserAddress'].valid &&
+      this.fields['regUserMB'].valid &&
+      this.fields['regUserPIB'].valid &&
+      this.fields['regUserFirstName'].valid &&
+      this.fields['regUserLastName'].valid &&
+      this.fields['regUserUsername'].valid &&
+      this.fields['regUserPassword'].valid &&
+      this.fields['regUserEmail'].valid
+      )
+    ) {
+      return;
+    }
+    
     this.regUserService
       .modifyRegUserByGuid(this.editingUserGuidId, {
         name: this.fields['regUserName'].value,
@@ -105,7 +123,6 @@ export class MerchantsComponent {
   }
 
   addRegUser() {
-    console.log("Blabslablsa ", this.regUserForm.controls['regUserName'].valid)
     this.isValidated = true;
 
     if ( ! (
