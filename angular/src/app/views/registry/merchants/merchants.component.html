@@ -184,31 +184,49 @@
     </c-modal-header>
     <c-modal-body>
       <p class="modalTitleText">Podaci o trgovcu</p>
-      <form cForm class="row g-3" [formGroup]="regUserForm">
+      <form 
+        cForm 
+        class="row g-3" 
+        [formGroup]="regUserForm" 
+        novalidate 
+        [validated]="isValidated"
+      >
         <c-col [xs]="8">
           <div class="mb-3">
             <label cLabel for="regUserName" class="textInputField">
               Ime trgovca
             </label>
             <input
+              required
               cFormControl
               formControlName="regUserName"
               id="regUserName"
               type="text"
               placeholder="Ime"
             />
+            <!-- <c-form-feedback class="custom-form-feedback" [valid]="!regUserForm.controls['regUserName'].valid && regUserForm.controls['regUserName'].touched">
+              <span *ngIf="!regUserForm.controls['regUserName'].valid && regUserForm.controls['regUserName'].touched">
+                This field is required.
+              </span>
+            </c-form-feedback> -->
           </div>
           <div class="mb-3">
             <label cLabel for="regUserAddress" class="textInputField">
               Adresa trgovca
             </label>
             <input
+              required
               cFormControl
               formControlName="regUserAddress"
               id="regUserAddress"
               type="text"
               placeholder="Adresa"
             />
+            <!-- <c-form-feedback class="custom-form-feedback" [valid]="!regUserForm.controls['regUserAddress'].valid && regUserForm.controls['regUserAddress'].touched">
+              <span *ngIf="!regUserForm.controls['regUserAddress'].valid && regUserForm.controls['regUserAddress'].touched">
+                This field is required.
+              </span>
+            </c-form-feedback> -->
           </div>
           <div class="mb-3">
             <c-row>
@@ -217,6 +235,7 @@
                   Ime
                 </label>
                 <input
+                  required
                   cFormControl
                   formControlName="regUserFirstName"
                   id="regUserFirstName"
@@ -229,6 +248,7 @@
                   Prezime
                 </label>
                 <input
+                  required
                   cFormControl
                   formControlName="regUserLastName"
                   id="regUserLastName"
@@ -245,6 +265,8 @@
                   Korisničko ime
                 </label>
                 <input
+                  required
+                  minlength="8"
                   cFormControl
                   formControlName="regUserUsername"
                   id="regUserUsername"
@@ -257,6 +279,8 @@
                   Lozinka
                 </label>
                 <input
+                  required
+                  minlength="8"
                   cFormControl
                   formControlName="regUserPassword"
                   id="regUserPassword"
@@ -271,6 +295,8 @@
               E-mail
             </label>
             <input
+              required
+              email
               cFormControl
               formControlName="regUserEmail"
               id="regUserEmail"
@@ -281,8 +307,12 @@
         </c-col>
         <c-col [xs]="4">
           <div class="mb-3">
-            <label cLabel for="pib" class="textInputField">PIB</label>
+            <label cLabel for="regUserPIB" class="textInputField">PIB</label>
             <input
+              required 
+              minlength="9"
+              maxlength="9"
+              pattern="[0-9]*"
               cFormControl
               formControlName="regUserPIB"
               id="regUserPIB"
@@ -291,8 +321,12 @@
             />
           </div>
           <div class="mb-3">
-            <label cLabel for="mb" class="textInputField">Matični broj</label>
+            <label cLabel for="regUserMB" class="textInputField">Matični broj</label>
             <input
+              required 
+              minlength="8"
+              maxlength="8"
+              pattern="[0-9]*"
               cFormControl
               formControlName="regUserMB"
               id="regUserMB"

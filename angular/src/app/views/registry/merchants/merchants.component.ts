@@ -1,3 +1,4 @@
+import { BooleanInput } from '@angular/cdk/coercion';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -18,7 +19,11 @@ export class MerchantsComponent {
   constructor(
     private regUserService: RegUserService,
     private formBuilder: FormBuilder
-  ) {}
+  ) {
+    this.regUserForm = this.formBuilder.group({
+      regUserName: ['', Validators.required],
+    });
+  }
 
   @Input() public regUsers: RegUserDto[] = [];
   @Input() public modalAddEditUserTitle: string = 'Dodaj novog trgovca';
@@ -37,15 +42,17 @@ export class MerchantsComponent {
   private editingUserGuidId = '';
   regUserForm!: FormGroup;
 
+  isValidated: BooleanInput = false;
+
   ngOnInit(): void {
     this.regUserForm = this.formBuilder.group({
       regUserName: ['', Validators.required],
       regUserAddress: ['', Validators.required],
-      regUserMB: ['', Validators.required],
-      regUserPIB: ['', Validators.required],
-      regUserUsername: ['', Validators.required],
-      regUserPassword: ['', Validators.required],
-      regUserEmail: ['', Validators.required],
+      regUserMB: ['', [Validators.required, Validators.minLength, Validators.maxLength, Validators.pattern]],
+      regUserPIB: ['', [Validators.required, Validators.minLength, Validators.maxLength, Validators.pattern,]],
+      regUserUsername: ['', [Validators.required, Validators.minLength]],
+      regUserPassword: ['', [Validators.required, Validators.minLength]],
+      regUserEmail: ['', [Validators.required, Validators.email]],
       regUserFirstName: ['', Validators.required],
       regUserLastName: ['', Validators.required],
     });
@@ -69,8 +76,9 @@ export class MerchantsComponent {
   }
 
   resetFields() {
+    this.isValidated = false;
     this.regUserForm.reset();
-    this.toggleConfirmationModal();
+    this.toggleConfirmationModal();    
   }
 
   modifyRegUser() {
@@ -97,6 +105,24 @@ export class MerchantsComponent {
   }
 
   addRegUser() {
+    console.log("Blabslablsa ", this.regUserForm.controls['regUserName'].valid)
+    this.isValidated = true;
+
+    if ( ! (
+      this.fields['regUserName'].valid &&
+      this.fields['regUserAddress'].valid &&
+      this.fields['regUserMB'].valid &&
+      this.fields['regUserPIB'].valid &&
+      this.fields['regUserFirstName'].valid &&
+      this.fields['regUserLastName'].valid &&
+      this.fields['regUserUsername'].valid &&
+      this.fields['regUserPassword'].valid &&
+      this.fields['regUserEmail'].valid
+      )
+    ) {
+      return;
+    }
+    
     this.regUserService
       .registerRegUser({
         name: this.fields['regUserName'].value,
@@ -133,6 +159,7 @@ export class MerchantsComponent {
   }
 
   toggleAddRegUsernModal() {
+    this.isValidated = false;
     this.isAddReguserModalVisible = !this.isAddReguserModalVisible;
   }
 
