@@ -19,11 +19,7 @@ export class MerchantsComponent {
   constructor(
     private regUserService: RegUserService,
     private formBuilder: FormBuilder
-  ) {
-    this.regUserForm = this.formBuilder.group({
-      regUserName: ['', Validators.required],
-    });
-  }
+  ) {}
 
   @Input() public regUsers: RegUserDto[] = [];
   @Input() public modalAddEditUserTitle: string = 'Dodaj novog trgovca';

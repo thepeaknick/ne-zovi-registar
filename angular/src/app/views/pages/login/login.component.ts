@@ -47,6 +47,10 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
+  goSignUp(): void {
+    this.router.navigate(['/signup']);
+  }
+
   goDashboardHome(): void {
     this.submitted = true;
 
@@ -112,4 +116,6 @@ export class LoginComponent implements OnInit {
 
     this.authenticationService.forgotPasswordSendEMail(email);
   }
+
+  
 }

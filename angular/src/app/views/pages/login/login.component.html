@@ -41,13 +41,20 @@
               <h2 *ngIf="showLoginErrorMessage" class="loginResultText red">
                 NEISPRAVNO KORISNIČKO IME ILI LOZINKA
               </h2>
-
               <input
                 cButton
                 class="submitButton"
                 type="submit"
-                value="Sign in"
+                value="Sign In"
                 (click)="goDashboardHome()"
+              />
+              <br/>
+              <input
+                cButton
+                class="signUpButton"
+                type="submit"
+                value="Sign Up"
+                (click)="goSignUp()"
               />
               <p class="descriptionText">
                 Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
