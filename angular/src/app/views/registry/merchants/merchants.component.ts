@@ -41,7 +41,7 @@ export class MerchantsComponent {
 
   isValidated: BooleanInput = false;
 
-  fileName= 'ExcelSheet.xlsx';
+  fileName= 'TrgovciExcelSheet.xlsx';
 
   ngOnInit(): void {
     this.regUserForm = this.formBuilder.group({
