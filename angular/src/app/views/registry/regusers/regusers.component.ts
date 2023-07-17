@@ -117,12 +117,28 @@ export class RegUsersComponent implements OnInit {
       })
       .subscribe({
         next: () => {
-          console.log('Successfuly registered user');
+          console.debug('Uspešno promenjeni podaci o obvezniku');
+          var currentPage = this.currentPage;
+          this.regUserService.getRegUsers(RoleType.Obveznik).subscribe({
+            next: (regUsers: RegUserDto[]) =>
+              (this.regUsers =
+                regUsers instanceof HttpErrorResponse ? [] : regUsers),
+            complete: () => {
+              this.totalPagesNumber =
+                this.regUsers.length % this.itemsPerPage === 0
+                  ? Math.trunc(this.regUsers.length / this.itemsPerPage)
+                  : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
+              this.setPage(currentPage);
+              this.currentPage = currentPage;
+              // this.addRegUsers()
+            },
+          });
+
           this.toggleAddRegUsernModal();
           this.toggleConfirmationModal();
         },
         error: (error) => {
-          console.log('Neuspesno promenjeni podaci o obvezniku');
+          console.debug('Neuspešno promenjeni podaci o obvezniku');
         },
       });
   }
@@ -149,15 +165,31 @@ export class RegUsersComponent implements OnInit {
       })
       .subscribe({
         next: () => {
-          console.log('Successfuly registered user');
+          console.debug('Uspešno kreiran obveznik');
+          var currentPage = this.currentPage;
+          this.regUserService.getRegUsers(RoleType.Obveznik).subscribe({
+            next: (regUsers: RegUserDto[]) =>
+              (this.regUsers =
+                regUsers instanceof HttpErrorResponse ? [] : regUsers),
+            complete: () => {
+              this.totalPagesNumber =
+                this.regUsers.length % this.itemsPerPage === 0
+                  ? Math.trunc(this.regUsers.length / this.itemsPerPage)
+                  : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
+              this.setPage(currentPage);
+              this.currentPage = currentPage;
+              // this.addRegUsers()
+            },
+          });
+
           this.toggleAddRegUsernModal();
           this.toggleConfirmationModal();
         },
         error: (error) => {
-          console.log('Unsuccessfuly registered user complete callback', error);
+          console.debug('Neuspeašno kreiran obveznik', error);
         },
         complete: () => {
-          console.log('Successfuly registered user complete callback');
+          // console.debug('Successfuly registered user complete callback');
         },
       });
   }

@@ -270,8 +270,7 @@
                   Lozinka
                 </label>
                 <input
-                  required
-                  minlength="8"
+                  minlength="7"
                   cFormControl
                   formControlName="regUserPassword"
                   id="regUserPassword"
@@ -361,8 +360,11 @@
 
     <c-modal-body>
       <img src="/assets/images/exclamationmark.png" class="modalImage" />
-      <p cModalTitle class="modalTitle">
+      <p cModalTitle class="modalTitle" *ngIf="!isEditing">
         Uspešno ste registrovali novog trgovca
+      </p>
+      <p cModalTitle class="modalTitle" *ngIf="isEditing">
+        Uspešno ste izmenili podatke trgovca
       </p>
       <p class="modalSubtitle">
         Lorem ipsum lorem ipsum lorem ipsum lorem<br />
