@@ -9,6 +9,7 @@ import {
   UserDto,
 } from 'src/app/domain/model/schemas';
 import { RegUserService } from 'src/app/domain/services/reguser.service';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-merchants',
@@ -40,6 +41,8 @@ export class MerchantsComponent {
 
   isValidated: BooleanInput = false;
 
+  fileName= 'ExcelSheet.xlsx';
+
   ngOnInit(): void {
     this.regUserForm = this.formBuilder.group({
       regUserName: ['', Validators.required],
@@ -64,6 +67,47 @@ export class MerchantsComponent {
       },
     });
     // 2023-06-11T12:58:03.3910839
+  }
+
+  exportExcel(): void {
+    
+    let data = this.regUsers.map(({guidId, id, createdOn, ...item}) => {
+      const formattedDate = new Date(createdOn).toLocaleDateString();
+    
+      return {
+        "Ime firme": item.name,
+        "PIB": item.taxNumber,
+        "MB": item.regNumber,
+        "Datum upisa": formattedDate
+      };
+      
+    });
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+
+    // Set column widths
+    const columnWidths = [
+      { wch: 30 }, // Column A width
+      { wch: 20 }, // Column B width
+      { wch: 20 }, // Column C width
+      { wch: 20 }, // Column D width
+    ];
+
+    // Update column widths in the worksheet
+    columnWidths.forEach((width, colIndex) => {
+      ws['!cols'] = ws['!cols'] || [];
+      ws['!cols'][colIndex] = { wch: width.wch };
+    });
+
+    // Update first row height
+    ws['!rows'] = ws['!rows'] || [];
+    ws['!rows'][0] = { hpx: 30 };
+ 
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */  
+    XLSX.writeFile(wb, this.fileName);
   }
 
   // Data handling

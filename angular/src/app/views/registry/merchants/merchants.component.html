@@ -63,6 +63,7 @@
             class="tableButton"
             color="white"
             shape="rounded-pill"
+            (click)="exportExcel()"
           >
             Export data
           </button>
@@ -115,7 +116,7 @@
         </c-col>
       </c-row>
     </div>
-    <div class="tableData">
+    <div id="excel-table" class="tableData">
       <table cTable hover>
         <thead class="tableHeader">
           <tr>
