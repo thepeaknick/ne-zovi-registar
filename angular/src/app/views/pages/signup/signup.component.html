@@ -6,11 +6,11 @@
         <c-col xs="12" sm="8" md="8" class="backgroundView">
           <div class="content">
             <p class="modalTitleText">Podaci o trgovcu</p>
-            <form 
-              cForm 
-              class="row g-3" 
-              [formGroup]="regUserForm" 
-              novalidate 
+            <form
+              cForm
+              class="row g-3"
+              [formGroup]="regUserForm"
+              novalidate
               [validated]="isValidated"
             >
               <c-col [xs]="8">
@@ -43,7 +43,11 @@
                 <div class="mb-3">
                   <c-row>
                     <c-col>
-                      <label cLabel for="regUserFirstName" class="textInputField">
+                      <label
+                        cLabel
+                        for="regUserFirstName"
+                        class="textInputField"
+                      >
                         Ime
                       </label>
                       <input
@@ -56,7 +60,11 @@
                       />
                     </c-col>
                     <c-col>
-                      <label cLabel for="regUserLastName" class="textInputField">
+                      <label
+                        cLabel
+                        for="regUserLastName"
+                        class="textInputField"
+                      >
                         Prezime
                       </label>
                       <input
@@ -73,7 +81,11 @@
                 <div class="mb-3">
                   <c-row>
                     <c-col>
-                      <label cLabel for="regUserUsername" class="textInputField">
+                      <label
+                        cLabel
+                        for="regUserUsername"
+                        class="textInputField"
+                      >
                         Korisničko ime
                       </label>
                       <input
@@ -87,7 +99,11 @@
                       />
                     </c-col>
                     <c-col>
-                      <label cLabel for="regUserPassword" class="textInputField">
+                      <label
+                        cLabel
+                        for="regUserPassword"
+                        class="textInputField"
+                      >
                         Lozinka
                       </label>
                       <input
@@ -119,9 +135,11 @@
               </c-col>
               <c-col [xs]="4">
                 <div class="mb-3">
-                  <label cLabel for="regUserPIB" class="textInputField">PIB</label>
+                  <label cLabel for="regUserPIB" class="textInputField"
+                    >PIB</label
+                  >
                   <input
-                    required 
+                    required
                     minlength="9"
                     maxlength="9"
                     pattern="[0-9]*"
@@ -133,9 +151,11 @@
                   />
                 </div>
                 <div class="mb-3">
-                  <label cLabel for="regUserMB" class="textInputField">Matični broj</label>
+                  <label cLabel for="regUserMB" class="textInputField"
+                    >Matični broj</label
+                  >
                   <input
-                    required 
+                    required
                     minlength="8"
                     maxlength="8"
                     pattern="[0-9]*"
@@ -169,35 +189,36 @@
       </c-row>
     </c-container>
 
-  <c-modal
-    #confirmNewReguserModal
-    alignment="center"
-    id="confirmNewReguserModal"
-    [visible]="isSuccessfulyRegisteredUserModalVisible"
-    backdrop="static"
-  >
-    <c-modal-header>
-      <button (click)="resetFields()" cButtonClose></button>
-    </c-modal-header>
+    <c-modal
+      #confirmNewReguserModal
+      alignment="center"
+      id="confirmNewReguserModal"
+      [visible]="isSuccessfulyRegisteredUserModalVisible"
+      backdrop="static"
+    >
+      <c-modal-header>
+        <button (click)="resetFields()" cButtonClose></button>
+      </c-modal-header>
 
-    <c-modal-body>
-      <img src="/assets/images/exclamationmark.png" class="modalImage" />
-      <p cModalTitle class="modalTitle">
-        Uspešno ste registrovali novog trgovca
-      </p>
-      <p class="modalSubtitle">
-        Lorem ipsum lorem ipsum lorem ipsum lorem<br />
-        ipsum lorem ipsum
-      </p>
-    </c-modal-body>
-    <c-modal-footer>
-      <input
-        cButton
-        class="modalSubmitButton"
-        type="submit"
-        value="U redu"
-        (click)="resetFields()"
-      />
-    </c-modal-footer>
-  </c-modal>
+      <c-modal-body>
+        <img src="/assets/images/exclamationmark.png" class="modalImage" />
+        <p cModalTitle class="modalTitle">
+          Uspešno ste registrovali novog trgovca
+        </p>
+        <p class="modalSubtitle">
+          <!-- Lorem ipsum lorem ipsum lorem ipsum lorem<br />
+        ipsum lorem ipsum -->
+        </p>
+      </c-modal-body>
+      <c-modal-footer>
+        <input
+          cButton
+          class="modalSubmitButton"
+          type="submit"
+          value="U redu"
+          (click)="resetFields()"
+        />
+      </c-modal-footer>
+    </c-modal>
+  </div>
 </div>

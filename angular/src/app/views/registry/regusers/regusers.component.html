@@ -81,7 +81,7 @@
                     shape="rounded-pill"
                     (click)="sortByName()"
                   >
-                    By Name
+                    Po imenu
                   </button>
                   <button
                     cButton
@@ -90,7 +90,7 @@
                     shape="rounded-pill"
                     (click)="sortByCreatedOnASC()"
                   >
-                    By Created On ASC
+                    Po datumu kreiranja (uzlazno)
                   </button>
                   <button
                     cButton
@@ -99,7 +99,7 @@
                     shape="rounded-pill"
                     (click)="sortByCreatedOnDESC()"
                   >
-                    By Created On DESC
+                    Po datumu kreiranja (silazno)
                   </button>
                 </c-col>
               </c-row>
@@ -177,12 +177,12 @@
     </c-modal-header>
     <c-modal-body>
       <p class="modalTitleText">Podaci o obvezniku</p>
-      <form 
-        cForm 
-        class="row g-3" 
-        [formGroup]="regUserForm" 
-        novalidate 
-        [validated]="isValidated"  
+      <form
+        cForm
+        class="row g-3"
+        [formGroup]="regUserForm"
+        novalidate
+        [validated]="isValidated"
       >
         <c-col [xs]="8">
           <div class="mb-3">
@@ -262,8 +262,7 @@
                   Lozinka
                 </label>
                 <input
-                  required
-                  minlength="8"
+                  minlength="7"
                   cFormControl
                   formControlName="regUserPassword"
                   id="regUserPassword"
@@ -292,7 +291,7 @@
           <div class="mb-3">
             <label cLabel for="regUserPIB" class="textInputField">PIB</label>
             <input
-              required 
+              required
               minlength="9"
               maxlength="9"
               pattern="[0-9]*"
@@ -304,9 +303,11 @@
             />
           </div>
           <div class="mb-3">
-            <label cLabel for="regUserMB" class="textInputField">Matični broj</label>
+            <label cLabel for="regUserMB" class="textInputField"
+              >Matični broj</label
+            >
             <input
-              required 
+              required
               minlength="8"
               maxlength="8"
               pattern="[0-9]*"
@@ -351,8 +352,11 @@
 
     <c-modal-body>
       <img src="/assets/images/exclamationmark.png" class="modalImage" />
-      <p cModalTitle class="modalTitle">
+      <p cModalTitle class="modalTitle" *ngIf="!isEditing">
         Uspešno ste registrovali novog obveznika
+      </p>
+      <p cModalTitle class="modalTitle" *ngIf="isEditing">
+        Uspešno ste izmenili podatke obveznika
       </p>
       <p class="modalSubtitle">
         Lorem ipsum lorem ipsum lorem ipsum lorem<br />

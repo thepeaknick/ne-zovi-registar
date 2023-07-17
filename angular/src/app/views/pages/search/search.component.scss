@@ -95,7 +95,9 @@ c-modal-footer button img {
   color: #3f6aa3;
 }
 
-.descriptionText {
+.descriptionText,
+ul,
+li {
   font-weight: 400;
   font-size: 15.132px;
   line-height: 22px;
@@ -160,4 +162,3 @@ c-modal-footer button img {
     transform-origin: 0;
   }
 }
-
