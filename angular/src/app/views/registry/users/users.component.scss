@@ -178,6 +178,10 @@ c-modal-body {
 
 @media screen and (max-width: 650px) {
   .tableButton {
-      margin: 2%;
+    margin: 2%;
   }
+}
+
+c-pagination li {
+  cursor: pointer;
 }

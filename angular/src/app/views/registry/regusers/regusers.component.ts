@@ -43,8 +43,24 @@ export class RegUsersComponent implements OnInit {
     this.regUserForm = this.formBuilder.group({
       regUserName: ['', Validators.required],
       regUserAddress: ['', Validators.required],
-      regUserMB: ['', [Validators.required, Validators.minLength, Validators.maxLength, Validators.pattern]],
-      regUserPIB: ['', [Validators.required, Validators.minLength, Validators.maxLength, Validators.pattern,]],
+      regUserMB: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength,
+          Validators.maxLength,
+          Validators.pattern,
+        ],
+      ],
+      regUserPIB: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength,
+          Validators.maxLength,
+          Validators.pattern,
+        ],
+      ],
       regUserUsername: ['', [Validators.required, Validators.minLength]],
       regUserPassword: ['', [Validators.required, Validators.minLength]],
       regUserEmail: ['', [Validators.required, Validators.email]],
@@ -81,7 +97,6 @@ export class RegUsersComponent implements OnInit {
   }
 
   modifyRegUser() {
-
     this.isValidated = true;
 
     if (!this.allFieldsValidated()) {
@@ -101,7 +116,11 @@ export class RegUsersComponent implements OnInit {
         role: RoleType.Obveznik,
       })
       .subscribe({
-        next: () => {},
+        next: () => {
+          console.log('Successfuly registered user');
+          this.toggleAddRegUsernModal();
+          this.toggleConfirmationModal();
+        },
         error: (error) => {
           console.log('Neuspesno promenjeni podaci o obvezniku');
         },
@@ -109,7 +128,6 @@ export class RegUsersComponent implements OnInit {
   }
 
   addRegUser() {
-
     this.isValidated = true;
 
     if (!this.allFieldsValidated()) {
@@ -240,18 +258,17 @@ export class RegUsersComponent implements OnInit {
   }
 
   allFieldsValidated(): Boolean {
-    if  (
-          this.fields['regUserName'].valid &&
-          this.fields['regUserAddress'].valid &&
-          this.fields['regUserMB'].valid &&
-          this.fields['regUserPIB'].valid &&
-          this.fields['regUserFirstName'].valid &&
-          this.fields['regUserLastName'].valid &&
-          this.fields['regUserUsername'].valid &&
-          this.fields['regUserPassword'].valid &&
-          this.fields['regUserEmail'].valid
-        )
-    {
+    if (
+      this.fields['regUserName'].valid &&
+      this.fields['regUserAddress'].valid &&
+      this.fields['regUserMB'].valid &&
+      this.fields['regUserPIB'].valid &&
+      this.fields['regUserFirstName'].valid &&
+      this.fields['regUserLastName'].valid &&
+      this.fields['regUserUsername'].valid &&
+      // this.fields['regUserPassword'].valid &&
+      this.fields['regUserEmail'].valid
+    ) {
       return true;
     } else {
       return false;
