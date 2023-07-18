@@ -71,12 +71,10 @@
     width: 100%;
     text-align: center;
   }
-  // .headerContainer {
-  //   height: 10vh
-  // }
+
 }
 
-@media screen and (max-height: 450px) {
+@media screen and (max-height: 750px) {
   c-row {
     display: block;
   }
