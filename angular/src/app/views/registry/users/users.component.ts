@@ -7,6 +7,7 @@ import { AuthenticationService } from 'src/app/domain/services/authentication.se
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegUserService } from 'src/app/domain/services/reguser.service';
 import { RegUserDto } from '../../../domain/model/schemas';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-users',
@@ -48,6 +49,8 @@ export class UsersComponent implements OnInit {
 
   userForm!: FormGroup;
 
+  fileName= 'KorisniciExcelSheet.xlsx';
+
   addPhoneNumberDiv() {
     this.divs.push(this.divs.length);
   }
@@ -62,6 +65,44 @@ export class UsersComponent implements OnInit {
     });
 
     this.reloadUsersAndGoToFirsPage();
+  }
+
+  exportExcel(): void {
+
+    
+    let data = this.users.map((item) => {
+      const formattedDate = new Date(item.createdModifiedOn).toLocaleDateString();
+    
+      return {
+        "Broj telefona": item.phoneNumber,
+        "Datum upisa/ispisa": formattedDate,
+      };
+      
+    });
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+
+    // Set column widths
+    const columnWidths = [
+      { wch: 30 }, // Column A width
+      { wch: 30 }, // Column B width
+    ];
+
+    // Update column widths in the worksheet
+    columnWidths.forEach((width, colIndex) => {
+      ws['!cols'] = ws['!cols'] || [];
+      ws['!cols'][colIndex] = { wch: width.wch };
+    });
+
+    // Update first row height
+    ws['!rows'] = ws['!rows'] || [];
+    ws['!rows'][0] = { hpx: 30 };
+ 
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */  
+    XLSX.writeFile(wb, this.fileName);
   }
 
   reloadUsersAndGoToFirsPage() {

@@ -41,30 +41,14 @@ export class MerchantsComponent {
 
   isValidated: BooleanInput = false;
 
-  fileName = 'ExcelSheet.xlsx';
+  fileName= 'TrgovciExcelSheet.xlsx';
 
   ngOnInit(): void {
     this.regUserForm = this.formBuilder.group({
       regUserName: ['', Validators.required],
       regUserAddress: ['', Validators.required],
-      regUserMB: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength,
-          Validators.maxLength,
-          Validators.pattern,
-        ],
-      ],
-      regUserPIB: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength,
-          Validators.maxLength,
-          Validators.pattern,
-        ],
-      ],
+      regUserMB: ['', [Validators.required, Validators.minLength, Validators.maxLength, Validators.pattern]],
+      regUserPIB: ['', [Validators.required, Validators.minLength, Validators.maxLength, Validators.pattern,]],
       regUserUsername: ['', [Validators.required, Validators.minLength]],
       regUserPassword: ['', [Validators.required, Validators.minLength]],
       regUserEmail: ['', [Validators.required, Validators.email]],
@@ -86,15 +70,17 @@ export class MerchantsComponent {
   }
 
   exportExcel(): void {
-    let data = this.regUsers.map(({ guidId, id, createdOn, ...item }) => {
+    
+    let data = this.regUsers.map(({guidId, id, createdOn, ...item}) => {
       const formattedDate = new Date(createdOn).toLocaleDateString();
-
+    
       return {
-        'Ime firme': item.name,
-        PIB: item.taxNumber,
-        MB: item.regNumber,
-        'Datum upisa': formattedDate,
+        "Ime firme": item.name,
+        "PIB": item.taxNumber,
+        "MB": item.regNumber,
+        "Datum upisa": formattedDate
       };
+      
     });
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
 
@@ -115,12 +101,12 @@ export class MerchantsComponent {
     // Update first row height
     ws['!rows'] = ws['!rows'] || [];
     ws['!rows'][0] = { hpx: 30 };
-
+ 
     /* generate workbook and add the worksheet */
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-    /* save to file */
+    /* save to file */  
     XLSX.writeFile(wb, this.fileName);
   }
 
@@ -132,10 +118,11 @@ export class MerchantsComponent {
   resetFields() {
     this.isValidated = false;
     this.regUserForm.reset();
-    this.toggleConfirmationModal();
+    this.toggleConfirmationModal();    
   }
 
   modifyRegUser() {
+
     this.isValidated = true;
 
     if (!this.allFieldsValidated()) {
@@ -151,40 +138,27 @@ export class MerchantsComponent {
         taxNumber: this.fields['regUserPIB'].value,
         firstName: this.fields['regUserFirstName'].value,
         lastName: this.fields['regUserLastName'].value,
-        userName: this.fields['regUserUsername'].value,
+        userName: this.fields['regUserUserName'].value,
         role: RoleType.Trgovac,
       })
       .subscribe({
         next: () => {
-          console.debug('Uspesno promenjeni podaci o trgovcu');
-          var currentPage = this.currentPage;
-          this.regUserService.getRegUsers(RoleType.Trgovac).subscribe({
-            next: (regUsers: RegUserDto[]) =>
-              (this.regUsers =
-                regUsers instanceof HttpErrorResponse ? [] : regUsers),
-            complete: () => {
-              this.totalPagesNumber =
-                this.regUsers.length % this.itemsPerPage === 0
-                  ? Math.trunc(this.regUsers.length / this.itemsPerPage)
-                  : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
-              this.setPage(currentPage);
-              this.currentPage = currentPage;
-            },
-          });
-
-          this.toggleAddRegUsernModal();
-          this.toggleConfirmationModal();
+          console.log('Uspesno promenjeni podaci o trgovcu');
+        },
+        error: (error) => {
+          console.log('Neuspesno promenjeni podaci o trgovcu');
         },
       });
   }
 
   addRegUser() {
+
     this.isValidated = true;
 
     if (!this.allFieldsValidated()) {
       return;
     }
-
+    
     this.regUserService
       .registerRegUser({
         name: this.fields['regUserName'].value,
@@ -200,24 +174,15 @@ export class MerchantsComponent {
       })
       .subscribe({
         next: () => {
-          console.debug('Uspešno kreiran trgovac');
-
-          var currentPage = this.currentPage;
-          this.regUserService.getRegUsers(RoleType.Trgovac).subscribe({
-            next: (regUsers: RegUserDto[]) =>
-              (this.regUsers =
-                regUsers instanceof HttpErrorResponse ? [] : regUsers),
-            complete: () => {
-              this.totalPagesNumber =
-                this.regUsers.length % this.itemsPerPage === 0
-                  ? Math.trunc(this.regUsers.length / this.itemsPerPage)
-                  : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
-              this.setPage(currentPage);
-              this.currentPage = currentPage;
-            },
-          });
+          console.log('Successfuly registered user');
           this.toggleAddRegUsernModal();
           this.toggleConfirmationModal();
+        },
+        error: (error) => {
+          console.log('Unsuccessfuly registered user complete callback', error);
+        },
+        complete: () => {
+          console.log('Successfuly registered user complete callback');
         },
       });
   }
@@ -318,17 +283,18 @@ export class MerchantsComponent {
   }
 
   allFieldsValidated(): Boolean {
-    if (
-      this.fields['regUserName'].valid &&
-      this.fields['regUserAddress'].valid &&
-      this.fields['regUserMB'].valid &&
-      this.fields['regUserPIB'].valid &&
-      this.fields['regUserFirstName'].valid &&
-      this.fields['regUserLastName'].valid &&
-      this.fields['regUserUsername'].valid &&
-      // this.fields['regUserPassword'].valid &&
-      this.fields['regUserEmail'].valid
-    ) {
+    if  (
+          this.fields['regUserName'].valid &&
+          this.fields['regUserAddress'].valid &&
+          this.fields['regUserMB'].valid &&
+          this.fields['regUserPIB'].valid &&
+          this.fields['regUserFirstName'].valid &&
+          this.fields['regUserLastName'].valid &&
+          this.fields['regUserUsername'].valid &&
+          this.fields['regUserPassword'].valid &&
+          this.fields['regUserEmail'].valid
+        )
+    {
       return true;
     } else {
       return false;
