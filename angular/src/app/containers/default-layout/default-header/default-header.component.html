@@ -4,19 +4,33 @@
   <c-row class="defaultHeader">
     <c-col xs="8" class="headerColumn">
       <div class="menuButtonView">
-      <button
-        toggle="visible"
-        cHeaderToggler
-        [cSidebarToggle]="sidebarId"
-        class="ps-1, menuButton"
+        <button
+          toggle="visible"
+          cHeaderToggler
+          [cSidebarToggle]="sidebarId"
+          class="ps-1, menuButton"
+        >
+          <svg [cIcon]="icons.cilMenu" size="lg"></svg>
+        </button>
+      </div>
+      <div
+        class="headerTitle"
+        [ngSwitch]="authenticationService.CurrentUser?.role"
       >
-        <svg [cIcon]="icons.cilMenu" size="lg"></svg>
-      </button>
-    </div>
-      <p class="headerTitle">Administratorska platforma</p>
+        <p class="headerTitle">
+          Registar Ne Zovi -
+          <span *ngSwitchCase="1">Administrator</span>
+          <span *ngSwitchCase="2">Trgovac</span>
+          <span *ngSwitchCase="3">Obveznik</span>
+        </p>
+      </div>
     </c-col>
     <c-col xs="4" class="headerColumn">
-      <div class="userColumn">{{ currentUsername }} [{{ authenticationService.CurrentUser?.companyName }}]</div>
+      <div class="userColumn">
+        {{ currentUsername }} [{{
+          authenticationService.CurrentUser?.companyName
+        }}]
+      </div>
       <!-- <div class="userColumn">
         <button cButton color="secondary" variant="ghost" (click)="logout()" class="userColumn">
           {{ authenticationService.CurrentUser?.firstName }}
