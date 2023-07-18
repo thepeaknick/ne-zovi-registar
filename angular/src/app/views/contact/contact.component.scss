@@ -72,6 +72,16 @@
   display: inline-block;
 }
 
+.centeredDiv {
+  text-align: center;
+}
+
+.tickImage {
+  max-width: 20%;
+  max-height: 20%;
+  padding-bottom: 5%;
+}
+
 @media screen and (max-width: 950px) {
   c-row {
     display: block;
