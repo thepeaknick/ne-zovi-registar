@@ -134,6 +134,15 @@
             <td>
               <button
                 cButton
+                class="tableDeleteButton"
+                (click)="deleteUser(item.guidId)"
+                color="white"
+                shape="rounded-pill"
+              >
+                obriši
+              </button>
+              <button
+                cButton
                 class="tableEditButton"
                 (click)="showEditUserDataModal(item.guidId)"
                 color="white"
@@ -358,11 +367,8 @@
 
     <c-modal-body>
       <img src="/assets/images/exclamationmark.png" class="modalImage" />
-      <p cModalTitle class="modalTitle" *ngIf="!isEditing">
-        Uspešno ste registrovali novog obveznika
-      </p>
-      <p cModalTitle class="modalTitle" *ngIf="isEditing">
-        Uspešno ste izmenili podatke obveznika
+      <p cModalTitle class="modalTitle">
+        {{ modalText }}
       </p>
       <p class="modalSubtitle">
         Lorem ipsum lorem ipsum lorem ipsum lorem<br />

@@ -28,7 +28,7 @@ export class UsersComponent implements OnInit {
     let role = RoleType.Potrosac;
     if (currentUser) role = currentUser.role;
     this.canAddUsers = role == RoleType.Obveznik;
-    this.canEditUsers = role == RoleType.Obveznik;
+    // this.canEditUsers = role == RoleType.Obveznik;
     this.canDeleteUsers = role == RoleType.Obveznik;
   }
 
@@ -118,8 +118,6 @@ export class UsersComponent implements OnInit {
             ? ({} as UserDtoPagedList)
             : users),
       complete: () => {
-        console.log('qwe');
-        console.log(this.users);
         this.totalPagesNumber =
           this.users.items.length % this.itemsPerPage === 0
             ? Math.trunc(this.users.items.length / this.itemsPerPage)

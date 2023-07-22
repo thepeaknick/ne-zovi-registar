@@ -26,8 +26,10 @@ export class RegUsersComponent implements OnInit {
   @Input() public modalAddEditUserConfirmButton: string = 'Dodaj obveznika';
   @Input() public isEditing: boolean = true;
 
+  public modalText = '';
   public isAddReguserModalVisible = false;
   public isSuccessfulyRegisteredUserModalVisible = false;
+  public isSuccessfulyDeleted = false;
 
   showInTableUsers: RegUserDto[] = [];
 
@@ -135,6 +137,7 @@ export class RegUsersComponent implements OnInit {
 
   resetFields() {
     this.regUserForm.reset();
+    this.isSuccessfulyDeleted = false;
     this.toggleConfirmationModal();
   }
 
@@ -145,6 +148,7 @@ export class RegUsersComponent implements OnInit {
       return;
     }
 
+    this.modalText = 'Uspešno ste izmenili podatke o obvezniku';
     this.regUserService
       .modifyRegUserByGuid(this.editingUserGuidId, {
         name: this.fields['regUserName'].value,
@@ -192,6 +196,7 @@ export class RegUsersComponent implements OnInit {
       return;
     }
 
+    this.modalText = 'Uspešno ste registrovali novog obveznika';
     this.regUserService
       .registerRegUser({
         name: this.fields['regUserName'].value,
@@ -220,7 +225,6 @@ export class RegUsersComponent implements OnInit {
                   : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
               this.setPage(currentPage);
               this.currentPage = currentPage;
-              // this.addRegUsers()
             },
           });
 
@@ -254,6 +258,35 @@ export class RegUsersComponent implements OnInit {
     this.isEditing = false;
     this.regUserForm.reset();
     this.toggleAddRegUsernModal();
+  }
+
+  deleteUser(guidId: string) {
+    this.modalText = 'Uspešno ste obrisali obveznika';
+    this.regUserService.removeRegUser(guidId).subscribe({
+      next: (regUser: RegUserDto) => {
+        console.log('Uspešno obrisan obveznik');
+        var currentPage = this.currentPage;
+        this.regUserService.getRegUsers(RoleType.Obveznik).subscribe({
+          next: (regUsers: RegUserDto[]) =>
+            (this.regUsers =
+              regUsers instanceof HttpErrorResponse ? [] : regUsers),
+          complete: () => {
+            this.totalPagesNumber =
+              this.regUsers.length % this.itemsPerPage === 0
+                ? Math.trunc(this.regUsers.length / this.itemsPerPage)
+                : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
+            this.setPage(currentPage);
+            this.currentPage = currentPage;
+          },
+        });
+
+        this.isSuccessfulyDeleted = true;
+        this.toggleConfirmationModal();
+      },
+      error: (error) => {
+        console.log('Neuspešno obrisan obveznik');
+      },
+    });
   }
 
   showEditUserDataModal(guidId: string) {
