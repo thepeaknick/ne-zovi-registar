@@ -12,6 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegUserService } from 'src/app/domain/services/reguser.service';
 import { RegUserDto, UserDtoPagedList } from '../../../domain/model/schemas';
 import * as XLSX from 'xlsx';
+import { BooleanInput } from '@angular/cdk/coercion';
 
 @Component({
   selector: 'app-users',
@@ -55,16 +56,33 @@ export class UsersComponent implements OnInit {
 
   fileName = 'KorisniciExcelSheet.xlsx';
 
+  isValidated: BooleanInput = false;
+
   addPhoneNumberDiv() {
     this.divs.push(this.divs.length);
   }
 
   ngOnInit() {
     this.userForm = this.formBuilder.group({
-      userPhoneNumber: ['', Validators.required],
+      userPhoneNumber: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength,
+          Validators.pattern,
+        ],
+      ],
       userFirstName: ['', Validators.required],
       userLastName: ['', Validators.required],
-      userJMBG: ['', Validators.required],
+      userJMBG: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength,
+          Validators.maxLength,
+          Validators.pattern,
+        ],
+      ],
       userOperator: ['', Validators.required],
     });
 
@@ -172,6 +190,8 @@ export class UsersComponent implements OnInit {
 
   // Handle modals
   toggleAddUserModal() {
+    this.isValidated = false;
+    this.resetFields();
     this.isAddUserModalVisible = !this.isAddUserModalVisible;
   }
 
@@ -197,6 +217,7 @@ export class UsersComponent implements OnInit {
   }
 
   addUserWithNumbers() {
+    this.isValidated = true;
     console.log(this.fields['userFirstName'].value);
     console.log(this.fields['userLastName'].value);
     console.log(this.fields['userJMBG'].value);
