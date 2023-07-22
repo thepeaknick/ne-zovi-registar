@@ -39,6 +39,7 @@ export class UserService extends BaseService {
   }
 
   allUsers(after: Date): Observable<UserDtoPagedList> {
-    return this.get<UserDtoPagedList>('/users/all?after=' + after);
+    return this.get<UserDtoPagedList>('/users/all/?c=0&ps=-1');
+    // return this.get<UserDtoPagedList>('/users/all?after=' + after);
   }
 }

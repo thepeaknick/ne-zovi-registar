@@ -66,11 +66,7 @@ export class UsersComponent implements OnInit {
     this.userForm = this.formBuilder.group({
       userPhoneNumber: [
         '',
-        [
-          Validators.required,
-          Validators.minLength,
-          Validators.pattern,
-        ],
+        [Validators.required, Validators.minLength, Validators.pattern],
       ],
       userFirstName: ['', Validators.required],
       userLastName: ['', Validators.required],
@@ -129,6 +125,7 @@ export class UsersComponent implements OnInit {
   reloadUsersAndGoToFirsPage() {
     let after: Date = new Date();
     after.setMonth(3);
+
     this.userService.allUsers(after).subscribe({
       next: (users: UserDtoPagedList) =>
         (this.users =
@@ -140,6 +137,7 @@ export class UsersComponent implements OnInit {
           this.users.items.length % this.itemsPerPage === 0
             ? Math.trunc(this.users.items.length / this.itemsPerPage)
             : Math.trunc(this.users.items.length / this.itemsPerPage) + 1;
+        console.log(this.users.items.length);
         this.setPage(1);
       },
     });
