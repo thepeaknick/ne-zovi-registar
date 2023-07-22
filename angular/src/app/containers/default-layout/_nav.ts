@@ -9,7 +9,8 @@ export const navItems: ICustomNavData[] = [
   {
     name: 'Početna',
     url: '/admin',
-    iconComponent: { name: 'cil-user' }
+    iconComponent: { name: 'cil-user' },
+    roles: ['Admin']
   },
   {
     divider: true,

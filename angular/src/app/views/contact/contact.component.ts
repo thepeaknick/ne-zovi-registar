@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class ContactComponent {
 
+  formSubmitted: Boolean = false;
+
+  submit(): void {
+    this.formSubmitted = true
+  }
+
+  done(): void {
+    this.formSubmitted = false
+  }
+
 }

@@ -1,12 +1,12 @@
 <div class="contactUsScreen">
   <div class="contactUsForm">
-    <p class="titleText">Pošaljite nam poruku</p>
-    <p class="subtitleText">
+    <p *ngIf="!formSubmitted" class="titleText">Pošaljite nam poruku</p>
+    <p *ngIf="!formSubmitted" class="subtitleText">
       Pošaljite nam poruku i očekujte odgovor u roku od 24h
     </p>
     <c-row>
       <c-col xs="7">
-        <form cForm class="row g-3">
+        <form *ngIf="!formSubmitted" cForm class="row g-3">
           <c-col [md]="6">
             <label cLabel for="">Ime i prezime</label>
             <input cFormControl id="" />
@@ -31,6 +31,14 @@
             ></textarea>
           </c-col>
         </form>
+        <div *ngIf="formSubmitted">
+          <div class="centeredDiv">
+            <img src="/assets/images/tick.svg" class="tickImage"/>
+            <p class="titleText">Hvala vam!</p>
+            <p class="subtitleText">Pošaljite nam poruku i očekujte odgovor u roku od 24h</p>
+            <button cButton class="submitButton" type="submit" (click)="done()">Done</button>
+          </div>
+        </div>
       </c-col>
       <c-col xs="1"></c-col>
       <c-col xs="4">
@@ -58,7 +66,7 @@
       </c-col>
     </c-row>
     <div class="submitView">
-      <button cButton class="submitButton" type="submit">Pošalji</button>
+      <button *ngIf="!formSubmitted" cButton class="submitButton" type="submit" (click)="submit()">Pošalji</button>
     </div>
   </div>
 </div>
