@@ -181,7 +181,13 @@
       <button (click)="toggleAddUserModal()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-      <form cForm class="row g-3" [formGroup]="userForm">
+      <form
+        novalidate
+        [validated]="isValidated" 
+        cForm
+        class="row g-3"
+        [formGroup]="userForm"
+      >
         <c-row>
           <c-col [xs]="9">
             <div class="mb-3">
@@ -211,6 +217,9 @@
             id="userPhoneNumber{{ div }}"
           >
             <input
+              required
+              minlength="8"
+              pattern="^\+?\d+$"
               cFormControl
               id="userPhoneNumber"
               formControlName="userPhoneNumber"
@@ -226,6 +235,7 @@
                   Ime
                 </label>
                 <input
+                  required
                   cFormControl
                   formControlName="userFirstName"
                   id="userFirstName"
@@ -238,6 +248,7 @@
                   Prezime
                 </label>
                 <input
+                  required
                   cFormControl
                   formControlName="userLastName"
                   id="userLastName"
@@ -252,6 +263,7 @@
           <label cLabel for="pib" class="textInputField">Operator</label>
           <div class="mb-3" *ngFor="let div of divs" id="operatorName{{ div }}">
             <select
+              required
               [(ngModel)]="selectedOperator"
               aria-label="Operator"
               cSelect
@@ -265,6 +277,10 @@
           <div class="mb-3">
             <label cLabel for="userJMBG" class="textInputField">JMBG</label>
             <input
+              required
+              minlength="13"
+              maxlength="13"
+              pattern="[0-9]*"
               cFormControl
               formControlName="userJMBG"
               type="text"
