@@ -34,6 +34,8 @@ export class UsersComponent implements OnInit {
   }
 
   public isAddUserModalVisible: boolean = false;
+  public isSuccessfulyAddedUserModalVisible: boolean = false;
+  public modalText = '';
 
   @Input() selectedOperator!: RegUserDto;
   @Input() selectedOperatorId: number = 0;
@@ -212,6 +214,7 @@ export class UsersComponent implements OnInit {
 
   resetFields() {
     this.userForm.reset();
+    this.toggleConfirmationModal();
   }
 
   addUserWithNumbers() {
@@ -269,11 +272,18 @@ export class UsersComponent implements OnInit {
           }
         });
         // TODO: Show success modal
-        console.log('DELETED: ' + number);
+
+        this.modalText = 'Uspešno obrisan korisnik';
+        this.toggleConfirmationModal();
       },
       error: (error) => {
         console.log('Neuspesno promenjeni podaci o obvezniku');
       },
     });
+  }
+
+  toggleConfirmationModal() {
+    this.isSuccessfulyAddedUserModalVisible =
+      !this.isSuccessfulyAddedUserModalVisible;
   }
 }

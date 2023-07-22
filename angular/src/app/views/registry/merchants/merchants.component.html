@@ -363,11 +363,8 @@
 
     <c-modal-body>
       <img src="/assets/images/exclamationmark.png" class="modalImage" />
-      <p cModalTitle class="modalTitle" *ngIf="!isEditing">
-        Uspešno ste registrovali novog trgovca
-      </p>
-      <p cModalTitle class="modalTitle" *ngIf="isEditing">
-        Uspešno ste izmenili podatke trgovca
+      <p cModalTitle class="modalTitle">
+        {{ modalText }}
       </p>
       <p class="modalSubtitle">
         Lorem ipsum lorem ipsum lorem ipsum lorem<br />

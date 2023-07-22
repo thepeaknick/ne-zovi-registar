@@ -150,7 +150,6 @@ export class RegUsersComponent implements OnInit {
       return;
     }
 
-    this.modalText = 'Uspešno ste izmenili podatke o obvezniku';
     this.regUserService
       .modifyRegUserByGuid(this.editingUserGuidId, {
         name: this.fields['regUserName'].value,
@@ -186,7 +185,7 @@ export class RegUsersComponent implements OnInit {
               console.log(error);
             },
           });
-
+          this.modalText = 'Uspešno ste izmenili podatke o obvezniku';
           this.toggleAddRegUsernModal();
           this.toggleConfirmationModal();
         },
@@ -208,7 +207,6 @@ export class RegUsersComponent implements OnInit {
       return;
     }
 
-    this.modalText = 'Uspešno ste registrovali novog obveznika';
     this.regUserService
       .registerRegUser({
         name: this.fields['regUserName'].value,
@@ -239,7 +237,7 @@ export class RegUsersComponent implements OnInit {
               this.currentPage = currentPage;
             },
           });
-
+          this.modalText = 'Uspešno ste registrovali novog obveznika';
           this.toggleAddRegUsernModal();
           this.toggleConfirmationModal();
         },
@@ -291,6 +289,7 @@ export class RegUsersComponent implements OnInit {
           },
         });
 
+        this.modalText = 'Uspešno ste obrisali obveznika';
         this.isSuccessfulyDeleted = true;
         this.toggleConfirmationModal();
       },

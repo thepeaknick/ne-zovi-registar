@@ -27,6 +27,7 @@ export class MerchantsComponent {
   @Input() public modalAddEditUserConfirmButton: string = 'Dodaj trgovca';
   @Input() public isEditing: boolean = true;
 
+  public modalText = '';
   public isAddReguserModalVisible = false;
   public isSuccessfulyRegisteredUserModalVisible = false;
   public showFormError = false;
@@ -173,7 +174,7 @@ export class MerchantsComponent {
               this.currentPage = currentPage;
             },
           });
-
+          this.modalText = 'Uspešno ste izmenili podatke o trgovcu';
           this.toggleAddRegUsernModal();
           this.toggleConfirmationModal();
         },
@@ -225,7 +226,7 @@ export class MerchantsComponent {
               this.currentPage = currentPage;
             },
           });
-
+          this.modalText = 'Uspešno ste registrovali novog trgovca';
           this.toggleAddRegUsernModal();
           this.toggleConfirmationModal();
         },
