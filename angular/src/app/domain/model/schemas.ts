@@ -124,6 +124,18 @@ export interface UserDto {
   createdModifiedOn: string;
 }
 
+export interface UserDtoPagedList {
+  items: [UserDto];
+  pageInfo: PageInfo;
+}
+
+export interface PageInfo {
+  currentCursor: number;
+  pageSize: number;
+  pagingDisabled: boolean;
+  totalCount: number;
+}
+
 export interface RegUserId {
   guId: string;
 }

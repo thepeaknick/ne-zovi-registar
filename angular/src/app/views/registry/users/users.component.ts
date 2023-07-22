@@ -1,12 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/domain/services/user.service';
-import { ModifyUserRequest, RoleType, UserDto } from '../../../domain/model/schemas';
+import {
+  ModifyUserRequest,
+  RoleType,
+  UserDto,
+} from '../../../domain/model/schemas';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from 'src/app/domain/services/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegUserService } from 'src/app/domain/services/reguser.service';
-import { RegUserDto } from '../../../domain/model/schemas';
+import { RegUserDto, UserDtoPagedList } from '../../../domain/model/schemas';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -34,7 +38,7 @@ export class UsersComponent implements OnInit {
   @Input() selectedOperatorId: number = 0;
   @Input() operators: RegUserDto[] = [];
 
-  @Input() users: UserDto[] = [];
+  @Input() users!: UserDtoPagedList;
   @Input() canAddUsers: boolean = false;
   @Input() canEditUsers: boolean = false;
   @Input() canDeleteUsers: boolean = false;
@@ -49,7 +53,7 @@ export class UsersComponent implements OnInit {
 
   userForm!: FormGroup;
 
-  fileName= 'KorisniciExcelSheet.xlsx';
+  fileName = 'KorisniciExcelSheet.xlsx';
 
   addPhoneNumberDiv() {
     this.divs.push(this.divs.length);
@@ -68,16 +72,15 @@ export class UsersComponent implements OnInit {
   }
 
   exportExcel(): void {
+    let data = this.users?.items.map((item) => {
+      const formattedDate = new Date(
+        item.createdModifiedOn
+      ).toLocaleDateString();
 
-    
-    let data = this.users.map((item) => {
-      const formattedDate = new Date(item.createdModifiedOn).toLocaleDateString();
-    
       return {
-        "Broj telefona": item.phoneNumber,
-        "Datum upisa/ispisa": formattedDate,
+        'Broj telefona': item.phoneNumber,
+        'Datum upisa/ispisa': formattedDate,
       };
-      
     });
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
 
@@ -96,27 +99,31 @@ export class UsersComponent implements OnInit {
     // Update first row height
     ws['!rows'] = ws['!rows'] || [];
     ws['!rows'][0] = { hpx: 30 };
- 
+
     /* generate workbook and add the worksheet */
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-    /* save to file */  
+    /* save to file */
     XLSX.writeFile(wb, this.fileName);
   }
 
   reloadUsersAndGoToFirsPage() {
     let after: Date = new Date();
     after.setMonth(3);
-
     this.userService.allUsers(after).subscribe({
-      next: (users: UserDto[]) =>
-        (this.users = users instanceof HttpErrorResponse ? [] : users),
+      next: (users: UserDtoPagedList) =>
+        (this.users =
+          users instanceof HttpErrorResponse
+            ? ({} as UserDtoPagedList)
+            : users),
       complete: () => {
+        console.log('qwe');
+        console.log(this.users);
         this.totalPagesNumber =
-          this.users.length % this.itemsPerPage === 0
-            ? Math.trunc(this.users.length / this.itemsPerPage)
-            : Math.trunc(this.users.length / this.itemsPerPage) + 1;
+          this.users.items.length % this.itemsPerPage === 0
+            ? Math.trunc(this.users.items.length / this.itemsPerPage)
+            : Math.trunc(this.users.items.length / this.itemsPerPage) + 1;
         this.setPage(1);
       },
     });
@@ -126,7 +133,7 @@ export class UsersComponent implements OnInit {
 
   setPage(page: number) {
     this.currentPage = page;
-    this.showInTableUsers = this.users.slice(
+    this.showInTableUsers = this.users.items.slice(
       (page - 1) * this.itemsPerPage,
       page * this.itemsPerPage
     );
@@ -136,15 +143,15 @@ export class UsersComponent implements OnInit {
     this.itemsPerPage = num;
     this.setPage(this.currentPage);
     this.totalPagesNumber =
-      this.users.length % this.itemsPerPage === 0
-        ? Math.trunc(this.users.length / this.itemsPerPage)
-        : Math.trunc(this.users.length / this.itemsPerPage) + 1;
+      this.users.items.length % this.itemsPerPage === 0
+        ? Math.trunc(this.users.items.length / this.itemsPerPage)
+        : Math.trunc(this.users.items.length / this.itemsPerPage) + 1;
   }
 
   // Sort
 
   sortByCreatedModifiedOnASC() {
-    var array = this.users;
+    var array = this.users.items;
     array.sort((a, b) =>
       a.createdModifiedOn.localeCompare(b.createdModifiedOn)
     );
@@ -155,7 +162,7 @@ export class UsersComponent implements OnInit {
   }
 
   sortByCreatedModifiedOnDESC() {
-    var array = this.users;
+    var array = this.users.items;
     array.sort((a, b) =>
       b.createdModifiedOn.localeCompare(a.createdModifiedOn)
     );
@@ -223,12 +230,10 @@ export class UsersComponent implements OnInit {
       lastName: '',
       jmbg: '',
       phoneNumber: '',
-      operatorId: 0
+      operatorId: 0,
     };
 
-    this.userService
-    .modifyUser(number, modifiedUser)
-    .subscribe({
+    this.userService.modifyUser(number, modifiedUser).subscribe({
       next: () => {
         console.log('Podaci o korisniku su promenjeni uspesno');
       },

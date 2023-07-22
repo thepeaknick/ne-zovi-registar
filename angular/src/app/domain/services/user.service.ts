@@ -3,7 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { AddUserRequest, ModifyUserRequest, UserDto } from '../model/schemas';
+import {
+  AddUserRequest,
+  ModifyUserRequest,
+  UserDto,
+  UserDtoPagedList,
+} from '../model/schemas';
 import { BaseService } from './base.service';
 
 @Injectable({
@@ -33,7 +38,7 @@ export class UserService extends BaseService {
     return this.getTextResponse<string>('/users/' + phoneNumber);
   }
 
-  allUsers(after: Date): Observable<UserDto[]> {
-    return this.get<UserDto[]>('/users/all?after=' + after);
+  allUsers(after: Date): Observable<UserDtoPagedList> {
+    return this.get<UserDtoPagedList>('/users/all?after=' + after);
   }
 }
