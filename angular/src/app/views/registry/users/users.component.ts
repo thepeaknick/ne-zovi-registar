@@ -81,7 +81,8 @@ export class UsersComponent implements OnInit {
           Validators.pattern,
         ],
       ],
-      userOperator: ['', Validators.required],
+
+      userOperator: ['', [Validators.required, Validators.min(1)]],
     });
 
     this.reloadUsersAndGoToFirsPage();
@@ -191,7 +192,6 @@ export class UsersComponent implements OnInit {
   // Handle modals
   toggleAddUserModal() {
     this.isValidated = false;
-    this.resetFields();
     this.isAddUserModalVisible = !this.isAddUserModalVisible;
   }
 
@@ -203,6 +203,7 @@ export class UsersComponent implements OnInit {
           operators instanceof HttpErrorResponse ? [] : operators),
       complete: () => {},
     });
+
     this.toggleAddUserModal();
   }
 
@@ -214,16 +215,19 @@ export class UsersComponent implements OnInit {
 
   resetFields() {
     this.userForm.reset();
+    // this.userForm.setValue({
+    //   userPhoneNumber: '',
+    //   userFirstName: '',
+    //   userLastName: '',
+    //   userJMBG: '',
+    //   userOperator: 0,
+    // });
+    this.operators = [];
     this.toggleConfirmationModal();
   }
 
   addUserWithNumbers() {
     this.isValidated = true;
-    console.log(this.fields['userFirstName'].value);
-    console.log(this.fields['userLastName'].value);
-    console.log(this.fields['userJMBG'].value);
-    console.log(this.fields['userPhoneNumber'].value);
-    console.log(this.selectedOperator.id);
 
     this.userService
       .addUser({
@@ -235,8 +239,10 @@ export class UsersComponent implements OnInit {
       })
       .subscribe({
         next: () => {
+          this.modalText = 'Uspešno dodat novi korisnik/broj';
           this.isAddUserModalVisible = false;
-          console.log('Korisnik je uspeno dodat u registar');
+          this.toggleConfirmationModal();
+          console.log('Korisnik je uspešno dodat u registar');
         },
         error: (error) => {
           console.log('Dodavanje korisnika u registar nije uspelo');

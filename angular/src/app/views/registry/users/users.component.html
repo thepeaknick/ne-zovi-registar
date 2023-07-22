@@ -269,6 +269,7 @@
               cSelect
               formControlName="userOperator"
             >
+              <option value="undefined" selected disabled>Operator</option>
               <option *ngFor="let operator of operators" [ngValue]="operator">
                 {{ operator.name }}
               </option>
