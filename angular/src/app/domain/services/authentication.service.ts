@@ -22,13 +22,10 @@ export class AuthenticationService extends BaseService {
 
   login(username: string, password: string) {
     return this.http
-      .post<LoginResultDto>(
-        `${this.config.apiUrl}${this.config.apiLoginUrl}`, 
-        {
-          username,
-          password,
-        }
-      )
+      .post<LoginResultDto>(`${this.config.apiUrl}${this.config.apiLoginUrl}`, {
+        username,
+        password,
+      })
       .pipe(
         mergeMap((loginResult: LoginResultDto) => {
           // set token don't bother with user
@@ -73,24 +70,19 @@ export class AuthenticationService extends BaseService {
     console.log('Refreshing token...');
     let token: LoginResultDto = AuthenticationService.Token;
     return this.http
-      .post<any>(
-        `${this.config.apiUrl}${this.config.apiRefreshTokenUrl}`,
-        {
-          accessToken: token.accessToken,
-          refreshToken: token.refreshToken,
-        }
-      )
-      .subscribe(
-        (newToken: any) => {
-              token.accessToken = newToken.accessToken;
-              token.accessTokenExpTime = newToken.accessTokenExpTime;
-              token.refreshToken = newToken.refreshToken;
-              token.refreshTokenExpTime = newToken.refreshTokenExpTime;
-    
-              AuthenticationService.Token = token;
-              this.startRefreshTokenTimer();
-        }
-      );
+      .post<any>(`${this.config.apiUrl}${this.config.apiRefreshTokenUrl}`, {
+        accessToken: token.accessToken,
+        refreshToken: token.refreshToken,
+      })
+      .subscribe((newToken: any) => {
+        token.accessToken = newToken.accessToken;
+        token.accessTokenExpTime = newToken.accessTokenExpTime;
+        token.refreshToken = newToken.refreshToken;
+        token.refreshTokenExpTime = newToken.refreshTokenExpTime;
+
+        AuthenticationService.Token = token;
+        this.startRefreshTokenTimer();
+      });
   }
 
   forgotPasswordSendEMail(email: string) {
@@ -184,7 +176,9 @@ export class AuthenticationService extends BaseService {
 
   private startRefreshTokenTimer() {
     let tokens: LoginResultDto = AuthenticationService.Token;
-    console.log(`Scheduling token refresh (expiration at ${tokens.accessTokenExpTime})`)
+    console.log(
+      `Scheduling token refresh (expiration at ${tokens.accessTokenExpTime})`
+    );
     // set a timeout to refresh the token a minute before it expires
     const expires = new Date(tokens.accessTokenExpTime);
     const timeout = expires.getTime() - Date.now() - 60 * 1000;

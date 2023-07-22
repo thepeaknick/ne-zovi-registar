@@ -10,6 +10,7 @@ export class AppConfiguration {
   public apiLogoutUrl: string = '';
   public apiResetPasswordUrl: string = '';
   public apiForgotPasswordUrl: string = '';
+  public apiSendEmailUrl: string = '';
   public apiRegUserDetailsUrl: string = '';
   public apiRefreshTokenUrl: string = '';
   public apiRegisterRegUser: string = '';

@@ -4,6 +4,7 @@
   "apiLogoutUrl": "/account/logout",
   "apiResetPasswordUrl": "/account/resetpassword",
   "apiForgotPasswordUrl": "/account/forgotpassword",
+  "apiSendEmailUrl": "/regusers/email",
   "apiRegUserDetailsUrl": "/regusers",
   "apiRefreshTokenUrl": "/tokens/refresh-token",
   "apiRegisterRegUser": "/regusers/register",

@@ -48,6 +48,10 @@ export class BaseService {
     return this.request<T>('GET', url, undefined, 'text');
   }
 
+  public postTextResponseWithBody<T>(url: string, data: Object): any {
+    return this.request<T>('POST', url, JSON.stringify(data), 'text');
+  }
+
   public get<T>(url: string): any {
     return this.request<T>('GET', url, undefined, 'json');
   }

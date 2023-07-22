@@ -6,37 +6,57 @@
     </p>
     <c-row>
       <c-col xs="7">
-        <form *ngIf="!formSubmitted" cForm class="row g-3">
+        <form
+          *ngIf="!formSubmitted"
+          cForm
+          class="row g-3"
+          [formGroup]="messageForm"
+        >
           <c-col [md]="6">
-            <label cLabel for="">Ime i prezime</label>
-            <input cFormControl id="" />
+            <label cLabel for="inputName">Ime i prezime</label>
+            <input cFormControl formControlName="inputName" id="inputName" />
           </c-col>
           <c-col [md]="6">
             <label cLabel for="">Email</label>
-            <input cFormControl id="" type="email" />
+            <input
+              cFormControl
+              type="email"
+              formControlName="inputEmail"
+              id="inputEmail"
+            />
           </c-col>
           <c-col [xs]="6">
             <label cLabel for="">Broj telefona</label>
-            <input cFormControl id="" />
+            <input cFormControl formControlName="inputPhone" id="inputPhone" />
           </c-col>
           <c-col [xs]="6">
             <label cLabel for="">Ime firme</label>
-            <input cFormControl id="" />
+            <input
+              cFormControl
+              formControlName="inputCompanyName"
+              id="inputCompanyName"
+            />
           </c-col>
           <c-col>
             <textarea
               cFormControl
               placeholder="Unesite sadržaj poruke"
               rows="6"
+              formControlName="inputMessage"
+              id="inputMessage"
             ></textarea>
           </c-col>
         </form>
         <div *ngIf="formSubmitted">
           <div class="centeredDiv">
-            <img src="/assets/images/tick.svg" class="tickImage"/>
+            <img src="/assets/images/tick.svg" class="tickImage" />
             <p class="titleText">Hvala vam!</p>
-            <p class="subtitleText">Pošaljite nam poruku i očekujte odgovor u roku od 24h</p>
-            <button cButton class="submitButton" type="submit" (click)="done()">Done</button>
+            <p class="subtitleText">
+              Pošaljite nam poruku i očekujte odgovor u roku od 24h
+            </p>
+            <button cButton class="submitButton" type="submit" (click)="done()">
+              Done
+            </button>
           </div>
         </div>
       </c-col>
@@ -66,7 +86,15 @@
       </c-col>
     </c-row>
     <div class="submitView">
-      <button *ngIf="!formSubmitted" cButton class="submitButton" type="submit" (click)="submit()">Pošalji</button>
+      <button
+        *ngIf="!formSubmitted"
+        cButton
+        class="submitButton"
+        type="submit"
+        (click)="sendMessage()"
+      >
+        Pošalji
+      </button>
     </div>
   </div>
 </div>
