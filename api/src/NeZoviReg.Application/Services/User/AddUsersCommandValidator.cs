@@ -47,7 +47,7 @@ public class AddUsersCommandValidator : AbstractValidator<AddUsersCommand>
             user.RuleFor(x => x.PhoneNumber)
                 .NotEmpty().WithMessage(PhoneNumber.Empty.Message)
                 .MaximumLength(Domain.Model.Domain.User.PhoneNumberMaxLength).WithMessage(PhoneNumber.TooLong.Message)
-                .Matches(@"^3816[0-9]{1}[0-9]{6,7}$")
+                .Matches(Domain.Model.Domain.User.PhoneNumberRegex)
                 .WithMessage(PhoneNumber.InvalidFormat.Message)
                 .MustAsync((phone, cancellationToken) =>
                     userDataStore.IsPhoneNumberUniqueAsync(phone, cancellationToken))

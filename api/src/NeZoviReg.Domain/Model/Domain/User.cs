@@ -8,6 +8,7 @@ namespace NeZoviReg.Domain.Model.Domain;
 /// </summary>
 public class User : Entity
 {
+    public const string PhoneNumberRegex = "^381|06[0-9]{1}[0-9]{6,7}$";
     public const int FirstNameMaxLength = 100;
     public const int  LastNameMaxLength = 100;
     public const int  PhoneNumberMaxLength = 25;

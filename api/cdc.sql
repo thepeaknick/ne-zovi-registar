@@ -44,19 +44,19 @@ GO
 EXEC sys.sp_cdc_disable_table  
 @source_schema = N'dbo',  
 @source_name   = N'User',  
-@capture_instance = N'dbo_User_CT'  
+@capture_instance = N'dbo_User'  
 GO  
 
 EXEC sys.sp_cdc_disable_table  
 @source_schema = N'dbo',  
 @source_name   = N'RegUser',  
-@capture_instance = N'dbo_RegUser_CT'  
+@capture_instance = N'dbo_RegUser'  
 GO 
 
 EXEC sys.sp_cdc_disable_table  
 @source_schema = N'dbo',  
 @source_name   = N'RegUserRole',  
-@capture_instance = N'dbo_RegUserRole_CT'  
+@capture_instance = N'dbo_RegUserRole'  
 GO 
 
 --verication of the previous step
