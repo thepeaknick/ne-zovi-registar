@@ -334,6 +334,9 @@
             />
           </div>
         </c-col>
+        <c-col [xs]="12">
+          <span *ngIf="showFormError" class="red">{{ errorMessage }}</span>
+        </c-col>
         <div class="mb-3">
           <input
             cButton

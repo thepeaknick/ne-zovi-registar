@@ -50,6 +50,7 @@ export class ContactComponent {
       .subscribe((answer: any) => {
         console.log(answer);
         this.formSubmitted = true;
+        this.messageForm.reset();
       });
   }
 

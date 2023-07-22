@@ -63,6 +63,7 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
     return next.handle(modifiedRequest).pipe(
       tap({ next: (event: HttpEvent<any>) => this.processOkResult(event) }),
       catchError((error: any) => {
+        console.log(error);
         return this.processFailureResult(request, error);
       }),
       finalize(() => {
@@ -100,10 +101,12 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
           return throwError(() => error.error);
         }
       }
-
       // TEMP workaround END
 
-      if ((error.status === 401 || error.status === 403) && !this.isLoginPageUrl()) {
+      if (
+        (error.status === 401 || error.status === 403) &&
+        !this.isLoginPageUrl()
+      ) {
         this.authenticationService.redirectToLoginPage();
       } else if (error.status === 404) {
         return of(

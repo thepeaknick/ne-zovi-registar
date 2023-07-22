@@ -29,6 +29,8 @@ export class MerchantsComponent {
 
   public isAddReguserModalVisible = false;
   public isSuccessfulyRegisteredUserModalVisible = false;
+  public showFormError = false;
+  public errorMessage = '';
 
   showInTableUsers: RegUserDto[] = [];
 
@@ -177,6 +179,11 @@ export class MerchantsComponent {
         },
         error: (error) => {
           console.debug('Neuspesno promenjeni podaci o trgovcu');
+          this.showFormError = true;
+          for (let key in error.error.errors) {
+            let value = error.error.errors[key];
+            this.errorMessage = value;
+          }
         },
       });
   }
@@ -255,6 +262,7 @@ export class MerchantsComponent {
   }
 
   showEditUserDataModal(guidId: string) {
+    this.showFormError = false;
     this.isEditing = true;
     this.modalAddEditUserTitle = 'Izmeni podatke o trgovcu';
     this.modalAddEditUserConfirmButton = 'Sačuvaj izmene';
