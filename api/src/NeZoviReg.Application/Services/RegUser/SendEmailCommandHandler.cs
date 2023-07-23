@@ -1,8 +1,8 @@
 ﻿using System.Text;
 using NeZoviReg.Abstractions.Email;
-using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
+using NeZoviReg.Abstractions.Options;
 using NeZoviReg.Abstractions.Shared;
 using Serilog;
 
@@ -11,19 +11,18 @@ namespace NeZoviReg.Application.Services.RegUser;
 internal sealed class SendEmailCommandHandler : ICommandHandler<SendEmailCommand, bool>
 {
     private readonly IEmailSender _emailSender;
-    private readonly IUnitOfWork _unitOfWork;
-
-    public SendEmailCommandHandler(IUnitOfWork unitOfWork, IEmailSender emailSender)
+    private readonly EmailSenderOptions _options;
+    public SendEmailCommandHandler(IEmailSender emailSender, EmailSenderOptions options)
     {
-        _unitOfWork = unitOfWork;
         _emailSender = emailSender;
+        _options = options;
     }
 
     public async Task<Result<bool>> Handle(SendEmailCommand command, CancellationToken cancellationToken)
     {
         var subject = CreateEmailSubject(command);
 
-        return await _emailSender.SendEmailAsync(command.EmailFrom!, subject, command.Content!,
+        return await _emailSender.SendEmailAsync(command.EmailFrom!, _options.EmailTo, subject, command.Content!,
             cancellationToken: cancellationToken);
     }
 

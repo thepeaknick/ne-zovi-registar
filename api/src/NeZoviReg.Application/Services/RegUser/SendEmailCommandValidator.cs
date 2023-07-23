@@ -17,7 +17,7 @@ public class SendEmailCommandValidator : AbstractValidator<SendEmailCommand>
         RuleFor(x => x.PhoneNumber)!
             .NotEmpty<SendEmailCommand, string, bool>(PhoneNumber.Empty.Message)
             .MaximumLength<SendEmailCommand, bool>(Domain.Model.Domain.User.PhoneNumberMaxLength, PhoneNumber.TooLong.Message)
-            .RegexFormat<SendEmailCommand, bool>(@"^3816[0-9]{1}[0-9]{6,7}$", PhoneNumber.InvalidFormat.Message);
+            .RegexFormat<SendEmailCommand, bool>(Domain.Model.Domain.User.PhoneNumberRegex, PhoneNumber.InvalidFormat.Message);
 
         When(x => string.IsNullOrEmpty(x.CompanyName), () =>
         {
