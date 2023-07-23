@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Microsoft.Extensions.Options;
 using NeZoviReg.Abstractions.Email;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
@@ -12,12 +13,12 @@ internal sealed class SendEmailCommandHandler : ICommandHandler<SendEmailCommand
 {
     private readonly IEmailSender _emailSender;
     private readonly EmailSenderOptions _options;
-    public SendEmailCommandHandler(IEmailSender emailSender, EmailSenderOptions options)
+    public SendEmailCommandHandler(IEmailSender emailSender, IOptions<EmailSenderOptions> options)
     {
         _emailSender = emailSender;
-        _options = options;
+        _options = options.Value;
     }
-
+    
     public async Task<Result<bool>> Handle(SendEmailCommand command, CancellationToken cancellationToken)
     {
         var subject = CreateEmailSubject(command);
