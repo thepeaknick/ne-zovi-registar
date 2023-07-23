@@ -14,6 +14,7 @@ import { SettingsComponent } from './views/settings/settings.component';
 import { ContactComponent } from './views/contact/contact.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './domain/services/auth-guard';
+import { ResetPasswordComponent } from './views/pages/resetPassword/resetPassword.component';
 
 const routes: Routes = [
   {
@@ -112,6 +113,13 @@ const routes: Routes = [
         component: SearchComponent,
         data: {
           title: 'Pretraga telefonskog broja',
+        },
+      },
+      {
+        path: 'reset',
+        component: ResetPasswordComponent,
+        data: {
+          title: 'Nova lozinka',
         },
       },
     ],
