@@ -26,8 +26,12 @@ export class RegUsersComponent implements OnInit {
   @Input() public modalAddEditUserConfirmButton: string = 'Dodaj obveznika';
   @Input() public isEditing: boolean = true;
 
+  public modalText = '';
   public isAddReguserModalVisible = false;
   public isSuccessfulyRegisteredUserModalVisible = false;
+  public isSuccessfulyDeleted = false;
+  public showFormError = false;
+  public errorMessage = '';
 
   showInTableUsers: RegUserDto[] = [];
 
@@ -135,6 +139,7 @@ export class RegUsersComponent implements OnInit {
 
   resetFields() {
     this.regUserForm.reset();
+    this.isSuccessfulyDeleted = false;
     this.toggleConfirmationModal();
   }
 
@@ -162,9 +167,11 @@ export class RegUsersComponent implements OnInit {
           console.debug('Uspešno promenjeni podaci o obvezniku');
           var currentPage = this.currentPage;
           this.regUserService.getRegUsers(RoleType.Obveznik).subscribe({
-            next: (regUsers: RegUserDto[]) =>
-              (this.regUsers =
-                regUsers instanceof HttpErrorResponse ? [] : regUsers),
+            next: (regUsers: RegUserDto[]) => {
+              this.regUsers =
+                regUsers instanceof HttpErrorResponse ? [] : regUsers;
+              console.log('piuq');
+            },
             complete: () => {
               this.totalPagesNumber =
                 this.regUsers.length % this.itemsPerPage === 0
@@ -174,13 +181,21 @@ export class RegUsersComponent implements OnInit {
               this.currentPage = currentPage;
               // this.addRegUsers()
             },
+            error: (error) => {
+              console.log(error);
+            },
           });
-
+          this.modalText = 'Uspešno ste izmenili podatke o obvezniku';
           this.toggleAddRegUsernModal();
           this.toggleConfirmationModal();
         },
         error: (error) => {
           console.debug('Neuspešno promenjeni podaci o obvezniku');
+          this.showFormError = true;
+          for (let key in error.error.errors) {
+            let value = error.error.errors[key];
+            this.errorMessage = value;
+          }
         },
       });
   }
@@ -220,10 +235,9 @@ export class RegUsersComponent implements OnInit {
                   : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
               this.setPage(currentPage);
               this.currentPage = currentPage;
-              // this.addRegUsers()
             },
           });
-
+          this.modalText = 'Uspešno ste registrovali novog obveznika';
           this.toggleAddRegUsernModal();
           this.toggleConfirmationModal();
         },
@@ -237,7 +251,6 @@ export class RegUsersComponent implements OnInit {
   }
 
   // Modal handling
-
   toggleConfirmationModal() {
     this.isSuccessfulyRegisteredUserModalVisible =
       !this.isSuccessfulyRegisteredUserModalVisible;
@@ -256,7 +269,38 @@ export class RegUsersComponent implements OnInit {
     this.toggleAddRegUsernModal();
   }
 
+  deleteUser(guidId: string) {
+    this.modalText = 'Uspešno ste obrisali obveznika';
+    this.regUserService.removeRegUser(guidId).subscribe({
+      next: (regUser: RegUserDto) => {
+        console.log('Uspešno obrisan obveznik');
+        var currentPage = this.currentPage;
+        this.regUserService.getRegUsers(RoleType.Obveznik).subscribe({
+          next: (regUsers: RegUserDto[]) =>
+            (this.regUsers =
+              regUsers instanceof HttpErrorResponse ? [] : regUsers),
+          complete: () => {
+            this.totalPagesNumber =
+              this.regUsers.length % this.itemsPerPage === 0
+                ? Math.trunc(this.regUsers.length / this.itemsPerPage)
+                : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
+            this.setPage(currentPage);
+            this.currentPage = currentPage;
+          },
+        });
+
+        this.modalText = 'Uspešno ste obrisali obveznika';
+        this.isSuccessfulyDeleted = true;
+        this.toggleConfirmationModal();
+      },
+      error: (error) => {
+        console.log('Neuspešno obrisan obveznik');
+      },
+    });
+  }
+
   showEditUserDataModal(guidId: string) {
+    this.showFormError = false;
     this.isEditing = true;
     this.modalAddEditUserTitle = 'Izmeni podatke o obvezniku';
     this.modalAddEditUserConfirmButton = 'Sačuvaj izmene';

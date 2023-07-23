@@ -199,9 +199,12 @@ c-modal-footer {
   width: 165px;
 }
 
-.tableEditButton {
+.tableEditButton,
+.tableDeleteButton {
   border-width: 1px;
   border-color: #95a7c4;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 @media screen and (max-width: 950px) {
@@ -218,7 +221,8 @@ c-modal-footer {
   .tableButton {
     margin: 2%;
   }
-  .tableEditButton {
+  .tableEditButton,
+  .tableDeleteButton {
     font-size: 2vw;
   }
 }
@@ -245,4 +249,8 @@ c-modal-footer {
 
 c-pagination li {
   cursor: pointer;
+}
+
+.red {
+  color: red;
 }

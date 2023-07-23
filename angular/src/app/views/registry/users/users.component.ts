@@ -29,11 +29,13 @@ export class UsersComponent implements OnInit {
     let role = RoleType.Potrosac;
     if (currentUser) role = currentUser.role;
     this.canAddUsers = role == RoleType.Obveznik;
-    this.canEditUsers = role == RoleType.Obveznik;
+    // this.canEditUsers = role == RoleType.Obveznik;
     this.canDeleteUsers = role == RoleType.Obveznik;
   }
 
   public isAddUserModalVisible: boolean = false;
+  public isSuccessfulyAddedUserModalVisible: boolean = false;
+  public modalText = '';
 
   @Input() selectedOperator!: RegUserDto;
   @Input() selectedOperatorId: number = 0;
@@ -66,11 +68,7 @@ export class UsersComponent implements OnInit {
     this.userForm = this.formBuilder.group({
       userPhoneNumber: [
         '',
-        [
-          Validators.required,
-          Validators.minLength,
-          Validators.pattern,
-        ],
+        [Validators.required, Validators.minLength, Validators.pattern],
       ],
       userFirstName: ['', Validators.required],
       userLastName: ['', Validators.required],
@@ -83,7 +81,8 @@ export class UsersComponent implements OnInit {
           Validators.pattern,
         ],
       ],
-      userOperator: ['', Validators.required],
+
+      userOperator: ['', [Validators.required, Validators.min(1)]],
     });
 
     this.reloadUsersAndGoToFirsPage();
@@ -129,6 +128,7 @@ export class UsersComponent implements OnInit {
   reloadUsersAndGoToFirsPage() {
     let after: Date = new Date();
     after.setMonth(3);
+
     this.userService.allUsers(after).subscribe({
       next: (users: UserDtoPagedList) =>
         (this.users =
@@ -136,12 +136,11 @@ export class UsersComponent implements OnInit {
             ? ({} as UserDtoPagedList)
             : users),
       complete: () => {
-        console.log('qwe');
-        console.log(this.users);
         this.totalPagesNumber =
           this.users.items.length % this.itemsPerPage === 0
             ? Math.trunc(this.users.items.length / this.itemsPerPage)
             : Math.trunc(this.users.items.length / this.itemsPerPage) + 1;
+        console.log(this.users.items.length);
         this.setPage(1);
       },
     });
@@ -193,7 +192,6 @@ export class UsersComponent implements OnInit {
   // Handle modals
   toggleAddUserModal() {
     this.isValidated = false;
-    this.resetFields();
     this.isAddUserModalVisible = !this.isAddUserModalVisible;
   }
 
@@ -205,6 +203,7 @@ export class UsersComponent implements OnInit {
           operators instanceof HttpErrorResponse ? [] : operators),
       complete: () => {},
     });
+
     this.toggleAddUserModal();
   }
 
@@ -216,15 +215,19 @@ export class UsersComponent implements OnInit {
 
   resetFields() {
     this.userForm.reset();
+    // this.userForm.setValue({
+    //   userPhoneNumber: '',
+    //   userFirstName: '',
+    //   userLastName: '',
+    //   userJMBG: '',
+    //   userOperator: 0,
+    // });
+    this.operators = [];
+    this.toggleConfirmationModal();
   }
 
   addUserWithNumbers() {
     this.isValidated = true;
-    console.log(this.fields['userFirstName'].value);
-    console.log(this.fields['userLastName'].value);
-    console.log(this.fields['userJMBG'].value);
-    console.log(this.fields['userPhoneNumber'].value);
-    console.log(this.selectedOperator.id);
 
     this.userService
       .addUser({
@@ -236,8 +239,10 @@ export class UsersComponent implements OnInit {
       })
       .subscribe({
         next: () => {
+          this.modalText = 'Uspešno dodat novi korisnik/broj';
           this.isAddUserModalVisible = false;
-          console.log('Korisnik je uspeno dodat u registar');
+          this.toggleConfirmationModal();
+          console.log('Korisnik je uspešno dodat u registar');
         },
         error: (error) => {
           console.log('Dodavanje korisnika u registar nije uspelo');
@@ -273,11 +278,18 @@ export class UsersComponent implements OnInit {
           }
         });
         // TODO: Show success modal
-        console.log('DELETED: ' + number);
+
+        this.modalText = 'Uspešno obrisan korisnik';
+        this.toggleConfirmationModal();
       },
       error: (error) => {
         console.log('Neuspesno promenjeni podaci o obvezniku');
       },
     });
+  }
+
+  toggleConfirmationModal() {
+    this.isSuccessfulyAddedUserModalVisible =
+      !this.isSuccessfulyAddedUserModalVisible;
   }
 }

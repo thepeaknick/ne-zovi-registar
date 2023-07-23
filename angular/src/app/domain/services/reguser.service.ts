@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import {
   ChangeRegUserPasswordRequest,
+  ContactEmailRequest,
   ModifyRegUserRequest,
   RegUserDetailsDto,
   RegUserDto,
@@ -12,12 +13,13 @@ import {
   RoleType,
 } from '../model/schemas';
 import { BaseService } from './base.service';
+import { AppConfiguration } from './app-configuration.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RegUserService extends BaseService {
-  constructor(http: HttpClient) {
+  constructor(http: HttpClient, private config: AppConfiguration) {
     super(http);
   }
 
@@ -52,5 +54,12 @@ export class RegUserService extends BaseService {
 
   getRegUserData(guidId: string): Observable<RegUserDetailsDto> {
     return this.get<RegUserDetailsDto>(`/regusers/${guidId}`);
+  }
+
+  sendEmail(request: ContactEmailRequest): Observable<string> {
+    return this.postTextResponseWithBody<string>(
+      `${this.config.apiUrl}${this.config.apiSendEmailUrl}`,
+      request
+    );
   }
 }

@@ -143,3 +143,12 @@ export interface RegUserId {
 export interface DateDto {
   after: string;
 }
+
+export interface ContactEmailRequest {
+  firstName: string;
+  lastName: string;
+  companyName: string;
+  emailFrom: string;
+  phoneNumber: string;
+  content: string;
+}

@@ -183,7 +183,7 @@
     <c-modal-body>
       <form
         novalidate
-        [validated]="isValidated" 
+        [validated]="isValidated"
         cForm
         class="row g-3"
         [formGroup]="userForm"
@@ -269,6 +269,7 @@
               cSelect
               formControlName="userOperator"
             >
+              <option value="undefined" selected disabled>Operator</option>
               <option *ngFor="let operator of operators" [ngValue]="operator">
                 {{ operator.name }}
               </option>
@@ -307,5 +308,37 @@
         </div>
       </form>
     </c-modal-body>
+  </c-modal>
+
+  <c-modal
+    #confirmNewUserModal
+    alignment="center"
+    id="confirmUserModal"
+    [visible]="isSuccessfulyAddedUserModalVisible"
+    backdrop="static"
+  >
+    <c-modal-header>
+      <button (click)="resetFields()" cButtonClose></button>
+    </c-modal-header>
+
+    <c-modal-body>
+      <img src="/assets/images/exclamationmark.png" class="modalImage" />
+      <p cModalTitle class="modalTitle">
+        {{ modalText }}
+      </p>
+      <p class="modalSubtitle">
+        Lorem ipsum lorem ipsum lorem ipsum lorem<br />
+        ipsum lorem ipsum
+      </p>
+    </c-modal-body>
+    <c-modal-footer>
+      <input
+        cButton
+        class="modalSubmitButton"
+        type="submit"
+        value="U redu"
+        (click)="resetFields()"
+      />
+    </c-modal-footer>
   </c-modal>
 </div>
