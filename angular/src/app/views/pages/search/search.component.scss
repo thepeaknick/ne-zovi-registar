@@ -142,6 +142,16 @@ li {
   padding: 5%;
 }
 
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.padding-15 {
+  padding: 15px;
+}
+
 @media screen and (min-width: 400px) {
   .recaptcha {
     transform: scale(0.4);
