@@ -9,6 +9,7 @@ using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
 using NeZoviReg.Abstractions.Messaging.Domain.Queries.User;
 using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using NeZoviReg.Auth.Authorization;
+using NeZoviReg.WebApi.Infrastructure;
 using NeZoviReg.WebApi.Model.User;
 
 namespace NeZoviReg.WebApi.Controllers;
@@ -126,7 +127,7 @@ public class UserController : NeZoviRegBaseController
     [HttpGet("{phoneNumber:required}")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     [AllowAnonymous]
-    [EnableRateLimiting("Anonymous")]
+    [EnableRateLimiting(Const.AnonymousLogin)]
     public async Task<IActionResult> GetUser(string phoneNumber, CancellationToken cancellationToken)
     {
         var query = new GetUserQuery
@@ -147,7 +148,7 @@ public class UserController : NeZoviRegBaseController
     [HttpGet("{phoneNumber:required}/details")]
     [ProducesResponseType(typeof(UserDetailsDto), (int)HttpStatusCode.OK)]
     [AllowAnonymous]
-    [EnableRateLimiting("Anonymous")]
+    [EnableRateLimiting(Const.AnonymousLogin)]
     public async Task<IActionResult> GetUserDetails(string phoneNumber, CancellationToken cancellationToken)
     {
         var query = new GetUserDetailsQuery(phoneNumber);

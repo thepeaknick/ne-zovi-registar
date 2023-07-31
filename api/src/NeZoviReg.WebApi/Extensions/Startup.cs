@@ -3,9 +3,11 @@ using System.Text.Json.Serialization;
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Shared.Errors;
+using NeZoviReg.Abstractions.Shared.Model;
 using NeZoviReg.WebApi.Extensions.Middleware;
 using NeZoviReg.WebApi.Extensions.Options;
 using NeZoviReg.WebApi.Extensions.WebApi;
+using NeZoviReg.WebApi.Infrastructure;
 
 namespace NeZoviReg.WebApi.Extensions;
 
@@ -50,7 +52,7 @@ public static class Startup
 
         return services.AddRateLimiter(options =>
         {
-            options.AddPolicy("Anonymous", httpContext =>
+            options.AddPolicy(Const.AnonymousLogin, httpContext =>
             
                 RateLimitPartition.GetFixedWindowLimiter(httpContext.Connection.RemoteIpAddress?.ToString() ?? httpContext.Request.Headers.Host.ToString(),
                     _ => new FixedWindowRateLimiterOptions
@@ -62,9 +64,10 @@ public static class Startup
                         Window = TimeSpan.FromSeconds(fixedWindowRateLimitOptionsAnonymous.WindowInSeconds)
                     }));
             
-            options.AddPolicy("Authenticated", httpContext =>
+            options.AddPolicy(Const.AuthenticatedLogin, httpContext =>
             
-                RateLimitPartition.GetFixedWindowLimiter(httpContext.Connection.RemoteIpAddress?.ToString() ?? httpContext.Request.Headers.Host.ToString(),
+                
+                RateLimitPartition.GetFixedWindowLimiter(AppUser.GetUserName(httpContext.User.Identity) ?? httpContext.Request.Headers.Host.ToString(),
                     _ => new FixedWindowRateLimiterOptions
                     {
                         AutoReplenishment = true,

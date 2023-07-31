@@ -5,8 +5,11 @@ using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using NeZoviReg.Auth.Authorization;
 using NeZoviReg.WebApi.Model.RegUser;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.RateLimiting;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 using NeZoviReg.Abstractions.Messaging.Domain.Queries.RegUser;
+using NeZoviReg.WebApi.Infrastructure;
 
 namespace NeZoviReg.WebApi.Controllers;
 
@@ -25,7 +28,8 @@ public class RegUserController : NeZoviRegBaseController
     /// <returns></returns>
     [HttpPost("register")]
     [ProducesResponseType(typeof(RegUserDto), (int) HttpStatusCode.OK)]
-    [HasPermission(PermissionType.RegUsersOnly)]
+    [AllowAnonymous]
+    [EnableRateLimiting(Const.AnonymousLogin)]
     public async Task<IActionResult> RegisterRegUser([FromBody] RegisterRegUserRequest request,
         CancellationToken cancellationToken)
     {

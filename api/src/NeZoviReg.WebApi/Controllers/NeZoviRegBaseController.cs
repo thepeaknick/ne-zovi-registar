@@ -7,6 +7,7 @@ using NeZoviReg.Abstractions.Extensions.Paging;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Enums;
 using NeZoviReg.Abstractions.Shared.Model;
+using NeZoviReg.WebApi.Infrastructure;
 using NeZoviReg.WebApi.Model.Paging;
 using static NeZoviReg.WebApi.Extensions.WebApi.WebApiExtensions;
 
@@ -19,7 +20,7 @@ namespace NeZoviReg.WebApi.Controllers;
 [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.TooManyRequests)]
 [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.InternalServerError)]
 [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
-[EnableRateLimiting("Authenticated")]
+[EnableRateLimiting(Const.AuthenticatedLogin)]
 public class NeZoviRegBaseController : ControllerBase
 {
     protected readonly ISender Sender;

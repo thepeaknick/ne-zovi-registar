@@ -9,6 +9,7 @@ using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using NeZoviReg.Auth.Authorization;
 using NeZoviReg.WebApi.Model.RegUser;
 using Microsoft.AspNetCore.RateLimiting;
+using NeZoviReg.WebApi.Infrastructure;
 
 namespace NeZoviReg.WebApi.Controllers;
 
@@ -29,10 +30,9 @@ public class AccountController : NeZoviRegBaseController
     [HttpPost("login")]
     [ProducesResponseType(typeof(LoginResultDto), (int) HttpStatusCode.OK)]
     [AllowAnonymous]
-    [EnableRateLimiting("Anonymous")]
+    [EnableRateLimiting(Const.AnonymousLogin)]
     public async Task<IActionResult> LoginRegUser([FromBody] LoginRequest request, CancellationToken cancellationToken)
     {
-        var t = HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString();
         var command = new LoginCommand(request.Username, request.Password);
 
         var result = await Sender.Send(command, cancellationToken);
@@ -87,7 +87,7 @@ public class AccountController : NeZoviRegBaseController
     [HttpGet("forgotpassword/{email:required}")]
     [ProducesResponseType(typeof(string), (int) HttpStatusCode.OK)]
     [AllowAnonymous]
-    [EnableRateLimiting("Anonymous")]
+    [EnableRateLimiting(Const.AnonymousLogin)]
     public async Task<IActionResult> ForgotRegUserPassword(string email, CancellationToken cancellationToken)
     {
         var command = new ForgotPassCommand(email)
@@ -107,7 +107,7 @@ public class AccountController : NeZoviRegBaseController
     [HttpPost("forgotpassword")]
     [ProducesResponseType(typeof(bool), (int) HttpStatusCode.OK)]
     [AllowAnonymous]
-    [EnableRateLimiting("Anonymous")]
+    [EnableRateLimiting(Const.AnonymousLogin)]
     public async Task<IActionResult> ResetRegUserPassword([FromBody] ResetRegUserPasswordRequest request,
         CancellationToken cancellationToken)
     {
