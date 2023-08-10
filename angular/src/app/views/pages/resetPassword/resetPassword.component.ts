@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { AuthenticationService } from 'src/app/domain/services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { validateFieldsEquality } from './fieldsEqualityValidator';
+import { FieldsEqualityValidatorDirective } from './fieldsEqualityValidator.directive';
 
 @Component({
   selector: 'app-search',
@@ -33,6 +35,16 @@ export class ResetPasswordComponent {
         return this.resetPasswordForm.controls;
     }
 
+    get newPassword1() { 
+        console.log("newP ", this.resetPasswordForm.get('newPassword1')?.errors)
+        return this.resetPasswordForm.get('newPassword1'); 
+    }
+
+    get newPassword2() { 
+        console.log("newP2 ", this.resetPasswordForm.get('newPassword2')?.errors)
+        return this.resetPasswordForm.get('newPassword2'); 
+    }
+
     ngOnInit() {
         this.resetPasswordForm = this.formBuilder.group({
             newPassword1: ['', [Validators.required, Validators.minLength]],
@@ -54,16 +66,18 @@ export class ResetPasswordComponent {
         console.log("this.newPassword1 ", this.fields['newPassword1'].value, "; this.newPassword2: ",this.fields['newPassword2'].value)
         if ((this.fields['newPassword1'].value == this.fields['newPassword2'].value) && (this.fields['newPassword1'].value != '')) {
             this.showResetPasswordErrorMessage = false
-            this.isSuccessfulyResetPasswordModalVisible = true
+            this.isValidated = false;
 
             if (this.email && this.token) {
                 this.authenticationService
                 .forgotPasswordResetPassword(this.email, this.token, this.fields['newPassword1'].value)
                 .subscribe({
-                    next: () => {
+                    complete: () => {
+                        console.log("complete")
                         this.isSuccessfulyResetPasswordModalVisible = true
                     },
                     error: (error) => {
+                        console.log("error")
                         this.requestError = error.error.title;
                         console.log("error ", error)
                     },
@@ -72,6 +86,7 @@ export class ResetPasswordComponent {
 
         } else if ((this.fields['newPassword1'].value != '')) {
             this.showResetPasswordErrorMessage = true
+            this.isValidated = false;
         }
 
 
@@ -81,3 +96,4 @@ export class ResetPasswordComponent {
         this.isSuccessfulyResetPasswordModalVisible = false
     }
 }
+

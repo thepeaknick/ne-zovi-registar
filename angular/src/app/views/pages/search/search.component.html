@@ -65,6 +65,12 @@
               >
                 TELEFONSKI BROJ NIJE REGISTROVAN U BAZI
               </h2>
+              <h2
+                *ngIf="!isEntered"
+                class="searchResultText red"
+              >
+                NIJE UNET BROJ TELEFONA ZA PRETRAGU
+              </h2>
               <p class="descriptionText">
                 Polje za pretragu prihvata sledeće formate unosa - primeri:
               </p>
