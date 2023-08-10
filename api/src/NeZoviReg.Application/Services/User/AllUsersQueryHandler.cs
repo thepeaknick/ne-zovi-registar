@@ -9,7 +9,7 @@ using NeZoviReg.Abstractions.Shared.Errors;
 
 namespace NeZoviReg.Application.Services.User;
 
-internal sealed class AllUsersQueryHandler : IQueryHandler<AllUsersQuery, PagedList<UserDto>>
+internal sealed class AllUsersQueryHandler : IQueryHandler<AllUsersQuery, PagedList<UserInfoDto>>
 {
     private readonly IUserDataStore _userDataStore;
     private readonly IMapper _mapper;
@@ -20,15 +20,13 @@ internal sealed class AllUsersQueryHandler : IQueryHandler<AllUsersQuery, PagedL
         _mapper = mapper;
     }
 
-    public async Task<Result<PagedList<UserDto>>> Handle(AllUsersQuery query, CancellationToken cancellationToken)
+    public async Task<Result<PagedList<UserInfoDto>>> Handle(AllUsersQuery query, CancellationToken cancellationToken)
     {
         var all = await _userDataStore.GetAll(query.After, query.PageInfo, cancellationToken);
 
-        if (all.Items.Any())
-        {
-            var users = _mapper.Map<List<UserDto>>(all.Items);
-            return new PagedList<UserDto>(users, all.PageInfo);
-        }
-        return Result.Failure<PagedList<UserDto>>(RegErrors.User.NotFoundAfter(query.After));
+        return all.Items.Any()
+            ? new PagedList<UserInfoDto>(_mapper.Map<List<UserInfoDto>>(all.Items), all.PageInfo)
+            : Result.Failure<PagedList<UserInfoDto>>(RegErrors.User.NotFoundAfter(query.After));
+
     }
 }

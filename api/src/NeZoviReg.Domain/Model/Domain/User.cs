@@ -108,5 +108,7 @@ public class User : Entity
         return this;
     }
 
+    public bool IsActive => Active ?? false;
+
     public override string ToString() => $"{FullName}, {Jmbg}";
 }

@@ -20,7 +20,8 @@ public static class Startup
             {
                 op.ConfigureWarnings(x => x.Ignore(RelationalEventId.MultipleCollectionIncludeWarning));
                 op.UseMySql(configuration.GetConnectionString("MySqlDatabase"),
-                    ServerVersion.AutoDetect(configuration.GetConnectionString("MySqlDatabase")));
+                    ServerVersion.AutoDetect(configuration.GetConnectionString("MySqlDatabase")))
+                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTrackingWithIdentityResolution);
                 /*op.UseSqlServer(configuration.GetConnectionString("SqlServerDatabase"))
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTrackingWithIdentityResolution);*/
             })

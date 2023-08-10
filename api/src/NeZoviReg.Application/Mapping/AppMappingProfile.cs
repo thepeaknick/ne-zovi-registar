@@ -13,6 +13,12 @@ public class AppMappingProfile : Profile
     {
         CreateMap<User, UserDto>()
             .ConstructUsing(s => new UserDto(s.PhoneNumber, s.ModifiedOn ?? s.CreatedOn));
+        
+        CreateMap<User, UserInfoDto>()
+            .ForMember(d => d.RegisteredOn, o => o.MapFrom(s => s.CreatedOn))
+            .ForMember(d => d.Active, o => o.MapFrom(s => s.IsActive))
+            .ForMember(d => d.RemovedOn, o => o.MapFrom(s => !s.IsActive ? s.ModifiedOn : default))
+            .ForMember(d => d.Operator, o => o.MapFrom(s => s.Operator.CompanyName));
 
         CreateMap<User, UserDetailsDto>()
             .ConstructUsing(s => new UserDetailsDto(s.PhoneNumber, s.FirstName, s.LastName, s.Jmbg, s.OperatorId));

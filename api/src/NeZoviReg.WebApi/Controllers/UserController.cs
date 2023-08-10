@@ -107,18 +107,17 @@ public class UserController : NeZoviRegBaseController
     /// <param name="after">Datum od kad nam treba sadrzaj registra</param>
     /// <returns></returns>
     [HttpGet("all/{after:datetime?}")]
-    [ProducesResponseType(typeof(PagedList<UserDto>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(PagedList<UserInfoDto>), (int)HttpStatusCode.OK)]
     [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
     public async Task<IActionResult> AllUsers(DateTime? after, CancellationToken cancellationToken)
     {
         var command = new AllUsersQuery(after, GetPageInfo());
-        
 
         var result = await Sender.Send(command, cancellationToken);
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
-
+    
     /// <summary>
     /// Provera da li je telefonski broj registrovan.
     /// </summary>
