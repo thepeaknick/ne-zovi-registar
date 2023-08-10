@@ -35,6 +35,10 @@ public static class RegErrors
         public static readonly Error RoleUnknown = new Error(
             ErrorCode.Unknown,
             "Tražena rola nije pronađena.");
+        
+        public static readonly Error AdminRoleForbidden = new Error(
+            ErrorCode.Forbidden,
+            "Admin rola nije dozvoljena.");
 
         public static readonly Func<RoleType, Error> RoleNotFound = role => new Error(
             ErrorCode.NotFound,

@@ -4,7 +4,10 @@ using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using static NeZoviReg.Abstractions.Shared.Errors.RegErrors;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
+using NeZoviReg.Abstractions.Shared.Enums;
 using NeZoviReg.Abstractions.Shared.Errors;
+using NeZoviReg.Domain.Model.Auth.Enum;
+using RoleType = NeZoviReg.Abstractions.Shared.Model.Auth.Enum.RoleType;
 
 namespace NeZoviReg.Application.Services.RegUser;
 
@@ -49,7 +52,7 @@ public class CreateRegUserCommandValidator : AbstractValidator<CreateRegUserComm
             .NotEmpty<CreateRegUserCommand, string, RegUserDto>(Password.Empty.Message)
             .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.PasswordMaxLength,
                 Password.TooLong.Message);
-
+        
         RuleFor(x => x.Email).MustAsync(async (mail, cancellationToken) =>
                 !(await regUserDataStore.IsEmailExistsAsync(mail, cancellationToken: cancellationToken)))
             .WithMessage(x => RegErrors.Email.AlreadyInUse(x.Email).Message);

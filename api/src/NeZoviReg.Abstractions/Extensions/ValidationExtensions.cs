@@ -91,4 +91,15 @@ public static class ValidationExtensions
             rb.WithErrorCode(code.ToString());
         return rb;
     }
+    
+    public static IRuleBuilderOptions<TObjType, string> NotEqual<TObjType>(this IRuleBuilder<TObjType, string> ruleBuilder, string value, string message, ErrorCode? code = null)
+        where TObjType : ICommand
+    {
+        var rb = ruleBuilder.NotEqual(value)
+            .WithMessage(message);
+
+        if (code != default)
+            rb.WithErrorCode(code.ToString());
+        return rb;
+    }
 }

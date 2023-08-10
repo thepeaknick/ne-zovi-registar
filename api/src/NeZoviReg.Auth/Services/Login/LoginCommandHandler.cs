@@ -1,10 +1,12 @@
-﻿using NeZoviReg.Abstractions.Infrastructure.DataStores;
+﻿using MediatR;
+using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Auth.Commands;
 using NeZoviReg.Abstractions.Messaging.Auth.Model;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
+using NeZoviReg.Abstractions.Shared.Events;
 using NeZoviReg.Auth.Authentication.Jwt;
 using Serilog;
 
@@ -14,16 +16,19 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginR
 {
     private readonly IRegUserDataStore _regUserDataStore;
     private readonly IJwtProvider _jwtProvider;
+    private readonly IPublisher _publisher;
     private readonly IUnitOfWork _unitOfWork;
 
     public LoginCommandHandler(
         IRegUserDataStore regUserDataStore,
         IJwtProvider jwtProvider,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork, 
+        IPublisher publisher)
     {
         _regUserDataStore = regUserDataStore;
         _jwtProvider = jwtProvider;
         _unitOfWork = unitOfWork;
+        _publisher = publisher;
     }
 
     public async Task<Result<LoginResultDto>> Handle(LoginCommand command, CancellationToken cancellationToken)
@@ -45,6 +50,11 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginR
         _regUserDataStore.Update(regUser);
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
+        
+        await _publisher.Publish(new RegUserModifiedEvent
+        {
+            RegUserId = regUser.GuidId
+        }, cancellationToken);
         
         Log.Information($"RegUser with UserName={command.UserName} logged in.");
 

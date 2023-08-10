@@ -3,7 +3,7 @@
 namespace NeZoviReg.WebApi.Model.RegUser;
 
 /// <summary>
-/// Zahtev za registraciju korisnika regisra
+/// Zahtev za dodavanje trgovaca.
 /// </summary>
 /// <param name="Name">Naziv</param>
 /// <param name="Email">Email adresa</param>
@@ -14,8 +14,7 @@ namespace NeZoviReg.WebApi.Model.RegUser;
 /// <param name="LastName">Preyime korisnika</param>
 /// <param name="UserName">Korisničko ime korisnika</param>
 /// <param name="Password">Lozinka</param>
-/// <param name="Role">Rola korisnika registra</param>
-public record RegisterRegUserRequest(string Name,
+public record RegisterTraderRequest(string Name,
     string Email,
     string Address,
     string RegNumber,
@@ -23,5 +22,4 @@ public record RegisterRegUserRequest(string Name,
     string FirstName,
     string LastName,
     string UserName,
-    string Password,
-    RoleType Role);
+    string Password);
