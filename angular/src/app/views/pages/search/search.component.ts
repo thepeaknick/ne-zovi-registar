@@ -14,6 +14,7 @@ export class SearchComponent {
   phoneNumber: string;
 
   @Input() isFound: Boolean = false;
+  @Input() isEntered: Boolean = true;
   @Input() showSearchMessage: Boolean = false;
 
   constructor(private userService: UserService) {
@@ -22,6 +23,15 @@ export class SearchComponent {
   }
 
   checkNumber() {
+    this.isEntered = true;
+    this.isFound = false;
+    this.showSearchMessage = false;
+
+    console.log("phoneNumber: ", this.phoneNumber)
+    if (this.phoneNumber == '') {
+      this.isEntered = false;
+      return
+    }
     if (this.token != undefined) {
       this.userService.getUser(this.phoneNumber).subscribe({
         next: () => {
