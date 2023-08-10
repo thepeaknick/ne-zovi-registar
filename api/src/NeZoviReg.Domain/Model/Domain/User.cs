@@ -41,6 +41,8 @@ public class User : Entity
 
     public string PhoneNumber { get; private set; }
 
+    public bool? Active { get; private set; } = true;
+
     public string FullName => $"Ime={FirstName}, Prezime={LastName}, Jmbg={Jmbg}, Broj telefona={PhoneNumber}.";
 
     private string _jmbg;
@@ -95,6 +97,13 @@ public class User : Entity
     public User AddOperator(int? operatorId)
     {
         OperatorId = operatorId ?? OperatorId;
+
+        return this;
+    }
+
+    public User Deactivate()
+    {
+        Active = false;
 
         return this;
     }

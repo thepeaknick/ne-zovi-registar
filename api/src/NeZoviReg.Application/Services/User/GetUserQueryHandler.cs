@@ -23,7 +23,7 @@ internal sealed class GetUserQueryHandler : IQueryHandler<GetUserQuery, UserDto>
     {
         var user = await _userDataStore.GetByPhoneNumber(query.PhoneNumber, cancellationToken);
 
-        return user is null
+        return (user is null || !(user.Active ?? false))
             ? Result.Failure<UserDto>(RegErrors.User.NotFound(query.PhoneNumber))
             : _mapper.Map<UserDto>(user);
     }

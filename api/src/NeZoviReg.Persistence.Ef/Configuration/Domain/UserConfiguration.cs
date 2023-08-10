@@ -30,6 +30,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.OperatorId)
             .IsRequired();
+        
+        builder.Property(x => x.Active)
+            .HasDefaultValue(true);
 
         builder.HasOne(kp => kp.Operator)
             .WithMany()

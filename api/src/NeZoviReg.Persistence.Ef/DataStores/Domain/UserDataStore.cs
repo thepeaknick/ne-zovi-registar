@@ -23,7 +23,7 @@ public class UserDataStore : IUserDataStore
             .AnyAsync(user => user.PhoneNumber == phoneNumber, cancellationToken);
 
     public async Task<PagedList<User>> GetAll(DateTime? after, PageInfo pInfo, CancellationToken cancellationToken = default)
-        => await _dbContext.Set<User>().Where(x => x.CreatedOn >= (after ?? DateTime.MinValue))
+        => await _dbContext.Set<User>().Where(x => (x.Active ?? false) && x.CreatedOn >= (after ?? DateTime.MinValue))
             .GetPagedAsync(pInfo.CurrentCursor, pInfo.PageSize, cancellationToken);
 
     public async Task AddAsync(User user, CancellationToken cancellationToken = default) =>
