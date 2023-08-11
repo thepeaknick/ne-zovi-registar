@@ -11,7 +11,7 @@
   padding: 5%;
   margin: 1%;
   border-radius: 25px;
-  height: 50vh;
+  // height: 50vh;
 
   text-align: center;
 }
@@ -131,4 +131,18 @@ c-modal-footer {
     .submitButton {
         width: 80%;
     }
+}
+
+@media screen and (max-width: 1000px) {
+  c-row {
+    display: block;
+  }
+  c-col {
+    width: 100%;
+    text-align: center;
+  }
+  .settingsMainForm {
+    margin-bottom: 5%;
+  }
+
 }
