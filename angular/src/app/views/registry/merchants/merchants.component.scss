@@ -217,6 +217,9 @@ c-modal-footer {
     width: 100%;
     text-align: center;
   }
+  .leftTableHeader {
+    text-align: center;
+  }
   .tableContent {
     font-size: 2vw;
   }
@@ -255,3 +258,27 @@ c-pagination li {
 .red {
   color: red;
 }
+
+.columnBtnCenter {
+  text-align: center;
+}
+
+.columnBtnLeft {
+  text-align: left;
+}
+
+@media (max-width: 1300px) {
+  .columnBtnCenter {
+    text-align: center;
+  }
+  
+  .columnBtnLeft {
+    text-align: center;
+  }
+  
+}
+
+.btn {
+  --cui-btn-font-size: 0.8rem;
+}
+

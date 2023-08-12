@@ -14,105 +14,113 @@
           </button>
         </c-col>
         <c-col xs="8" class="rightTableHeader">
-          <button
-            [cPopover]="popoverHtml"
-            cPopoverPlacement="bottom"
-            [cPopoverTrigger]="'click'"
-            cButton
-            class="tableButton"
-            color="white"
-            shape="rounded-pill"
-          >
-            Prikaz po strani &#8659;
-            <ng-template #popoverHtml>
-              <div class="popover-body">
-                <c-row>
-                  <button
-                    cButton
-                    class="itemPerPageButton"
-                    color="white"
-                    shape="rounded-pill"
-                    (click)="setItemPerPage(10)"
-                  >
-                    10
-                  </button>
-                  <button
-                    cButton
-                    class="itemPerPageButton"
-                    color="white"
-                    shape="rounded-pill"
-                    (click)="setItemPerPage(20)"
-                  >
-                    20
-                  </button>
-                  <button
-                    cButton
-                    class="itemPerPageButton"
-                    color="white"
-                    shape="rounded-pill"
-                    (click)="setItemPerPage(30)"
-                  >
-                    30
-                  </button>
-                </c-row>
-              </div>
-            </ng-template>
-          </button>
-          <button
-            cButton
-            class="tableButton"
-            color="white"
-            shape="rounded-pill"
-            (click)="exportExcel()"
-          >
-            Export data
-          </button>
-          <button
-            [cPopover]="popoverHtml1"
-            cPopoverPlacement="bottom"
-            [cPopoverTrigger]="'click'"
-            cButton
-            class="tableButton"
-            color="white"
-            shape="rounded-pill"
-          >
-            Sort
-            <ng-template #popoverHtml1>
-              <div class="popover-body">
-                <c-row class="popover-row">
-                  <c-col>
-                    <button
-                      cButton
-                      class="sortItemButton"
-                      color="white"
-                      shape="rounded-pill"
-                      (click)="sortByName()"
-                    >
-                      Po imenu
-                    </button>
-                    <button
-                      cButton
-                      class="sortItemButton"
-                      color="white"
-                      shape="rounded-pill"
-                      (click)="sortByCreatedOnASC()"
-                    >
-                      Po datumu kreiranja (uzlazno)
-                    </button>
-                    <button
-                      cButton
-                      class="sortItemButton"
-                      color="white"
-                      shape="rounded-pill"
-                      (click)="sortByCreatedOnDESC()"
-                    >
-                      Po datumu kreiranja (silazno)
-                    </button>
-                  </c-col>
-                </c-row>
-              </div>
-            </ng-template>
-          </button>
+          <c-row>
+            <c-col lg="7" md="5">
+              <button
+                [cPopover]="popoverHtml"
+                cPopoverPlacement="bottom"
+                [cPopoverTrigger]="'click'"
+                cButton
+                class="tableButton"
+                color="white"
+                shape="rounded-pill"
+              >
+                Prikaz po strani &#8659;
+                <ng-template #popoverHtml>
+                  <div class="popover-body">
+                    <c-row>
+                      <button
+                        cButton
+                        class="itemPerPageButton"
+                        color="white"
+                        shape="rounded-pill"
+                        (click)="setItemPerPage(10)"
+                      >
+                        10
+                      </button>
+                      <button
+                        cButton
+                        class="itemPerPageButton"
+                        color="white"
+                        shape="rounded-pill"
+                        (click)="setItemPerPage(20)"
+                      >
+                        20
+                      </button>
+                      <button
+                        cButton
+                        class="itemPerPageButton"
+                        color="white"
+                        shape="rounded-pill"
+                        (click)="setItemPerPage(30)"
+                      >
+                        30
+                      </button>
+                    </c-row>
+                  </div>
+                </ng-template>
+              </button>
+            </c-col>
+            <c-col lg="3" md="5" class="columnBtnCenter">
+              <button
+                cButton
+                class="tableButton"
+                color="white"
+                shape="rounded-pill"
+                (click)="exportExcel()"
+              >
+                Export data
+              </button>
+            </c-col>
+            <c-col  md="2" class="columnBtnLeft">
+              <button
+                [cPopover]="popoverHtml1"
+                cPopoverPlacement="bottom"
+                [cPopoverTrigger]="'click'"
+                cButton
+                class="tableButton"
+                color="white"
+                shape="rounded-pill"
+              >
+                Sort
+                <ng-template #popoverHtml1>
+                  <div class="popover-body">
+                    <c-row class="popover-row">
+                      <c-col>
+                        <button
+                          cButton
+                          class="sortItemButton"
+                          color="white"
+                          shape="rounded-pill"
+                          (click)="sortByName()"
+                        >
+                          Po imenu
+                        </button>
+                        <button
+                          cButton
+                          class="sortItemButton"
+                          color="white"
+                          shape="rounded-pill"
+                          (click)="sortByCreatedOnASC()"
+                        >
+                          Po datumu kreiranja (uzlazno)
+                        </button>
+                        <button
+                          cButton
+                          class="sortItemButton"
+                          color="white"
+                          shape="rounded-pill"
+                          (click)="sortByCreatedOnDESC()"
+                        >
+                          Po datumu kreiranja (silazno)
+                        </button>
+                      </c-col>
+                    </c-row>
+                  </div>
+                </ng-template>
+              </button>
+            </c-col>
+          </c-row>
         </c-col>
       </c-row>
     </div>
