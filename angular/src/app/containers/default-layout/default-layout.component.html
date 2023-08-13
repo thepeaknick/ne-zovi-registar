@@ -18,7 +18,7 @@
       width: 46,
       alt: 'CoreUI Logo'
     }"
-    routerLink="./"
+    [routerLink]="authenticationService.CurrentUser?.role == 1 ? './admin' : './registry/users'"
   >
   </c-sidebar-brand>
 
