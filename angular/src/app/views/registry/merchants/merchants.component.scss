@@ -209,10 +209,6 @@ c-modal-footer {
   border-color: #95a7c4;
 }
 
-.btnRow {
-  justify-content: flex-end;
-}
-
 @media screen and (max-width: 1000px) {
   c-row {
     display: block;
@@ -284,5 +280,9 @@ c-pagination li {
 
 .btn {
   --cui-btn-font-size: 0.8rem;
+}
+
+.btnRow {
+  justify-content: flex-end;
 }
 

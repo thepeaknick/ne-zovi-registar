@@ -218,3 +218,52 @@ c-modal-footer {
   border-radius: 5px;
   align-items: center;
 }
+
+@media screen and (max-width: 1000px) {
+  c-row {
+    display: block;
+  }
+  c-col {
+    width: 100%;
+    text-align: center;
+  }
+  .leftTableHeader {
+    text-align: center;
+  }
+  .tableContent {
+    font-size: 2vw;
+  }
+  .tableButton {
+    margin: 2%;
+  }
+  .tableEditButton {
+    font-size: 2vw;
+  }
+}
+
+.columnBtnCenter {
+  text-align: center;
+}
+
+.columnBtnLeft {
+  text-align: left;
+}
+
+@media (max-width: 1200px) {
+  .columnBtnCenter {
+    text-align: center;
+  }
+  
+  .columnBtnLeft {
+    text-align: center;
+  }
+  
+}
+
+.btn {
+  --cui-btn-font-size: 0.8rem;
+}
+
+.btnRow {
+  justify-content: flex-end;
+}
