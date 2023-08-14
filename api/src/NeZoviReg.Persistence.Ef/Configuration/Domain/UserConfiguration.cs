@@ -38,7 +38,5 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .WithMany()
             .HasForeignKey(kp => kp.OperatorId)
             .OnDelete(DeleteBehavior.Cascade);
-        
-        builder.HasIndex(x => x.PhoneNumber).IsUnique();
     }
 }

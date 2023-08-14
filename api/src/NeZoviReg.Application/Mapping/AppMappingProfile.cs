@@ -18,7 +18,8 @@ public class AppMappingProfile : Profile
             .ForMember(d => d.RegisteredOn, o => o.MapFrom(s => s.CreatedOn))
             .ForMember(d => d.Active, o => o.MapFrom(s => s.IsActive))
             .ForMember(d => d.RemovedOn, o => o.MapFrom(s => !s.IsActive ? s.ModifiedOn : default))
-            .ForMember(d => d.Operator, o => o.MapFrom(s => s.Operator.CompanyName));
+            .ForMember(d => d.Operator, o => o.MapFrom(s => s.Operator.CompanyName))
+            .ForMember(d => d.OperatorGuid, o => o.MapFrom(s => s.Operator.GuidId));
 
         CreateMap<User, UserDetailsDto>()
             .ConstructUsing(s => new UserDetailsDto(s.PhoneNumber, s.FirstName, s.LastName, s.Jmbg, s.OperatorId));

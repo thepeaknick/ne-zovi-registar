@@ -49,4 +49,13 @@ public sealed record UserInfoDto
         get;
         init;
     }
+    
+    /// <summary>
+    /// Guid operatora
+    /// </summary>
+    public required Guid OperatorGuid
+    {
+        get;
+        init;
+    }
 }
