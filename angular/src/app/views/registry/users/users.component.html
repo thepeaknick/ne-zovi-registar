@@ -128,7 +128,7 @@
         <tbody class="tableContent">
           <tr *ngFor="let item of showInTableUsers">
             <td>{{ item.phoneNumber }}</td>
-            <td>{{ item.createdModifiedOn | date : "dd MMM, YY" }}</td>
+            <td>{{ item.registeredOn | date : "dd MMM, YY" }}</td>
             <td *ngIf="canEditUsers">
               <button
                 cButton

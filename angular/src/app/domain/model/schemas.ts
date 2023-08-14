@@ -121,7 +121,10 @@ export interface TokenResult {
 
 export interface UserDto {
   phoneNumber: string;
-  createdModifiedOn: string;
+  registeredOn: string;
+  active: boolean;
+  removedOn: string;
+  operator: string;
 }
 
 export interface UserDtoPagedList {
