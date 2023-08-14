@@ -90,9 +90,7 @@ export class UsersComponent implements OnInit {
 
   exportExcel(): void {
     let data = this.users?.items.map((item) => {
-      const formattedDate = new Date(
-        item.createdModifiedOn
-      ).toLocaleDateString();
+      const formattedDate = new Date(item.registeredOn).toLocaleDateString();
 
       return {
         'Broj telefona': item.phoneNumber,
@@ -169,9 +167,7 @@ export class UsersComponent implements OnInit {
 
   sortByCreatedModifiedOnASC() {
     var array = this.users.items;
-    array.sort((a, b) =>
-      a.createdModifiedOn.localeCompare(b.createdModifiedOn)
-    );
+    array.sort((a, b) => a.registeredOn.localeCompare(b.registeredOn));
     this.showInTableUsers = array.slice(
       (this.currentPage - 1) * this.itemsPerPage,
       this.currentPage * this.itemsPerPage
@@ -180,9 +176,7 @@ export class UsersComponent implements OnInit {
 
   sortByCreatedModifiedOnDESC() {
     var array = this.users.items;
-    array.sort((a, b) =>
-      b.createdModifiedOn.localeCompare(a.createdModifiedOn)
-    );
+    array.sort((a, b) => b.registeredOn.localeCompare(a.registeredOn));
     this.showInTableUsers = array.slice(
       (this.currentPage - 1) * this.itemsPerPage,
       this.currentPage * this.itemsPerPage
@@ -215,13 +209,6 @@ export class UsersComponent implements OnInit {
 
   resetFields() {
     this.userForm.reset();
-    // this.userForm.setValue({
-    //   userPhoneNumber: '',
-    //   userFirstName: '',
-    //   userLastName: '',
-    //   userJMBG: '',
-    //   userOperator: 0,
-    // });
     this.operators = [];
     this.toggleConfirmationModal();
   }

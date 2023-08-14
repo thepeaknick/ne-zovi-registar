@@ -7,6 +7,7 @@
 
 .widgetView {
   border-radius: 25px;
+  border-width: 0px;
   background-color: white;
 }
 
@@ -32,7 +33,7 @@
   height: 43px;
   margin-right: 1%;
   border-color: #95a7c4;
-  border-width: 1px;
+  border-width: 0px;
 
   font-family: "Source Sans 3";
   font-style: normal;
@@ -50,6 +51,11 @@
 
 img {
   border-radius: 20px;
+}
+
+.mb-3 {
+  border-radius: 25px;
+  border-width: 0px;
 }
 
 c-widget-stat-a {
