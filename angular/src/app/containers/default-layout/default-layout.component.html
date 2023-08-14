@@ -27,6 +27,7 @@
       [cModalToggle]="theverticallyCenteredModal.id"
       type="button"
       class="signoutSidebarButton"
+      cSidebarToggle="sidebar"
     >
       <svg [cIcon]="icons.cilExitToApp" class="signoutIcon"></svg>
       Sign out
@@ -69,6 +70,7 @@
     </p>
     <button
       [cModalToggle]="theverticallyCenteredModal.id"
+      cSidebarToggle="sidebar"
       cButtonClose
     ></button>
   </c-modal-header>
@@ -88,6 +90,7 @@
         type="submit"
         value="Cancel"
         [cModalToggle]="theverticallyCenteredModal.id"
+        cSidebarToggle="sidebar"
       />
     </form>
   </c-modal-body>
