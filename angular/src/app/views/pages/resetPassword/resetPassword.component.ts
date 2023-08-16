@@ -12,7 +12,7 @@ import { FieldsEqualityValidatorDirective } from './fieldsEqualityValidator.dire
 })
 export class ResetPasswordComponent {
 
-    public email: string | null | undefined;
+    // public email: string | null | undefined;
     public token: string | null | undefined;
 
     resetPasswordForm!: FormGroup;
@@ -27,12 +27,18 @@ export class ResetPasswordComponent {
     constructor(
         private route: ActivatedRoute,
         private authenticationService: AuthenticationService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private router: Router
     ) {}
 
      // convenience getter for easy access to form fields
     get fields() {
         return this.resetPasswordForm.controls;
+    }
+
+    get email() { 
+        console.log("email ", this.resetPasswordForm.get('email')?.errors)
+        return this.resetPasswordForm.get('email'); 
     }
 
     get newPassword1() { 
@@ -47,17 +53,18 @@ export class ResetPasswordComponent {
 
     ngOnInit() {
         this.resetPasswordForm = this.formBuilder.group({
+            email: ['', [Validators.required, Validators.email]],
             newPassword1: ['', [Validators.required, Validators.minLength]],
             newPassword2: ['', [Validators.required, Validators.minLength]],
         });
 
         this.route.queryParams.subscribe((params) => {
-            this.email = params['email'];
+            // this.email = params['email'];
             this.token = params['token'];
         });
 
         console.log("t: ", this.token)
-        console.log("e: ", this.email)
+        // console.log("e: ", this.email)
     }
 
     resetPassword(): void {
@@ -68,9 +75,9 @@ export class ResetPasswordComponent {
             this.showResetPasswordErrorMessage = false
             this.isValidated = false;
 
-            if (this.email && this.token) {
+            if (this.token) {
                 this.authenticationService
-                .forgotPasswordResetPassword(this.email, this.token, this.fields['newPassword1'].value)
+                .forgotPasswordResetPassword(this.fields['email'].value, this.token, this.fields['newPassword1'].value)
                 .subscribe({
                     complete: () => {
                         console.log("complete")
@@ -94,6 +101,7 @@ export class ResetPasswordComponent {
 
     goToLogin(): void {
         this.isSuccessfulyResetPasswordModalVisible = false
+        this.router.navigate(['/']);
     }
 }
 
