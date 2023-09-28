@@ -31,7 +31,10 @@
     <Content Include="appsettings.my.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </Content>     
+    </Content>
+    <Content Include="Migrations.ps1">
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>    
   </ItemGroup>  
   
 </Project>
