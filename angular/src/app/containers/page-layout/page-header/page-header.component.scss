@@ -3,7 +3,6 @@
 c-header {
   background-image: url("/assets/brand/headerbackground.png");
   background-size: contain;
-  height: 18vh;
   width: 70%;
   min-height: 130px;
 }
@@ -21,6 +20,7 @@ span {
 span h2 {
   font-weight: 800;
   font-size: 2.0vw;
+  margin: 0px;
 }
 
 span h4 {
@@ -31,33 +31,6 @@ span h4 {
 
 c-row {
   align-items: center;
-}
-
-@media screen and (max-width: 1000px) {
-  c-row {
-    display: block;
-  }
-  c-col {
-    width: 100%;
-    text-align: center
-  }
-  c-header {
-    margin-bottom: 20%
-  }
-  .headerButtonView {
-    text-align: center !important;
-    padding-top: 10%;
-  }
-  span h2 {
-    font-weight: 800;
-    font-size: 3.5vw; 
-    margin-top: 20px;
-  }
-  span h4 {
-    font-weight: 400;
-    font-size: 3.0vw;
-    
-  }
 }
 
 .headerImage {
@@ -75,12 +48,49 @@ c-row {
 }
 
 
-.headerButtonView {
-  text-align: right;
-}
+
 
 .headerButton {
   // vertical-align: middle;
   height: 50%
 }
+
+@media screen and (max-width: 700px) {
+  c-row {
+    display: block;
+  }
+  c-col {
+    width: 100%;
+    text-align: center
+  }
+  c-header {
+    padding: 0px;
+    margin: 5px;
+    border-block-color: #f5f8fb;
+  }
+  .headerImage {
+    max-width: 30%;
+  }
+  .headerButtonView {
+    text-align: center !important;
+  }
+  span h2 {
+    font-weight: 800;
+    font-size: 3.5vw; 
+    margin-top: 20px;
+  }
+  span h4 {
+    font-weight: 400;
+    font-size: 3.0vw;
+    
+  }
+}
+
+.headerButtonView {
+  text-align: right;
+}
+
+
+
+
 
