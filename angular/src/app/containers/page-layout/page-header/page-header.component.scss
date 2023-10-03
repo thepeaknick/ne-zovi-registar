@@ -29,6 +29,10 @@ span h4 {
   margin-bottom: 0px;
 }
 
+c-row {
+  align-items: center;
+}
+
 @media screen and (max-width: 1000px) {
   c-row {
     display: block;
