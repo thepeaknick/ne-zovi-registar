@@ -22,6 +22,10 @@ export class SearchComponent {
     this.phoneNumber = '';
   }
 
+  vars = {
+    '--cui-modal-width': '900px'
+  };
+
   checkNumber() {
     this.isEntered = true;
     this.isFound = false;

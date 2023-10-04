@@ -21,7 +21,10 @@ c-modal-body {
   color: #3f6aa3;
 }
 
-c-modal-header,
+c-modal-header {
+  padding: 20px !important;
+}
+
 c-modal-footer {
   border: 0px;
 }
@@ -129,7 +132,27 @@ li {
   color: #ffffff;
 
   margin-top: 20%;
+  // margin-left: 5%;
+  // margin-right: 15px;
   margin-bottom: 10%;
+}
+
+.helpButton {
+  width: 40%;
+  height: 10%;
+  background: #e4e9f0;
+  border-radius: 5px;
+  border-color: #e4e9f0;
+
+  font-size: 100%;
+  line-height: 30px;
+  color: #444444;
+  margin-top: 20%;
+  margin-bottom: 10%;
+}
+
+c-row {
+  justify-content: space-around;
 }
 
 .backgroundView {
@@ -150,6 +173,38 @@ li {
 }
 .padding-15 {
   padding: 15px;
+}
+
+c-modal {
+  font-family: "Source Sans 3";
+  font-style: normal;
+}
+
+c-modal-header {
+  background-color: #ebf1f8;
+  background-size: contain;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px; // z-index: -1;
+  padding: 5%;
+}
+
+c-modal-body {
+  padding: 5%;
+}
+
+
+.modalHeader {
+  font-weight: 700;
+  font-size: 27.679px;
+  color: #133f85;
+}
+
+.modalBodyTitle {
+  font-weight: 700;
+  font-size: 26.53px;
+  line-height: 38px;
+  color: #001942;
+  padding-top: 5%;
 }
 
 @media screen and (min-width: 400px) {
