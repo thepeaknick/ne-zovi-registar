@@ -85,7 +85,6 @@ import { AdminComponent } from './views/admin/admin.component';
 import { HelppageComponent } from './views/helppage/helppage.component';
 import { FieldsEqualityValidatorDirective } from './views/pages/resetPassword/fieldsEqualityValidator.directive';
 
-
 const APP_CONTAINERS = [
   DefaultFooterComponent,
   DefaultHeaderComponent,
@@ -112,7 +111,7 @@ const APP_CONTAINERS = [
     RegUsersComponent,
     AdminComponent,
     HelppageComponent,
-    FieldsEqualityValidatorDirective
+    FieldsEqualityValidatorDirective,
   ],
   imports: [
     RecaptchaModule,
@@ -159,8 +158,9 @@ const APP_CONTAINERS = [
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: {
-        siteKey: '6LdNNmQmAAAAAKEU4pIxQ33-eNhyyGeZ1_CT2IO6', // Localhost
-        // siteKey: '6LcmH6omAAAAAADe4m7EJNaymL4t1mT7ac_V6pIj', // Prod
+        // siteKey: '6LdNNmQmAAAAAKEU4pIxQ33-eNhyyGeZ1_CT2IO6', // Localhost
+        // siteKey: '6LcmH6omAAAAAADe4m7EJNaymL4t1mT7ac_V6pIj', // Prod - test
+        siteKey: '6Lec_GkoAAAAAH-PoN7wtJDEKZW6902vqUDXqFqm', // Prod
       } as RecaptchaSettings,
     },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
