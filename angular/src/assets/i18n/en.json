@@ -27,5 +27,17 @@
     "TELEFONSKI BROJ JE REGISTROVAN U BAZI": "THE PHONE NUMBER IS REGISTERED IN THE DATABASE",
     "TELEFONSKI BROJ NIJE REGISTROVAN U BAZI": "THE PHONE NUMBER IS NOT REGISTERED IN THE DATABASE",
     "NIJE UNET BROJ TELEFONA ZA PRETRAGU": "NO SEARCH PHONE NUMBER IS ENTERED",
-    "Polje za pretragu prihvata sledeće formate unosa - primeri:": "The search field accepts the following input formats - examples:"    
+    "Polje za pretragu prihvata sledeće formate unosa - primeri:": "The search field accepts the following input formats - examples:",
+
+    "Najčešće postavljana pitanja": "Frequently asked questions",
+    "q1": "1. What is a web application „Ne zovi“",
+    "a1": "The „Ne zovi“ web application is used to search the database of telephone numbers of consumers who do not want to receive calls and/or messages for the purpose of promoting and/or selling products and services by telephone.",
+    "q2": "2. How to use the web application „Ne zovi“?",
+    "a2": "Access to the „Ne zovi“ Register by the consumer refers to the possibility of searching for phone numbers entered in the „Ne zovi“ Register and the date of entry without registration, by checking “yes/no“, i.e. by entering an individual telephone number, information is obtained as to whether is the requested number entered in the „Ne zovi“ Register.",
+    "q3": "3. Is my data safe in „Ne zovi“?",
+    "a3": "The „Ne zovi“ register is an integral part of the information and communication system (hereinafter: ICT system) managed by the Regulator. This system is effectively protected by appropriate information security measures applied to the data and equipment used, which are more closely defined by the Act on the Security of the Information and Communication System of Special Importance of the Regulator (hereinafter: the Act on Security). This Security Act is in accordance with the Law on Information Security.",
+    "q4": "4. What possibilities does the „Ne zovi“ web application offer?",
+    "a4": "The application enables:<br /><br /> <strong>Entry or printing of data</strong> - it is performed free of charge by the obligee who has a contract with the user of the telephone number on the use of publicly available electronic communication services, based on the request user's phone number.<br /><br /> <strong>Data search</strong> - registered merchants have the option of searching one or more phone numbers and the date of their entry in the „Ne zovi“ Register<br /><br /> <strong>Data Search</strong> - Consumers (without registration) have the option of searching for an individual phone number entered in the „Ne zovi“ Register.",
+    "q5": "5. How can I contact technical support",
+    "a5": "For all questions, please contact the email..."
 }

@@ -27,8 +27,18 @@
     "TELEFONSKI BROJ JE REGISTROVAN U BAZI": "TELEFONSKI BROJ JE REGISTROVAN U BAZI",
     "TELEFONSKI BROJ NIJE REGISTROVAN U BAZI": "TELEFONSKI BROJ NIJE REGISTROVAN U BAZI",
     "NIJE UNET BROJ TELEFONA ZA PRETRAGU": "NIJE UNET BROJ TELEFONA ZA PRETRAGU",
-    "Polje za pretragu prihvata sledeće formate unosa - primeri:": "Polje za pretragu prihvata sledeće formate unosa - primeri:"
+    "Polje za pretragu prihvata sledeće formate unosa - primeri:": "Polje za pretragu prihvata sledeće formate unosa - primeri:",
 
-
+    "Najčešće postavljana pitanja": "Najčešće postavljana pitanja",
+    "q1": "1. Šta predstavlja web aplikacija „Ne zovi“",
+    "a1": "Web aplikacija „NE ZOVI“ služi za pretraživanje baze podataka o telefonskim brojevima potrošača koji ne žele primati pozive i/ili poruke u svrhu promocije i/ili prodaje proizvoda i usluga telefonom.",
+    "q2": "2. Kako se koristi web aplikacija „Ne zovi”?",
+    "a2": "Pristup Registru „NE ZOVI“ od strane potrošača odnosi se na mogućnost pretrage brojeva telefona koji su upisani u Registar „NE ZOVI“ i datuma upisa bez registracije i to „da/ne“ proverom, odnosno upisom pojedinačnog broja telefona dobija se podatak da li je traženi broj upisan u Registar „NE ZOVI“.",
+    "q3": "3. Da li su moji podaci bezbedni u aplikaciji „Ne zovi”?",
+    "a3": "Registar „NE ZOVI“ predstavlja sastavni deo informaciono-komunikacionog sistema (u daljem tekstu: IKT sistem) koji vodi Regulator. Ovaj sistem se efikasno štiti odgovarajućim merama informacione bezbednosti koje se primenjuju na podatke i opremu koja se koristi, a koje su bliže definisane Aktom o bezbednosti informaciono-komunikacionog sistema od posebnog značaja Regulatora (u daljem tekstu: Akt o bezbednosti). Ovaj Akt o bezbednosti je u skladu sa Zakonom o informacionoj bezbednosti.",
+    "q4": "4. Koje mogućnosti nudi web aplikacija „Ne Zovi“?",
+    "a4": "Aplikacija omogućava:<br /><br /> <strong>Upis ili ispis podataka</strong> - obavlja bez naknade obveznik upisa i ispisa koji sa korisnikom telefonskog broja ima zaključen ugovor o korišćenju javno dostupnih elektronskih komunikacionih usluga, na osnovu zahteva korisnika telefonskog broja.<br /><br /> <strong>Pretraga podataka</strong> - registrovani trgovca imaju mogućnost pretrage jednog ili više brojeva telefona i datuma njihovog upisa u Registru „NE ZOVI“<br /><br /> <strong>Pretraga podataka</strong> – Potrošači (bez registracije) imaju mogućnost pretrage pojedinačnog broja telefona koji je upisani u Registar „NE ZOVI“.",
+    "q5": "5. Kako mogu da kontaktiram tehničku podršku",
+    "a5": "Za sva pitanja potrebno se obrati na mail…"
 
 }
