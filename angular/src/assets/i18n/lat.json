@@ -17,5 +17,18 @@
     "Unesite vašu e-mail adresu na koju će biti poslat": "Unesite vašu e-mail adresu na koju će biti poslat",
     "link za promenu vaše lozinke": "link za promenu vaše lozinke",
     "Pošalji": "Pošalji",
-    "Vrati se na sign in": "Vrati se na prijavu"     
+    "Vrati se na sign in": "Vrati se na prijavu",
+    
+    "Pretraga": "Pretraga",
+    "telefonskog broja": "telefonskog broja",
+    "Broj telefona": "Broj telefona",
+    "Morate popuniti Captcha-u.": "Morate popuniti Captcha-u.",
+    "Pomoć": "Pomoć",
+    "TELEFONSKI BROJ JE REGISTROVAN U BAZI": "TELEFONSKI BROJ JE REGISTROVAN U BAZI",
+    "TELEFONSKI BROJ NIJE REGISTROVAN U BAZI": "TELEFONSKI BROJ NIJE REGISTROVAN U BAZI",
+    "NIJE UNET BROJ TELEFONA ZA PRETRAGU": "NIJE UNET BROJ TELEFONA ZA PRETRAGU",
+    "Polje za pretragu prihvata sledeće formate unosa - primeri:": "Polje za pretragu prihvata sledeće formate unosa - primeri:"
+
+
+
 }

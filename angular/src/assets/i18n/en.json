@@ -17,5 +17,15 @@
     "Unesite vašu e-mail adresu na koju će biti poslat": "Enter your e-mail address to which it will be sent",
     "link za promenu vaše lozinke": "link to change your password",
     "Pošalji": "Send",
-    "Vrati se na sign in": "Go back to sign in"     
+    "Vrati se na sign in": "Go back to sign in",
+    
+    "Pretraga": "Search",
+    "telefonskog broja": "phone number",
+    "Broj telefona": "Phone number",
+    "Morate popuniti Captcha-u.": "Fill in the Captcha.",
+    "Pomoć": "Help",
+    "TELEFONSKI BROJ JE REGISTROVAN U BAZI": "THE PHONE NUMBER IS REGISTERED IN THE DATABASE",
+    "TELEFONSKI BROJ NIJE REGISTROVAN U BAZI": "THE PHONE NUMBER IS NOT REGISTERED IN THE DATABASE",
+    "NIJE UNET BROJ TELEFONA ZA PRETRAGU": "NO SEARCH PHONE NUMBER IS ENTERED",
+    "Polje za pretragu prihvata sledeće formate unosa - primeri:": "The search field accepts the following input formats - examples:"    
 }

@@ -1,114 +1,116 @@
-<div class="backgroundImage">
-  <div class="body flex-grow-1 px-3">
-    <c-container breakpoint="lg" class="h-auto">
-      <c-row>
-        <c-col xs="0" sm="5" md="7"></c-col>
-        <c-col xs="12" sm="7" md="5" class="backgroundView">
-          <div class="content">
-            <c-row>
-              <c-col>
-                <p class="titleText">Pretraga <br />telefonskog broja</p>
-              </c-col>
-              <c-col> </c-col>
-            </c-row>
-            <form cForm (ngSubmit)="checkNumber()">
-              <div class="mb-3">
-                <label cLabel for="phoneNumber" class="phoneNumberText"
-                  >Broj telefona</label
-                >
-                <input
-                  cFormControl
-                  id="phoneNumber"
-                  type="text"
-                  name="phoneNumber"
-                  [(ngModel)]="phoneNumber"
-                />
-              </div>
-              <div class="recaptcha">
-                <re-captcha
-                  id="recaptcha"
-                  name="recaptcha"
-                  #recaptcha="ngModel"
-                  [(ngModel)]="token"
-                  required
-                  [class.is-invalid]="
-                    recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
-                  "
-                ></re-captcha>
-                <div
-                  *ngIf="
-                    (recaptcha.invalid &&
-                      (recaptcha.dirty || recaptcha.touched)) ||
-                    showCaptchaMessage
-                  "
-                >
-                  <div *ngIf="recaptcha.errors?.['required']">
-                    Morate popuniti Captcha-u.
+<ng-container *transloco="let t">
+  <div class="backgroundImage">
+    <div class="body flex-grow-1 px-3">
+      <c-container breakpoint="lg" class="h-auto">
+        <c-row>
+          <c-col xs="0" sm="5" md="7"></c-col>
+          <c-col xs="12" sm="7" md="5" class="backgroundView">
+            <div class="content">
+              <c-row>
+                <c-col>
+                  <p class="titleText">{{ t('Pretraga') }} <br />{{ t('telefonskog broja') }}</p>
+                </c-col>
+                <c-col> </c-col>
+              </c-row>
+              <form cForm (ngSubmit)="checkNumber()">
+                <div class="mb-3">
+                  <label cLabel for="phoneNumber" class="phoneNumberText"
+                    >{{ t('Broj telefona') }}</label
+                  >
+                  <input
+                    cFormControl
+                    id="phoneNumber"
+                    type="text"
+                    name="phoneNumber"
+                    [(ngModel)]="phoneNumber"
+                  />
+                </div>
+                <div class="recaptcha">
+                  <re-captcha
+                    id="recaptcha"
+                    name="recaptcha"
+                    #recaptcha="ngModel"
+                    [(ngModel)]="token"
+                    required
+                    [class.is-invalid]="
+                      recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
+                    "
+                  ></re-captcha>
+                  <div
+                    *ngIf="
+                      (recaptcha.invalid &&
+                        (recaptcha.dirty || recaptcha.touched)) ||
+                      showCaptchaMessage
+                    "
+                  >
+                    <div *ngIf="recaptcha.errors?.['required']">
+                      {{ t('Morate popuniti Captcha-u.') }}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div>
-                <c-row>
-                  <input
-                    cButton
-                    class="submitButton"
-                    type="submit"
-                    value="Pretraga"
-                  />
-                  <input
-                    cButton
-                    class="helpButton"
-                    type="submit"
-                    value="Pomoć"
-                    [cModalToggle]="theverticallyCenteredModal1.id"
-                  />
-                </c-row>
-              </div>
-              <h2
-                *ngIf="showSearchMessage && isFound"
-                class="searchResultText green"
-              >
-                TELEFONSKI BROJ JE REGISTROVAN U BAZI
-              </h2>
-              <h2
-                *ngIf="showSearchMessage && !isFound"
-                class="searchResultText red"
-              >
-                TELEFONSKI BROJ NIJE REGISTROVAN U BAZI
-              </h2>
-              <h2
-                *ngIf="!isEntered"
-                class="searchResultText red"
-              >
-                NIJE UNET BROJ TELEFONA ZA PRETRAGU
-              </h2>
-              <p class="descriptionText">
-                Polje za pretragu prihvata sledeće formate unosa - primeri:
-              </p>
-              <span class="left">
-                <ul class="padding-15">
-                  <li>381641234567</li>
-                  <li>381 64 123 45 67</li>
-                  <li>641234567</li>
-                  <li>0641234567</li>
-                </ul>
-              </span>
+                <div>
+                  <c-row>
+                    <input
+                      cButton
+                      class="submitButton"
+                      type="submit"
+                      [value]="t('Pretraga')"
+                    />
+                    <input
+                      cButton
+                      class="helpButton"
+                      type="submit"
+                      [value]="t('Pomoć')"
+                      [cModalToggle]="theverticallyCenteredModal1.id"
+                    />
+                  </c-row>
+                </div>
+                <h2
+                  *ngIf="showSearchMessage && isFound"
+                  class="searchResultText green"
+                >
+                  {{ t('TELEFONSKI BROJ JE REGISTROVAN U BAZI') }}
+                </h2>
+                <h2
+                  *ngIf="showSearchMessage && !isFound"
+                  class="searchResultText red"
+                >
+                  {{ t('TELEFONSKI BROJ NIJE REGISTROVAN U BAZI') }}
+                </h2>
+                <h2
+                  *ngIf="!isEntered"
+                  class="searchResultText red"
+                >
+                  {{ t('NIJE UNET BROJ TELEFONA ZA PRETRAGU') }}
+                </h2>
+                <p class="descriptionText">
+                  {{ t('Polje za pretragu prihvata sledeće formate unosa - primeri:') }}
+                </p>
+                <span class="left">
+                  <ul class="padding-15">
+                    <li>381641234567</li>
+                    <li>381 64 123 45 67</li>
+                    <li>641234567</li>
+                    <li>0641234567</li>
+                  </ul>
+                </span>
 
-              <span class="right">
-                <ul class="padding-15">
-                  <li>381111234567</li>
-                  <li>381 11 123 45 67</li>
-                  <li>111234567</li>
-                  <li>0111234567</li>
-                </ul>
-              </span>
-            </form>
-          </div>
-        </c-col>
-      </c-row>
-    </c-container>
+                <span class="right">
+                  <ul class="padding-15">
+                    <li>381111234567</li>
+                    <li>381 11 123 45 67</li>
+                    <li>111234567</li>
+                    <li>0111234567</li>
+                  </ul>
+                </span>
+              </form>
+            </div>
+          </c-col>
+        </c-row>
+      </c-container>
+    </div>
   </div>
-</div>
+</ng-container>
 
 
 <c-modal
