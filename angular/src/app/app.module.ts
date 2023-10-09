@@ -84,6 +84,7 @@ import { RegUsersComponent } from './views/registry/regusers/regusers.component'
 import { AdminComponent } from './views/admin/admin.component';
 import { HelppageComponent } from './views/helppage/helppage.component';
 import { FieldsEqualityValidatorDirective } from './views/pages/resetPassword/fieldsEqualityValidator.directive';
+import { TranslocoRootModule } from './transloco-root.module';
 
 
 const APP_CONTAINERS = [
@@ -154,6 +155,7 @@ const APP_CONTAINERS = [
     ChartjsModule,
     AccordionModule,
     PaginationModule,
+    TranslocoRootModule,
   ],
   providers: [
     {

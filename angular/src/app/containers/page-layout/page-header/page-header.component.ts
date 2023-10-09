@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 
 import { ClassToggleService, HeaderComponent } from '@coreui/angular';
 import { NavigationEnd, Router } from '@angular/router';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-page-header',
@@ -18,9 +19,14 @@ export class PageHeaderComponent extends HeaderComponent {
 
   constructor(
     private classToggler: ClassToggleService,
-    private router: Router
+    private router: Router,
+    private translocoService: TranslocoService
   ) {
     super();
+  }
+
+  changeLanguage(lang: string) {
+    this.translocoService.setActiveLang(lang);
   }
 
   ngOnInit() {
