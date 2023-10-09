@@ -1,5 +1,5 @@
 {
-  "apiUrl": "https://144.24.164.191/v1",
+  "apiUrl": "http://81.208.208.242/v1",
   "apiLoginUrl": "/account/login",
   "apiLogoutUrl": "/account/logout",
   "apiResetPasswordUrl": "/account/resetpassword",
