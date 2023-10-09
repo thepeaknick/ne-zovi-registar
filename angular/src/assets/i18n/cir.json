@@ -6,5 +6,16 @@
     "Registar Ne Zovi": "Регистар НЕ ЗОВИ",
     "Administrator": "Администратор",
     "Trgovac": "Трговац",
-    "Obverznik": "Обвезник"    
+    "Obverznik": "Обвезник",
+    
+    "Korisničko ime": "Корисничко име",
+    "Lozinka": "Лозинка",
+    "Zaboravili ste lozinku": "Заборавили сте лозинку?",
+    "NEISPRAVNO KORISNIČKO IME ILI LOZINKA": "НЕИСПРАВНО КОРИСНИЧКО ИМЕ ИЛИ ЛОЗИНКА",
+    "Registruj se": "Региструј се",
+    "Zaboravljena lozinka": "Заборављена лозинка",
+    "Unesite vašu e-mail adresu na koju će biti poslat": "Унесите вашу e-mail адресу на коју ће бити послат",
+    "link za promenu vaše lozinke": "линк за промену ваше лозинке",
+    "Pošalji": "Пошаљи",
+    "Vrati se na sign in": "Врати се на пријаву"        
 }

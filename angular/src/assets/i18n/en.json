@@ -6,5 +6,16 @@
     "Registar Ne Zovi": "Register NE ZOVI",
     "Administrator": "Administrator",
     "Trgovac": "Merchant",
-    "Obverznik": "Operator"
+    "Obverznik": "Operator",
+    
+    "Korisničko ime": "Username",
+    "Lozinka": "Password",
+    "Zaboravili ste lozinku": "Forgot password?",
+    "NEISPRAVNO KORISNIČKO IME ILI LOZINKA": "INVALID USERNAME OR PASSWORD",
+    "Registruj se": "Sign up",
+    "Zaboravljena lozinka": "Forgot password",
+    "Unesite vašu e-mail adresu na koju će biti poslat": "Enter your e-mail address to which it will be sent",
+    "link za promenu vaše lozinke": "link to change your password",
+    "Pošalji": "Send",
+    "Vrati se na sign in": "Go back to sign in"     
 }
