@@ -47,12 +47,23 @@
                   </div>
                 </div>
               </div>
-              <input
-                cButton
-                class="submitButton"
-                type="submit"
-                value="Pretraga"
-              />
+              <div>
+                <c-row>
+                  <input
+                    cButton
+                    class="submitButton"
+                    type="submit"
+                    value="Pretraga"
+                  />
+                  <input
+                    cButton
+                    class="helpButton"
+                    type="submit"
+                    value="Pomoć"
+                    [cModalToggle]="theverticallyCenteredModal1.id"
+                  />
+                </c-row>
+              </div>
               <h2
                 *ngIf="showSearchMessage && isFound"
                 class="searchResultText green"
@@ -98,3 +109,22 @@
     </c-container>
   </div>
 </div>
+
+
+<c-modal
+  #theverticallyCenteredModal1
+  alignment="center"
+  id="theverticallyCenteredModal1"
+  [ngStyle]="vars"
+>  
+  <c-modal-header>
+    <button
+      [cModalToggle]="theverticallyCenteredModal1.id"
+      cSidebarToggle="sidebar"
+      cButtonClose
+    ></button>
+  </c-modal-header>
+  <c-modal-body>
+    <app-helppage></app-helppage>
+  </c-modal-body>
+</c-modal>
