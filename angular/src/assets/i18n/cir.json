@@ -64,5 +64,25 @@
     "Broj korisničkih brojeva": "Број корисничких бројева",
     "Pregled": "Преглед",
     "Export data": "Извези податке",
-    "Top tri operatera": "Топ три оператера"
+    "Top tri operatera": "Топ три оператера",
+
+    "Dodaj novog korisnika": "Додај новог корисника",
+    "Prikaz po strani": "Приказ по страни",
+    "Sortiraj": "Сортирај",
+    "Po datumu kreiranja (uzlazno)": "По датуму креирања (узлазно)",
+    "Po datumu kreiranja (silazno)": "По датуму креирања (силазно)",
+    "Datum upisa/ispisa": "Датум уписа/исписа",
+    "Izmeni podatke": "Измени податке",
+    "Obriši broj telefona": "Обриши број телефона",
+    "Previous": "Претходна",
+    "Next": "Следећа",
+    "Podaci o korisniku": "Подаци о кориснику",
+    "+ broj telefona": "+ број телефона",
+    "Broj telefona korisnika": "Број телефона корисника",
+    "Ime": "Име",
+    "Prezime": "Презиме",
+    "Operator": "Оператор",
+    "Dodaj korisnika": "Додај корисника",
+    "Cancel": "Откажи",
+    "U redu": "У реду"
 }
