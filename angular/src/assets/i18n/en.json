@@ -95,5 +95,10 @@
     "promeni": "change",
     "Podaci o obvezniku": "Obligee Data",
     "Ime obveznika": "Obligee Name",
-    "Adresa obveznika": "Obligee Address"
+    "Adresa obveznika": "Obligee Address",
+
+    "Dodaj novog trgovca": "Add New Merchant",
+    "Podaci o trgovcu": "Merchant Data",
+    "Ime trgovca": "Merchant Name",
+    "Adresa trgovca": "Merchant Address"
 }
