@@ -39,5 +39,13 @@
     "q4": "4. What possibilities does the „Ne zovi“ web application offer?",
     "a4": "The application enables:<br /><br /> <strong>Entry or printing of data</strong> - it is performed free of charge by the obligee who has a contract with the user of the telephone number on the use of publicly available electronic communication services, based on the request user's phone number.<br /><br /> <strong>Data search</strong> - registered merchants have the option of searching one or more phone numbers and the date of their entry in the „Ne zovi“ Register<br /><br /> <strong>Data Search</strong> - Consumers (without registration) have the option of searching for an individual phone number entered in the „Ne zovi“ Register.",
     "q5": "5. How can I contact technical support",
-    "a5": "For all questions, please contact the email..."
+    "a5": "For all questions, please contact the email...",
+
+    "Moj profil": "My profile",
+    "Promeni": "Edit",
+    "Nova lozinka": "New password",
+    "NEUSPEŠNO PROMENJENA LOZINKA": "UNSUCCESSFUL PASSWORD CHANGE",
+    "Promena lozinke i korisničkog imena": "Password and Username Change",
+    "Uspešno ste promenili lozinku": "You have successfully changed your password!",
+    "NAZAD": "DONE"
 }

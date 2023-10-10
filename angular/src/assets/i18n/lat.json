@@ -39,6 +39,14 @@
     "q4": "4. Koje mogućnosti nudi web aplikacija „Ne Zovi“?",
     "a4": "Aplikacija omogućava:<br /><br /> <strong>Upis ili ispis podataka</strong> - obavlja bez naknade obveznik upisa i ispisa koji sa korisnikom telefonskog broja ima zaključen ugovor o korišćenju javno dostupnih elektronskih komunikacionih usluga, na osnovu zahteva korisnika telefonskog broja.<br /><br /> <strong>Pretraga podataka</strong> - registrovani trgovca imaju mogućnost pretrage jednog ili više brojeva telefona i datuma njihovog upisa u Registru „NE ZOVI“<br /><br /> <strong>Pretraga podataka</strong> – Potrošači (bez registracije) imaju mogućnost pretrage pojedinačnog broja telefona koji je upisani u Registar „NE ZOVI“.",
     "q5": "5. Kako mogu da kontaktiram tehničku podršku",
-    "a5": "Za sva pitanja potrebno se obrati na mail…"
+    "a5": "Za sva pitanja potrebno se obrati na mail…",
+
+    "Moj profil": "Moj profil",
+    "Promeni": "Promeni",
+    "Nova lozinka": "Nova lozinka",
+    "NEUSPEŠNO PROMENJENA LOZINKA": "NEUSPEŠNO PROMENJENA LOZINKA",
+    "Promena lozinke i korisničkog imena": "Promena lozinke i korisničkog imena",
+    "Uspešno ste promenili lozinku": "Uspešno ste promenili lozinku!",
+    "NAZAD": "NAZAD"
 
 }
