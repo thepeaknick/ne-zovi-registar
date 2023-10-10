@@ -84,5 +84,16 @@
     "Operator": "Оператор",
     "Dodaj korisnika": "Додај корисника",
     "Cancel": "Откажи",
-    "U redu": "У реду"
+    "U redu": "У реду",
+
+    "Dodaj novog obveznika": "Додај новог обвезника",
+    "Po imenu": "По имену",
+    "PIB": "ПИБ",
+    "Matični broj": "Матични број",
+    "Datum upisa": "Датум уписа",
+    "obriši": "Обриши",
+    "promeni": "Промени",
+    "Podaci o obvezniku": "Подаци о обвезнику",
+    "Ime obveznika": "Име обвезника",
+    "Adresa obveznika": "Адреса обвезника"
 }

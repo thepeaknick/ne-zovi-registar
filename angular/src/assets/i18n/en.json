@@ -84,5 +84,16 @@
     "Operator": "Operator",
     "Dodaj korisnika": "Add User",
     "Cancel": "Cancel",
-    "U redu": "OK"
+    "U redu": "OK",
+
+    "Dodaj novog obveznika": "Add New Obligee",
+    "Po imenu": "By Name",
+    "PIB": "VAT",
+    "Matični broj": "Registration Number",
+    "Datum upisa": "Registration Date",
+    "obriši": "delete",
+    "promeni": "change",
+    "Podaci o obvezniku": "Obligee Data",
+    "Ime obveznika": "Obligee Name",
+    "Adresa obveznika": "Obligee Address"
 }
