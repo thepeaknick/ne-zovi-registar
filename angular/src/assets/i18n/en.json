@@ -47,5 +47,15 @@
     "NEUSPEŠNO PROMENJENA LOZINKA": "UNSUCCESSFUL PASSWORD CHANGE",
     "Promena lozinke i korisničkog imena": "Password and Username Change",
     "Uspešno ste promenili lozinku": "You have successfully changed your password!",
-    "NAZAD": "DONE"
+    "NAZAD": "DONE",
+
+    "Pošaljite nam poruku": "Send us a message",
+    "Pošaljite nam poruku i očekujte odgovor u roku od 24h": "Send us a message and expect a response within 24h",
+    "Ime i prezime": "First and Last Name",
+    "Email": "Email",
+    "Ime firme": "Company Name",
+    "Unesite sadržaj poruke": "Enter message content",
+    "Hvala vam!": "Thank you!",
+    "Kontakt informacije": "Contact Information",
+    "Prikaži na mapi": "Show on Map"
 }
