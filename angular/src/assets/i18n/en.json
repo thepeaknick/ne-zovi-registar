@@ -57,5 +57,12 @@
     "Unesite sadržaj poruke": "Enter message content",
     "Hvala vam!": "Thank you!",
     "Kontakt informacije": "Contact Information",
-    "Prikaži na mapi": "Show on Map"
+    "Prikaži na mapi": "Show on Map",
+
+    "Broj operatora": "Number of Operators",
+    "Broj trgovaca": "Number of Merchants",
+    "Broj korisničkih brojeva": "Number of User Numbers",
+    "Pregled": "Overview",
+    "Export data": "Export data",
+    "Top tri operatera": "Top Three Operators"
 }
