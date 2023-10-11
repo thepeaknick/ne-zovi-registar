@@ -237,122 +237,133 @@ export class AdminComponent implements OnInit {
         this.users = this.usersData.items;
         //count per operator active
         const items = this.usersData.items;
-        this.mtsUsers = items.filter(
-          (item) =>
-            item.operator == 'TELEKOM SRBIJA AD BEOGRAD' && item.active == true
-        );
-        this.a1Users = items.filter(
-          (item) => item.operator == 'A1 SRBIJA' && item.active == true
-        );
-        this.yettelUsers = items.filter(
-          (item) => item.operator == 'YETTEL D.O.O.' && item.active == true
-        );
+        if (items) {
+          this.mtsUsers = items.filter(
+            (item) =>
+              item.operator == 'TELEKOM SRBIJA AD BEOGRAD' &&
+              item.active == true
+          );
+          this.a1Users = items.filter(
+            (item) => item.operator == 'A1 SRBIJA' && item.active == true
+          );
+          this.yettelUsers = items.filter(
+            (item) => item.operator == 'YETTEL D.O.O.' && item.active == true
+          );
 
-        //get data for last 6 months
-        var perMonthActive = new Array<number>(12).fill(0);
-        var perMonthInactive = new Array<number>(12).fill(0);
-        this.calculatePerOperatorPerMonth(
-          this.yettelUsers,
-          perMonthActive,
-          perMonthInactive,
-          'YETTEL D.O.O.'
-        );
+          //get data for last 6 months
+          var perMonthActive = new Array<number>(12).fill(0);
+          var perMonthInactive = new Array<number>(12).fill(0);
+          this.calculatePerOperatorPerMonth(
+            this.yettelUsers,
+            perMonthActive,
+            perMonthInactive,
+            'YETTEL D.O.O.'
+          );
+          this.datasets[0].data = perMonthActive;
+          this.data1 = {
+            labels: this.labels.slice(0, 11),
+            datasets: this.datasets,
+          };
 
-        this.datasets[0].data = perMonthActive;
-        this.data1 = {
-          labels: this.labels.slice(0, 11),
-          datasets: this.datasets,
-        };
+          var perMonthActive1 = new Array<number>(12).fill(0);
+          var perMonthInactive1 = new Array<number>(12).fill(0);
+          this.calculatePerOperatorPerMonth(
+            this.mtsUsers,
+            perMonthActive1,
+            perMonthInactive1,
+            'TELEKOM SRBIJA AD BEOGRAD'
+          );
 
-        var perMonthActive1 = new Array<number>(12).fill(0);
-        var perMonthInactive1 = new Array<number>(12).fill(0);
-        this.calculatePerOperatorPerMonth(
-          this.mtsUsers,
-          perMonthActive1,
-          perMonthInactive1,
-          'TELEKOM SRBIJA AD BEOGRAD'
-        );
+          this.datasets2[0].data = perMonthActive1;
+          this.data2 = {
+            labels: this.labels.slice(0, 11),
+            datasets: this.datasets2,
+          };
 
-        this.datasets2[0].data = perMonthActive1;
-        this.data2 = {
-          labels: this.labels.slice(0, 11),
-          datasets: this.datasets2,
-        };
+          var perMonthActive2 = new Array<number>(12).fill(0);
+          var perMonthInactive2 = new Array<number>(12).fill(0);
+          this.calculatePerOperatorPerMonth(
+            this.a1Users,
+            perMonthActive2,
+            perMonthInactive2,
+            'A1 SRBIJA'
+          );
+          this.datasets3[0].data = perMonthActive2;
+          this.data3 = {
+            labels: this.labels.slice(0, 11),
+            datasets: this.datasets3,
+          };
 
-        var perMonthActive2 = new Array<number>(12).fill(0);
-        var perMonthInactive2 = new Array<number>(12).fill(0);
-        this.calculatePerOperatorPerMonth(
-          this.a1Users,
-          perMonthActive2,
-          perMonthInactive2,
-          'A1 SRBIJA'
-        );
-        this.datasets3[0].data = perMonthActive2;
-        this.data3 = {
-          labels: this.labels.slice(0, 11),
-          datasets: this.datasets3,
-        };
+          // pie chart
+          this.dataPieChart = {
+            labels: ['Yettel', 'mts', 'A1'],
+            datasets: [
+              {
+                backgroundColor: ['#133F85', '#C0CBDB', '#FF0000'],
+                data: [
+                  this.yettelUsers.length,
+                  this.mtsUsers.length,
+                  this.a1Users.length,
+                ],
+              },
+            ],
+          };
 
-        // pie chart
-        this.dataPieChart = {
-          labels: ['Yettel', 'mts', 'A1'],
-          datasets: [
-            {
-              backgroundColor: ['#133F85', '#C0CBDB', '#FF0000'],
-              data: [
-                this.yettelUsers.length,
-                this.mtsUsers.length,
-                this.a1Users.length,
-              ],
-            },
-          ],
-        };
+          // bottom table
+          var perMonthActive3 = new Array<number>(12).fill(0);
+          var perMonthInactive3 = new Array<number>(12).fill(0);
+          this.calculatePerOperatorPerMonth(
+            this.users,
+            perMonthActive3,
+            perMonthInactive3,
+            'all'
+          );
 
-        // bottom table
-        var perMonthActive3 = new Array<number>(12).fill(0);
-        var perMonthInactive3 = new Array<number>(12).fill(0);
-        this.calculatePerOperatorPerMonth(
-          this.users,
-          perMonthActive3,
-          perMonthInactive3,
-          'all'
-        );
-
-        this.dataLineChart = {
-          labels: this.labels,
-          datasets: [
-            {
-              label: 'Aktivni u registru',
-              backgroundColor: 'rgba(220, 220, 220, 0.2)',
-              borderColor: '#FF0000',
-              pointBackgroundColor: '#FF0000',
-              pointBorderColor: '#fff',
-              data: perMonthActive3,
-              tension: 0.5,
-            },
-            {
-              label: 'Neaktivni u registru',
-              backgroundColor: 'rgba(151, 187, 205, 0.2)',
-              borderColor: '#3F6AA3',
-              pointBackgroundColor: '#3F6AA3',
-              pointBorderColor: '#fff',
-              data: perMonthInactive3,
-              tension: 0.5,
-            },
-          ],
-        };
+          this.dataLineChart = {
+            labels: this.labels,
+            datasets: [
+              {
+                label: 'Aktivni u registru',
+                backgroundColor: 'rgba(220, 220, 220, 0.2)',
+                borderColor: '#FF0000',
+                pointBackgroundColor: '#FF0000',
+                pointBorderColor: '#fff',
+                data: perMonthActive3,
+                tension: 0.5,
+              },
+              {
+                label: 'Neaktivni u registru',
+                backgroundColor: 'rgba(151, 187, 205, 0.2)',
+                borderColor: '#3F6AA3',
+                pointBackgroundColor: '#3F6AA3',
+                pointBorderColor: '#fff',
+                data: perMonthInactive3,
+                tension: 0.5,
+              },
+            ],
+          };
+        }
+      },
+      error: (error) => {
+        // treat error
       },
     });
 
     this.regUserService.getRegUsers(RoleType.Obveznik).subscribe({
       next: (regUsers: RegUserDto[]) =>
         (this.regUsers = regUsers instanceof HttpErrorResponse ? [] : regUsers),
+      error: (error) => {
+        // treat error
+      },
     });
 
     this.regUserService.getRegUsers(RoleType.Trgovac).subscribe({
       next: (merchants: RegUserDto[]) =>
         (this.merchants =
           merchants instanceof HttpErrorResponse ? [] : merchants),
+      error: (error) => {
+        // treat error
+      },
     });
   }
 
@@ -403,7 +414,6 @@ export class AdminComponent implements OnInit {
         };
       }
     );
-    console.log(merchantsData);
 
     const merchantsSheet: XLSX.WorkSheet =
       XLSX.utils.json_to_sheet(merchantsData);

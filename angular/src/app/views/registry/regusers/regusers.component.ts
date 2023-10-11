@@ -273,7 +273,7 @@ export class RegUsersComponent implements OnInit {
     this.modalText = 'Uspešno ste obrisali obveznika';
     this.regUserService.removeRegUser(guidId).subscribe({
       next: (regUser: RegUserDto) => {
-        console.log('Uspešno obrisan obveznik');
+        // console.log('Uspešno obrisan obveznik');
         var currentPage = this.currentPage;
         this.regUserService.getRegUsers(RoleType.Obveznik).subscribe({
           next: (regUsers: RegUserDto[]) =>
@@ -294,7 +294,7 @@ export class RegUsersComponent implements OnInit {
         this.toggleConfirmationModal();
       },
       error: (error) => {
-        console.log('Neuspešno obrisan obveznik');
+        // console.log('Neuspešno obrisan obveznik');
       },
     });
   }
@@ -321,7 +321,7 @@ export class RegUsersComponent implements OnInit {
         });
       },
       error: (error) => {
-        console.log('Neuspesno dohvaceni podaci o obvezniku');
+        // console.log('Neuspesno dohvaceni podaci o obvezniku');
       },
     });
     this.toggleAddRegUsernModal();

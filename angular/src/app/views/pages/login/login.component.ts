@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
           if (returnUrl === '/') {
             let user: RegUserDetailsDto | null =
               AuthenticationService.CurrentUser;
-            console.log(JSON.stringify(user));
+            // console.log(JSON.stringify(user));
 
             if (user) {
               switch (user.role) {

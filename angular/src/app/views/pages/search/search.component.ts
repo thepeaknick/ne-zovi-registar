@@ -23,7 +23,7 @@ export class SearchComponent {
   }
 
   vars = {
-    '--cui-modal-width': '900px'
+    '--cui-modal-width': '900px',
   };
 
   checkNumber() {
@@ -31,10 +31,10 @@ export class SearchComponent {
     this.isFound = false;
     this.showSearchMessage = false;
 
-    console.log("phoneNumber: ", this.phoneNumber)
+    // console.log("phoneNumber: ", this.phoneNumber)
     if (this.phoneNumber == '') {
       this.isEntered = false;
-      return
+      return;
     }
     if (this.token != undefined) {
       this.userService.getUser(this.phoneNumber).subscribe({

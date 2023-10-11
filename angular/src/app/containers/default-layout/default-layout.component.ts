@@ -106,7 +106,7 @@ export class DefaultLayoutComponent {
         this.router.navigate(['/']);
       },
       error: (error) => {
-        console.log(error);
+        console.error(error);
         this.router.navigate(['/']);
       },
     });

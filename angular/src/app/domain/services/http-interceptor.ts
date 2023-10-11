@@ -33,7 +33,7 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const started = Date.now();
-    console.debug('NeZoviHttpInterceptor: Intercepted ' + request.url);
+    // console.debug('NeZoviHttpInterceptor: Intercepted ' + request.url);
 
     let newUrl: string | undefined = undefined;
     if (!this.isAbsoluteUrl(request.url)) {
@@ -63,7 +63,6 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
     return next.handle(modifiedRequest).pipe(
       tap({ next: (event: HttpEvent<any>) => this.processOkResult(event) }),
       catchError((error: any) => {
-        console.log(error);
         return this.processFailureResult(request, error);
       }),
       finalize(() => {
@@ -94,8 +93,6 @@ export class NeZoviHttpInterceptor implements HttpInterceptor {
       );
 
       // TEMP workaround
-      console.debug(request.url);
-
       if (request.url.includes('/regusers/login')) {
         if (error.status == 400) {
           return throwError(() => error.error);

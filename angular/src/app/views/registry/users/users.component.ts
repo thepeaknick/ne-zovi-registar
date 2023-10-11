@@ -134,11 +134,12 @@ export class UsersComponent implements OnInit {
             ? ({} as UserDtoPagedList)
             : users),
       complete: () => {
-        this.totalPagesNumber =
-          this.users.items.length % this.itemsPerPage === 0
-            ? Math.trunc(this.users.items.length / this.itemsPerPage)
-            : Math.trunc(this.users.items.length / this.itemsPerPage) + 1;
-        console.log(this.users.items.length);
+        if (this.users.items) {
+          this.totalPagesNumber =
+            this.users.items.length % this.itemsPerPage === 0
+              ? Math.trunc(this.users.items.length / this.itemsPerPage)
+              : Math.trunc(this.users.items.length / this.itemsPerPage) + 1;
+        }
         this.setPage(1);
       },
     });
@@ -147,11 +148,13 @@ export class UsersComponent implements OnInit {
   // Pagination
 
   setPage(page: number) {
-    this.currentPage = page;
-    this.showInTableUsers = this.users.items.slice(
-      (page - 1) * this.itemsPerPage,
-      page * this.itemsPerPage
-    );
+    if (this.users.items) {
+      this.currentPage = page;
+      this.showInTableUsers = this.users.items.slice(
+        (page - 1) * this.itemsPerPage,
+        page * this.itemsPerPage
+      );
+    }
   }
 
   setItemPerPage(num: number) {
@@ -229,10 +232,10 @@ export class UsersComponent implements OnInit {
           this.modalText = 'Uspešno dodat novi korisnik/broj';
           this.isAddUserModalVisible = false;
           this.toggleConfirmationModal();
-          console.log('Korisnik je uspešno dodat u registar');
+          // console.log('Korisnik je uspešno dodat u registar');
         },
         error: (error) => {
-          console.log('Dodavanje korisnika u registar nije uspelo');
+          // console.log('Dodavanje korisnika u registar nije uspelo');
         },
       });
   }
@@ -248,10 +251,10 @@ export class UsersComponent implements OnInit {
 
     this.userService.modifyUser(number, modifiedUser).subscribe({
       next: () => {
-        console.log('Podaci o korisniku su promenjeni uspesno');
+        // console.log('Podaci o korisniku su promenjeni uspesno');
       },
       error: (error) => {
-        console.log('Neuspesno promenjeni podaci o korisniku');
+        // console.log('Neuspesno promenjeni podaci o korisniku');
       },
     });
   }
@@ -270,7 +273,7 @@ export class UsersComponent implements OnInit {
         this.toggleConfirmationModal();
       },
       error: (error) => {
-        console.log('Neuspesno promenjeni podaci o obvezniku');
+        // console.log('Neuspesno promenjeni podaci o obvezniku');
       },
     });
   }

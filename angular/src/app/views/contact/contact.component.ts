@@ -11,7 +11,8 @@ export class ContactComponent {
   formSubmitted: Boolean = false;
   messageForm!: FormGroup;
 
-  ratelMapLink = 'https://www.google.com/maps/place/%D0%A0%D0%90%D0%A2%D0%95%D0%9B/@44.8123526,20.4672521,18.65z/data=!4m6!3m5!1s0x475a7ab4d3e7c459:0xa0bbee3519b4b839!8m2!3d44.8125548!4d20.4678093!16s%2Fg%2F11cn3v72vd?authuser=0&entry=ttu'
+  ratelMapLink =
+    'https://www.google.com/maps/place/%D0%A0%D0%90%D0%A2%D0%95%D0%9B/@44.8123526,20.4672521,18.65z/data=!4m6!3m5!1s0x475a7ab4d3e7c459:0xa0bbee3519b4b839!8m2!3d44.8125548!4d20.4678093!16s%2Fg%2F11cn3v72vd?authuser=0&entry=ttu';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,7 +40,7 @@ export class ContactComponent {
     let phoneNumber: string = this.messageForm.controls['inputPhone'].value;
     let content: string = this.messageForm.controls['inputMessage'].value;
 
-    console.log(content);
+    // console.log(content);
     this.regUserService
       .sendEmail({
         firstName,
@@ -50,7 +51,7 @@ export class ContactComponent {
         content,
       })
       .subscribe((answer: any) => {
-        console.log(answer);
+        // console.log(answer);
         this.formSubmitted = true;
         this.messageForm.reset();
       });
