@@ -1,5 +1,5 @@
 <!--<c-header class="mb-4 d-print-none" position="sticky">-->
-
+<ng-container *transloco="let t">
 <c-container class="headerContainer">
   <c-row class="defaultHeader">
     <c-col xs="8" class="headerColumn">
@@ -18,12 +18,15 @@
         [ngSwitch]="authenticationService.CurrentUser?.role"
       >
         <p class="headerTitle">
-          Registar Ne Zovi -
-          <span *ngSwitchCase="1">Administrator</span>
-          <span *ngSwitchCase="2">Trgovac</span>
-          <span *ngSwitchCase="3">Obveznik</span>
+          {{ t('Registar Ne Zovi') }} -
+          <span *ngSwitchCase="1">{{ t('Administrator') }}</span>
+          <span *ngSwitchCase="2">{{ t('Trgovac') }}</span>
+          <span *ngSwitchCase="3">{{ t('Obveznik') }}</span>
         </p>
       </div>
+      <button (click)="changeLanguage('en')">Engleski</button>
+      <button (click)="changeLanguage('lat')">Latinica</button>
+      <button (click)="changeLanguage('cir')">Cirilica</button>
     </c-col>
     <c-col xs="4" class="headerColumn">
       <div class="userColumn">
@@ -41,3 +44,4 @@
     </c-col>
   </c-row>
 </c-container>
+</ng-container>

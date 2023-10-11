@@ -1,349 +1,352 @@
-<div class="backgroundImage">
-  <div class="regusersTable">
-    <c-row>
-      <c-col xs="4" class="leftTableHeader">
-        <button
-          cButton
-          (click)="showAddUserModal()"
-          type="button"
-          class="tableAddNewButton"
-          shape="rounded-pill"
-          *ngIf="canAddUsers"
-        >
-          + Dodaj novog korisnika
-        </button>
-      </c-col>
-      <c-col xs="8" class="rightTableHeader">
-        <c-row class="btnRow">
-          <c-col xl="7" lg="5" md="5">
-            <button
-              [cPopover]="popoverHtml"
-              cPopoverPlacement="bottom"
-              [cPopoverTrigger]="'click'"
-              cButton
-              class="tableButton"
-              color="white"
-              shape="rounded-pill"
-            >
-              Prikaz po strani &#8659;
-              <ng-template #popoverHtml>
-                <div class="popover-body">
-                  <c-row>
-                    <button
-                      cButton
-                      class="itemPerPageButton"
-                      color="white"
-                      shape="rounded-pill"
-                      (click)="setItemPerPage(10)"
-                    >
-                      10
-                    </button>
-                    <button
-                      cButton
-                      class="itemPerPageButton"
-                      color="white"
-                      shape="rounded-pill"
-                      (click)="setItemPerPage(20)"
-                    >
-                      20
-                    </button>
-                    <button
-                      cButton
-                      class="itemPerPageButton"
-                      color="white"
-                      shape="rounded-pill"
-                      (click)="setItemPerPage(30)"
-                    >
-                      30
-                    </button>
-                  </c-row>
-                </div>
-              </ng-template>
-            </button>
-          </c-col>
-          <c-col xl="2" lg="4" md="5" class="columnBtnCenter">
-            <button
-              cButton
-              class="tableButton"
-              color="white"
-              shape="rounded-pill"
-              (click)="exportExcel()"
-            >
-              Export data
-            </button>
-          </c-col>
-          <c-col  xl="auto" lg="auto" md="2" class="columnBtnLeft">
-            <button
-              [cPopover]="popoverHtml1"
-              cPopoverPlacement="bottom"
-              [cPopoverTrigger]="'click'"
-              cButton
-              class="tableButton"
-              color="white"
-              shape="rounded-pill"
-            >
-              Sort
-              <ng-template #popoverHtml1>
-                <div class="popover-body">
-                  <c-row class="popover-row">
-                    <c-col>
-                      <button
-                        cButton
-                        class="sortItemButton"
-                        color="white"
-                        shape="rounded-pill"
-                        (click)="sortByCreatedModifiedOnASC()"
-                      >
-                        Po datumu kreiranja (uzlazno)
-                      </button>
-                      <button
-                        cButton
-                        class="sortItemButton"
-                        color="white"
-                        shape="rounded-pill"
-                        (click)="sortByCreatedModifiedOnDESC()"
-                      >
-                        Po datumu kreiranja (silazno)
-                      </button>
-                    </c-col>
-                  </c-row>
-                </div>
-              </ng-template>
-            </button>
-          </c-col>
-        </c-row>
-      </c-col>
-    </c-row>
-    <div class="tableData">
-      <table cTable hover>
-        <thead class="tableHeader">
-          <tr>
-            <th scope="col">Broj telefona</th>
-            <th scope="col">Datum upisa/ispisa</th>
-            <th scope="col" *ngIf="canEditUsers">Izmeni podatke</th>
-            <th scope="col" *ngIf="canDeleteUsers">Obriši broj telefona</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody class="tableContent">
-          <tr *ngFor="let item of showInTableUsers">
-            <td>{{ item.phoneNumber }}</td>
-            <td>{{ item.registeredOn | date : "dd MMM, YY" }}</td>
-            <td *ngIf="canEditUsers">
-              <button
-                cButton
-                class="tableButton noBorder"
-                color="white"
-                (click)="editNumber(item.phoneNumber)"
-              >
-                <img src="assets/images/pen_icon.png" />
-              </button>
-            </td>
-            <td *ngIf="canDeleteUsers">
-              <button
-                cButton
-                class="tableButton noBorder"
-                color="white"
-                (click)="deleteNumber(item.phoneNumber)"
-              >
-                <img src="assets/images/trashCan.png" />
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <c-pagination class="custom">
-      <li cPageItem [disabled]="currentPage === 1">
-        <span cPageLink [routerLink] (click)="setPage(currentPage - 1)"
-          >Previous</span
-        >
-      </li>
-      <li
-        *ngFor="
-          let pages of [].constructor(totalPagesNumber);
-          let pageIndex = index
-        "
-        [ngClass]="{ active: currentPage - 1 === pageIndex }"
-      >
-        <a cPageLink [routerLink] (click)="setPage(pageIndex + 1)">{{
-          pageIndex + 1
-        }}</a>
-      </li>
-      <li cPageItem [disabled]="currentPage === totalPagesNumber">
-        <a cPageLink [routerLink] (click)="setPage(currentPage + 1)">Next</a>
-      </li>
-    </c-pagination>
-  </div>
 
-  <c-modal
-    #addNewUserModal
-    alignment="center"
-    id="addNewUserModal"
-    size="lg"
-    [visible]="isAddUserModalVisible"
-    backdrop="static"
-  >
-    <c-modal-header>
-      <p class="modalHeader">Dodaj novog korisnika</p>
-      <button (click)="toggleAddUserModal()" cButtonClose></button>
-    </c-modal-header>
-    <c-modal-body>
-      <form
-        novalidate
-        [validated]="isValidated"
-        cForm
-        class="row g-3"
-        [formGroup]="userForm"
-      >
-        <c-row>
-          <c-col [xs]="9">
+<ng-container *transloco="let t">
+  <div class="backgroundImage">
+    <div class="regusersTable">
+      <c-row>
+        <c-col xs="4" class="leftTableHeader">
+          <button
+            cButton
+            (click)="showAddUserModal()"
+            type="button"
+            class="tableAddNewButton"
+            shape="rounded-pill"
+            *ngIf="canAddUsers"
+          >
+            + {{ t('Dodaj novog korisnika') }}
+          </button>
+        </c-col>
+        <c-col xs="8" class="rightTableHeader">
+          <c-row class="btnRow">
+            <c-col xl="7" lg="5" md="5">
+              <button
+                [cPopover]="popoverHtml"
+                cPopoverPlacement="bottom"
+                [cPopoverTrigger]="'click'"
+                cButton
+                class="tableButton"
+                color="white"
+                shape="rounded-pill"
+              >
+                {{ t('Prikaz po strani') }} &#8659;
+                <ng-template #popoverHtml>
+                  <div class="popover-body">
+                    <c-row>
+                      <button
+                        cButton
+                        class="itemPerPageButton"
+                        color="white"
+                        shape="rounded-pill"
+                        (click)="setItemPerPage(10)"
+                      >
+                        10
+                      </button>
+                      <button
+                        cButton
+                        class="itemPerPageButton"
+                        color="white"
+                        shape="rounded-pill"
+                        (click)="setItemPerPage(20)"
+                      >
+                        20
+                      </button>
+                      <button
+                        cButton
+                        class="itemPerPageButton"
+                        color="white"
+                        shape="rounded-pill"
+                        (click)="setItemPerPage(30)"
+                      >
+                        30
+                      </button>
+                    </c-row>
+                  </div>
+                </ng-template>
+              </button>
+            </c-col>
+            <c-col xl="2" lg="4" md="5" class="columnBtnCenter">
+              <button
+                cButton
+                class="tableButton"
+                color="white"
+                shape="rounded-pill"
+                (click)="exportExcel()"
+              >
+                {{ t('Export data') }}
+              </button>
+            </c-col>
+            <c-col  xl="auto" lg="auto" md="2" class="columnBtnLeft">
+              <button
+                [cPopover]="popoverHtml1"
+                cPopoverPlacement="bottom"
+                [cPopoverTrigger]="'click'"
+                cButton
+                class="tableButton"
+                color="white"
+                shape="rounded-pill"
+              >
+                {{ t('Sortiraj') }}
+                <ng-template #popoverHtml1>
+                  <div class="popover-body">
+                    <c-row class="popover-row">
+                      <c-col>
+                        <button
+                          cButton
+                          class="sortItemButton"
+                          color="white"
+                          shape="rounded-pill"
+                          (click)="sortByCreatedModifiedOnASC()"
+                        >
+                          {{ t('Po datumu kreiranja (uzlazno)') }}
+                        </button>
+                        <button
+                          cButton
+                          class="sortItemButton"
+                          color="white"
+                          shape="rounded-pill"
+                          (click)="sortByCreatedModifiedOnDESC()"
+                        >
+                          {{ t('Po datumu kreiranja (silazno)') }}
+                        </button>
+                      </c-col>
+                    </c-row>
+                  </div>
+                </ng-template>
+              </button>
+            </c-col>
+          </c-row>
+        </c-col>
+      </c-row>
+      <div class="tableData">
+        <table cTable hover>
+          <thead class="tableHeader">
+            <tr>
+              <th scope="col">{{ t('Broj telefona') }}</th>
+              <th scope="col">{{ t('Datum upisa/ispisa') }}</th>
+              <th scope="col" *ngIf="canEditUsers">{{ t('Izmeni podatke') }}</th>
+              <th scope="col" *ngIf="canDeleteUsers">{{ t('Obriši broj telefona') }}</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody class="tableContent">
+            <tr *ngFor="let item of showInTableUsers">
+              <td>{{ item.phoneNumber }}</td>
+              <td>{{ item.registeredOn | date : "dd MMM, YY" }}</td>
+              <td *ngIf="canEditUsers">
+                <button
+                  cButton
+                  class="tableButton noBorder"
+                  color="white"
+                  (click)="editNumber(item.phoneNumber)"
+                >
+                  <img src="assets/images/pen_icon.png" />
+                </button>
+              </td>
+              <td *ngIf="canDeleteUsers">
+                <button
+                  cButton
+                  class="tableButton noBorder"
+                  color="white"
+                  (click)="deleteNumber(item.phoneNumber)"
+                >
+                  <img src="assets/images/trashCan.png" />
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <c-pagination class="custom">
+        <li cPageItem [disabled]="currentPage === 1">
+          <span cPageLink [routerLink] (click)="setPage(currentPage - 1)"
+            >{{ t('Previous') }}</span
+          >
+        </li>
+        <li
+          *ngFor="
+            let pages of [].constructor(totalPagesNumber);
+            let pageIndex = index
+          "
+          [ngClass]="{ active: currentPage - 1 === pageIndex }"
+        >
+          <a cPageLink [routerLink] (click)="setPage(pageIndex + 1)">{{
+            pageIndex + 1
+          }}</a>
+        </li>
+        <li cPageItem [disabled]="currentPage === totalPagesNumber">
+          <a cPageLink [routerLink] (click)="setPage(currentPage + 1)">{{ t('Next') }}</a>
+        </li>
+      </c-pagination>
+    </div>
+
+    <c-modal
+      #addNewUserModal
+      alignment="center"
+      id="addNewUserModal"
+      size="lg"
+      [visible]="isAddUserModalVisible"
+      backdrop="static"
+    >
+      <c-modal-header>
+        <p class="modalHeader">{{ t('Dodaj novog korisnika') }}</p>
+        <button (click)="toggleAddUserModal()" cButtonClose></button>
+      </c-modal-header>
+      <c-modal-body>
+        <form
+          novalidate
+          [validated]="isValidated"
+          cForm
+          class="row g-3"
+          [formGroup]="userForm"
+        >
+          <c-row>
+            <c-col [xs]="9">
+              <div class="mb-3">
+                <p class="modalTitleText">{{ t('Podaci o korisniku') }}</p>
+              </div>
+            </c-col>
+            <c-col [xs]="3">
+              <div class="mb-3">
+                <input
+                  cButton
+                  class="addPhoneButton"
+                  type="submit"
+                  [value]="t('+ broj telefona')"
+                  (click)="addPhoneNumberDiv()"
+                  hidden
+                />
+              </div>
+            </c-col>
+          </c-row>
+          <c-col [xs]="8" id="phoneNumberCol">
+            <label cLabel for="userPhoneNumber" class="textInputField">
+              {{ t('Broj telefona korisnika') }}
+            </label>
+            <div
+              *ngFor="let div of divs"
+              class="mb-3"
+              id="userPhoneNumber{{ div }}"
+            >
+              <input
+                required
+                minlength="8"
+                pattern="^\+?\d+$"
+                cFormControl
+                id="userPhoneNumber"
+                formControlName="userPhoneNumber"
+                type="text"
+                placeholder="+381641234567"
+              />
+            </div>
+
             <div class="mb-3">
-              <p class="modalTitleText">Podaci o korisniku</p>
+              <c-row>
+                <c-col>
+                  <label cLabel for="regUserUsername" class="textInputField">
+                    {{ t('Ime') }}
+                  </label>
+                  <input
+                    required
+                    cFormControl
+                    formControlName="userFirstName"
+                    id="userFirstName"
+                    type="text"
+                    placeholder="Ime korisnika"
+                  />
+                </c-col>
+                <c-col>
+                  <label cLabel for="regUserPassword" class="textInputField">
+                    {{ t('Prezime') }}
+                  </label>
+                  <input
+                    required
+                    cFormControl
+                    formControlName="userLastName"
+                    id="userLastName"
+                    type="text"
+                    placeholder="Prezime korisnika"
+                  />
+                </c-col>
+              </c-row>
             </div>
           </c-col>
-          <c-col [xs]="3">
+          <c-col [xs]="4" id="operatorCol">
+            <label cLabel for="pib" class="textInputField">{{ t('Operator') }}</label>
+            <div class="mb-3" *ngFor="let div of divs" id="operatorName{{ div }}">
+              <select
+                required
+                [(ngModel)]="selectedOperator"
+                aria-label="Operator"
+                cSelect
+                formControlName="userOperator"
+              >
+                <option value="undefined" selected disabled>{{ t('Operator') }}</option>
+                <option *ngFor="let operator of operators" [ngValue]="operator">
+                  {{ operator.name }}
+                </option>
+              </select>
+            </div>
             <div class="mb-3">
+              <label cLabel for="userJMBG" class="textInputField">JMBG</label>
               <input
-                cButton
-                class="addPhoneButton"
-                type="submit"
-                value="+ broj telefona"
-                (click)="addPhoneNumberDiv()"
-                hidden
+                required
+                minlength="13"
+                maxlength="13"
+                pattern="[0-9]*"
+                cFormControl
+                formControlName="userJMBG"
+                type="text"
+                placeholder="xxxxxxxxx"
               />
             </div>
           </c-col>
-        </c-row>
-        <c-col [xs]="8" id="phoneNumberCol">
-          <label cLabel for="userPhoneNumber" class="textInputField">
-            Broj telefona korisnika
-          </label>
-          <div
-            *ngFor="let div of divs"
-            class="mb-3"
-            id="userPhoneNumber{{ div }}"
-          >
+          <div class="mb-3">
             <input
-              required
-              minlength="8"
-              pattern="^\+?\d+$"
-              cFormControl
-              id="userPhoneNumber"
-              formControlName="userPhoneNumber"
-              type="text"
-              placeholder="+381641234567"
+              cButton
+              class="submitButton"
+              type="submit"
+              [value]="t('Dodaj korisnika')"
+              (click)="addUserWithNumbers()"
+            />
+            <input
+              [cModalToggle]="addNewUserModal.id"
+              cButtonClose
+              class="cancelButton"
+              type="submit"
+              [value]="t('Cancel')"
+              (click)="toggleAddUserModal()"
             />
           </div>
+        </form>
+      </c-modal-body>
+    </c-modal>
 
-          <div class="mb-3">
-            <c-row>
-              <c-col>
-                <label cLabel for="regUserUsername" class="textInputField">
-                  Ime
-                </label>
-                <input
-                  required
-                  cFormControl
-                  formControlName="userFirstName"
-                  id="userFirstName"
-                  type="text"
-                  placeholder="Ime korisnika"
-                />
-              </c-col>
-              <c-col>
-                <label cLabel for="regUserPassword" class="textInputField">
-                  Prezime
-                </label>
-                <input
-                  required
-                  cFormControl
-                  formControlName="userLastName"
-                  id="userLastName"
-                  type="text"
-                  placeholder="Prezime korisnika"
-                />
-              </c-col>
-            </c-row>
-          </div>
-        </c-col>
-        <c-col [xs]="4" id="operatorCol">
-          <label cLabel for="pib" class="textInputField">Operator</label>
-          <div class="mb-3" *ngFor="let div of divs" id="operatorName{{ div }}">
-            <select
-              required
-              [(ngModel)]="selectedOperator"
-              aria-label="Operator"
-              cSelect
-              formControlName="userOperator"
-            >
-              <option value="undefined" selected disabled>Operator</option>
-              <option *ngFor="let operator of operators" [ngValue]="operator">
-                {{ operator.name }}
-              </option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label cLabel for="userJMBG" class="textInputField">JMBG</label>
-            <input
-              required
-              minlength="13"
-              maxlength="13"
-              pattern="[0-9]*"
-              cFormControl
-              formControlName="userJMBG"
-              type="text"
-              placeholder="xxxxxxxxx"
-            />
-          </div>
-        </c-col>
-        <div class="mb-3">
-          <input
-            cButton
-            class="submitButton"
-            type="submit"
-            value="Dodaj korisnika"
-            (click)="addUserWithNumbers()"
-          />
-          <input
-            [cModalToggle]="addNewUserModal.id"
-            cButtonClose
-            class="cancelButton"
-            type="submit"
-            value="Cancel"
-            (click)="toggleAddUserModal()"
-          />
-        </div>
-      </form>
-    </c-modal-body>
-  </c-modal>
+    <c-modal
+      #confirmNewUserModal
+      alignment="center"
+      id="confirmUserModal"
+      [visible]="isSuccessfulyAddedUserModalVisible"
+      backdrop="static"
+    >
+      <c-modal-header>
+        <button (click)="resetFields()" cButtonClose></button>
+      </c-modal-header>
 
-  <c-modal
-    #confirmNewUserModal
-    alignment="center"
-    id="confirmUserModal"
-    [visible]="isSuccessfulyAddedUserModalVisible"
-    backdrop="static"
-  >
-    <c-modal-header>
-      <button (click)="resetFields()" cButtonClose></button>
-    </c-modal-header>
-
-    <c-modal-body>
-      <img src="/assets/images/exclamationmark.png" class="modalImage" />
-      <p cModalTitle class="modalTitle">
-        {{ modalText }}
-      </p>
-      <p class="modalSubtitle"></p>
-    </c-modal-body>
-    <c-modal-footer>
-      <input
-        cButton
-        class="modalSubmitButton"
-        type="submit"
-        value="U redu"
-        (click)="resetFields()"
-      />
-    </c-modal-footer>
-  </c-modal>
-</div>
+      <c-modal-body>
+        <img src="/assets/images/exclamationmark.png" class="modalImage" />
+        <p cModalTitle class="modalTitle">
+          {{ modalText }}
+        </p>
+        <p class="modalSubtitle"></p>
+      </c-modal-body>
+      <c-modal-footer>
+        <input
+          cButton
+          class="modalSubmitButton"
+          type="submit"
+          [value]="t('U redu')"
+          (click)="resetFields()"
+        />
+      </c-modal-footer>
+    </c-modal>
+  </div>
+</ng-container>

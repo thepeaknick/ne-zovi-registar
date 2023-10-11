@@ -1,4 +1,4 @@
-<ng-container>
+<ng-container *transloco="let t">
   <c-header>
     <c-container>
       <c-row>
@@ -14,8 +14,11 @@
         </c-col>
         <c-col xs="6">
           <span>
-            <h2>Dobrodošli u registar "Ne Zovi"</h2>
+            <h2> {{ t('Dobrodošli u registar') }}</h2>
           </span>
+          <button (click)="changeLanguage('en')">Engleski</button>
+          <button (click)="changeLanguage('lat')">Latinica</button>
+          <button (click)="changeLanguage('cir')">Cirilica</button>
         </c-col>
         <c-col xs="3"> 
           <div class="headerButtonView">
@@ -27,7 +30,7 @@
             (click)="goBack()"
             class="headerButton"
           >
-            <img src="/assets/icons/loginicon.svg" class="headerButtonImage"/><span>Nazad</span>
+            <img src="/assets/icons/loginicon.svg" class="headerButtonImage"/><span>{{ t('Nazad') }}</span>
           </button>
 
           <button
@@ -38,7 +41,7 @@
             (click)="goToSignIn()"
             class="headerButton"
           >
-            <img src="/assets/icons/loginicon.svg" class="headerButtonImage"/><span>Sign in</span>
+            <img src="/assets/icons/loginicon.svg" class="headerButtonImage"/><span>{{ t('Prijavi se') }}</span>
           </button>
         </div>
         </c-col>  

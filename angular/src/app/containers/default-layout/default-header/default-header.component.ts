@@ -7,6 +7,8 @@ import { AuthenticationService } from 'src/app/domain/services/authentication.se
 import { RegUserService } from 'src/app/domain/services/reguser.service';
 import { cilMenu } from '@coreui/icons';
 
+import { TranslocoService } from '@ngneat/transloco';
+
 @Component({
   selector: 'app-default-header',
   templateUrl: './default-header.component.html',
@@ -26,9 +28,15 @@ export class DefaultHeaderComponent extends HeaderComponent {
     private regUserService: RegUserService,
     private router: Router,
     private route: ActivatedRoute,
-    public authenticationService: AuthenticationService
+    public authenticationService: AuthenticationService,
+    private translocoService: TranslocoService
   ) {
     super();
     this.currentUsername = AuthenticationService.CurrentUserName;
+  }
+
+
+  changeLanguage(lang: string) {
+    this.translocoService.setActiveLang(lang);
   }
 }
