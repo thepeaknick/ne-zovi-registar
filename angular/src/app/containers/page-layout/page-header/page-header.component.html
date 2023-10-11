@@ -12,39 +12,67 @@
             />
           </a>
         </c-col>
-        <c-col xs="6">
+        <c-col xs="5">
           <span>
-            <h2> {{ t('Dobrodošli u registar') }}</h2>
+            <h2>{{ t("Dobrodošli u registar") }}</h2>
           </span>
-          <button (click)="changeLanguage('en')">Engleski</button>
+          <!-- <button (click)="changeLanguage('en')">Engleski</button>
           <button (click)="changeLanguage('lat')">Latinica</button>
-          <button (click)="changeLanguage('cir')">Cirilica</button>
+          <button (click)="changeLanguage('cir')">Ћирилица</button> -->
         </c-col>
-        <c-col xs="3"> 
-          <div class="headerButtonView">
-          <button
-            *ngIf="isLogin"
-            cButton
-            color="secondary"
-            variant="ghost"
-            (click)="goBack()"
-            class="headerButton"
-          >
-            <img src="/assets/icons/loginicon.svg" class="headerButtonImage"/><span>{{ t('Nazad') }}</span>
-          </button>
+        <c-col xs="4" class="right">
+          <c-dropdown variant="btn-group">
+            <button cButton cDropdownToggle color="secondary" size="sm">
+              Lang/jezik
+            </button>
+            <ul cDropdownMenu>
+              <li>
+                <button (click)="changeLanguage('en')" cDropdownItem>
+                  Engleski
+                </button>
+              </li>
+              <li>
+                <button (click)="changeLanguage('lat')" cDropdownItem>
+                  Latinica
+                </button>
+              </li>
+              <li>
+                <button (click)="changeLanguage('cir')" cDropdownItem>
+                  Ћирилица
+                </button>
+              </li>
+            </ul>
+          </c-dropdown>
+          <span class="headerButtonView">
+            <button
+              *ngIf="isLogin"
+              cButton
+              color="secondary"
+              variant="ghost"
+              (click)="goBack()"
+              class="headerButton"
+            >
+              <img
+                src="/assets/icons/loginicon.svg"
+                class="headerButtonImage"
+              /><span>{{ t("Nazad") }}</span>
+            </button>
 
-          <button
-            *ngIf="isSearch"
-            cButton
-            color="secondary"
-            variant="ghost"
-            (click)="goToSignIn()"
-            class="headerButton"
-          >
-            <img src="/assets/icons/loginicon.svg" class="headerButtonImage"/><span>{{ t('Prijavi se') }}</span>
-          </button>
-        </div>
-        </c-col>  
+            <button
+              *ngIf="isSearch"
+              cButton
+              color="secondary"
+              variant="ghost"
+              (click)="goToSignIn()"
+              class="headerButton"
+            >
+              <img
+                src="/assets/icons/loginicon.svg"
+                class="headerButtonImage"
+              /><span>{{ t("Prijavi se") }}</span>
+            </button>
+          </span>
+        </c-col>
       </c-row>
     </c-container>
   </c-header>

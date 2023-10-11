@@ -1,47 +1,63 @@
 <!--<c-header class="mb-4 d-print-none" position="sticky">-->
 <ng-container *transloco="let t">
-<c-container class="headerContainer">
-  <c-row class="defaultHeader">
-    <c-col xs="8" class="headerColumn">
-      <div class="menuButtonView">
-        <button
-          toggle="visible"
-          cHeaderToggler
-          [cSidebarToggle]="sidebarId"
-          class="ps-1, menuButton"
+  <c-container class="headerContainer">
+    <c-row class="defaultHeader">
+      <c-col xs="8" class="headerColumn">
+        <div class="menuButtonView">
+          <button
+            toggle="visible"
+            cHeaderToggler
+            [cSidebarToggle]="sidebarId"
+            class="ps-1, menuButton"
+          >
+            <svg [cIcon]="icons.cilMenu" size="lg"></svg>
+          </button>
+        </div>
+        <div
+          class="headerTitle"
+          [ngSwitch]="authenticationService.CurrentUser?.role"
         >
-          <svg [cIcon]="icons.cilMenu" size="lg"></svg>
-        </button>
-      </div>
-      <div
-        class="headerTitle"
-        [ngSwitch]="authenticationService.CurrentUser?.role"
-      >
-        <p class="headerTitle">
-          {{ t('Registar Ne Zovi') }} -
-          <span *ngSwitchCase="1">{{ t('Administrator') }}</span>
-          <span *ngSwitchCase="2">{{ t('Trgovac') }}</span>
-          <span *ngSwitchCase="3">{{ t('Obveznik') }}</span>
-        </p>
-      </div>
-      <button (click)="changeLanguage('en')">Engleski</button>
-      <button (click)="changeLanguage('lat')">Latinica</button>
-      <button (click)="changeLanguage('cir')">Cirilica</button>
-    </c-col>
-    <c-col xs="4" class="headerColumn">
-      <div class="userColumn">
-        {{ currentUsername }} [{{
-          authenticationService.CurrentUser?.companyName
-        }}]
-      </div>
-      <!-- <div class="userColumn">
-        <button cButton color="secondary" variant="ghost" (click)="logout()" class="userColumn">
-          {{ authenticationService.CurrentUser?.firstName }}
-          {{ authenticationService.CurrentUser?.lastName }}
-          [ {{ authenticationService.CurrentUser?.companyName }} ]
-        </button>
-      </div> -->
-    </c-col>
-  </c-row>
-</c-container>
+          <p class="headerTitle">
+            {{ t("Registar Ne Zovi") }} -
+            <span *ngSwitchCase="1">{{ t("Administrator") }}</span>
+            <span *ngSwitchCase="2">{{ t("Trgovac") }}</span>
+            <span *ngSwitchCase="3">{{ t("Obveznik") }}</span>
+          </p>
+        </div>
+
+        <!-- <button (click)="changeLanguage('en')">Engleski</button>
+        <button (click)="changeLanguage('lat')">Latinica</button>
+        <button (click)="changeLanguage('cir')">Ћирилица</button> -->
+      </c-col>
+      <c-col xs="4" class="right">
+        <c-dropdown variant="btn-group">
+          <button cButton cDropdownToggle color="secondary" size="sm">
+            Lang/jezik
+          </button>
+          <ul cDropdownMenu>
+            <li>
+              <button (click)="changeLanguage('en')" cDropdownItem>
+                Engleski
+              </button>
+            </li>
+            <li>
+              <button (click)="changeLanguage('lat')" cDropdownItem>
+                Latinica
+              </button>
+            </li>
+            <li>
+              <button (click)="changeLanguage('cir')" cDropdownItem>
+                Ћирилица
+              </button>
+            </li>
+          </ul>
+        </c-dropdown>
+        <span class="userColumn">
+          {{ currentUsername }} [{{
+            authenticationService.CurrentUser?.companyName
+          }}]
+        </span>
+      </c-col>
+    </c-row>
+  </c-container>
 </ng-container>
