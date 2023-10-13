@@ -167,23 +167,46 @@
                   />
                 </div>
               </c-col>
-              <div class="mb-3">
-                <input
-                  cButton
-                  class="submitButton"
-                  type="submit"
-                  value="Dodaj trgovca"
-                  (click)="addRegUser()"
-                />
-                <input
-                  cButtonClose
-                  class="cancelButton"
-                  type="submit"
-                  value="Nazad"
-                  (click)="goBack()"
-                />
-              </div>
             </form>
+            <div class="recaptcha">
+              <re-captcha
+                id="recaptcha"
+                name="recaptcha"
+                #recaptcha="ngModel"
+                [(ngModel)]="token"
+                required
+                [class.is-invalid]="
+                  recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
+                "
+              ></re-captcha>
+              <div
+                *ngIf="
+                  (recaptcha.invalid &&
+                    (recaptcha.dirty || recaptcha.touched)) ||
+                  showCaptchaMessage
+                "
+              >
+                <div *ngIf="recaptcha.errors?.['required']">
+                  Morate popuniti Captcha-u.
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <input
+                cButton
+                class="submitButton"
+                type="submit"
+                value="Dodaj trgovca"
+                (click)="addRegUser()"
+              />
+              <input
+                cButtonClose
+                class="cancelButton"
+                type="submit"
+                value="Nazad"
+                (click)="goBack()"
+              />
+            </div>
           </div>
         </c-col>
       </c-row>

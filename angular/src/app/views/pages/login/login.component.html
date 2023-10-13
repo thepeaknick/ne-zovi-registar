@@ -42,23 +42,46 @@
                 <h2 *ngIf="showLoginErrorMessage" class="loginResultText red">
                   {{ t('NEISPRAVNO KORISNIČKO IME ILI LOZINKA') }}
                 </h2>
-                <input
-                  cButton
-                  class="submitButton"
-                  type="submit"
-                  [value]="t('Prijavi se')"
-                  (click)="goDashboardHome()"
-                />
-                <br />
-                <input
-                  cButton
-                  class="signUpButton"
-                  type="submit"
-                  [value]="t('Registruj se')"
-                  (click)="goSignUp()"
-                />
-                <p class="descriptionText"></p>
               </form>
+              <div class="recaptcha">
+                <re-captcha
+                  id="recaptcha"
+                  name="recaptcha"
+                  #recaptcha="ngModel"
+                  [(ngModel)]="token"
+                  required
+                  [class.is-invalid]="
+                    recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
+                  "
+                ></re-captcha>
+                <div
+                  *ngIf="
+                    (recaptcha.invalid &&
+                      (recaptcha.dirty || recaptcha.touched)) ||
+                    showCaptchaMessage
+                  "
+                >
+                  <div *ngIf="recaptcha.errors?.['required']">
+                    {{ t('Morate popuniti Captcha-u.') }}
+                  </div>
+                </div>
+              </div>
+              <input
+                cButton
+                class="submitButton"
+                type="submit"
+                [value]="t('Prijavi se')"
+                (click)="goDashboardHome()"
+              />
+              <br />
+              <input
+                cButton
+                class="signUpButton"
+                type="submit"
+                [value]="t('Registruj se')"
+                (click)="goSignUp()"
+              />
+              <p class="descriptionText"></p>
             </div>
           </c-col>
         </c-row>

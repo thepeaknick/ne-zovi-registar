@@ -92,6 +92,7 @@ c-modal-footer button img {
   font-size: 14.301px;
   line-height: 20px;
   color: #3f6aa3;
+  padding-bottom: 20px;
 }
 
 .descriptionText {
@@ -111,7 +112,7 @@ c-modal-footer button img {
   line-height: 30px;
   color: #ffffff;
 
-  margin-top: 20%;
+  margin-top: 10%;
   margin-bottom: 5%;
 }
 
@@ -146,4 +147,25 @@ c-modal-footer button img {
 
 .red {
   color: red;
+}
+
+@media screen and (min-width: 400px) {
+  .recaptcha {
+    transform: scale(0.4);
+    transform-origin: 0;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .recaptcha {
+    transform: scale(0.6);
+    transform-origin: 0;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .recaptcha {
+    transform: scale(0.8);
+    transform-origin: 0;
+  }
 }
