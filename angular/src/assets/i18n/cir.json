@@ -102,5 +102,8 @@
     "Ime trgovca": "Име трговца",
     "Adresa trgovca": "Адреса трговца",
 
-    "Uspešno ste registrovali novog trgovca": "Успешно сте регистровали новог трговца"
+    "Uspešno ste registrovali novog trgovca": "Успешно сте регистровали новог трговца",
+    "Ime odgovornog lica": "Име одговорног лица",
+    "Prezime odgovornog lica": "Презиме одговорног лица",
+    "Dodaj trgovca": "Додај трговца"
 }

@@ -212,7 +212,7 @@
                 formControlName="regUserName"
                 id="regUserName"
                 type="text"
-                placeholder="Ime"
+                [placeholder]="t('Ime trgovca')"
               />
             </div>
             <div class="mb-3">
@@ -225,7 +225,7 @@
                 formControlName="regUserAddress"
                 id="regUserAddress"
                 type="text"
-                placeholder="Adresa"
+                [placeholder]="t('Adresa trgovca')"
               />
             </div>
             <div class="mb-3">
@@ -240,7 +240,7 @@
                     formControlName="regUserFirstName"
                     id="regUserFirstName"
                     type="text"
-                    placeholder="Ime odgovornog lica"
+                    [placeholder]="t('Ime odgovornog lica')"
                   />
                 </c-col>
                 <c-col>
@@ -253,7 +253,7 @@
                     formControlName="regUserLastName"
                     id="regUserLastName"
                     type="text"
-                    placeholder="Prezime odgovornog lica"
+                    [placeholder]="t('Prezime odgovornog lica')"
                   />
                 </c-col>
               </c-row>
@@ -271,7 +271,7 @@
                     formControlName="regUserUsername"
                     id="regUserUsername"
                     type="text"
-                    placeholder="Username"
+                    [placeholder]="t('Korisničko ime')"
                   />
                 </c-col>
                 <c-col>
