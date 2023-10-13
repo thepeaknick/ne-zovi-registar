@@ -1,11 +1,12 @@
-<div class="backgroundImage">
+<ng-container *transloco="let t">
+  <div class="backgroundImage">
   <div class="body flex-grow-1 px-3">
     <c-container breakpoint="lg" class="h-auto">
       <c-row>
         <c-col xs="0" sm="4" md="4"></c-col>
         <c-col xs="12" sm="8" md="8" class="backgroundView">
           <div class="content">
-            <p class="modalTitleText">Podaci o trgovcu</p>
+            <p class="modalTitleText">{{ t('Podaci o trgovcu') }}</p>
             <form
               cForm
               class="row g-3"
@@ -16,7 +17,7 @@
               <c-col [xs]="8">
                 <div class="mb-3">
                   <label cLabel for="regUserName" class="textInputField">
-                    Ime trgovca
+                    {{ t('Ime trgovca') }}
                   </label>
                   <input
                     required
@@ -29,7 +30,7 @@
                 </div>
                 <div class="mb-3">
                   <label cLabel for="regUserAddress" class="textInputField">
-                    Adresa trgovca
+                    {{ t('Adresa trgovca') }}
                   </label>
                   <input
                     required
@@ -48,7 +49,7 @@
                         for="regUserFirstName"
                         class="textInputField"
                       >
-                        Ime
+                        {{ t('Ime') }}
                       </label>
                       <input
                         required
@@ -65,7 +66,7 @@
                         for="regUserLastName"
                         class="textInputField"
                       >
-                        Prezime
+                        {{ t('Prezime') }}
                       </label>
                       <input
                         required
@@ -86,7 +87,7 @@
                         for="regUserUsername"
                         class="textInputField"
                       >
-                        Korisničko ime
+                        {{ t('Korisničko ime') }}
                       </label>
                       <input
                         required
@@ -104,7 +105,7 @@
                         for="regUserPassword"
                         class="textInputField"
                       >
-                        Lozinka
+                        {{ t('Lozinka') }}
                       </label>
                       <input
                         required
@@ -120,7 +121,7 @@
                 </div>
                 <div class="mb-3">
                   <label cLabel for="regUserEmail" class="textInputField">
-                    E-mail
+                    {{ t('E-mail') }}
                   </label>
                   <input
                     required
@@ -136,7 +137,7 @@
               <c-col [xs]="4">
                 <div class="mb-3">
                   <label cLabel for="regUserPIB" class="textInputField"
-                    >PIB</label
+                    >{{ t('PIB') }}</label
                   >
                   <input
                     required
@@ -152,7 +153,7 @@
                 </div>
                 <div class="mb-3">
                   <label cLabel for="regUserMB" class="textInputField"
-                    >Matični broj</label
+                    >{{ t('Matični broj') }}</label
                   >
                   <input
                     required
@@ -187,7 +188,7 @@
                 "
               >
                 <div *ngIf="recaptcha.errors?.['required']">
-                  Morate popuniti Captcha-u.
+                  {{ t('Morate popuniti Captcha-u.') }}
                 </div>
               </div>
             </div>
@@ -226,7 +227,7 @@
       <c-modal-body>
         <img src="/assets/images/exclamationmark.png" class="modalImage" />
         <p cModalTitle class="modalTitle">
-          Uspešno ste registrovali novog trgovca
+          {{ t('Uspešno ste registrovali novog trgovca') }}
         </p>
         <p class="modalSubtitle"></p>
       </c-modal-body>
@@ -235,10 +236,12 @@
           cButton
           class="modalSubmitButton"
           type="submit"
-          value="U redu"
+          [value]="t('U redu')"
           (click)="resetFields()"
         />
       </c-modal-footer>
     </c-modal>
   </div>
-</div>
+  </div>
+</ng-container>
+

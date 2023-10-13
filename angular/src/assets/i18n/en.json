@@ -100,5 +100,7 @@
     "Dodaj novog trgovca": "Add New Merchant",
     "Podaci o trgovcu": "Merchant Data",
     "Ime trgovca": "Merchant Name",
-    "Adresa trgovca": "Merchant Address"
+    "Adresa trgovca": "Merchant Address",
+
+    "Uspešno ste registrovali novog trgovca": "You have successfully registered a new merchant"
 }
