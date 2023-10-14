@@ -59,6 +59,25 @@ public class UserController : NeZoviRegBaseController
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
+    
+    /// <summary>
+    /// De-registruj listu telefonskih brojeva.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpPost("bulkremove")]
+    [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+    [HasPermission(PermissionType.Write)]
+    public async Task<IActionResult> RemoveUsers([FromBody] BulkRemoveUsersRequest request, CancellationToken cancellationToken)
+    {
+        var command = new RemoveUsersCommand(request.Users)
+            .AddAppUser(AppUser.UserName);
+
+        var result = await Sender.Send(command, cancellationToken);
+
+        return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
+    }
 
     /// <summary>
     /// Izmeni podatke već registrovanog telefonskog broja.

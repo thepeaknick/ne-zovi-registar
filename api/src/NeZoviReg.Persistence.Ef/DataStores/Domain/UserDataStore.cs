@@ -20,9 +20,10 @@ public class UserDataStore : IUserDataStore
     public async Task<bool> IsPhoneNumberUniqueAsync(string phoneNumber, CancellationToken cancellationToken = default)
         => !await _dbContext
             .Set<User>()
-            .AnyAsync(user => (user.Active ?? false) && user.PhoneNumber == phoneNumber, cancellationToken);
+            .AnyAsync(user => (user.Active) && user.PhoneNumber == phoneNumber, cancellationToken);
 
-    public async Task<PagedList<User>> GetAll(DateTime? after, PageInfo pInfo, CancellationToken cancellationToken = default)
+    public async Task<PagedList<User>> GetAll(DateTime? after, PageInfo pInfo,
+        CancellationToken cancellationToken = default)
         => await _dbContext.Set<User>()
             .Include(u => u.Operator)
             .Where(x => x.CreatedOn >= (after ?? DateTime.MinValue))
@@ -32,11 +33,12 @@ public class UserDataStore : IUserDataStore
         await _dbContext.Set<User>().AddAsync(user, cancellationToken);
 
     public async Task BulkAddAsync(List<User> users, CancellationToken cancellationToken = default) =>
-        await _dbContext.Set<User>().BulkInsertAsync(users, cancellationToken);
+        await _dbContext.Set<User>().AddRangeAsync(users, cancellationToken);
+
+    public async Task BulkRemoveAsync(List<string> phoneNumbers, CancellationToken cancellationToken = default) =>
+        await _dbContext.Set<User>().Where(x =>  x.Active && phoneNumbers.Contains(x.PhoneNumber))
+            .ExecuteUpdateAsync(x => x.SetProperty(u => u.Active, false), cancellationToken);
 
     public void Update(User user) =>
         _dbContext.Set<User>().Update(user);
-
-    public void Remove(User user) =>
-        _dbContext.Set<User>().Remove(user);
 }

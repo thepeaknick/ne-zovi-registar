@@ -41,7 +41,7 @@ public class User : Entity
 
     public string PhoneNumber { get; private set; }
 
-    public bool? Active { get; private set; } = true;
+    public bool Active { get; private set; } = true;
 
     public string FullName => $"Ime={FirstName}, Prezime={LastName}, Jmbg={Jmbg}, Broj telefona={PhoneNumber}.";
 
@@ -108,7 +108,7 @@ public class User : Entity
         return this;
     }
 
-    public bool IsActive => Active ?? false;
+    public bool IsActive => Active;
 
     public override string ToString() => $"{FullName}, {Jmbg}";
 }

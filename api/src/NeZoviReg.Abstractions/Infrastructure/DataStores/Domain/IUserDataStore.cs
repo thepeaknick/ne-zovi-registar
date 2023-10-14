@@ -15,7 +15,7 @@ public interface IUserDataStore
     
     Task BulkAddAsync(List<User> users, CancellationToken cancellationToken = default);
 
-    void Update(User user);
+    Task BulkRemoveAsync(List<string> phoneNumbers, CancellationToken cancellationToken = default);
 
-    void Remove(User user);
+    void Update(User user);
 }
