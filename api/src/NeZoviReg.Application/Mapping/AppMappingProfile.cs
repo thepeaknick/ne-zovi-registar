@@ -25,6 +25,10 @@ public class AppMappingProfile : Profile
             .ConstructUsing(s => new UserDetailsDto(s.PhoneNumber, s.FirstName, s.LastName, s.Jmbg, s.OperatorId));
 
         CreateMap<BulkUser, User>()
+            .AfterMap((s,d,c) =>
+            {
+                d.AddJmbg(s.Jmbg);
+            })
             .ForMember(d => d.PhoneNumber, o => o.MapFrom(s => s.PhoneNumber.FormatPhoneNumber()));
 
         CreateMap<RegUser, RegUserDto>()
