@@ -14,6 +14,9 @@ import { RegUserDetailsDto, RoleType } from 'src/app/domain/model/schemas';
 export class LoginComponent implements OnInit {
   @Input() showLoginErrorMessage: Boolean = false;
 
+  @Input() token: string | undefined;
+  @Input() showCaptchaMessage: boolean = false;
+
   loginForm!: FormGroup;
   forgotPasswordForm!: FormGroup;
   loading = false;
@@ -28,8 +31,10 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
-    private formBuilder: FormBuilder
-  ) {}
+    private formBuilder: FormBuilder,
+  ) {
+    this.token = undefined;
+  }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -57,6 +62,13 @@ export class LoginComponent implements OnInit {
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
+    }
+
+    console.log("captcha token : ", this.token )
+
+    if (this.token == undefined) {
+      this.showCaptchaMessage = true;
+      return
     }
 
     this.loading = true;

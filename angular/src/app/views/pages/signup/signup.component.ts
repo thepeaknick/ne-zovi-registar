@@ -1,6 +1,6 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegUserDto, RoleType } from 'src/app/domain/model/schemas';
@@ -12,11 +12,17 @@ import { RegUserService } from 'src/app/domain/services/reguser.service';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignUpComponent implements OnInit {
+
+  @Input() token: string | undefined;
+  @Input() showCaptchaMessage: boolean = false;
+
   constructor(
     private router: Router,
     private regUserService: RegUserService,
     private formBuilder: FormBuilder
-  ) {}
+  ) {
+    this.token = undefined;
+  }
 
   regUserForm!: FormGroup;
   isValidated: BooleanInput = false;
@@ -64,6 +70,11 @@ export class SignUpComponent implements OnInit {
 
     if (!this.allFieldsValidated()) {
       return;
+    }
+
+    if (this.token == undefined) {
+      this.showCaptchaMessage = true;
+      return
     }
 
     this.regUserService

@@ -1,11 +1,12 @@
-<div class="backgroundImage">
+<ng-container *transloco="let t">
+  <div class="backgroundImage">
   <div class="body flex-grow-1 px-3">
     <c-container breakpoint="lg" class="h-auto">
       <c-row>
         <c-col xs="0" sm="4" md="4"></c-col>
         <c-col xs="12" sm="8" md="8" class="backgroundView">
           <div class="content">
-            <p class="modalTitleText">Podaci o trgovcu</p>
+            <p class="modalTitleText">{{ t('Podaci o trgovcu') }}</p>
             <form
               cForm
               class="row g-3"
@@ -16,7 +17,7 @@
               <c-col [xs]="8">
                 <div class="mb-3">
                   <label cLabel for="regUserName" class="textInputField">
-                    Ime trgovca
+                    {{ t('Ime trgovca') }}
                   </label>
                   <input
                     required
@@ -24,12 +25,12 @@
                     formControlName="regUserName"
                     id="regUserName"
                     type="text"
-                    placeholder="Ime"
+                    [placeholder]="t('Ime trgovca')"
                   />
                 </div>
                 <div class="mb-3">
                   <label cLabel for="regUserAddress" class="textInputField">
-                    Adresa trgovca
+                    {{ t('Adresa trgovca') }}
                   </label>
                   <input
                     required
@@ -37,7 +38,7 @@
                     formControlName="regUserAddress"
                     id="regUserAddress"
                     type="text"
-                    placeholder="Adresa"
+                    [placeholder]="t('Adresa trgovca')"
                   />
                 </div>
                 <div class="mb-3">
@@ -48,7 +49,7 @@
                         for="regUserFirstName"
                         class="textInputField"
                       >
-                        Ime
+                        {{ t('Ime') }}
                       </label>
                       <input
                         required
@@ -56,7 +57,7 @@
                         formControlName="regUserFirstName"
                         id="regUserFirstName"
                         type="text"
-                        placeholder="Ime odgovornog lica"
+                        [placeholder]="t('Ime odgovornog lica')"
                       />
                     </c-col>
                     <c-col>
@@ -65,7 +66,7 @@
                         for="regUserLastName"
                         class="textInputField"
                       >
-                        Prezime
+                        {{ t('Prezime') }}
                       </label>
                       <input
                         required
@@ -73,7 +74,7 @@
                         formControlName="regUserLastName"
                         id="regUserLastName"
                         type="text"
-                        placeholder="Prezime odgovornog lica"
+                        [placeholder]="t('Prezime odgovornog lica')"
                       />
                     </c-col>
                   </c-row>
@@ -86,7 +87,7 @@
                         for="regUserUsername"
                         class="textInputField"
                       >
-                        Korisničko ime
+                        {{ t('Korisničko ime') }}
                       </label>
                       <input
                         required
@@ -95,7 +96,7 @@
                         formControlName="regUserUsername"
                         id="regUserUsername"
                         type="text"
-                        placeholder="Username"
+                        [placeholder]="t('Korisničko ime')"
                       />
                     </c-col>
                     <c-col>
@@ -104,7 +105,7 @@
                         for="regUserPassword"
                         class="textInputField"
                       >
-                        Lozinka
+                        {{ t('Lozinka') }}
                       </label>
                       <input
                         required
@@ -120,7 +121,7 @@
                 </div>
                 <div class="mb-3">
                   <label cLabel for="regUserEmail" class="textInputField">
-                    E-mail
+                    {{ t('E-mail') }}
                   </label>
                   <input
                     required
@@ -129,14 +130,14 @@
                     formControlName="regUserEmail"
                     id="regUserEmail"
                     type="email"
-                    placeholder="Email adresa"
+                    [placeholder]="t('Email')"
                   />
                 </div>
               </c-col>
               <c-col [xs]="4">
                 <div class="mb-3">
                   <label cLabel for="regUserPIB" class="textInputField"
-                    >PIB</label
+                    >{{ t('PIB') }}</label
                   >
                   <input
                     required
@@ -152,7 +153,7 @@
                 </div>
                 <div class="mb-3">
                   <label cLabel for="regUserMB" class="textInputField"
-                    >Matični broj</label
+                    >{{ t('Matični broj') }}</label
                   >
                   <input
                     required
@@ -167,23 +168,46 @@
                   />
                 </div>
               </c-col>
-              <div class="mb-3">
-                <input
-                  cButton
-                  class="submitButton"
-                  type="submit"
-                  value="Dodaj trgovca"
-                  (click)="addRegUser()"
-                />
-                <input
-                  cButtonClose
-                  class="cancelButton"
-                  type="submit"
-                  value="Nazad"
-                  (click)="goBack()"
-                />
-              </div>
             </form>
+            <div class="recaptcha">
+              <re-captcha
+                id="recaptcha"
+                name="recaptcha"
+                #recaptcha="ngModel"
+                [(ngModel)]="token"
+                required
+                [class.is-invalid]="
+                  recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
+                "
+              ></re-captcha>
+              <div
+                *ngIf="
+                  (recaptcha.invalid &&
+                    (recaptcha.dirty || recaptcha.touched)) ||
+                  showCaptchaMessage
+                "
+              >
+                <div *ngIf="recaptcha.errors?.['required']">
+                  {{ t('Morate popuniti Captcha-u.') }}
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <input
+                cButton
+                class="submitButton"
+                type="submit"
+                [value]="t('Dodaj trgovca')"
+                (click)="addRegUser()"
+              />
+              <input
+                cButtonClose
+                class="cancelButton"
+                type="submit"
+                [value]="t('Nazad')"
+                (click)="goBack()"
+              />
+            </div>
           </div>
         </c-col>
       </c-row>
@@ -203,7 +227,7 @@
       <c-modal-body>
         <img src="/assets/images/exclamationmark.png" class="modalImage" />
         <p cModalTitle class="modalTitle">
-          Uspešno ste registrovali novog trgovca
+          {{ t('Uspešno ste registrovali novog trgovca') }}
         </p>
         <p class="modalSubtitle"></p>
       </c-modal-body>
@@ -212,10 +236,12 @@
           cButton
           class="modalSubmitButton"
           type="submit"
-          value="U redu"
+          [value]="t('U redu')"
           (click)="resetFields()"
         />
       </c-modal-footer>
     </c-modal>
   </div>
-</div>
+  </div>
+</ng-container>
+
