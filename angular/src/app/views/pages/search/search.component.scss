@@ -171,8 +171,11 @@ c-row {
 .right {
   float: right;
 }
-.padding-15 {
-  padding: 15px;
+.padding-15-5 {
+  padding: 5px 15px 5px 15px;
+}
+.padding-bottom-15 {
+  padding-bottom: 15px;
 }
 
 c-modal {
@@ -191,7 +194,6 @@ c-modal-header {
 c-modal-body {
   padding: 5%;
 }
-
 
 .modalHeader {
   font-weight: 700;

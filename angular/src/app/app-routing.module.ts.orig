@@ -28,7 +28,7 @@ const routes: Routes = [
     path: '',
     component: DefaultLayoutComponent,
     data: {
-      title: 'Dobro došli u registar "Ne zovi"',
+      title: 'Dobro došli u registar "NE ZOVI"',
     },
     children: [
       {
@@ -104,7 +104,7 @@ const routes: Routes = [
     path: '',
     component: PageLayoutComponent,
     data: {
-      title: 'Dobro došli u registar "Ne zovi"',
+      title: 'Dobro došli u registar "NE ZOVI"',
     },
     children: [
       {

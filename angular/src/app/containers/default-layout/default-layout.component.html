@@ -18,7 +18,11 @@
       width: 46,
       alt: 'CoreUI Logo'
     }"
-    [routerLink]="authenticationService.CurrentUser?.role == 1 ? './admin' : './registry/users'"
+    [routerLink]="
+      authenticationService.CurrentUser?.role == 1
+        ? './admin'
+        : './registry/users'
+    "
   >
   </c-sidebar-brand>
 
@@ -66,7 +70,7 @@
 >
   <c-modal-header>
     <p class="modalHeader">
-      Pokušavate da napustite stranicu registra "Ne zovi"
+      Pokušavate da napustite stranicu registra "NE ZOVI"
     </p>
     <button
       [cModalToggle]="theverticallyCenteredModal.id"

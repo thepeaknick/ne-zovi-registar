@@ -8,15 +8,17 @@
             <div class="content">
               <c-row>
                 <c-col>
-                  <p class="titleText">{{ t('Pretraga') }} <br />{{ t('telefonskog broja') }}</p>
+                  <p class="titleText">
+                    {{ t("Pretraga") }} <br />{{ t("telefonskog broja") }}
+                  </p>
                 </c-col>
                 <c-col> </c-col>
               </c-row>
               <form cForm (ngSubmit)="checkNumber()">
                 <div class="mb-3">
-                  <label cLabel for="phoneNumber" class="phoneNumberText"
-                    >{{ t('Broj telefona') }}</label
-                  >
+                  <label cLabel for="phoneNumber" class="phoneNumberText">{{
+                    t("Broj telefona")
+                  }}</label>
                   <input
                     cFormControl
                     id="phoneNumber"
@@ -33,7 +35,8 @@
                     [(ngModel)]="token"
                     required
                     [class.is-invalid]="
-                      recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
+                      recaptcha.invalid &&
+                      (recaptcha.dirty || recaptcha.touched)
                     "
                   ></re-captcha>
                   <div
@@ -44,7 +47,7 @@
                     "
                   >
                     <div *ngIf="recaptcha.errors?.['required']">
-                      {{ t('Morate popuniti Captcha-u.') }}
+                      {{ t("Morate popuniti Captcha-u.") }}
                     </div>
                   </div>
                 </div>
@@ -65,29 +68,46 @@
                     />
                   </c-row>
                 </div>
+                <div class="padding-bottom-15">
+                  <div>
+                    <a
+                      href="https://www.ratel.rs/cyr/page/cyr-pravno-obavestenje"
+                      class="link-info"
+                      >{{ t("Pravno obaveštenje") }}</a
+                    >
+                  </div>
+                  <div>
+                    <a
+                      href="https://www.ratel.rs/cyr/page/cyr-politika-privatnosti"
+                      class="link-info"
+                      >{{ t("Politika privatnosti") }}</a
+                    >
+                  </div>
+                </div>
                 <h2
                   *ngIf="showSearchMessage && isFound"
                   class="searchResultText green"
                 >
-                  {{ t('TELEFONSKI BROJ JE REGISTROVAN U BAZI') }}
+                  {{ t("TELEFONSKI BROJ JE REGISTROVAN U BAZI") }}
                 </h2>
                 <h2
                   *ngIf="showSearchMessage && !isFound"
                   class="searchResultText red"
                 >
-                  {{ t('TELEFONSKI BROJ NIJE REGISTROVAN U BAZI') }}
+                  {{ t("TELEFONSKI BROJ NIJE REGISTROVAN U BAZI") }}
                 </h2>
-                <h2
-                  *ngIf="!isEntered"
-                  class="searchResultText red"
-                >
-                  {{ t('NIJE UNET BROJ TELEFONA ZA PRETRAGU') }}
+                <h2 *ngIf="!isEntered" class="searchResultText red">
+                  {{ t("NIJE UNET BROJ TELEFONA ZA PRETRAGU") }}
                 </h2>
                 <p class="descriptionText">
-                  {{ t('Polje za pretragu prihvata sledeće formate unosa - primeri:') }}
+                  {{
+                    t(
+                      "Polje za pretragu prihvata sledeće formate unosa - primeri:"
+                    )
+                  }}
                 </p>
                 <span class="left">
-                  <ul class="padding-15">
+                  <ul class="padding-15-5">
                     <li>381641234567</li>
                     <li>381 64 123 45 67</li>
                     <li>641234567</li>
@@ -96,7 +116,7 @@
                 </span>
 
                 <span class="right">
-                  <ul class="padding-15">
+                  <ul class="padding-15-5">
                     <li>381111234567</li>
                     <li>381 11 123 45 67</li>
                     <li>111234567</li>
@@ -112,13 +132,12 @@
   </div>
 </ng-container>
 
-
 <c-modal
   #theverticallyCenteredModal1
   alignment="center"
   id="theverticallyCenteredModal1"
   [ngStyle]="vars"
->  
+>
   <c-modal-header>
     <button
       [cModalToggle]="theverticallyCenteredModal1.id"

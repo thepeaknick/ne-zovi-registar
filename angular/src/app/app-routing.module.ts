@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DefaultLayoutComponent, PageLayoutComponent } from './containers';
 import { LoginComponent } from './views/pages/login/login.component';
-import { SignUpComponent } from './views/pages/signup/signup.component'
+import { SignUpComponent } from './views/pages/signup/signup.component';
 import { SearchComponent } from './views/pages/search/search.component';
 import { UsersComponent } from './views/registry/users/users.component';
 import { RegUsersComponent } from './views/registry/regusers/regusers.component';
@@ -26,7 +26,7 @@ const routes: Routes = [
     path: '',
     component: DefaultLayoutComponent,
     data: {
-      title: 'Dobro došli u registar "Ne zovi"',
+      title: 'Dobro došli u registar "NE ZOVI"',
     },
     children: [
       {
@@ -91,7 +91,7 @@ const routes: Routes = [
     path: '',
     component: PageLayoutComponent,
     data: {
-      title: 'Dobro došli u registar "Ne zovi"',
+      title: 'Dobro došli u registar "NE ZOVI"',
     },
     children: [
       {

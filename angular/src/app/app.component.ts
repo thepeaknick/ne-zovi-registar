@@ -14,7 +14,7 @@ import { Title } from '@angular/platform-browser';
   template: '<router-outlet></router-outlet>',
 })
 export class AppComponent implements OnInit {
-  title = 'Ne zovi';
+  title = 'NE ZOVI';
   currentRoute: string;
 
   constructor(private router: Router, private titleService: Title) {
