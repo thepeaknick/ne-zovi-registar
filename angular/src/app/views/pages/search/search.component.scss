@@ -63,7 +63,7 @@ c-modal-footer button img {
 }
 
 .backgroundImage {
-  background-image: url("../../../../assets/images/homebck.png");
+  background-image: url("../../../../assets/images/homebck.jpg");
   min-height: 82vh;
   background-size: cover;
 }
@@ -131,7 +131,7 @@ li {
   line-height: 30px;
   color: #ffffff;
 
-  margin-top: 20%;
+  margin-top: 10%;
   // margin-left: 5%;
   // margin-right: 15px;
   margin-bottom: 10%;
@@ -147,7 +147,7 @@ li {
   font-size: 100%;
   line-height: 30px;
   color: #444444;
-  margin-top: 20%;
+  margin-top: 10%;
   margin-bottom: 10%;
 }
 
@@ -209,16 +209,9 @@ c-modal-body {
   padding-top: 5%;
 }
 
-@media screen and (min-width: 400px) {
-  .recaptcha {
-    transform: scale(0.4);
-    transform-origin: 0;
-  }
-}
-
 @media screen and (min-width: 800px) {
   .recaptcha {
-    transform: scale(0.6);
+    transform: scale(1);
     transform-origin: 0;
   }
 }

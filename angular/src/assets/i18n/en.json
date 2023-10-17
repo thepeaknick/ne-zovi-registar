@@ -18,6 +18,7 @@
   "link za promenu vaše lozinke": "link to change your password",
   "Pošalji": "Send",
   "Vrati se na sign in": "Go back to sign in",
+  "E-mail": "Email",
 
   "Pretraga": "Search",
   "telefonskog broja": "phone number",
@@ -92,8 +93,8 @@
   "Dodaj novog obveznika": "Add New Obligee",
   "Po imenu": "By Name",
   "PIB": "VAT",
-  "Matični broj": "Registration Number",
-  "Datum upisa": "Registration Date",
+  "Matični broj": "Reg. Number",
+  "Datum upisa": "Reg. Date",
   "obriši": "delete",
   "promeni": "change",
   "Podaci o obvezniku": "Obligee Data",

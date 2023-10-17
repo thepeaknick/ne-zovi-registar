@@ -18,25 +18,19 @@
               color="secondary"
               variant="outline"
             >
-              {{ t('Moj profil') }}
+              {{ t("Moj profil") }}
             </label>
-            <!-- <input class="btn-check" formControlName="radio1" type="radio" value="sideMenuSecond" />
-                      <label (click)="setRadioValue('sideMenuSecond')" cButton cFormCheckLabel class="settingsMainFormItem" color="secondary" variant="outline">
-                          ...
-                      </label>
-                      <input class="btn-check" formControlName="radio1" type="radio" value="sideMenuThird" />
-                      <label (click)="setRadioValue('sideMenuThird')" cButton cFormCheckLabel class="settingsMainFormItem" color="secondary" variant="outline">
-                          ...
-                      </label> -->
           </c-button-group>
         </form>
       </c-col>
       <c-col xs="7" class="settingsInfoForm">
         <div class="myProfileHeader">
-          <p>{{ t('Moj profil') }}</p>
+          <p>{{ t("Moj profil") }}</p>
         </div>
         <form cRow>
-          <label cLabel class="textInputFieldLabel"> {{ t('Korisničko ime') }} </label>
+          <label cLabel class="textInputFieldLabel">
+            {{ t("Korisničko ime") }}
+          </label>
           <c-input-group class="mb-3">
             <input
               cFormControl
@@ -51,14 +45,14 @@
               type="button"
               (click)="toggleUserNameInput()"
             >
-              {{ t('Promeni') }}
+              {{ t("Promeni") }}
             </button>
           </c-input-group>
         </form>
         <form cForm [formGroup]="resetPasswordForm">
           <div class="mb-3">
             <label cLabel for="password" class="textInputFieldLabel">
-              {{ t('Lozinka') }}
+              {{ t("Lozinka") }}
             </label>
             <input
               cFormControl
@@ -70,7 +64,7 @@
           </div>
           <div class="mb-3">
             <label cLabel for="newPassword" class="textInputFieldLabel">
-              {{ t('Nova lozinka') }}
+              {{ t("Nova lozinka") }}
             </label>
             <input
               cFormControl
@@ -84,7 +78,7 @@
             *ngIf="showPasswordChangeErrorMessage"
             class="passwordChangeResultText red"
           >
-            {{ t('NEUSPEŠNO PROMENJENA LOZINKA') }}
+            {{ t("NEUSPEŠNO PROMENJENA LOZINKA") }}
           </h2>
 
           <input
@@ -95,7 +89,9 @@
             (click)="changePassword()"
           />
 
-          <p class="descriptionTitleText">{{ t('Promena lozinke i korisničkog imena') }}</p>
+          <p class="descriptionTitleText">
+            {{ t("Promena lozinke i korisničkog imena") }}
+          </p>
           <p class="descriptionSubtitleText"></p>
         </form>
       </c-col>
@@ -108,12 +104,17 @@
       [visible]="isConfirmationModalVisible"
     >
       <c-modal-header>
-        <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+        <button
+          [cModalToggle]="verticallyCenteredModal.id"
+          cButtonClose
+        ></button>
       </c-modal-header>
 
       <c-modal-body>
         <img src="/assets/images/exclamationmark.png" class="modalImage" />
-        <p cModalTitle class="modalTitle">{{ t('Uspešno ste promenili lozinku') }}</p>
+        <p cModalTitle class="modalTitle">
+          {{ t("Uspešno ste promenili lozinku") }}
+        </p>
         <p class="modalSubtitle"></p>
       </c-modal-body>
       <c-modal-footer>

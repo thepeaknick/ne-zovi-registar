@@ -128,11 +128,23 @@ export class UsersComponent implements OnInit {
     after.setMonth(3);
 
     this.userService.allUsers(after).subscribe({
-      next: (users: UserDtoPagedList) =>
-        (this.users =
-          users instanceof HttpErrorResponse
-            ? ({} as UserDtoPagedList)
-            : users),
+      next: (users: UserDtoPagedList) => {
+        let tmpUsers = users;
+        tmpUsers.items
+          .slice()
+          .reverse()
+          .forEach((user, index, object) => {
+            if (user.active == false) {
+              console.log(user);
+              console.log(index);
+              users.items.splice(object.length - 1 - index, 1);
+            } else {
+              console.log(user);
+            }
+          });
+        this.users =
+          users instanceof HttpErrorResponse ? ({} as UserDtoPagedList) : users;
+      },
       complete: () => {
         if (this.users.items) {
           this.totalPagesNumber =

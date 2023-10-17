@@ -26,6 +26,12 @@
   width: 15vw;
 }
 
+@media screen and (max-width: 1000px) {
+  .settingsMainFormItem {
+    width: 15vw;
+  }
+}
+
 .settingsInfoForm {
   background-color: white;
   padding: 5%;
@@ -114,23 +120,22 @@ c-modal-footer {
 }
 
 .submitButton {
-    height: 50px;
-    background: #224c8d;
-    border-radius: 5px;
-    margin-top: 5%;
-  }
-
+  height: 50px;
+  background: #224c8d;
+  border-radius: 5px;
+  margin-top: 5%;
+}
 
 @media screen and (max-width: 650px) {
-    .submitButton {
-        width: 188px;
-      }
+  .submitButton {
+    width: 188px;
+  }
 }
 
 @media screen and (max-width: 450px) {
-    .submitButton {
-        width: 80%;
-    }
+  .submitButton {
+    width: 80%;
+  }
 }
 
 @media screen and (max-width: 1000px) {
@@ -144,5 +149,4 @@ c-modal-footer {
   .settingsMainForm {
     margin-bottom: 5%;
   }
-
 }

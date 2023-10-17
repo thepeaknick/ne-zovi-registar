@@ -28,7 +28,7 @@ $enable-rtl: true;
 }
 
 .home-bck {
-  background: url("../assets/images/homebck.png");
+  background: url("../assets/images/homebck.jpg");
   min-height: 82vh;
   background-size: cover;
   // background-position-y: -60px;
@@ -98,4 +98,16 @@ tr {
   border-radius: 20px;
   height: 56px;
   width: 56px;
+}
+
+c-card-body div {
+  display: inline-block !important;
+}
+
+c-card-body div div:last-child {
+  float: right;
+}
+
+c-card-body > div {
+  width: 100%;
 }

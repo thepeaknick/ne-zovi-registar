@@ -1,247 +1,246 @@
 <ng-container *transloco="let t">
   <div class="backgroundImage">
-  <div class="body flex-grow-1 px-3">
-    <c-container breakpoint="lg" class="h-auto">
-      <c-row>
-        <c-col xs="0" sm="4" md="4"></c-col>
-        <c-col xs="12" sm="8" md="8" class="backgroundView">
-          <div class="content">
-            <p class="modalTitleText">{{ t('Podaci o trgovcu') }}</p>
-            <form
-              cForm
-              class="row g-3"
-              [formGroup]="regUserForm"
-              novalidate
-              [validated]="isValidated"
-            >
-              <c-col [xs]="8">
-                <div class="mb-3">
-                  <label cLabel for="regUserName" class="textInputField">
-                    {{ t('Ime trgovca') }}
-                  </label>
-                  <input
-                    required
-                    cFormControl
-                    formControlName="regUserName"
-                    id="regUserName"
-                    type="text"
-                    [placeholder]="t('Ime trgovca')"
-                  />
-                </div>
-                <div class="mb-3">
-                  <label cLabel for="regUserAddress" class="textInputField">
-                    {{ t('Adresa trgovca') }}
-                  </label>
-                  <input
-                    required
-                    cFormControl
-                    formControlName="regUserAddress"
-                    id="regUserAddress"
-                    type="text"
-                    [placeholder]="t('Adresa trgovca')"
-                  />
-                </div>
-                <div class="mb-3">
-                  <c-row>
-                    <c-col>
-                      <label
-                        cLabel
-                        for="regUserFirstName"
-                        class="textInputField"
-                      >
-                        {{ t('Ime') }}
-                      </label>
-                      <input
-                        required
-                        cFormControl
-                        formControlName="regUserFirstName"
-                        id="regUserFirstName"
-                        type="text"
-                        [placeholder]="t('Ime odgovornog lica')"
-                      />
-                    </c-col>
-                    <c-col>
-                      <label
-                        cLabel
-                        for="regUserLastName"
-                        class="textInputField"
-                      >
-                        {{ t('Prezime') }}
-                      </label>
-                      <input
-                        required
-                        cFormControl
-                        formControlName="regUserLastName"
-                        id="regUserLastName"
-                        type="text"
-                        [placeholder]="t('Prezime odgovornog lica')"
-                      />
-                    </c-col>
-                  </c-row>
-                </div>
-                <div class="mb-3">
-                  <c-row>
-                    <c-col>
-                      <label
-                        cLabel
-                        for="regUserUsername"
-                        class="textInputField"
-                      >
-                        {{ t('Korisničko ime') }}
-                      </label>
-                      <input
-                        required
-                        minlength="8"
-                        cFormControl
-                        formControlName="regUserUsername"
-                        id="regUserUsername"
-                        type="text"
-                        [placeholder]="t('Korisničko ime')"
-                      />
-                    </c-col>
-                    <c-col>
-                      <label
-                        cLabel
-                        for="regUserPassword"
-                        class="textInputField"
-                      >
-                        {{ t('Lozinka') }}
-                      </label>
-                      <input
-                        required
-                        minlength="8"
-                        cFormControl
-                        formControlName="regUserPassword"
-                        id="regUserPassword"
-                        type="text"
-                        placeholder="xxxxxxxxx"
-                      />
-                    </c-col>
-                  </c-row>
-                </div>
-                <div class="mb-3">
-                  <label cLabel for="regUserEmail" class="textInputField">
-                    {{ t('E-mail') }}
-                  </label>
-                  <input
-                    required
-                    email
-                    cFormControl
-                    formControlName="regUserEmail"
-                    id="regUserEmail"
-                    type="email"
-                    [placeholder]="t('Email')"
-                  />
-                </div>
-              </c-col>
-              <c-col [xs]="4">
-                <div class="mb-3">
-                  <label cLabel for="regUserPIB" class="textInputField"
-                    >{{ t('PIB') }}</label
-                  >
-                  <input
-                    required
-                    minlength="9"
-                    maxlength="9"
-                    pattern="[0-9]*"
-                    cFormControl
-                    formControlName="regUserPIB"
-                    id="regUserPIB"
-                    type="text"
-                    placeholder="xxxxxxxxx"
-                  />
-                </div>
-                <div class="mb-3">
-                  <label cLabel for="regUserMB" class="textInputField"
-                    >{{ t('Matični broj') }}</label
-                  >
-                  <input
-                    required
-                    minlength="8"
-                    maxlength="8"
-                    pattern="[0-9]*"
-                    cFormControl
-                    formControlName="regUserMB"
-                    id="regUserMB"
-                    type="text"
-                    placeholder="xxxxxxxxx"
-                  />
-                </div>
-              </c-col>
-            </form>
-            <div class="recaptcha">
-              <re-captcha
-                id="recaptcha"
-                name="recaptcha"
-                #recaptcha="ngModel"
-                [(ngModel)]="token"
-                required
-                [class.is-invalid]="
-                  recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
-                "
-              ></re-captcha>
-              <div
-                *ngIf="
-                  (recaptcha.invalid &&
-                    (recaptcha.dirty || recaptcha.touched)) ||
-                  showCaptchaMessage
-                "
+    <div class="body flex-grow-1 px-3">
+      <c-container breakpoint="lg" class="h-auto">
+        <c-row>
+          <c-col xs="0" sm="4" md="4"></c-col>
+          <c-col xs="12" sm="8" md="8" class="backgroundView">
+            <div class="content">
+              <p class="modalTitleText">{{ t("Podaci o trgovcu") }}</p>
+              <form
+                cForm
+                class="row g-3"
+                [formGroup]="regUserForm"
+                novalidate
+                [validated]="isValidated"
               >
-                <div *ngIf="recaptcha.errors?.['required']">
-                  {{ t('Morate popuniti Captcha-u.') }}
+                <c-col [xs]="8">
+                  <div class="mb-3">
+                    <label cLabel for="regUserName" class="textInputField">
+                      {{ t("Ime trgovca") }}
+                    </label>
+                    <input
+                      required
+                      cFormControl
+                      formControlName="regUserName"
+                      id="regUserName"
+                      type="text"
+                      [placeholder]="t('Ime trgovca')"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label cLabel for="regUserAddress" class="textInputField">
+                      {{ t("Adresa trgovca") }}
+                    </label>
+                    <input
+                      required
+                      cFormControl
+                      formControlName="regUserAddress"
+                      id="regUserAddress"
+                      type="text"
+                      [placeholder]="t('Adresa trgovca')"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <c-row>
+                      <c-col>
+                        <label
+                          cLabel
+                          for="regUserFirstName"
+                          class="textInputField"
+                        >
+                          {{ t("Ime") }}
+                        </label>
+                        <input
+                          required
+                          cFormControl
+                          formControlName="regUserFirstName"
+                          id="regUserFirstName"
+                          type="text"
+                          [placeholder]="t('Ime odgovornog lica')"
+                        />
+                      </c-col>
+                      <c-col>
+                        <label
+                          cLabel
+                          for="regUserLastName"
+                          class="textInputField"
+                        >
+                          {{ t("Prezime") }}
+                        </label>
+                        <input
+                          required
+                          cFormControl
+                          formControlName="regUserLastName"
+                          id="regUserLastName"
+                          type="text"
+                          [placeholder]="t('Prezime odgovornog lica')"
+                        />
+                      </c-col>
+                    </c-row>
+                  </div>
+                  <div class="mb-3">
+                    <c-row>
+                      <c-col>
+                        <label
+                          cLabel
+                          for="regUserUsername"
+                          class="textInputField"
+                        >
+                          {{ t("Korisničko ime") }}
+                        </label>
+                        <input
+                          required
+                          minlength="8"
+                          cFormControl
+                          formControlName="regUserUsername"
+                          id="regUserUsername"
+                          type="text"
+                          [placeholder]="t('Korisničko ime')"
+                        />
+                      </c-col>
+                      <c-col>
+                        <label
+                          cLabel
+                          for="regUserPassword"
+                          class="textInputField"
+                        >
+                          {{ t("Lozinka") }}
+                        </label>
+                        <input
+                          required
+                          minlength="8"
+                          cFormControl
+                          formControlName="regUserPassword"
+                          id="regUserPassword"
+                          type="text"
+                          placeholder="xxxxxxxxx"
+                        />
+                      </c-col>
+                    </c-row>
+                  </div>
+                  <div class="mb-3">
+                    <label cLabel for="regUserEmail" class="textInputField">
+                      {{ t("E-mail") }}
+                    </label>
+                    <input
+                      required
+                      email
+                      cFormControl
+                      formControlName="regUserEmail"
+                      id="regUserEmail"
+                      type="email"
+                      [placeholder]="t('Email')"
+                    />
+                  </div>
+                </c-col>
+                <c-col [xs]="4">
+                  <div class="mb-3">
+                    <label cLabel for="regUserPIB" class="textInputField">{{
+                      t("PIB")
+                    }}</label>
+                    <input
+                      required
+                      minlength="9"
+                      maxlength="9"
+                      pattern="[0-9]*"
+                      cFormControl
+                      formControlName="regUserPIB"
+                      id="regUserPIB"
+                      type="text"
+                      placeholder="xxxxxxxxx"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label cLabel for="regUserMB" class="textInputField">{{
+                      t("Matični broj")
+                    }}</label>
+                    <input
+                      required
+                      minlength="8"
+                      maxlength="8"
+                      pattern="[0-9]*"
+                      cFormControl
+                      formControlName="regUserMB"
+                      id="regUserMB"
+                      type="text"
+                      placeholder="xxxxxxxxx"
+                    />
+                  </div>
+                </c-col>
+              </form>
+              <div class="recaptcha">
+                <re-captcha
+                  id="recaptcha"
+                  name="recaptcha"
+                  #recaptcha="ngModel"
+                  [(ngModel)]="token"
+                  required
+                  [class.is-invalid]="
+                    recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
+                  "
+                ></re-captcha>
+                <div
+                  *ngIf="
+                    (recaptcha.invalid &&
+                      (recaptcha.dirty || recaptcha.touched)) ||
+                    showCaptchaMessage
+                  "
+                >
+                  <div *ngIf="recaptcha.errors?.['required']">
+                    {{ t("Morate popuniti Captcha-u.") }}
+                  </div>
                 </div>
               </div>
+              <div class="mb-3">
+                <input
+                  cButton
+                  class="submitButton"
+                  type="submit"
+                  [value]="t('Dodaj trgovca')"
+                  (click)="addRegUser()"
+                />
+                <input
+                  cButtonClose
+                  class="cancelButton"
+                  type="submit"
+                  [value]="t('Nazad')"
+                  (click)="goBack()"
+                />
+              </div>
             </div>
-            <div class="mb-3">
-              <input
-                cButton
-                class="submitButton"
-                type="submit"
-                [value]="t('Dodaj trgovca')"
-                (click)="addRegUser()"
-              />
-              <input
-                cButtonClose
-                class="cancelButton"
-                type="submit"
-                [value]="t('Nazad')"
-                (click)="goBack()"
-              />
-            </div>
-          </div>
-        </c-col>
-      </c-row>
-    </c-container>
+          </c-col>
+        </c-row>
+      </c-container>
 
-    <c-modal
-      #confirmNewReguserModal
-      alignment="center"
-      id="confirmNewReguserModal"
-      [visible]="isSuccessfulyRegisteredUserModalVisible"
-      backdrop="static"
-    >
-      <c-modal-header>
-        <button (click)="resetFields()" cButtonClose></button>
-      </c-modal-header>
+      <c-modal
+        #confirmNewReguserModal
+        alignment="center"
+        id="confirmNewReguserModal"
+        [visible]="isSuccessfulyRegisteredUserModalVisible"
+        backdrop="static"
+      >
+        <c-modal-header>
+          <button (click)="resetFields()" cButtonClose></button>
+        </c-modal-header>
 
-      <c-modal-body>
-        <img src="/assets/images/exclamationmark.png" class="modalImage" />
-        <p cModalTitle class="modalTitle">
-          {{ t('Uspešno ste registrovali novog trgovca') }}
-        </p>
-        <p class="modalSubtitle"></p>
-      </c-modal-body>
-      <c-modal-footer>
-        <input
-          cButton
-          class="modalSubmitButton"
-          type="submit"
-          [value]="t('U redu')"
-          (click)="resetFields()"
-        />
-      </c-modal-footer>
-    </c-modal>
-  </div>
+        <c-modal-body>
+          <img src="/assets/images/exclamationmark.png" class="modalImage" />
+          <p cModalTitle class="modalTitle">
+            {{ t("Uspešno ste registrovali novog trgovca") }}
+          </p>
+          <p class="modalSubtitle"></p>
+        </c-modal-body>
+        <c-modal-footer>
+          <input
+            cButton
+            class="modalSubmitButton"
+            type="submit"
+            [value]="t('U redu')"
+            (click)="resetFields()"
+          />
+        </c-modal-footer>
+      </c-modal>
+    </div>
   </div>
 </ng-container>
-

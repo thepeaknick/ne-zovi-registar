@@ -1,4 +1,3 @@
-
 <ng-container *transloco="let t">
   <div class="backgroundImage">
     <div class="regusersTable">
@@ -12,7 +11,7 @@
             shape="rounded-pill"
             *ngIf="canAddUsers"
           >
-            + {{ t('Dodaj novog korisnika') }}
+            + {{ t("Dodaj novog korisnika") }}
           </button>
         </c-col>
         <c-col xs="8" class="rightTableHeader">
@@ -27,7 +26,7 @@
                 color="white"
                 shape="rounded-pill"
               >
-                {{ t('Prikaz po strani') }} &#8659;
+                {{ t("Prikaz po strani") }} &#8659;
                 <ng-template #popoverHtml>
                   <div class="popover-body">
                     <c-row>
@@ -71,10 +70,10 @@
                 shape="rounded-pill"
                 (click)="exportExcel()"
               >
-                {{ t('Export data') }}
+                {{ t("Export data") }}
               </button>
             </c-col>
-            <c-col  xl="auto" lg="auto" md="2" class="columnBtnLeft">
+            <c-col xl="auto" lg="auto" md="2" class="columnBtnLeft">
               <button
                 [cPopover]="popoverHtml1"
                 cPopoverPlacement="bottom"
@@ -84,7 +83,7 @@
                 color="white"
                 shape="rounded-pill"
               >
-                {{ t('Sortiraj') }}
+                {{ t("Sortiraj") }}
                 <ng-template #popoverHtml1>
                   <div class="popover-body">
                     <c-row class="popover-row">
@@ -96,7 +95,7 @@
                           shape="rounded-pill"
                           (click)="sortByCreatedModifiedOnASC()"
                         >
-                          {{ t('Po datumu kreiranja (uzlazno)') }}
+                          {{ t("Po datumu kreiranja (uzlazno)") }}
                         </button>
                         <button
                           cButton
@@ -105,7 +104,7 @@
                           shape="rounded-pill"
                           (click)="sortByCreatedModifiedOnDESC()"
                         >
-                          {{ t('Po datumu kreiranja (silazno)') }}
+                          {{ t("Po datumu kreiranja (silazno)") }}
                         </button>
                       </c-col>
                     </c-row>
@@ -120,10 +119,14 @@
         <table cTable hover>
           <thead class="tableHeader">
             <tr>
-              <th scope="col">{{ t('Broj telefona') }}</th>
-              <th scope="col">{{ t('Datum upisa/ispisa') }}</th>
-              <th scope="col" *ngIf="canEditUsers">{{ t('Izmeni podatke') }}</th>
-              <th scope="col" *ngIf="canDeleteUsers">{{ t('Obriši broj telefona') }}</th>
+              <th scope="col">{{ t("Broj telefona") }}</th>
+              <th scope="col">{{ t("Datum upisa/ispisa") }}</th>
+              <th scope="col" *ngIf="canEditUsers">
+                {{ t("Izmeni podatke") }}
+              </th>
+              <th scope="col" *ngIf="canDeleteUsers">
+                {{ t("Obriši broj telefona") }}
+              </th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -157,9 +160,9 @@
       </div>
       <c-pagination class="custom">
         <li cPageItem [disabled]="currentPage === 1">
-          <span cPageLink [routerLink] (click)="setPage(currentPage - 1)"
-            >{{ t('Previous') }}</span
-          >
+          <span cPageLink [routerLink] (click)="setPage(currentPage - 1)">{{
+            t("Previous")
+          }}</span>
         </li>
         <li
           *ngFor="
@@ -173,7 +176,9 @@
           }}</a>
         </li>
         <li cPageItem [disabled]="currentPage === totalPagesNumber">
-          <a cPageLink [routerLink] (click)="setPage(currentPage + 1)">{{ t('Next') }}</a>
+          <a cPageLink [routerLink] (click)="setPage(currentPage + 1)">{{
+            t("Next")
+          }}</a>
         </li>
       </c-pagination>
     </div>
@@ -187,7 +192,7 @@
       backdrop="static"
     >
       <c-modal-header>
-        <p class="modalHeader">{{ t('Dodaj novog korisnika') }}</p>
+        <p class="modalHeader">{{ t("Dodaj novog korisnika") }}</p>
         <button (click)="toggleAddUserModal()" cButtonClose></button>
       </c-modal-header>
       <c-modal-body>
@@ -201,7 +206,7 @@
           <c-row>
             <c-col [xs]="9">
               <div class="mb-3">
-                <p class="modalTitleText">{{ t('Podaci o korisniku') }}</p>
+                <p class="modalTitleText">{{ t("Podaci o korisniku") }}</p>
               </div>
             </c-col>
             <c-col [xs]="3">
@@ -219,7 +224,7 @@
           </c-row>
           <c-col [xs]="8" id="phoneNumberCol">
             <label cLabel for="userPhoneNumber" class="textInputField">
-              {{ t('Broj telefona korisnika') }}
+              {{ t("Broj telefona korisnika") }}
             </label>
             <div
               *ngFor="let div of divs"
@@ -234,7 +239,7 @@
                 id="userPhoneNumber"
                 formControlName="userPhoneNumber"
                 type="text"
-                placeholder="+381641234567"
+                placeholder="381641234567"
               />
             </div>
 
@@ -242,7 +247,7 @@
               <c-row>
                 <c-col>
                   <label cLabel for="regUserUsername" class="textInputField">
-                    {{ t('Ime') }}
+                    {{ t("Ime") }}
                   </label>
                   <input
                     required
@@ -255,7 +260,7 @@
                 </c-col>
                 <c-col>
                   <label cLabel for="regUserPassword" class="textInputField">
-                    {{ t('Prezime') }}
+                    {{ t("Prezime") }}
                   </label>
                   <input
                     required
@@ -270,8 +275,14 @@
             </div>
           </c-col>
           <c-col [xs]="4" id="operatorCol">
-            <label cLabel for="pib" class="textInputField">{{ t('Operator') }}</label>
-            <div class="mb-3" *ngFor="let div of divs" id="operatorName{{ div }}">
+            <label cLabel for="pib" class="textInputField">{{
+              t("Operator")
+            }}</label>
+            <div
+              class="mb-3"
+              *ngFor="let div of divs"
+              id="operatorName{{ div }}"
+            >
               <select
                 required
                 [(ngModel)]="selectedOperator"
@@ -279,7 +290,9 @@
                 cSelect
                 formControlName="userOperator"
               >
-                <option value="undefined" selected disabled>{{ t('Operator') }}</option>
+                <option value="undefined" selected disabled>
+                  {{ t("Operator") }}
+                </option>
                 <option *ngFor="let operator of operators" [ngValue]="operator">
                   {{ operator.name }}
                 </option>

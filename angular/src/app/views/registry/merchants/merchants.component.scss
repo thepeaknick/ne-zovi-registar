@@ -217,17 +217,20 @@ c-modal-footer {
     width: 100%;
     text-align: center;
   }
+  .table > :not(caption) > * > * {
+    padding: 0.5rem 0.2rem;
+  }
   .leftTableHeader {
     text-align: center;
   }
   .tableContent {
-    font-size: 2vw;
+    // font-size: 2vw;
   }
   .tableButton {
     margin: 2%;
   }
   .tableEditButton {
-    font-size: 2vw;
+    // font-size: 2vw;
   }
 }
 
@@ -271,11 +274,10 @@ c-pagination li {
   .columnBtnCenter {
     text-align: center;
   }
-  
+
   .columnBtnLeft {
     text-align: center;
   }
-  
 }
 
 .btn {
@@ -285,4 +287,3 @@ c-pagination li {
 .btnRow {
   justify-content: flex-end;
 }
-

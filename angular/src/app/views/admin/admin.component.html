@@ -7,7 +7,7 @@
           class="mb-3 widgetStats"
           color="primary"
           padding
-        value="{{ !regUsers ? 0 : regUsers.length }}"
+          value="{{ !regUsers ? 0 : regUsers.length }}"
         >
           <ng-template cTemplateId="widgetIconTemplate">
             <svg [cIcon]="icons.cilChartPie" size="xl" width="24"></svg>
@@ -19,9 +19,12 @@
           class="mb-3 widgetStats"
           color="info"
           padding
-        value="{{ !merchants ? 0 : merchants.length }}"
+          value="{{ !merchants ? 0 : merchants.length }}"
         >
-          <ng-template cTemplateId="widgetIconTemplate" class="widgetStatsUpper">
+          <ng-template
+            cTemplateId="widgetIconTemplate"
+            class="widgetStatsUpper"
+          >
             <svg [cIcon]="icons.cilChartPie" size="xl" width="24"></svg>
           </ng-template> </c-widget-stat-f
       ></c-col>
@@ -31,7 +34,7 @@
           class="mb-3 widgetStats"
           color="secondary"
           padding
-        value="{{ !users ? 0 : users.length }}"
+          value="{{ !users ? 0 : users.length }}"
         >
           <ng-template cTemplateId="widgetIconTemplate">
             <svg [cIcon]="icons.cilChartPie" size="xl" width="24"></svg>
@@ -113,7 +116,7 @@
           <div class="chartView">
             <c-row>
               <c-col>
-                <p class="lineChartTitle">{{ t('Pregled') }}</p>
+                <p class="lineChartTitle">{{ t("Pregled") }}</p>
               </c-col>
               <c-col class="chartExportData">
                 <button
@@ -123,7 +126,7 @@
                   shape="rounded-pill"
                   (click)="exportExcel()"
                 >
-                  {{ t('Export data') }}
+                  {{ t("Export data") }}
                 </button>
               </c-col>
             </c-row>
@@ -137,7 +140,7 @@
         </c-col>
         <c-col md="4" xl="4">
           <div class="chartView pieChart">
-            <p class="pieChartTitle">{{ t('Top tri operatera') }}</p>
+            <p class="pieChartTitle">{{ t("Top tri operatera") }}</p>
             <c-chart [data]="dataPieChart" type="doughnut"> </c-chart>
           </div>
         </c-col>

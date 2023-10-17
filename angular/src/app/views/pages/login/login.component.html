@@ -3,17 +3,19 @@
     <div class="body flex-grow-1 px-3">
       <c-container breakpoint="lg" class="h-auto">
         <c-row>
-          <c-col xs="0" sm="5" md="7"></c-col>
-          <c-col xs="12" sm="7" md="5" class="backgroundView">
+          <c-col xs="0" sm="4" md="6"></c-col>
+          <c-col xs="12" sm="8" md="6" class="backgroundView">
             <div class="content">
               <c-row>
-                <c-col> <p class="titleText">{{ t('Prijavi se') }}</p> </c-col>
+                <c-col>
+                  <p class="titleText">{{ t("Prijavi se") }}</p>
+                </c-col>
               </c-row>
               <form cForm [formGroup]="loginForm">
                 <div class="mb-3">
-                  <label cLabel for="username" class="textInputField"
-                    >{{ t('Korisničko ime') }}</label
-                  >
+                  <label cLabel for="username" class="textInputField">{{
+                    t("Korisničko ime")
+                  }}</label>
                   <input
                     cFormControl
                     formControlName="username"
@@ -22,9 +24,9 @@
                   />
                 </div>
                 <div class="mb-3">
-                  <label cLabel for="password" class="textInputField"
-                    >{{ t('Lozinka') }}</label
-                  >
+                  <label cLabel for="password" class="textInputField">{{
+                    t("Lozinka")
+                  }}</label>
                   <input
                     cFormControl
                     formControlName="password"
@@ -37,10 +39,10 @@
                   type="button"
                   class="btn btn-link forgottenPassword"
                 >
-                  {{ t('Zaboravili ste lozinku') }}
+                  {{ t("Zaboravili ste lozinku") }}
                 </button>
                 <h2 *ngIf="showLoginErrorMessage" class="loginResultText red">
-                  {{ t('NEISPRAVNO KORISNIČKO IME ILI LOZINKA') }}
+                  {{ t("NEISPRAVNO KORISNIČKO IME ILI LOZINKA") }}
                 </h2>
               </form>
               <div class="recaptcha">
@@ -62,7 +64,7 @@
                   "
                 >
                   <div *ngIf="recaptcha.errors?.['required']">
-                    {{ t('Morate popuniti Captcha-u.') }}
+                    {{ t("Morate popuniti Captcha-u.") }}
                   </div>
                 </div>
               </div>
@@ -100,9 +102,9 @@
         </c-modal-header>
         <c-modal-body>
           <img src="/assets/images/exclamationmark.png" />
-          <h5 cModalTitle>{{ t('Zaboravljena lozinka') }}</h5>
-          {{ t('Unesite vašu e-mail adresu na koju će biti poslat') }}<br />
-          {{ t('link za promenu vaše lozinke') }}
+          <h5 cModalTitle>{{ t("Zaboravljena lozinka") }}</h5>
+          {{ t("Unesite vašu e-mail adresu na koju će biti poslat") }}<br />
+          {{ t("link za promenu vaše lozinke") }}
 
           <form
             cForm
@@ -117,7 +119,12 @@
                 type="email"
               />
             </div>
-            <input cButton color="primary" type="submit" [value]="t('Pošalji')" />
+            <input
+              cButton
+              color="primary"
+              type="submit"
+              [value]="t('Pošalji')"
+            />
           </form>
         </c-modal-body>
         <c-modal-footer>
@@ -128,9 +135,9 @@
             variant="ghost"
             class=""
           >
-            <img src="/assets/icons/loginicon.svg" /><span
-              >{{ t('Vrati se na sign in') }}</span
-            >
+            <img src="/assets/icons/loginicon.svg" /><span>{{
+              t("Vrati se na sign in")
+            }}</span>
           </button>
         </c-modal-footer>
       </c-modal>
