@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using System.Security.Principal;
 using NeZoviReg.Abstractions.Shared.Model.Auth;
 
 namespace NeZoviReg.Abstractions.Shared.Model;
@@ -29,6 +30,13 @@ public class AppUser
 
         return new(regUserId, userName);
 
+    }
+    
+    public static string? GetUserName(IIdentity? identity)
+    {
+        return ((ClaimsIdentity)identity)?.Claims
+                .FirstOrDefault(x => x.Type == CustomClaims.RegUserName)?
+                .Value ?? default;
     }
 }
 

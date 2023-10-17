@@ -6,6 +6,7 @@ public static class EmailExtensions
 {
     public static async Task<bool> SendEmailAsync(this IEmailSender sender, 
         string emailFrom, 
+        string emailTo, 
         string subject,
         string content, 
         bool isHtml = false,
@@ -18,6 +19,8 @@ public static class EmailExtensions
             From = new MailAddress(emailFrom),
             Subject = subject
         };
+        
+        message.To.Add(new MailAddress(emailTo));
 
         return await sender.SendEmailAsync(message, cancellationToken);
     }

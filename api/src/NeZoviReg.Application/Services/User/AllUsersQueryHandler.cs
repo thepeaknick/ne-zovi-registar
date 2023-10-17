@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using NeZoviReg.Abstractions.Extensions.Paging;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
@@ -8,7 +9,7 @@ using NeZoviReg.Abstractions.Shared.Errors;
 
 namespace NeZoviReg.Application.Services.User;
 
-internal sealed class AllUsersQueryHandler : IQueryHandler<AllUsersQuery, List<UserDto>>
+internal sealed class AllUsersQueryHandler : IQueryHandler<AllUsersQuery, PagedList<UserInfoDto>>
 {
     private readonly IUserDataStore _userDataStore;
     private readonly IMapper _mapper;
@@ -19,12 +20,13 @@ internal sealed class AllUsersQueryHandler : IQueryHandler<AllUsersQuery, List<U
         _mapper = mapper;
     }
 
-    public async Task<Result<List<UserDto>>> Handle(AllUsersQuery query, CancellationToken cancellationToken)
+    public async Task<Result<PagedList<UserInfoDto>>> Handle(AllUsersQuery query, CancellationToken cancellationToken)
     {
-        var users = await _userDataStore.GetAll(query.After, cancellationToken);
+        var all = await _userDataStore.GetAll(query.After, query.PageInfo, cancellationToken);
 
-        return users.Any()
-            ? _mapper.Map<List<UserDto>>(users).ToList()
-            : Result.Failure<List<UserDto>>(RegErrors.User.NotFoundAfter(query.After));
+        return all.Items.Any()
+            ? new PagedList<UserInfoDto>(_mapper.Map<List<UserInfoDto>>(all.Items), all.PageInfo)
+            : Result.Failure<PagedList<UserInfoDto>>(RegErrors.User.NotFoundAfter(query.After));
+
     }
 }

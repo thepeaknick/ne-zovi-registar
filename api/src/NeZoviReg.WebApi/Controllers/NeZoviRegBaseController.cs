@@ -2,9 +2,13 @@
 using MediatR;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
+using NeZoviReg.Abstractions.Extensions.Paging;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Enums;
 using NeZoviReg.Abstractions.Shared.Model;
+using NeZoviReg.WebApi.Infrastructure;
+using NeZoviReg.WebApi.Model.Paging;
 using static NeZoviReg.WebApi.Extensions.WebApi.WebApiExtensions;
 
 namespace NeZoviReg.WebApi.Controllers;
@@ -16,6 +20,7 @@ namespace NeZoviReg.WebApi.Controllers;
 [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.TooManyRequests)]
 [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.InternalServerError)]
 [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
+[EnableRateLimiting(Const.AuthenticatedLogin)]
 public class NeZoviRegBaseController : ControllerBase
 {
     protected readonly ISender Sender;
@@ -44,4 +49,33 @@ public class NeZoviRegBaseController : ControllerBase
                         StatusCodes.Status400BadRequest,
                         result.Error))
         };
+    
+    
+    protected PageInfo GetPageInfo()
+    {
+        return new PageInfo
+        {
+            CurrentCursor = GetFormOrQueryParameter<long?>(PagingParameterName.Cursor) ?? 0,
+            PageSize = GetFormOrQueryParameter<int?>(PagingParameterName.PageSize) ?? PageInfo.DefaultPageSize
+        };
+    }
+
+    private T GetFormOrQueryParameter<T>(string name)
+    {
+        string value = null;
+        if (Request.HasFormContentType)
+            value = Request.Form.GetFirstOrDefault(name);
+
+        if (value == null)
+            value = Request.Query.GetFirstOrDefault(name);
+
+        if (value == null)
+            return default(T);
+
+        // handle possible nullable structs
+        var type = typeof(T);
+        var underlyingType = Nullable.GetUnderlyingType(type);
+
+        return (T)Convert.ChangeType(value, underlyingType ?? type);
+    }
 }

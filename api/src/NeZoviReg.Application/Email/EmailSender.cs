@@ -28,8 +28,6 @@ public class EmailSender :IEmailSender
 
         LogMessage(message);
 
-        message.To.Add(new MailAddress(_options.EmailTo));
-
         using var client = SmtpClient;
 
         await client.SendMailAsync(message, cancellationToken);

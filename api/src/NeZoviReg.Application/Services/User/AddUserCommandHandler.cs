@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using NeZoviReg.Abstractions.Extensions.Domain;
 using NeZoviReg.Abstractions.Infrastructure.DataStores;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
@@ -29,7 +30,7 @@ internal sealed class AddUserCommandHandler : ICommandHandler<AddUserCommand, Li
         foreach (var phoneNumber in command.PhoneNumbers)
         {
             var user =
-                new Domain.Model.Domain.User(command.FirstName, command.LastName, phoneNumber)
+                new Domain.Model.Domain.User(command.FirstName, command.LastName, phoneNumber.FormatPhoneNumber())
                     .AddJmbg(command.Jmbg)
                     .AddOperator(command.OperatorId);
 

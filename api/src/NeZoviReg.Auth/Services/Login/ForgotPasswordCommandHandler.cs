@@ -50,7 +50,7 @@ internal sealed class ForgotPasswordCommandHandler : ICommandHandler<ForgotPassC
 
         var htmlContent = await CreateEmailBody(tokenResult);
 
-        if (!await _emailSender.SendEmailAsync(_options.EmailFrom!, _options.Subject!, htmlContent, true,
+        if (!await _emailSender.SendEmailAsync(_options.EmailFrom!, command.Email, _options.Subject!, htmlContent, true,
                 cancellationToken)) 
             return Result.Failure<string>(RegErrors.RegUser.EmailNotSent);
         

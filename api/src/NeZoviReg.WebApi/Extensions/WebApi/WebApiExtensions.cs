@@ -32,4 +32,8 @@ public static class WebApiExtensions
             Status = status,
             Extensions = { { nameof(errors), errors } }
         };*/
+    
+    public static string GetFirstOrDefault(this IFormCollection form, string key) => form?[key].FirstOrDefault();
+
+    public static string GetFirstOrDefault(this IQueryCollection query, string key) => query?[key].FirstOrDefault();
 }

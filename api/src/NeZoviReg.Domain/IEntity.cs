@@ -7,7 +7,8 @@ public interface IEntity : IAuditableEntity
 {
     int Id { get; }
 
-    byte[] Rowversion { get; }
+    //byte[] for SQL SERVER
+    /*byte[]*/DateTime Rowversion { get; }
 
     bool New => CreatedOn == default;
 }

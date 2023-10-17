@@ -6,252 +6,260 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace NeZoviReg.Migrations.Ef.Migrations
 {
     /// <inheritdoc />
-    public partial class RegUserResetToken : Migration
+    public partial class User_Active_Add_DefaultValue : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "Email",
-                table: "RegUser",
-                type: "nvarchar(50)",
-                maxLength: 50,
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AddColumn<string>(
-                name: "ForgotPasswordToken",
-                table: "RegUser",
-                type: "nvarchar(max)",
-                nullable: true);
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "ForgotPasswordTokenExpirationTime",
-                table: "RegUser",
-                type: "datetime2",
-                nullable: true);
+            migrationBuilder.AlterColumn<bool>(
+                name: "Active",
+                table: "User",
+                type: "tinyint(1)",
+                nullable: true,
+                defaultValue: true,
+                oldClrType: typeof(bool),
+                oldType: "tinyint(1)",
+                oldNullable: true,
+                oldDefaultValueSql: "1");
 
             migrationBuilder.UpdateData(
                 table: "Permission",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedOn",
-                value: new DateTime(2023, 6, 10, 10, 26, 30, 966, DateTimeKind.Local).AddTicks(2884));
+                value: new DateTime(2023, 8, 10, 21, 1, 46, 433, DateTimeKind.Local).AddTicks(675));
 
             migrationBuilder.UpdateData(
                 table: "Permission",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CreatedOn",
-                value: new DateTime(2023, 6, 10, 10, 26, 30, 966, DateTimeKind.Local).AddTicks(2947));
+                value: new DateTime(2023, 8, 10, 21, 1, 46, 433, DateTimeKind.Local).AddTicks(722));
 
             migrationBuilder.UpdateData(
                 table: "Permission",
                 keyColumn: "Id",
                 keyValue: 8,
                 column: "CreatedOn",
-                value: new DateTime(2023, 6, 10, 10, 26, 30, 966, DateTimeKind.Local).AddTicks(2945));
+                value: new DateTime(2023, 8, 10, 21, 1, 46, 433, DateTimeKind.Local).AddTicks(721));
 
             migrationBuilder.UpdateData(
                 table: "Permission",
                 keyColumn: "Id",
                 keyValue: 16,
                 column: "CreatedOn",
-                value: new DateTime(2023, 6, 10, 10, 26, 30, 966, DateTimeKind.Local).AddTicks(2942));
-
-            migrationBuilder.UpdateData(
-                table: "RegUser",
-                keyColumn: "Id",
-                keyValue: 1,
-                columns: new[] { "CreatedOn", "Email", "ForgotPasswordToken", "ForgotPasswordTokenExpirationTime", "GuidId" },
-                values: new object[] { new DateTime(2023, 6, 10, 10, 26, 30, 985, DateTimeKind.Local).AddTicks(2132), "ratel@ratel.rs", null, null, new Guid("4de0117c-e830-4295-81f1-ae81582c776c") });
-
-            migrationBuilder.UpdateData(
-                table: "RegUserRole",
-                keyColumns: new[] { "RegUserId", "RoleId" },
-                keyValues: new object[] { 1, 1 },
-                column: "CreatedOn",
-                value: new DateTime(2023, 6, 10, 10, 26, 30, 975, DateTimeKind.Local).AddTicks(9944));
-
-            migrationBuilder.UpdateData(
-                table: "Role",
-                keyColumn: "Id",
-                keyValue: 1,
-                column: "CreatedOn",
-                value: new DateTime(2023, 6, 10, 10, 26, 30, 983, DateTimeKind.Local).AddTicks(299));
-
-            migrationBuilder.UpdateData(
-                table: "Role",
-                keyColumn: "Id",
-                keyValue: 2,
-                column: "CreatedOn",
-                value: new DateTime(2023, 6, 10, 10, 26, 30, 983, DateTimeKind.Local).AddTicks(358));
-
-            migrationBuilder.UpdateData(
-                table: "Role",
-                keyColumn: "Id",
-                keyValue: 3,
-                column: "CreatedOn",
-                value: new DateTime(2023, 6, 10, 10, 26, 30, 983, DateTimeKind.Local).AddTicks(354));
-
-            migrationBuilder.UpdateData(
-                table: "RolePermission",
-                keyColumns: new[] { "PermissionId", "RoleId" },
-                keyValues: new object[] { 2, 1 },
-                column: "CreatedOn",
-                value: new DateTime(2023, 6, 10, 10, 26, 30, 984, DateTimeKind.Local).AddTicks(2088));
-
-            migrationBuilder.UpdateData(
-                table: "RolePermission",
-                keyColumns: new[] { "PermissionId", "RoleId" },
-                keyValues: new object[] { 16, 2 },
-                column: "CreatedOn",
-                value: new DateTime(2023, 6, 10, 10, 26, 30, 984, DateTimeKind.Local).AddTicks(2139));
-
-            migrationBuilder.UpdateData(
-                table: "RolePermission",
-                keyColumns: new[] { "PermissionId", "RoleId" },
-                keyValues: new object[] { 4, 3 },
-                column: "CreatedOn",
-                value: new DateTime(2023, 6, 10, 10, 26, 30, 984, DateTimeKind.Local).AddTicks(2129));
-
-            migrationBuilder.UpdateData(
-                table: "RolePermission",
-                keyColumns: new[] { "PermissionId", "RoleId" },
-                keyValues: new object[] { 8, 3 },
-                column: "CreatedOn",
-                value: new DateTime(2023, 6, 10, 10, 26, 30, 984, DateTimeKind.Local).AddTicks(2133));
-
-            migrationBuilder.UpdateData(
-                table: "RolePermission",
-                keyColumns: new[] { "PermissionId", "RoleId" },
-                keyValues: new object[] { 16, 3 },
-                column: "CreatedOn",
-                value: new DateTime(2023, 6, 10, 10, 26, 30, 984, DateTimeKind.Local).AddTicks(2136));
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RegUser_Email",
-                table: "RegUser",
-                column: "Email",
-                unique: true);
-        }
-
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropIndex(
-                name: "IX_RegUser_Email",
-                table: "RegUser");
-
-            migrationBuilder.DropColumn(
-                name: "Email",
-                table: "RegUser");
-
-            migrationBuilder.DropColumn(
-                name: "ForgotPasswordToken",
-                table: "RegUser");
-
-            migrationBuilder.DropColumn(
-                name: "ForgotPasswordTokenExpirationTime",
-                table: "RegUser");
-
-            migrationBuilder.UpdateData(
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 2,
-                column: "CreatedOn",
-                value: new DateTime(2023, 6, 7, 17, 28, 23, 631, DateTimeKind.Local).AddTicks(3470));
-
-            migrationBuilder.UpdateData(
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 4,
-                column: "CreatedOn",
-                value: new DateTime(2023, 6, 7, 17, 28, 23, 631, DateTimeKind.Local).AddTicks(3522));
-
-            migrationBuilder.UpdateData(
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 8,
-                column: "CreatedOn",
-                value: new DateTime(2023, 6, 7, 17, 28, 23, 631, DateTimeKind.Local).AddTicks(3521));
-
-            migrationBuilder.UpdateData(
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 16,
-                column: "CreatedOn",
-                value: new DateTime(2023, 6, 7, 17, 28, 23, 631, DateTimeKind.Local).AddTicks(3519));
+                value: new DateTime(2023, 8, 10, 21, 1, 46, 433, DateTimeKind.Local).AddTicks(719));
 
             migrationBuilder.UpdateData(
                 table: "RegUser",
                 keyColumn: "Id",
                 keyValue: 1,
                 columns: new[] { "CreatedOn", "GuidId" },
-                values: new object[] { new DateTime(2023, 6, 7, 17, 28, 23, 652, DateTimeKind.Local).AddTicks(363), new Guid("5175b8da-e5dc-4da1-a557-5a69e0e1b9b4") });
+                values: new object[] { new DateTime(2023, 8, 10, 21, 1, 46, 444, DateTimeKind.Local).AddTicks(9991), new Guid("ab7e1704-f2c1-42ed-be53-f658ccb20977") });
+
+            migrationBuilder.UpdateData(
+                table: "RegUser",
+                keyColumn: "Id",
+                keyValue: 2,
+                columns: new[] { "CreatedOn", "GuidId" },
+                values: new object[] { new DateTime(2023, 8, 10, 21, 1, 46, 445, DateTimeKind.Local).AddTicks(20), new Guid("a8a1216f-f18b-4205-ac9f-d0bfc0e7bfc2") });
 
             migrationBuilder.UpdateData(
                 table: "RegUserRole",
                 keyColumns: new[] { "RegUserId", "RoleId" },
                 keyValues: new object[] { 1, 1 },
                 column: "CreatedOn",
-                value: new DateTime(2023, 6, 7, 17, 28, 23, 642, DateTimeKind.Local).AddTicks(6310));
+                value: new DateTime(2023, 8, 10, 21, 1, 46, 439, DateTimeKind.Local).AddTicks(5991));
+
+            migrationBuilder.UpdateData(
+                table: "RegUserRole",
+                keyColumns: new[] { "RegUserId", "RoleId" },
+                keyValues: new object[] { 2, 1 },
+                column: "CreatedOn",
+                value: new DateTime(2023, 8, 10, 21, 1, 46, 439, DateTimeKind.Local).AddTicks(6018));
 
             migrationBuilder.UpdateData(
                 table: "Role",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedOn",
-                value: new DateTime(2023, 6, 7, 17, 28, 23, 649, DateTimeKind.Local).AddTicks(8832));
+                value: new DateTime(2023, 8, 10, 21, 1, 46, 443, DateTimeKind.Local).AddTicks(6744));
 
             migrationBuilder.UpdateData(
                 table: "Role",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedOn",
-                value: new DateTime(2023, 6, 7, 17, 28, 23, 649, DateTimeKind.Local).AddTicks(8894));
+                value: new DateTime(2023, 8, 10, 21, 1, 46, 443, DateTimeKind.Local).AddTicks(6785));
 
             migrationBuilder.UpdateData(
                 table: "Role",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedOn",
-                value: new DateTime(2023, 6, 7, 17, 28, 23, 649, DateTimeKind.Local).AddTicks(8891));
+                value: new DateTime(2023, 8, 10, 21, 1, 46, 443, DateTimeKind.Local).AddTicks(6783));
 
             migrationBuilder.UpdateData(
                 table: "RolePermission",
                 keyColumns: new[] { "PermissionId", "RoleId" },
                 keyValues: new object[] { 2, 1 },
                 column: "CreatedOn",
-                value: new DateTime(2023, 6, 7, 17, 28, 23, 651, DateTimeKind.Local).AddTicks(1050));
+                value: new DateTime(2023, 8, 10, 21, 1, 46, 444, DateTimeKind.Local).AddTicks(4578));
 
             migrationBuilder.UpdateData(
                 table: "RolePermission",
                 keyColumns: new[] { "PermissionId", "RoleId" },
                 keyValues: new object[] { 16, 2 },
                 column: "CreatedOn",
-                value: new DateTime(2023, 6, 7, 17, 28, 23, 651, DateTimeKind.Local).AddTicks(1089));
+                value: new DateTime(2023, 8, 10, 21, 1, 46, 444, DateTimeKind.Local).AddTicks(4603));
 
             migrationBuilder.UpdateData(
                 table: "RolePermission",
                 keyColumns: new[] { "PermissionId", "RoleId" },
                 keyValues: new object[] { 4, 3 },
                 column: "CreatedOn",
-                value: new DateTime(2023, 6, 7, 17, 28, 23, 651, DateTimeKind.Local).AddTicks(1078));
+                value: new DateTime(2023, 8, 10, 21, 1, 46, 444, DateTimeKind.Local).AddTicks(4597));
 
             migrationBuilder.UpdateData(
                 table: "RolePermission",
                 keyColumns: new[] { "PermissionId", "RoleId" },
                 keyValues: new object[] { 8, 3 },
                 column: "CreatedOn",
-                value: new DateTime(2023, 6, 7, 17, 28, 23, 651, DateTimeKind.Local).AddTicks(1083));
+                value: new DateTime(2023, 8, 10, 21, 1, 46, 444, DateTimeKind.Local).AddTicks(4599));
 
             migrationBuilder.UpdateData(
                 table: "RolePermission",
                 keyColumns: new[] { "PermissionId", "RoleId" },
                 keyValues: new object[] { 16, 3 },
                 column: "CreatedOn",
-                value: new DateTime(2023, 6, 7, 17, 28, 23, 651, DateTimeKind.Local).AddTicks(1085));
+                value: new DateTime(2023, 8, 10, 21, 1, 46, 444, DateTimeKind.Local).AddTicks(4601));
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.AlterColumn<bool>(
+                name: "Active",
+                table: "User",
+                type: "tinyint(1)",
+                nullable: true,
+                defaultValueSql: "1",
+                oldClrType: typeof(bool),
+                oldType: "tinyint(1)",
+                oldNullable: true,
+                oldDefaultValue: true);
+
+            migrationBuilder.UpdateData(
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 2,
+                column: "CreatedOn",
+                value: new DateTime(2023, 8, 10, 20, 59, 17, 791, DateTimeKind.Local).AddTicks(3542));
+
+            migrationBuilder.UpdateData(
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 4,
+                column: "CreatedOn",
+                value: new DateTime(2023, 8, 10, 20, 59, 17, 791, DateTimeKind.Local).AddTicks(3588));
+
+            migrationBuilder.UpdateData(
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 8,
+                column: "CreatedOn",
+                value: new DateTime(2023, 8, 10, 20, 59, 17, 791, DateTimeKind.Local).AddTicks(3586));
+
+            migrationBuilder.UpdateData(
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 16,
+                column: "CreatedOn",
+                value: new DateTime(2023, 8, 10, 20, 59, 17, 791, DateTimeKind.Local).AddTicks(3585));
+
+            migrationBuilder.UpdateData(
+                table: "RegUser",
+                keyColumn: "Id",
+                keyValue: 1,
+                columns: new[] { "CreatedOn", "GuidId" },
+                values: new object[] { new DateTime(2023, 8, 10, 20, 59, 17, 804, DateTimeKind.Local).AddTicks(7379), new Guid("45ad6b5f-dc28-40bd-87c7-cd2fe1e8f447") });
+
+            migrationBuilder.UpdateData(
+                table: "RegUser",
+                keyColumn: "Id",
+                keyValue: 2,
+                columns: new[] { "CreatedOn", "GuidId" },
+                values: new object[] { new DateTime(2023, 8, 10, 20, 59, 17, 804, DateTimeKind.Local).AddTicks(7408), new Guid("727bb424-f5ac-420f-9a1d-a09303bdb91e") });
+
+            migrationBuilder.UpdateData(
+                table: "RegUserRole",
+                keyColumns: new[] { "RegUserId", "RoleId" },
+                keyValues: new object[] { 1, 1 },
+                column: "CreatedOn",
+                value: new DateTime(2023, 8, 10, 20, 59, 17, 799, DateTimeKind.Local).AddTicks(1325));
+
+            migrationBuilder.UpdateData(
+                table: "RegUserRole",
+                keyColumns: new[] { "RegUserId", "RoleId" },
+                keyValues: new object[] { 2, 1 },
+                column: "CreatedOn",
+                value: new DateTime(2023, 8, 10, 20, 59, 17, 799, DateTimeKind.Local).AddTicks(1385));
+
+            migrationBuilder.UpdateData(
+                table: "Role",
+                keyColumn: "Id",
+                keyValue: 1,
+                column: "CreatedOn",
+                value: new DateTime(2023, 8, 10, 20, 59, 17, 803, DateTimeKind.Local).AddTicks(7376));
+
+            migrationBuilder.UpdateData(
+                table: "Role",
+                keyColumn: "Id",
+                keyValue: 2,
+                column: "CreatedOn",
+                value: new DateTime(2023, 8, 10, 20, 59, 17, 803, DateTimeKind.Local).AddTicks(7411));
+
+            migrationBuilder.UpdateData(
+                table: "Role",
+                keyColumn: "Id",
+                keyValue: 3,
+                column: "CreatedOn",
+                value: new DateTime(2023, 8, 10, 20, 59, 17, 803, DateTimeKind.Local).AddTicks(7409));
+
+            migrationBuilder.UpdateData(
+                table: "RolePermission",
+                keyColumns: new[] { "PermissionId", "RoleId" },
+                keyValues: new object[] { 2, 1 },
+                column: "CreatedOn",
+                value: new DateTime(2023, 8, 10, 20, 59, 17, 804, DateTimeKind.Local).AddTicks(2946));
+
+            migrationBuilder.UpdateData(
+                table: "RolePermission",
+                keyColumns: new[] { "PermissionId", "RoleId" },
+                keyValues: new object[] { 16, 2 },
+                column: "CreatedOn",
+                value: new DateTime(2023, 8, 10, 20, 59, 17, 804, DateTimeKind.Local).AddTicks(2969));
+
+            migrationBuilder.UpdateData(
+                table: "RolePermission",
+                keyColumns: new[] { "PermissionId", "RoleId" },
+                keyValues: new object[] { 4, 3 },
+                column: "CreatedOn",
+                value: new DateTime(2023, 8, 10, 20, 59, 17, 804, DateTimeKind.Local).AddTicks(2964));
+
+            migrationBuilder.UpdateData(
+                table: "RolePermission",
+                keyColumns: new[] { "PermissionId", "RoleId" },
+                keyValues: new object[] { 8, 3 },
+                column: "CreatedOn",
+                value: new DateTime(2023, 8, 10, 20, 59, 17, 804, DateTimeKind.Local).AddTicks(2966));
+
+            migrationBuilder.UpdateData(
+                table: "RolePermission",
+                keyColumns: new[] { "PermissionId", "RoleId" },
+                keyValues: new object[] { 16, 3 },
+                column: "CreatedOn",
+                value: new DateTime(2023, 8, 10, 20, 59, 17, 804, DateTimeKind.Local).AddTicks(2968));
         }
     }
 }

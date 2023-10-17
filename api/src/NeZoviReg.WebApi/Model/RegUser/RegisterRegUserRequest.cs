@@ -3,7 +3,7 @@
 namespace NeZoviReg.WebApi.Model.RegUser;
 
 /// <summary>
-/// Zahtev za regostraciju korisnia regisra
+/// Zahtev za registraciju korisnika regisra
 /// </summary>
 /// <param name="Name">Naziv</param>
 /// <param name="Email">Email adresa</param>
