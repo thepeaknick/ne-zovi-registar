@@ -1,101 +1,125 @@
 <!--sidebar-->
-<c-sidebar
-  #sidebar="cSidebar"
-  class="d-print-none sidebar sidebar-fixed"
-  id="sidebar"
-  visible
-  [ngStyle]="vars"
->
-  <c-sidebar-brand
-    [brandFull]="{
-      src: 'assets/brand/ratellogolightvertical.png',
-      width: 160,
-      margin: 10,
-      alt: 'CoreUI Logo'
-    }"
-    [brandNarrow]="{
-      src: 'assets/brand/ratellogolightvertical.png',
-      width: 46,
-      alt: 'CoreUI Logo'
-    }"
-    [routerLink]="
-      authenticationService.CurrentUser?.role == 1
-        ? './admin'
-        : './registry/users'
-    "
+<ng-container *transloco="let t">
+  <c-sidebar
+    #sidebar="cSidebar"
+    class="d-print-none sidebar sidebar-fixed"
+    id="sidebar"
+    visible
+    [ngStyle]="vars"
   >
-  </c-sidebar-brand>
-
-  <c-sidebar-nav [navItems]="navItems" dropdownMode="path">
-    <button
-      [cModalToggle]="theverticallyCenteredModal.id"
-      type="button"
-      class="signoutSidebarButton"
-      cSidebarToggle="sidebar"
+    <c-sidebar-brand
+      [brandFull]="{
+        src: 'assets/brand/ratellogolightvertical.png',
+        width: 160,
+        margin: 10,
+        alt: 'CoreUI Logo'
+      }"
+      [brandNarrow]="{
+        src: 'assets/brand/ratellogolightvertical.png',
+        width: 46,
+        alt: 'CoreUI Logo'
+      }"
+      [routerLink]="
+        authenticationService.CurrentUser?.role == 1
+          ? './admin'
+          : './registry/users'
+      "
     >
-      <svg [cIcon]="icons.cilExitToApp" class="signoutIcon"></svg>
-      Sign out
-    </button>
-  </c-sidebar-nav>
+    </c-sidebar-brand>
+    
+    <c-sidebar-nav dropdownMode="path">
+      <div class="c-sidebar-nav-item" *ngFor="let navItem of navItems">
+        <a class="nav-link" [routerLink]="[navItem.url]" *ngIf="!navItem.children">
+          <svg [cIcon]="iconMapping[navItem.iconComponent.name]" class="sidebarIcon" ></svg>
+          {{ t(navItem.name ?? "") }}
+        </a>
+        <div class="c-sidebar-nav-item" *ngIf="navItem.children">
+          <a class="nav-link" (click)="handleClick()">
+            <svg [cIcon]="iconMapping[navItem.iconComponent.name]" class="sidebarIcon" ></svg>
+            {{ t(navItem.name ?? "") }}
+            <svg [cIcon]="icons.cilChevronRight" class="sidebarIcon" *ngIf="!showSidebarChildren"></svg>
+            <svg [cIcon]="icons.cilChevronBottom" class="sidebarIcon" *ngIf="showSidebarChildren"></svg>
+          </a> 
+          <div class="c-sidebar-nav-dropdown-items" *ngIf="showSidebarChildren">
+            <div *ngFor="let childItem of navItem.children">
+              <a class="nav-link" [routerLink]="childItem.url">
+                <svg [cIcon]="iconMapping[childItem.iconComponent.name]" class="sidebarChildrenIcon" ></svg>
+                {{ t(childItem.name ?? "") }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        [cModalToggle]="theverticallyCenteredModal.id"
+        type="button"
+        class="signoutSidebarButton"
+        cSidebarToggle="sidebar"
+      >
+        <svg [cIcon]="icons.cilExitToApp" class="signoutIcon"></svg>
+        {{ t('Sign out') }}
+      </button>
+    </c-sidebar-nav>
 
-  <c-sidebar-toggler
-    *ngIf="!sidebar.narrow"
-    toggle="unfoldable"
-    cSidebarToggle="sidebar"
-  ></c-sidebar-toggler>
-</c-sidebar>
-
-<!--main-->
-<div class="wrapper d-flex flex-column min-vh-100 bg-light dark:bg-transparent">
-  <!--app-header-->
-  <app-default-header
-    class="mb-4 d-print-none header header-sticky"
-    position="sticky"
-    sidebarId="sidebar"
-  ></app-default-header>
-  <!--app-body-->
-  <div class="body flex-grow-1 px-3">
-    <c-container breakpoint="lg" class="h-auto">
-      <router-outlet></router-outlet>
-    </c-container>
-  </div>
-  <!--app footer-->
-  <!-- <app-default-footer></app-default-footer> -->
-</div>
-
-<c-modal
-  #theverticallyCenteredModal
-  alignment="center"
-  id="theverticallyCenteredModal"
->
-  <c-modal-header>
-    <p class="modalHeader">
-      Pokušavate da napustite stranicu registra "NE ZOVI"
-    </p>
-    <button
-      [cModalToggle]="theverticallyCenteredModal.id"
+    <c-sidebar-toggler
+      *ngIf="!sidebar.narrow"
+      toggle="unfoldable"
       cSidebarToggle="sidebar"
-      cButtonClose
-    ></button>
-  </c-modal-header>
-  <c-modal-body>
-    <p class="modalBodyTitle">Da li ste sigurni?</p>
-    <form cForm>
-      <input
-        cButton
-        class="signOutButton"
-        type="submit"
-        value="Sign out"
-        (click)="logout()"
-      />
-      <input
-        cButton
-        class="cancelButton"
-        type="submit"
-        value="Cancel"
+    ></c-sidebar-toggler>
+  </c-sidebar>
+
+  <!--main-->
+  <div class="wrapper d-flex flex-column min-vh-100 bg-light dark:bg-transparent">
+    <!--app-header-->
+    <app-default-header
+      class="mb-4 d-print-none header header-sticky"
+      position="sticky"
+      sidebarId="sidebar"
+    ></app-default-header>
+    <!--app-body-->
+    <div class="body flex-grow-1 px-3">
+      <c-container breakpoint="lg" class="h-auto">
+        <router-outlet></router-outlet>
+      </c-container>
+    </div>
+    <!--app footer-->
+    <!-- <app-default-footer></app-default-footer> -->
+  </div>
+
+  <c-modal
+    #theverticallyCenteredModal
+    alignment="center"
+    id="theverticallyCenteredModal"
+  >
+    <c-modal-header>
+      <p class="modalHeader">
+        Pokušavate da napustite stranicu registra "NE ZOVI"
+      </p>
+      <button
         [cModalToggle]="theverticallyCenteredModal.id"
         cSidebarToggle="sidebar"
-      />
-    </form>
-  </c-modal-body>
-</c-modal>
+        cButtonClose
+      ></button>
+    </c-modal-header>
+    <c-modal-body>
+      <p class="modalBodyTitle">Da li ste sigurni?</p>
+      <form cForm>
+        <input
+          cButton
+          class="signOutButton"
+          type="submit"
+          value="Sign out"
+          (click)="logout()"
+        />
+        <input
+          cButton
+          class="cancelButton"
+          type="submit"
+          value="Cancel"
+          [cModalToggle]="theverticallyCenteredModal.id"
+          cSidebarToggle="sidebar"
+        />
+      </form>
+    </c-modal-body>
+  </c-modal>
+</ng-container>
