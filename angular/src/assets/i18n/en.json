@@ -109,5 +109,14 @@
   "Uspešno ste registrovali novog trgovca": "You have successfully registered a new merchant",
   "Ime odgovornog lica": "First name",
   "Prezime odgovornog lica": "Last name",
-  "Dodaj trgovca": "Add a merchant"
+  "Dodaj trgovca": "Add a merchant",
+
+  "Početna": "Home",
+  "Registar": "Register",
+  "Korisnici": "Users",
+  "Obveznici": "Operators",
+  "Trgovci": "Merchants",
+  "Podešavanja": "Settings",
+  "Kontaktirajte nas": "Contact us",
+  "Sign out": "Sign out"
 }

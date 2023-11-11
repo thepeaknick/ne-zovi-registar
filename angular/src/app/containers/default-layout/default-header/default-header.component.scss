@@ -1,5 +1,5 @@
 .headerContainer {
-  height: 10vh;
+  // height: 10vh;
   vertical-align: middle;
 }
 
@@ -81,9 +81,9 @@
     width: 100%;
     text-align: center;
   }
-  .headerContainer {
-    height: 30vh;
-  }
+  // .headerContainer {
+  //   height: 30vh;
+  // }
 }
 
 @media screen and (max-width: 767px) {
@@ -98,4 +98,8 @@
 
 .userColumn {
   display: inline;
+}
+
+c-row {
+  align-items: center;
 }

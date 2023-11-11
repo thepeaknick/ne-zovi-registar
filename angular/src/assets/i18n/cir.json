@@ -109,5 +109,14 @@
   "Uspešno ste registrovali novog trgovca": "Успешно сте регистровали новог трговца",
   "Ime odgovornog lica": "Име одговорног лица",
   "Prezime odgovornog lica": "Презиме одговорног лица",
-  "Dodaj trgovca": "Додај трговца"
+  "Dodaj trgovca": "Додај трговца",
+
+  "Početna": "Почетна",
+  "Registar": "Регистар",
+  "Korisnici": "Корисници",
+  "Obveznici": "Обвезници",
+  "Trgovci": "Трговци",
+  "Podešavanja": "Подешавања",
+  "Kontaktirajte nas": "Контактирајте нас",
+  "Sign out": "Одјави се"
 }

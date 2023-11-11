@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { navItems, ICustomNavData } from './_nav';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,17 +13,41 @@ import {
   cilSettings,
   cilPuzzle,
   cilEnvelopeClosed,
+  cilChevronRight,
+  cilChevronBottom
 } from '@coreui/icons';
 import { RoleType } from 'src/app/domain/model/schemas';
 import { IconSetService } from '@coreui/icons-angular';
+
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './default-layout.component.html',
   styleUrls: ['./default-layout.component.scss'],
 })
-export class DefaultLayoutComponent {
-  icons = { cilExitToApp };
+export class DefaultLayoutComponent implements OnInit{
+
+  showSidebarChildren = false;
+
+  handleClick() {
+    this.showSidebarChildren = !this.showSidebarChildren
+    // Add your click logic here, e.g., navigate to a URL
+    console.log('Clicked on');
+  }
+
+  icons = { cilExitToApp, cilChevronRight, cilChevronBottom };
+
+  iconMapping: { [key: string]: any } = {
+    'pocetna': cilUser,
+    'registar': cilSpreadsheet,
+    'korisnici': cilGroup,
+    'obveznici': cilBriefcase,
+    'trgovci': cilCart,
+    'podesavanja': cilSettings,
+    'pomoc': cilPuzzle,
+    'kontakt': cilEnvelopeClosed,
+  };
 
   public navItems = navItems;
 
@@ -39,7 +63,8 @@ export class DefaultLayoutComponent {
     private route: ActivatedRoute,
     public iconSet: IconSetService,
     public authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private transloco: TranslocoService
   ) {
     this.id = 0;
     this.role = 0;
@@ -52,6 +77,10 @@ export class DefaultLayoutComponent {
 
     this.navItems = this.filterNavItems(navItems, [RoleType[role]]) ?? [];
 
+    // this.transloco.langChanges$.subscribe((newLang) => {
+    //   this.updateNavItemsWithTranslations(newLang);
+    // });
+
     iconSet.icons = {
       cilExitToApp,
       cilUser,
@@ -62,7 +91,26 @@ export class DefaultLayoutComponent {
       cilSettings,
       cilPuzzle,
       cilEnvelopeClosed,
+      cilChevronRight,
+      cilChevronBottom
     };
+  }
+
+  
+
+  private updateNavItemsWithTranslations(language: string): void {
+    console.log("Lang ", this.transloco.getActiveLang())
+    // navItem.name = this.transloco.translate(String(navItem.name))
+    // Iterate through the navItems and update the name property with translations
+    this.navItems = this.navItems.map((navItem) => {
+      console.log("navItem ", navItem)
+      navItem.name = this.transloco.translate(navItem.name ?? "", undefined, language);
+      console.log("navItem1 ",this.transloco.translate(navItem.name ?? ""))
+      return navItem;
+    });
+    
+    // Trigger Transloco's change detection to ensure translations are updated
+    // this.transloco.markDirty('your-translation-scope'); // Replace with your actual translation scope
   }
 
   filterNavItems(
@@ -74,8 +122,9 @@ export class DefaultLayoutComponent {
     if (navItems) {
       newNavItems = [];
       navItems.forEach((navItem) => {
-        if (navItem.roles === undefined && navItem.children === undefined)
+        if (navItem.roles === undefined && navItem.children === undefined) {
           newNavItems?.push(navItem);
+        }
         else {
           let found = false;
           roles.forEach((r) => {
@@ -117,6 +166,12 @@ export class DefaultLayoutComponent {
       this.id = params['id'];
       this.role = params['userRole'];
     });
+
+    // this.transloco.events$.subscribe((lang) =>  {
+    //   console.log(lang, "LANG")
+    //   this.updateNavItemsWithTranslations(lang.payload.langName);
+    // });
+
   }
 
   vars = {
