@@ -8,7 +8,7 @@ export class TranslocoHttpLoader implements TranslocoLoader {
 
   getTranslation(lang: string) {
     return this.http.get<Translation>(
-      `https://nezovi.rs/assets/i18n/${lang}.json`
+      `https://www.nezovi.rs/assets/i18n/${lang}.json`
       // `http://localhost:4200/assets/i18n/${lang}.json`
     );
   }
