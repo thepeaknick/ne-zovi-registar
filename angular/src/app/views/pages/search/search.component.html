@@ -15,6 +15,21 @@
                 <c-col> </c-col>
               </c-row>
               <form cForm (ngSubmit)="checkNumber()">
+                <h2
+                  *ngIf="showSearchMessage && isFound"
+                  class="searchResultText green"
+                >
+                  {{ t("TELEFONSKI BROJ JE REGISTROVAN U BAZI") }}
+                </h2>
+                <h2
+                  *ngIf="showSearchMessage && !isFound"
+                  class="searchResultText red"
+                >
+                  {{ t("TELEFONSKI BROJ NIJE REGISTROVAN U BAZI") }}
+                </h2>
+                <h2 *ngIf="!isEntered" class="searchResultText red">
+                  {{ t("NIJE UNET BROJ TELEFONA ZA PRETRAGU") }}
+                </h2>
                 <div class="mb-3">
                   <label cLabel for="phoneNumber" class="phoneNumberText">{{
                     t("Broj telefona")
@@ -68,61 +83,59 @@
                     />
                   </c-row>
                 </div>
-                <div class="padding-bottom-15">
-                  <div>
-                    <a
-                      href="https://www.ratel.rs/cyr/page/cyr-pravno-obavestenje"
-                      class="link-info"
-                      >{{ t("Pravno obaveštenje") }}</a
-                    >
-                  </div>
-                  <div>
-                    <a
-                      href="https://www.ratel.rs/cyr/page/cyr-politika-privatnosti"
-                      class="link-info"
-                      >{{ t("Politika privatnosti") }}</a
-                    >
-                  </div>
+                <div>
+                  <p class="descriptionText">
+                    {{
+                      t(
+                        "Polje za pretragu prihvata sledeće formate unosa - primeri:"
+                      )
+                    }}
+                  </p>
+                  <c-row>
+                    <c-col>
+                      <span class="left">
+                        <ul class="padding-15-5">
+                          <li>381641234567</li>
+                          <li>381 64 123 45 67</li>
+                          <li>641234567</li>
+                          <li>0641234567</li>
+                        </ul>
+                      </span>
+                    </c-col>
+                    <c-col>
+                      <span class="right">
+                        <ul class="padding-15-5">
+                          <li>381111234567</li>
+                          <li>381 11 123 45 67</li>
+                          <li>111234567</li>
+                          <li>0111234567</li>
+                        </ul>
+                      </span>
+                    </c-col>
+                  </c-row>
+                  <c-row>
+                    <c-col>
+                      <span class="right">
+                        <div class="padding-bottom-15">
+                          <div>
+                            <a
+                              href="https://www.ratel.rs/cyr/page/cyr-pravno-obavestenje"
+                              class="link-info"
+                              >{{ t("Pravno obaveštenje") }}</a
+                            >
+                          </div>
+                          <div text-align="rigth">
+                            <a
+                              href="https://www.ratel.rs/cyr/page/cyr-politika-privatnosti"
+                              class="link-info"
+                              >{{ t("Politika privatnosti") }}</a
+                            >
+                          </div>
+                        </div>
+                      </span>
+                    </c-col>
+                  </c-row>        
                 </div>
-                <h2
-                  *ngIf="showSearchMessage && isFound"
-                  class="searchResultText green"
-                >
-                  {{ t("TELEFONSKI BROJ JE REGISTROVAN U BAZI") }}
-                </h2>
-                <h2
-                  *ngIf="showSearchMessage && !isFound"
-                  class="searchResultText red"
-                >
-                  {{ t("TELEFONSKI BROJ NIJE REGISTROVAN U BAZI") }}
-                </h2>
-                <h2 *ngIf="!isEntered" class="searchResultText red">
-                  {{ t("NIJE UNET BROJ TELEFONA ZA PRETRAGU") }}
-                </h2>
-                <p class="descriptionText">
-                  {{
-                    t(
-                      "Polje za pretragu prihvata sledeće formate unosa - primeri:"
-                    )
-                  }}
-                </p>
-                <span class="left">
-                  <ul class="padding-15-5">
-                    <li>381641234567</li>
-                    <li>381 64 123 45 67</li>
-                    <li>641234567</li>
-                    <li>0641234567</li>
-                  </ul>
-                </span>
-
-                <span class="right">
-                  <ul class="padding-15-5">
-                    <li>381111234567</li>
-                    <li>381 11 123 45 67</li>
-                    <li>111234567</li>
-                    <li>0111234567</li>
-                  </ul>
-                </span>
               </form>
             </div>
           </c-col>
