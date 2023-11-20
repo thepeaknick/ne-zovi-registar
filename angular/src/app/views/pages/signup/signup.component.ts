@@ -78,7 +78,7 @@ export class SignUpComponent implements OnInit {
     }
 
     this.regUserService
-      .registerRegUser({
+      .registerRegUserWithoutAuth({
         name: this.fields['regUserName'].value,
         address: this.fields['regUserAddress'].value,
         regNumber: this.fields['regUserMB'].value,

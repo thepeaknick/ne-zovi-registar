@@ -27,6 +27,10 @@ export class RegUserService extends BaseService {
     return this.post<RegUserDto>('/regusers/register', request);
   }
 
+  registerRegUserWithoutAuth(request: RegisterRegUserRequest): Observable<RegUserDto> {
+    return this.post<RegUserDto>('/regusers/register-trader', request);
+  }
+
   modifyRegUser(request: ModifyRegUserRequest): Observable<RegUserDto[]> {
     return this.patch<RegUserDto>('/regusers/modify', request);
   }
