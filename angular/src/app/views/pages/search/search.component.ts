@@ -43,14 +43,17 @@ export class SearchComponent {
         next: () => {
           this.isFound = true;
           this.showSearchMessage = true;
+          this.showErrorMessage = false;
         },
         error: (error) => {
           this.isFound = false;
           if (error.error != undefined) {
             this.showErrorMessage = true;
+            this.showSearchMessage = false;
             this.apiErrorMessage = error.error;
           } else {
             this.showSearchMessage = true;
+            this.showErrorMessage = false;
           }
           console.log("error: ", error.error);
         },
