@@ -46,8 +46,12 @@ export class SearchComponent {
         },
         error: (error) => {
           this.isFound = false;
-          this.showErrorMessage = true;
-          this.apiErrorMessage = error.error;
+          if (error.error != undefined) {
+            this.showErrorMessage = true;
+            this.apiErrorMessage = error.error;
+          } else {
+            this.showSearchMessage = true;
+          }
           console.log("error: ", error.error);
         },
       });
