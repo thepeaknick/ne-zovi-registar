@@ -13,6 +13,7 @@ import { RegUserService } from 'src/app/domain/services/reguser.service';
 import { RegUserDto, UserDtoPagedList } from '../../../domain/model/schemas';
 import * as XLSX from 'xlsx';
 import { BooleanInput } from '@angular/cdk/coercion';
+import { CurrentUser } from 'src/app/domain/model/current-user';
 
 @Component({
   selector: 'app-users',
@@ -31,15 +32,21 @@ export class UsersComponent implements OnInit {
     this.canAddUsers = role == RoleType.Obveznik;
     // this.canEditUsers = role == RoleType.Obveznik;
     this.canDeleteUsers = role == RoleType.Obveznik;
+
+    this.currentUsername = AuthenticationService.CurrentUser?.companyName!;
   }
+
+  @Input() currentUsername: string;
+  currentOperatorID: number | undefined;
 
   public isAddUserModalVisible: boolean = false;
   public isSuccessfulyAddedUserModalVisible: boolean = false;
   public modalText = '';
 
+  @Input() operators: RegUserDto[] = [];
+
   @Input() selectedOperator!: RegUserDto;
   @Input() selectedOperatorId: number = 0;
-  @Input() operators: RegUserDto[] = [];
 
   @Input() users!: UserDtoPagedList;
   @Input() canAddUsers: boolean = false;
@@ -208,8 +215,12 @@ export class UsersComponent implements OnInit {
     // Dohvati sve operatere
     this.regUserService.getRegUsers(RoleType.Obveznik).subscribe({
       next: (operators: RegUserDto[]) =>
-        (this.operators =
-          operators instanceof HttpErrorResponse ? [] : operators),
+        {this.operators =
+          operators instanceof HttpErrorResponse ? [] : operators;
+
+          const currentOperator = this.operators.find(operator => operator.name === this.currentUsername);
+          this.currentOperatorID = currentOperator?.id;
+        },
       complete: () => {},
     });
 
@@ -237,7 +248,7 @@ export class UsersComponent implements OnInit {
         lastName: this.fields['userLastName'].value,
         jmbg: this.fields['userJMBG'].value,
         phoneNumbers: [this.fields['userPhoneNumber'].value],
-        operatorId: this.selectedOperator.id,
+        operatorId: this.currentOperatorID!,
       })
       .subscribe({
         next: () => {

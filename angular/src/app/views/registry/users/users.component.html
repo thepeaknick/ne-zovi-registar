@@ -275,28 +275,19 @@
             </div>
           </c-col>
           <c-col [xs]="4" id="operatorCol">
-            <label cLabel for="pib" class="textInputField">{{
-              t("Operator")
-            }}</label>
-            <div
-              class="mb-3"
-              *ngFor="let div of divs"
-              id="operatorName{{ div }}"
-            >
-              <select
-                required
-                [(ngModel)]="selectedOperator"
-                aria-label="Operator"
-                cSelect
+            <div class="mb-3">
+              <label cLabel for="pib" class="textInputField">
+                {{ t("Operator") }}
+              </label>
+            
+              <input
+                cFormControl
                 formControlName="userOperator"
-              >
-                <option value="undefined" selected disabled>
-                  {{ t("Operator") }}
-                </option>
-                <option *ngFor="let operator of operators" [ngValue]="operator">
-                  {{ operator.name }}
-                </option>
-              </select>
+                type="text"
+                [placeholder]="currentUsername"
+                [value]="currentUsername"
+                readonly
+              />
             </div>
             <div class="mb-3">
               <label cLabel for="userJMBG" class="textInputField">JMBG</label>
