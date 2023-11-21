@@ -27,6 +27,12 @@
                 >
                   {{ t("TELEFONSKI BROJ NIJE REGISTROVAN U BAZI") }}
                 </h2>
+                <h2
+                  *ngIf="showErrorMessage && !isFound"
+                  class="searchResultText red"
+                >
+                  {{ t(apiErrorMessage) }}
+                </h2>
                 <h2 *ngIf="!isEntered" class="searchResultText red">
                   {{ t("NIJE UNET BROJ TELEFONA ZA PRETRAGU") }}
                 </h2>

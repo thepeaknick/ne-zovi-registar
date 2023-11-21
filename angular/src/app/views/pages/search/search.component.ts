@@ -16,6 +16,8 @@ export class SearchComponent {
   @Input() isFound: Boolean = false;
   @Input() isEntered: Boolean = true;
   @Input() showSearchMessage: Boolean = false;
+  @Input() showErrorMessage: Boolean = false;
+  @Input() apiErrorMessage: string = '';
 
   constructor(private userService: UserService) {
     this.token = undefined;
@@ -44,7 +46,9 @@ export class SearchComponent {
         },
         error: (error) => {
           this.isFound = false;
-          this.showSearchMessage = true;
+          this.showErrorMessage = true;
+          this.apiErrorMessage = error.error;
+          console.log("error: ", error.error);
         },
       });
     } else {
