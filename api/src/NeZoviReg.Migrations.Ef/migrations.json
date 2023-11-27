@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "SqlServerDatabase": "Server=CTSE-GORANZ;Database=NeZoviReg;Trusted_Connection=True;TrustServerCertificate=true;"
+  }
+}

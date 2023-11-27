@@ -1,1 +1,102 @@
-<p>contact works!</p>
+<ng-container *transloco="let t">
+  <div class="contactUsScreen">
+    <div class="contactUsForm">
+      <p *ngIf="!formSubmitted" class="titleText">{{ t('Pošaljite nam poruku') }}</p>
+      <p *ngIf="!formSubmitted" class="subtitleText">
+        {{ t('Pošaljite nam poruku i očekujte odgovor u roku od 24h') }}
+      </p>
+      <c-row>
+        <c-col xs="7">
+          <form
+            *ngIf="!formSubmitted"
+            cForm
+            class="row g-3"
+            [formGroup]="messageForm"
+          >
+            <c-col [md]="6">
+              <label cLabel for="inputName">{{ t('Ime i prezime') }}</label>
+              <input cFormControl formControlName="inputName" id="inputName" />
+            </c-col>
+            <c-col [md]="6">
+              <label cLabel for="">{{ t('Email') }}</label>
+              <input
+                cFormControl
+                type="email"
+                formControlName="inputEmail"
+                id="inputEmail"
+              />
+            </c-col>
+            <c-col [xs]="6">
+              <label cLabel for="">{{ t('Broj telefona') }}</label>
+              <input cFormControl formControlName="inputPhone" id="inputPhone" />
+            </c-col>
+            <c-col [xs]="6">
+              <label cLabel for="">{{ t('Ime firme') }}</label>
+              <input
+                cFormControl
+                formControlName="inputCompanyName"
+                id="inputCompanyName"
+              />
+            </c-col>
+            <c-col>
+              <textarea
+                cFormControl
+                [placeholder]="t('Unesite sadržaj poruke')"
+                rows="6"
+                formControlName="inputMessage"
+                id="inputMessage"
+              ></textarea>
+            </c-col>
+          </form>
+          <div *ngIf="formSubmitted">
+            <div class="centeredDiv">
+              <img src="/assets/images/tick.svg" class="tickImage" />
+              <p class="titleText">{{ t('Hvala vam!') }}</p>
+              <p class="subtitleText">
+                {{ t('Pošaljite nam poruku i očekujte odgovor u roku od 24h') }}
+              </p>
+              <button cButton class="submitButton" type="submit" (click)="done()">
+                {{ t('NAZAD') }}
+              </button>
+            </div>
+          </div>
+        </c-col>
+        <c-col xs="1"></c-col>
+        <c-col xs="4">
+          <p class="contactInfo">{{ t('Kontakt informacije') }}</p>
+          <div class="contactInfoContainer">
+            <c-col>
+              <span class="iconContainer">
+                <img src="/assets/images/locationMark.png" />
+              </span>
+              <span><a [href]="ratelMapLink" target="_blank">{{ t('Prikaži na mapi') }}</a></span>
+            </c-col>
+            <c-col>
+              <span class="iconContainer">
+                <img src="/assets/images/envelopeMark.png" />
+              </span>
+              <span>administrator@nezovi.rs</span>
+            </c-col>
+            <c-col>
+              <span class="iconContainer">
+                <img src="/assets/images/phoneMark.png" />
+              </span>
+              <span>Info centar: 0800 800 999</span></c-col
+            >
+          </div>
+        </c-col>
+      </c-row>
+      <div class="submitView">
+        <button
+          *ngIf="!formSubmitted"
+          cButton
+          class="submitButton"
+          type="submit"
+          (click)="sendMessage()"
+        >
+          {{ t('Pošalji') }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-container>

@@ -11,9 +11,6 @@ $enable-rtl: true;
 // Import Chart.js custom tooltips styles
 @import "@coreui/chartjs/scss/coreui-chartjs";
 
-// perfect scrollbar theming for use with [perfectScrollbar] directive
-//@import '~perfect-scrollbar/css/perfect-scrollbar.css';
-
 @import "layout";
 
 // Some temp fixes
@@ -24,3 +21,93 @@ $enable-rtl: true;
 
 // If you want to add something do it here
 @import "custom";
+
+@font-face {
+  font-family: "Source Sans 3";
+  src: url("../assets/fonts/Source_Sans_3/SourceSans3-VariableFont_wght.ttf");
+}
+
+.home-bck {
+  background: url("../assets/images/homebck.jpg");
+  min-height: 82vh;
+  background-size: cover;
+  // background-position-y: -60px;
+}
+.modal-content {
+  background: url("/assets/images/popupbck.png");
+  background-size: cover;
+  border: 0px;
+  border-radius: 20px;
+}
+
+c-input-group {
+  border: 0px;
+}
+
+c-sidebar-brand img {
+  margin: 10px;
+}
+
+.sidebar-nav .nav-link.active,
+.sidebar-nav .nav-link {
+  border-radius: 20px;
+  width: 85%;
+  margin-right: 10px;
+  font-family: "Source Sans 3";
+}
+
+c-sidebar-nav-group.show c-sidebar-nav c-sidebar-nav-link:last-child a:after {
+  width: 80%;
+  // border-bottom: 1px solid white !important;
+  display: block !important;
+  content: "";
+  // position: absolute;
+  // top: 18px;
+  // left: 10px;
+}
+
+.btn-close {
+  padding: 0;
+  opacity: 1;
+}
+
+c-sidebar-nav-group c-sidebar-nav-link a {
+  margin-left: 1em;
+}
+
+.tableButton {
+  min-width: 70px;
+  height: 43px;
+  margin-right: 1%;
+  border-color: #95a7c4;
+  border-width: 1px;
+
+  font-weight: 700;
+  color: #133f85;
+}
+
+.noBorder {
+  border-width: 0px;
+}
+
+tr {
+  vertical-align: middle;
+}
+
+.widgetStats c-card-body div.me-3 {
+  border-radius: 20px;
+  height: 56px;
+  width: 56px;
+}
+
+c-card-body div {
+  display: inline-block !important;
+}
+
+c-card-body div div:last-child {
+  float: right;
+}
+
+c-card-body > div {
+  width: 100%;
+}

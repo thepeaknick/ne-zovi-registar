@@ -1,0 +1,82 @@
+.adminScreen {
+  background-size: cover;
+  font-family: "Source Sans 3";
+  font-style: normal;
+}
+
+.widgetView {
+  border-radius: 25px;
+  border-width: 0px;
+  background-color: white;
+}
+
+.charts {
+  margin-top: 2%;
+}
+
+.chartView {
+  padding: 5%;
+  background-color: white;
+  border-radius: 25px;
+}
+
+.lineChartTitle {
+  font-weight: 700;
+  font-size: 25.607px;
+  line-height: 36px;
+  color: #133f85;
+}
+
+.lineChartButton {
+  width: 188px;
+  height: 43px;
+  margin-right: 1%;
+  border-color: #95a7c4;
+  border-width: 0px;
+
+  font-family: "Source Sans 3";
+  font-style: normal;
+  font-weight: 700;
+  color: #133f85;
+}
+
+.pieChartTitle {
+  padding: 5%;
+  font-weight: 700;
+  font-size: 25.607px;
+  line-height: 36px;
+  color: #133f85;
+}
+
+img {
+  border-radius: 20px;
+}
+
+.mb-3 {
+  border-radius: 25px;
+  border-width: 0px;
+}
+
+c-widget-stat-a {
+  font-weight: 700;
+  font-size: 36.083px;
+  line-height: 51px;
+  color: #133f85;
+}
+
+.chartExportData {
+  text-align: end;
+}
+
+.pieChart {
+  height: 100%;
+}
+
+@media screen and (max-width: 750px) {
+  .widgetView {
+    margin: 2%;
+  }
+  .chartView {
+    margin: 2%;
+  }
+}

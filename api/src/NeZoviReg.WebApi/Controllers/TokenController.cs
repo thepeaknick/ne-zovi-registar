@@ -24,7 +24,7 @@ public class TokenController : NeZoviRegBaseController
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpPost("refresh-token")]
-    [ProducesResponseType(typeof(LoginResultDto), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(RefreshTokenResultDto), (int)HttpStatusCode.OK)]
     [AllowAnonymous]
     [EnableRateLimiting(Const.AnonymousLogin)]
     public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request, CancellationToken cancellationToken)

@@ -1,0 +1,125 @@
+// CSS for NE ZOVI
+
+@media screen and (max-width: 960px) {
+  c-header {
+    width: 100% !important;
+  }
+  .container-sm,
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .loginlang {
+    text-align: center !important;
+    margin-top: 20px;
+  }
+}
+
+c-header {
+  background-image: url("/assets/brand/headerbackground.png");
+  background-size: contain;
+  width: 70%;
+  min-height: 130px;
+}
+
+.loginlang {
+  text-align: right;
+}
+
+button img {
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+span {
+  font-family: "Source Sans 3";
+  color: #3f6aa3;
+}
+
+span h2 {
+  font-weight: 800;
+  font-size: 2vw;
+  margin: 0px;
+}
+
+span h4 {
+  font-weight: 400;
+  font-size: 1.6vw;
+  margin-bottom: 0px;
+}
+
+c-row {
+  align-items: center;
+}
+
+.headerImage {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.headerButtonImage {
+  max-width: 20%;
+  max-height: 20%;
+}
+
+.header > .container,
+.header > .container-fluid,
+.header > .container-sm,
+.header > .container-md,
+.header > .container-lg,
+.header > .container-xl,
+.header > .container-xxl,
+.header .navbar > .container,
+.header .navbar > .container-fluid,
+.header .navbar > .container-sm,
+.header .navbar > .container-md,
+.header .navbar > .container-lg,
+.header .navbar > .container-xl,
+.header .navbar > .container-xxl {
+  display: initial !important;
+}
+
+.headerButton {
+  // vertical-align: middle;
+  height: 50%;
+}
+
+@media screen and (max-width: 700px) {
+  c-row {
+    display: block;
+  }
+  c-col {
+    width: 100%;
+    text-align: center;
+  }
+  c-header {
+    padding: 0px;
+    margin: 5px;
+    border-block-color: #f5f8fb;
+  }
+  .headerImage {
+    max-width: 30%;
+  }
+  .headerButtonView {
+    text-align: center !important;
+  }
+  span h2 {
+    font-weight: 800;
+    font-size: 3.5vw;
+    margin-top: 20px;
+  }
+  span h4 {
+    font-weight: 400;
+    font-size: 3vw;
+  }
+}
+
+.headerButtonView {
+  text-align: right;
+}
+
+.right {
+  text-align: right;
+}

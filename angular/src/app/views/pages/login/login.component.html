@@ -1,1 +1,146 @@
-<p>login works!</p>
+<ng-container *transloco="let t">
+  <div class="backgroundImage">
+    <div class="body flex-grow-1 px-3">
+      <c-container breakpoint="lg" class="h-auto">
+        <c-row>
+          <c-col xs="0" sm="4" md="6"></c-col>
+          <c-col xs="12" sm="8" md="6" class="backgroundView">
+            <div class="content">
+              <c-row>
+                <c-col>
+                  <p class="titleText">{{ t("Prijavi se") }}</p>
+                </c-col>
+              </c-row>
+              <form cForm [formGroup]="loginForm">
+                <div class="mb-3">
+                  <label cLabel for="username" class="textInputField">{{
+                    t("Korisničko ime")
+                  }}</label>
+                  <input
+                    cFormControl
+                    formControlName="username"
+                    id="username"
+                    type="text"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label cLabel for="password" class="textInputField">{{
+                    t("Lozinka")
+                  }}</label>
+                  <input
+                    cFormControl
+                    formControlName="password"
+                    id="password"
+                    type="password"
+                  />
+                </div>
+                <button
+                  [cModalToggle]="verticallyCenteredModal.id"
+                  type="button"
+                  class="btn btn-link forgottenPassword"
+                >
+                  {{ t("Zaboravili ste lozinku") }}
+                </button>
+                <h2 *ngIf="showLoginErrorMessage" class="loginResultText red">
+                  {{ t("NEISPRAVNO KORISNIČKO IME ILI LOZINKA") }}
+                </h2>
+              </form>
+              <div class="recaptcha">
+                <re-captcha
+                  id="recaptcha"
+                  name="recaptcha"
+                  #recaptcha="ngModel"
+                  [(ngModel)]="token"
+                  required
+                  [class.is-invalid]="
+                    recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
+                  "
+                ></re-captcha>
+                <div
+                  *ngIf="
+                    (recaptcha.invalid &&
+                      (recaptcha.dirty || recaptcha.touched)) ||
+                    showCaptchaMessage
+                  "
+                >
+                  <div *ngIf="recaptcha.errors?.['required']">
+                    {{ t("Morate popuniti Captcha-u.") }}
+                  </div>
+                </div>
+              </div>
+              <input
+                cButton
+                class="submitButton"
+                type="submit"
+                [value]="t('Prijavi se')"
+                (click)="goDashboardHome()"
+              />
+              <br />
+              <input
+                cButton
+                class="signUpButton"
+                type="submit"
+                [value]="t('Registruj se')"
+                (click)="goSignUp()"
+              />
+              <p class="descriptionText"></p>
+            </div>
+          </c-col>
+        </c-row>
+      </c-container>
+
+      <c-modal
+        #verticallyCenteredModal
+        alignment="center"
+        id="verticallyCenteredModal"
+      >
+        <c-modal-header>
+          <button
+            [cModalToggle]="verticallyCenteredModal.id"
+            cButtonClose
+          ></button>
+        </c-modal-header>
+        <c-modal-body>
+          <img src="/assets/images/exclamationmark.png" />
+          <h5 cModalTitle>{{ t("Zaboravljena lozinka") }}</h5>
+          {{ t("Unesite vašu e-mail adresu na koju će biti poslat") }}<br />
+          {{ t("link za promenu vaše lozinke") }}
+
+          <form
+            cForm
+            [formGroup]="forgotPasswordForm"
+            (ngSubmit)="submitForgotPassword()"
+          >
+            <div class="mb-1">
+              <input
+                cFormControl
+                formControlName="inputEmail"
+                id="inputEmail"
+                type="email"
+              />
+            </div>
+            <input
+              cButton
+              color="primary"
+              type="submit"
+              [value]="t('Pošalji')"
+            />
+          </form>
+        </c-modal-body>
+        <c-modal-footer>
+          <button
+            cButton
+            [cModalToggle]="verticallyCenteredModal.id"
+            color="secondary"
+            variant="ghost"
+            class=""
+          >
+            <img src="/assets/icons/loginicon.svg" /><span>{{
+              t("Vrati se na sign in")
+            }}</span>
+          </button>
+        </c-modal-footer>
+      </c-modal>
+    </div>
+  </div>
+</ng-container>

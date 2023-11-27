@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DefaultLayoutComponent, PageLayoutComponent } from './containers';
 import { LoginComponent } from './views/pages/login/login.component';
+import { SignUpComponent } from './views/pages/signup/signup.component';
 import { SearchComponent } from './views/pages/search/search.component';
 import { UsersComponent } from './views/registry/users/users.component';
 import { RegUsersComponent } from './views/registry/regusers/regusers.component';
@@ -11,78 +12,123 @@ import { AdminComponent } from './views/admin/admin.component';
 import { HelppageComponent } from './views/helppage/helppage.component';
 import { SettingsComponent } from './views/settings/settings.component';
 import { ContactComponent } from './views/contact/contact.component';
+import { HomeComponent } from './home/home.component';
+import { AuthGuard } from './domain/services/auth-guard';
+import { ResetPasswordComponent } from './views/pages/resetPassword/resetPassword.component';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'search',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: '',
     component: DefaultLayoutComponent,
     data: {
-      title: 'Dobro došli u registar "Ne zovi"'
+      title: 'Dobro došli u registar "NE ZOVI"',
     },
     children: [
       {
         path: 'registry/users',
-        component: UsersComponent
+        component: UsersComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin', 'Obveznik', 'Trgovac'],
+        },
       },
       {
         path: 'registry/regusers',
-        component: RegUsersComponent
+        component: RegUsersComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin'],
+        },
       },
       {
         path: 'registry/merchants',
-        component: MerchantsComponent
+        component: MerchantsComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin'],
+        },
       },
       {
         path: 'admin',
-        component: AdminComponent
+        component: AdminComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin'],
+        },
       },
       {
         path: 'settings',
-        component: SettingsComponent
+        component: SettingsComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin', 'Obveznik', 'Trgovac'],
+        },
       },
       {
         path: 'help',
-        component: HelppageComponent
+        component: HelppageComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin', 'Obveznik', 'Trgovac'],
+        },
       },
       {
         path: 'contact',
-        component: ContactComponent
+        component: ContactComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin', 'Obveznik', 'Trgovac'],
+        },
       },
-    ]
+    ],
   },
   {
     path: '',
     component: PageLayoutComponent,
     data: {
-      title: 'Dobro došli u registar "Ne zovi"'
+      title: 'Dobro došli u registar "NE ZOVI"',
     },
     children: [
       {
         path: 'login',
         component: LoginComponent,
         data: {
-          title: 'Prijava'
-        }
+          title: 'Prijava',
+        },
+      },
+      {
+        path: 'signup',
+        component: SignUpComponent,
+        data: {
+          title: 'Registracija',
+        },
       },
       {
         path: 'search',
         component: SearchComponent,
         data: {
-          title: 'Pretraga telefonskog broja'
-        }
+          title: 'Pretraga telefonskog broja',
+        },
       },
-    ]
+      {
+        path: 'reset',
+        component: ResetPasswordComponent,
+        data: {
+          title: 'Nova lozinka',
+        },
+      },
+    ],
   },
   {
-    path: '**', 
+    path: '**',
     redirectTo: 'search',
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
@@ -90,11 +136,10 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {
       scrollPositionRestoration: 'top',
       anchorScrolling: 'enabled',
-      initialNavigation: 'enabledBlocking'
+      initialNavigation: 'enabledBlocking',
       // relativeLinkResolution: 'legacy'
-    })
+    }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

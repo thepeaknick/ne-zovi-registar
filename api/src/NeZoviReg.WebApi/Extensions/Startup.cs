@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json.Serialization;
 using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Model;
@@ -18,6 +19,7 @@ public static class Startup
         return services
             .AddHttpContextAccessor()
             .AddEndpointsApiExplorer()
+            .AddCors()
             .AddApiDocumentation()
             .AddOptions()
             .AddRateLimiter(configuration)

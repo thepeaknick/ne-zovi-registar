@@ -1,1 +1,104 @@
-<p>helppage works!</p>
+<ng-container *transloco="let t">
+  <div class="helpPageScreen">
+    <div class="faqForm">
+      <c-row>
+        <c-col xs="4">
+          <p class="titleText">{{ t('Najčešće postavljana pitanja') }}</p>
+          <p class="subtitleText"></p>
+          <!-- <div class="faqImage"> -->
+          <img src="../../../assets/images/faq.png" class="faqImage" />
+          <!-- </div> -->
+        </c-col>
+        <c-col xs="8">
+          <c-accordion [flush]="true">
+            <c-accordion-item #item0="cAccordionItem" [visible]="false">
+              <ng-template cTemplateId="accordionHeaderTemplate">
+                <button
+                  (click)="item0.toggleItem()"
+                  [collapsed]="!item0.visible"
+                  cAccordionButton
+                  [ngStyle]="vars"
+                >
+                  {{ t('q1') }}
+                </button>
+              </ng-template>
+              <ng-template cTemplateId="accordionBodyTemplate">
+                <div class="accordion-body">
+                  {{ t('a1') }}
+                </div>
+              </ng-template>
+            </c-accordion-item>
+            <c-accordion-item #item1="cAccordionItem" [visible]="false">
+              <ng-template cTemplateId="accordionHeaderTemplate">
+                <button
+                  (click)="item1.toggleItem()"
+                  [collapsed]="!item1.visible"
+                  cAccordionButton
+                  [ngStyle]="vars"
+                >
+                  {{ t('q2') }}
+                </button>
+              </ng-template>
+              <ng-template cTemplateId="accordionBodyTemplate">
+                <div class="accordion-body">
+                  {{ t('a2') }}
+                </div>
+              </ng-template>
+            </c-accordion-item>
+            <c-accordion-item #item2="cAccordionItem" [visible]="false">
+              <ng-template cTemplateId="accordionHeaderTemplate">
+                <button
+                  (click)="item2.toggleItem()"
+                  [collapsed]="!item2.visible"
+                  cAccordionButton
+                  [ngStyle]="vars"
+                >
+                  {{ t('q3') }}
+                </button>
+              </ng-template>
+              <ng-template cTemplateId="accordionBodyTemplate">
+                <div class="accordion-body">
+                  {{ t('a3') }}
+                </div>
+              </ng-template>
+            </c-accordion-item>
+            <c-accordion-item #item3="cAccordionItem" [visible]="false">
+              <ng-template cTemplateId="accordionHeaderTemplate">
+                <button
+                  (click)="item3.toggleItem()"
+                  [collapsed]="!item3.visible"
+                  cAccordionButton
+                  [ngStyle]="vars"
+                >
+                  {{ t('q4') }}
+                </button>
+              </ng-template>
+              <ng-template cTemplateId="accordionBodyTemplate">
+                <div class="accordion-body">
+                  <p [innerHtml]="t('a4')"></p>
+                </div>
+              </ng-template>
+            </c-accordion-item>
+            <c-accordion-item #item4="cAccordionItem" [visible]="false">
+              <ng-template cTemplateId="accordionHeaderTemplate">
+                <button
+                  (click)="item4.toggleItem()"
+                  [collapsed]="!item4.visible"
+                  cAccordionButton
+                  [ngStyle]="vars"
+                >
+                  {{ t('q5') }}
+                </button>
+              </ng-template>
+              <ng-template cTemplateId="accordionBodyTemplate">
+                <div class="accordion-body">
+                  {{ t('a5') }}
+                </div>
+              </ng-template>
+            </c-accordion-item>
+          </c-accordion>
+        </c-col>
+      </c-row>
+    </div>
+  </div>
+</ng-container>

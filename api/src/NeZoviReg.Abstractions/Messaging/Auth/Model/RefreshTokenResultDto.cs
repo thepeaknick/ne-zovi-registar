@@ -1,4 +1,6 @@
-﻿namespace NeZoviReg.Abstractions.Messaging.Auth.Model;
+﻿using NeZoviReg.Abstractions.Shared.Model.Auth;
+
+namespace NeZoviReg.Abstractions.Messaging.Auth.Model;
 
 /// <summary>
 /// Pristupni token i token za osvežavanje.

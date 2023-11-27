@@ -1,0 +1,46 @@
+.helpPageScreen {
+  background-size: cover;
+  // min-height: 82vh;
+
+  font-family: "Source Sans 3";
+  font-style: normal;
+}
+
+.faqImage {
+  width: 100%;
+}
+
+.faqForm {
+  background-color: white;
+  padding: 5%;
+  border-radius: 25px;
+}
+
+.titleText {
+  font-weight: 700;
+  font-size: 27.679px;
+  line-height: 39px;
+  color: #133f85;
+}
+
+.subtitleText {
+  font-weight: 400;
+  font-size: 15.132px;
+  line-height: 22px;
+  color: #001942;
+
+  margin-bottom: 5%;
+}
+
+@media screen and (max-width: 950px) {
+  c-row {
+    display: block;
+  }
+  c-col {
+    width: 100%;
+    text-align: center
+  }
+  .faqImage {
+    width: 40vw;
+  }
+}

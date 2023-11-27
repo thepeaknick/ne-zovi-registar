@@ -1,0 +1,224 @@
+c-offcanvas {
+  background-color: RGBA(0, 25, 66, 0.4) !important;
+  font-family: "Source Sans 3";
+  height: auto !important;
+}
+
+c-offcanvas-body span {
+  display: inline-block;
+}
+c-offcanvas-body p {
+  margin-bottom: 0px;
+}
+c-offcanvas-body button {
+  float: right;
+}
+
+//Drugi ekran
+c-modal-body {
+  font-family: "Source Sans 3";
+  text-align: center;
+  color: #3f6aa3;
+}
+
+c-modal-header {
+  padding: 20px !important;
+}
+
+c-modal-footer {
+  border: 0px;
+}
+
+c-modal-body h5 {
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+c-modal-body img {
+  margin-bottom: 20px;
+}
+
+c-modal-body input {
+  margin-top: 20px;
+  border: 1px solid #c0cbdb;
+}
+c-modal-body .btn {
+  width: 40%;
+}
+
+c-modal-body #inputEmail {
+  width: 60%;
+  display: inline-block;
+}
+
+c-modal-footer span {
+  vertical-align: middle;
+  font-family: "Source Sans 3";
+  color: #3f6aa3;
+}
+
+c-modal-footer button img {
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.backgroundImage {
+  background-image: url("../../../../assets/images/homebck.jpg");
+  min-height: 82vh;
+  background-size: cover;
+}
+
+.body {
+  font-family: "Source Sans 3";
+  font-style: normal;
+
+  padding-top: 2%;
+}
+
+.titleText {
+  font-weight: 700;
+  font-size: 25.608px;
+  line-height: 36px;
+  color: #133f85;
+
+  padding-bottom: 50%;
+}
+
+.textInputField {
+  font-weight: 700;
+  font-size: 17.459px;
+  line-height: 25px;
+  color: #001942;
+}
+
+.forgottenPassword {
+  font-weight: 700;
+  font-size: 14.301px;
+  line-height: 20px;
+  color: #3f6aa3;
+}
+
+.descriptionText,
+ul,
+li {
+  font-weight: 400;
+  font-size: 15.132px;
+  line-height: 22px;
+  color: #3f6aa3;
+}
+
+.searchResultText {
+  font-weight: 700;
+  font-size: 15.132px;
+  line-height: 22px;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
+
+.submitButton {
+  width: 40%;
+  height: 10%;
+  background: #224c8d;
+  border-radius: 5px;
+
+  font-size: 100%;
+  line-height: 30px;
+  color: #ffffff;
+
+  margin-top: 10%;
+  // margin-left: 5%;
+  // margin-right: 15px;
+  margin-bottom: 10%;
+}
+
+.helpButton {
+  width: 40%;
+  height: 10%;
+  background: #e4e9f0;
+  border-radius: 5px;
+  border-color: #e4e9f0;
+
+  font-size: 100%;
+  line-height: 30px;
+  color: #444444;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+c-row {
+  justify-content: space-around;
+}
+
+.backgroundView {
+  background-color: white;
+  border-radius: 25px;
+  // width: 25vw;
+}
+
+.content {
+  padding: 5%;
+}
+
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.padding-15-5 {
+  padding: 5px 15px 5px 15px;
+}
+.padding-bottom-15 {
+  padding-bottom: 15px;
+}
+
+c-modal {
+  font-family: "Source Sans 3";
+  font-style: normal;
+}
+
+c-modal-header {
+  background-color: #ebf1f8;
+  background-size: contain;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px; // z-index: -1;
+  padding: 5%;
+}
+
+c-modal-body {
+  padding: 5%;
+}
+
+.modalHeader {
+  font-weight: 700;
+  font-size: 27.679px;
+  color: #133f85;
+}
+
+.modalBodyTitle {
+  font-weight: 700;
+  font-size: 26.53px;
+  line-height: 38px;
+  color: #001942;
+  padding-top: 5%;
+}
+
+@media screen and (min-width: 800px) {
+  .recaptcha {
+    transform: scale(1);
+    transform-origin: 0;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .recaptcha {
+    transform: scale(0.8);
+    transform-origin: 0;
+  }
+}

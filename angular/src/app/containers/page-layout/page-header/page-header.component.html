@@ -1,19 +1,79 @@
-<!--<c-header class="mb-4 d-print-none" position="sticky">-->
-<ng-container>
-  <c-container [fluid]="true">
-    <c-header-nav class="d-none d-lg-flex me-auto">
-    </c-header-nav>
+<ng-container *transloco="let t">
+  <c-header>
+    <c-container>
+      <c-row>
+        <c-col xs="3">
+          <a class="header-brand" href="#">
+            <img
+              src="/assets/brand/ratellogo.png"
+              alt=""
+              class="headerImage"
+              alt="Ratel Logo"
+            />
+          </a>
+        </c-col>
+        <c-col xs="6">
+          <span>
+            <h2>{{ t("Dobrodošli u registar") }}</h2>
+          </span>
+          <!-- <button (click)="changeLanguage('en')">Engleski</button>
+          <button (click)="changeLanguage('lat')">Latinica</button>
+          <button (click)="changeLanguage('cir')">Ћирилица</button> -->
+        </c-col>
+        <c-col xs="3" class="loginlang">
+          <c-dropdown variant="btn-group">
+            <button cButton cDropdownToggle color="secondary" size="sm">
+              Lang/jezik
+            </button>
+            <ul cDropdownMenu>
+              <li>
+                <button (click)="changeLanguage('en')" cDropdownItem>
+                  Engleski
+                </button>
+              </li>
+              <li>
+                <button (click)="changeLanguage('lat')" cDropdownItem>
+                  Latinica
+                </button>
+              </li>
+              <li>
+                <button (click)="changeLanguage('cir')" cDropdownItem>
+                  Ћирилица
+                </button>
+              </li>
+            </ul>
+          </c-dropdown>
+          <span class="headerButtonView">
+            <button
+              *ngIf="isLogin"
+              cButton
+              color="secondary"
+              variant="ghost"
+              (click)="goBack()"
+              class="headerButton"
+            >
+              <img
+                src="/assets/icons/loginicon.svg"
+                class="headerButtonImage"
+              /><span>{{ t("Nazad") }}</span>
+            </button>
 
-    <c-header-nav class="d-none d-lg-flex">
-    </c-header-nav>
-    <c-header-nav class="ms-3">
-    </c-header-nav>
-
-  </c-container>
-  <c-header-divider></c-header-divider>
-  <c-container [fluid]="true">
-    <c-breadcrumb-router class="ms-2"></c-breadcrumb-router>
-  </c-container>
+            <button
+              *ngIf="isSearch"
+              cButton
+              color="secondary"
+              variant="ghost"
+              (click)="goToSignIn()"
+              class="headerButton"
+            >
+              <img
+                src="/assets/icons/loginicon.svg"
+                class="headerButtonImage"
+              /><span>{{ t("Prijavi se") }}</span>
+            </button>
+          </span>
+        </c-col>
+      </c-row>
+    </c-container>
+  </c-header>
 </ng-container>
-<!--</c-header>-->
-

@@ -1,0 +1,8 @@
+{
+  "/v1": {
+    "target": "http://158.180.60.234:8080",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

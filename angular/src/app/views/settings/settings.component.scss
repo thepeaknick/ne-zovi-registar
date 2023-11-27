@@ -1,0 +1,152 @@
+.settingsScreen {
+  min-height: 82vh;
+  background-size: cover;
+
+  font-family: "Source Sans 3";
+  font-style: normal;
+}
+
+.settingsMainForm {
+  background-color: white;
+  padding: 5%;
+  margin: 1%;
+  border-radius: 25px;
+  // height: 50vh;
+
+  text-align: center;
+}
+
+.settingsMainFormItem {
+  font-weight: 700;
+  font-size: 17.46px;
+  line-height: 25px;
+  color: #224c8d;
+
+  border-width: 0;
+  width: 15vw;
+}
+
+@media screen and (max-width: 1000px) {
+  .settingsMainFormItem {
+    width: 15vw;
+  }
+}
+
+.settingsInfoForm {
+  background-color: white;
+  padding: 5%;
+  margin: 1%;
+  border-radius: 25px;
+}
+
+.myProfileHeader {
+  height: 10vh;
+
+  font-weight: 700;
+  font-size: 27.679px;
+  line-height: 39px;
+  color: #133f85;
+}
+
+.textInputFieldLabel {
+  font-weight: 700;
+  font-size: 17.46px;
+  line-height: 25px;
+  color: #001942;
+}
+
+.editUsernameButton {
+  width: 84.34px;
+  background: #224c8d;
+}
+
+.modalSubmitButton {
+  width: 342px;
+  height: 50px;
+  background: #224c8d;
+  border-radius: 5px;
+  align-items: center;
+}
+
+.descriptionTitleText {
+  margin-top: 10%;
+  font-weight: 700;
+  font-size: 18.624px;
+  line-height: 27px;
+  color: #001942;
+}
+
+.descriptionSubtitleText {
+  font-weight: 400;
+  font-size: 15.132px;
+  line-height: 22px;
+  color: #001942;
+}
+
+.modalImage {
+  padding: 5%;
+}
+
+.modalTitle {
+  font-weight: 700;
+  font-size: 29.262px;
+  line-height: 42px;
+  color: #133f85;
+}
+
+.modalSubtitle {
+  font-weight: 400;
+  font-size: 16.386px;
+  line-height: 23px;
+  color: #3f6aa3;
+}
+
+c-modal {
+  text-align: center;
+}
+
+c-modal-footer {
+  justify-content: center;
+}
+
+.passwordChangeResultText {
+  font-weight: 700;
+  font-size: 15.132px;
+  line-height: 22px;
+}
+
+.red {
+  color: red;
+}
+
+.submitButton {
+  height: 50px;
+  background: #224c8d;
+  border-radius: 5px;
+  margin-top: 5%;
+}
+
+@media screen and (max-width: 650px) {
+  .submitButton {
+    width: 188px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .submitButton {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  c-row {
+    display: block;
+  }
+  c-col {
+    width: 100%;
+    text-align: center;
+  }
+  .settingsMainForm {
+    margin-bottom: 5%;
+  }
+}

@@ -1,0 +1,101 @@
+.headerContainer {
+  height: 10vh;
+  vertical-align: middle;
+}
+
+.headerTitle {
+  font-family: "Source Sans 3";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2vw;
+  line-height: 50px;
+  color: #224c8d;
+
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.searchButton {
+  border-radius: 40px;
+  border-width: 1;
+  border-color: lightgrey;
+  background: white;
+}
+.defaultHeader {
+  width: 100%;
+}
+#accountData {
+  float: right;
+}
+
+.userColumn {
+  font-family: "Source Sans 3";
+  text-align: right;
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.headerColumn {
+  display: table;
+  text-align: initial;
+}
+
+.menuButtonView {
+  line-height: 50px;
+}
+
+@media screen and (max-width: 767px) {
+  .headerTitle {
+    font-family: "Source Sans 3";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 3.5vw;
+    line-height: 50px;
+    color: #224c8d;
+  }
+  .userColumn {
+    text-align: right;
+    font-size: 3.5vw;
+  }
+}
+
+.menuButton {
+  visibility: hidden;
+}
+
+@media screen and (max-width: 1000px) {
+  c-row {
+    display: block;
+  }
+  c-col {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media screen and (max-height: 750px) {
+  c-row {
+    display: block;
+  }
+  c-col {
+    width: 100%;
+    text-align: center;
+  }
+  .headerContainer {
+    height: 30vh;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .menuButton {
+    visibility: visible;
+  }
+}
+
+.right {
+  text-align: right !important;
+}
+
+.userColumn {
+  display: inline;
+}

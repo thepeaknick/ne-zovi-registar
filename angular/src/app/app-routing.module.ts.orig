@@ -1,0 +1,144 @@
+import { Component, NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import { DefaultLayoutComponent, PageLayoutComponent } from './containers';
+import { LoginComponent } from './views/pages/login/login.component';
+import { SearchComponent } from './views/pages/search/search.component';
+import { UsersComponent } from './views/registry/users/users.component';
+import { RegUsersComponent } from './views/registry/regusers/regusers.component';
+import { MerchantsComponent } from './views/registry/merchants/merchants.component';
+import { AdminComponent } from './views/admin/admin.component';
+import { HelppageComponent } from './views/helppage/helppage.component';
+import { SettingsComponent } from './views/settings/settings.component';
+import { ContactComponent } from './views/contact/contact.component';
+import { HomeComponent } from './home/home.component';
+<<<<<<< HEAD
+import { AuthGuard } from './domain/services/auth-guard';
+import { SignOutComponent } from './views/pages/signout/signout.component';
+=======
+>>>>>>> 134dd7f3f3b19b22fb7f5226d6490c7cd00b8028
+
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'search',
+    pathMatch: 'full',
+  },
+  {
+    path: '',
+    component: DefaultLayoutComponent,
+    data: {
+      title: 'Dobro došli u registar "NE ZOVI"',
+    },
+    children: [
+      {
+        path: 'registry/users',
+        component: UsersComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin', 'Obveznik', 'Trgovac'],
+        },
+      },
+      {
+        path: 'registry/regusers',
+        component: RegUsersComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin'],
+        },
+      },
+      {
+        path: 'registry/merchants',
+        component: MerchantsComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin'],
+        },
+      },
+      {
+        path: 'admin',
+        component: AdminComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin'],
+        },
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin', 'Obveznik', 'Trgovac'],
+        },
+      },
+      {
+        path: 'help',
+        component: HelppageComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin', 'Obveznik', 'Trgovac'],
+        },
+      },
+      {
+        path: 'contact',
+        component: ContactComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin', 'Obveznik', 'Trgovac'],
+        },
+      },
+<<<<<<< HEAD
+      {
+        path: 'pages/signout',
+        component: SignOutComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: ['Admin', 'Obveznik', 'Trgovac'],
+        },
+      },
+=======
+>>>>>>> 134dd7f3f3b19b22fb7f5226d6490c7cd00b8028
+    ],
+  },
+  {
+    path: '',
+    component: PageLayoutComponent,
+    data: {
+      title: 'Dobro došli u registar "NE ZOVI"',
+    },
+    children: [
+      {
+        path: 'login',
+        component: LoginComponent,
+        data: {
+          title: 'Prijava',
+        },
+      },
+      {
+        path: 'search',
+        component: SearchComponent,
+        data: {
+          title: 'Pretraga telefonskog broja',
+        },
+      },
+    ],
+  },
+  {
+    path: '**',
+    redirectTo: 'search',
+    pathMatch: 'full',
+  },
+];
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes, {
+      scrollPositionRestoration: 'top',
+      anchorScrolling: 'enabled',
+      initialNavigation: 'enabledBlocking',
+      // relativeLinkResolution: 'legacy'
+    }),
+  ],
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}
