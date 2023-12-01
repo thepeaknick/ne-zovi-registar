@@ -1,6 +1,6 @@
 ﻿using NeZoviReg.Abstractions.Extensions;
-using NeZoviReg.Abstractions.Extensions.Domain;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
+using NeZoviReg.Domain.Extensions;
 
 namespace NeZoviReg.Abstractions.Messaging.Domain.Queries.User;
 
