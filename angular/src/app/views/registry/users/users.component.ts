@@ -67,6 +67,9 @@ export class UsersComponent implements OnInit {
 
   isValidated: BooleanInput = false;
 
+  @Input() showErrorMessage: Boolean = false;
+  @Input() apiErrorMessage: string = '';
+
   addPhoneNumberDiv() {
     this.divs.push(this.divs.length);
   }

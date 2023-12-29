@@ -235,6 +235,11 @@ export class MerchantsComponent {
             'Unsuccessfuly registered user complete callback',
             error
           );
+          this.showFormError = true;
+          for (let key in error.error.errors) {
+            let value = error.error.errors[key];
+            this.errorMessage = value;
+          }
         },
         complete: () => {
           console.log('Successfuly registered user complete callback');
@@ -285,6 +290,12 @@ export class MerchantsComponent {
       },
       error: (error) => {
         console.log('Neuspesno dohvaceni podaci o trgovcu');
+        console.debug('Neuspesno promenjeni podaci o trgovcu');
+        this.showFormError = true;
+        for (let key in error.error.errors) {
+          let value = error.error.errors[key];
+          this.errorMessage = value;
+        }
       },
     });
     this.toggleAddRegUsernModal();
