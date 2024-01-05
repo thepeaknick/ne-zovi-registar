@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class HelppageComponent {
 
-    items = [1, 2, 3, 4, 5];
+    items = [1, 2, 3, 4, 5, 6];
 
     constructor() { }
 

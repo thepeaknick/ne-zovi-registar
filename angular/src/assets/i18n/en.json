@@ -1,5 +1,5 @@
 {
-  "Dobrodošli u registar": "Welcome to the register „NE ZOVI“",
+  "Dobrodošli u registar": "Register „NE ZOVI“",
   "Nazad": "Back",
   "Prijavi se": "Sign in",
 
@@ -42,8 +42,10 @@
   "a3": "The „NE ZOVI“ register is an integral part of the information and communication system (hereinafter: ICT system) managed by the Regulator. This system is effectively protected by appropriate information security measures applied to the data and equipment used, which are more closely defined by the Act on the Security of the Information and Communication System of Special Importance of the Regulator (hereinafter: the Act on Security). This Security Act is in accordance with the Law on Information Security.",
   "q4": "4. What possibilities does the „NE ZOVI“ web application offer?",
   "a4": "The application enables:<br /><br /> <strong>Entry or printing of data</strong> - it is performed free of charge by the obligee who has a contract with the user of the telephone number on the use of publicly available electronic communication services, based on the request user's phone number.<br /><br /> <strong>Data search</strong> - registered merchants have the option of searching one or more phone numbers and the date of their entry in the „NE ZOVI“ Register<br /><br /> <strong>Data Search</strong> - Consumers (without registration) have the option of searching for an individual phone number entered in the „NE ZOVI“ Register.",
-  "q5": "5. How can I contact technical support",
-  "a5": "For all questions, please contact the email...",
+  "q5": "5. Who can I address a complaint to",
+  "a5": "For complaints regarding unwanted calls, the competent authority is the Ministry of Internal and External Trade, Consumer Protection Sector, email: zastita.potrosaca@must.gov.rs, phone: 0800-103-104",
+  "q6": "6. Who is technical support intended for",
+  "a6": "Technical support is intended for Merchants and Obligors of registration and deregistration issues related to Registry access, email: administrator@nezovi.rs",
 
   "Moj profil": "My profile",
   "Promeni": "Edit",

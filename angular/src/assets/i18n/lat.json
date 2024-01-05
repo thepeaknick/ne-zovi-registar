@@ -1,9 +1,9 @@
 {
-  "Dobrodošli u registar": "Dobrodošli u registar „NE ZOVI“",
+  "Dobrodošli u registar": "Registar „NE ZOVI“",
   "Nazad": "Nazad",
   "Prijavi se": "Prijavi se",
 
-  "Registar NE ZOVI": "Registar NE ZOVI",
+  "Registar NE ZOVI": "Registar „NE ZOVI“",
   "Administrator": "Administrator",
   "Trgovac": "Trgovac",
   "Obverznik": "Obveznik",
@@ -42,8 +42,10 @@
   "a3": "Registar „NE ZOVI“ predstavlja sastavni deo informaciono-komunikacionog sistema (u daljem tekstu: IKT sistem) koji vodi Regulator. Ovaj sistem se efikasno štiti odgovarajućim merama informacione bezbednosti koje se primenjuju na podatke i opremu koja se koristi, a koje su bliže definisane Aktom o bezbednosti informaciono-komunikacionog sistema od posebnog značaja Regulatora (u daljem tekstu: Akt o bezbednosti). Ovaj Akt o bezbednosti je u skladu sa Zakonom o informacionoj bezbednosti.",
   "q4": "4. Koje mogućnosti nudi web aplikacija „NE ZOVI“?",
   "a4": "Aplikacija omogućava:<br /><br /> <strong>Upis ili ispis podataka</strong> - obavlja bez naknade obveznik upisa i ispisa koji sa korisnikom telefonskog broja ima zaključen ugovor o korišćenju javno dostupnih elektronskih komunikacionih usluga, na osnovu zahteva korisnika telefonskog broja.<br /><br /> <strong>Pretraga podataka</strong> - registrovani trgovca imaju mogućnost pretrage jednog ili više brojeva telefona i datuma njihovog upisa u Registru „NE ZOVI“<br /><br /> <strong>Pretraga podataka</strong> – Potrošači (bez registracije) imaju mogućnost pretrage pojedinačnog broja telefona koji je upisani u Registar „NE ZOVI“.",
-  "q5": "5. Kako mogu da kontaktiram tehničku podršku",
-  "a5": "Za sva pitanja potrebno se obrati na mail…",
+  "q5": "5. Kome mogu da uputim prigovor",
+  "a5": "Za prigovore u slučaju neželjenog poziva je nadležno Ministarstvo unutrašnje i spoljne trgovine, Sektor za zaštitu potrošača, mail: zastita.potrosaca@must.gov.rs, telefon: 0800-103-104",
+  "q6": "6. Kome je namenjena tehnička podrška",
+  "a6": "Tehnička podrška je namenjena Trgovcima i Obaveznicima upisa i ispisa za probleme oko pristupa Registru, mail: administrator@nezovi.rs",
 
   "Moj profil": "Moj profil",
   "Promeni": "Promeni",

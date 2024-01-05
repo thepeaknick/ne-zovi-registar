@@ -96,6 +96,23 @@
                 </div>
               </ng-template>
             </c-accordion-item>
+            <c-accordion-item #item5="cAccordionItem" [visible]="false">
+              <ng-template cTemplateId="accordionHeaderTemplate">
+                <button
+                  (click)="item5.toggleItem()"
+                  [collapsed]="!item5.visible"
+                  cAccordionButton
+                  [ngStyle]="vars"
+                >
+                  {{ t('q6') }}
+                </button>
+              </ng-template>
+              <ng-template cTemplateId="accordionBodyTemplate">
+                <div class="accordion-body">
+                  {{ t('a6') }}
+                </div>
+              </ng-template>
+            </c-accordion-item>
           </c-accordion>
         </c-col>
       </c-row>
