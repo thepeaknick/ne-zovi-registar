@@ -1,4 +1,4 @@
-﻿namespace NeZoviReg.Abstractions.Extensions.Domain;
+﻿namespace NeZoviReg.Domain.Extensions;
 
 public static class Extensions
 {

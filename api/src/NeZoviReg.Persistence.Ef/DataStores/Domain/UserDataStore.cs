@@ -15,7 +15,7 @@ public class UserDataStore : IUserDataStore
     }
 
     public async Task<User?> GetByPhoneNumber(string phoneNumber, CancellationToken cancellationToken = default) =>
-        await _dbContext.Set<User>().FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber, cancellationToken);
+        await _dbContext.Set<User>().FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber && x.Active, cancellationToken);
 
     public async Task<bool> IsPhoneNumberUniqueAsync(string phoneNumber, CancellationToken cancellationToken = default)
         => !await _dbContext

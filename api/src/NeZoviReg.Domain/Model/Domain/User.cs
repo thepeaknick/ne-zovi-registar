@@ -19,19 +19,17 @@ public class User : Entity
         CreatedOn = DateTime.Now;
     }
 
-    public User(string firstName, string lastName, string phoneNumber)
+    public User(string firstName, string lastName)
     {
         FirstName = firstName;
         LastName = lastName;
-        PhoneNumber = phoneNumber;
     }
 
-    public User(int id, string firstName, string lastName, string phoneNumber)
+    public User(int id, string firstName, string lastName)
         : base(id)
     {
         FirstName = firstName;
         LastName = lastName;
-        PhoneNumber = phoneNumber;
     }
 
 
@@ -89,7 +87,7 @@ public class User : Entity
 
     public User AddPhoneNumber(string? phoneNumber)
     {
-        PhoneNumber = phoneNumber ?? PhoneNumber;
+        PhoneNumber = phoneNumber ?? PhoneNumber.FormatPhoneNumber();
 
         return this;
     }

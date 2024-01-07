@@ -5,6 +5,7 @@ using NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
+using NeZoviReg.Domain.Extensions;
 using static NeZoviReg.Abstractions.Shared.Errors.RegErrors;
 
 namespace NeZoviReg.Application.Services.User;
@@ -43,10 +44,18 @@ public class AddUserCommandValidator : AbstractValidator<AddUserCommand>
 
         RuleForEach(x => x.PhoneNumbers)
             .NotEmpty<AddUserCommand, string, List<UserDto>>(PhoneNumber.Empty.Message)
-            .MaximumLength<AddUserCommand, List<UserDto>>(Domain.Model.Domain.User.PhoneNumberMaxLength, PhoneNumber.TooLong.Message)
-            .RegexFormat<AddUserCommand, List<UserDto>>(Domain.Model.Domain.User.PhoneNumberRegex, PhoneNumber.InvalidFormat.Message)
-            .MustAsync((phone, cancellationToken) => userDataStore.IsPhoneNumberUniqueAsync(phone, cancellationToken))
-                .WithMessage(PhoneNumber.OneOfAlreadyInUse.Message);
+            .MaximumLength<AddUserCommand, List<UserDto>>(Domain.Model.Domain.User.PhoneNumberMaxLength,
+                PhoneNumber.TooLong.Message)
+            .RegexFormat<AddUserCommand, List<UserDto>>(Domain.Model.Domain.User.PhoneNumberRegex,
+                PhoneNumber.InvalidFormat.Message)
+            .DependentRules(() =>
+            {
+                RuleForEach(x => x.PhoneNumbers)
+                    .MustAsync((phone, cancellationToken) =>
+                        userDataStore.IsPhoneNumberUniqueAsync(phone.FormatPhoneNumber(), cancellationToken))
+                    .WithMessage(PhoneNumber.OneOfAlreadyInUse.Message);
+            });
+            
             
         RuleFor(x => x.OperatorId).CustomAsync(async (id, ctx, cancellationToken) =>
         {

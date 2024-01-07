@@ -35,6 +35,10 @@
     </Content>
     <Content Include="Migrations.ps1">
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Update="appsettings.Testing.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </Content>    
   </ItemGroup>  
   
