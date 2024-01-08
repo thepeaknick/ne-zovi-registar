@@ -11,7 +11,7 @@
               shape="rounded-pill"
               (click)="showAddUserModal()"
             >
-              + {{ t('Dodaj novog trgovca') }}
+              + {{ t("Dodaj novog trgovca") }}
             </button>
           </c-col>
           <c-col xs="8" class="rightTableHeader">
@@ -26,7 +26,7 @@
                   color="white"
                   shape="rounded-pill"
                 >
-                  {{ t('Prikaz po strani') }} &#8659;
+                  {{ t("Prikaz po strani") }} &#8659;
                   <ng-template #popoverHtml>
                     <div class="popover-body">
                       <c-row>
@@ -70,10 +70,10 @@
                   shape="rounded-pill"
                   (click)="exportExcel()"
                 >
-                  {{ t('Export data') }}
+                  {{ t("Export data") }}
                 </button>
               </c-col>
-              <c-col  xl="auto" lg="auto" md="2" class="columnBtnLeft">
+              <c-col xl="auto" lg="auto" md="2" class="columnBtnLeft">
                 <button
                   [cPopover]="popoverHtml1"
                   cPopoverPlacement="bottom"
@@ -83,7 +83,7 @@
                   color="white"
                   shape="rounded-pill"
                 >
-                  {{ t('Sortiraj') }}
+                  {{ t("Sortiraj") }}
                   <ng-template #popoverHtml1>
                     <div class="popover-body">
                       <c-row class="popover-row">
@@ -95,7 +95,7 @@
                             shape="rounded-pill"
                             (click)="sortByName()"
                           >
-                            {{ t('Po imenu') }}
+                            {{ t("Po imenu") }}
                           </button>
                           <button
                             cButton
@@ -104,7 +104,7 @@
                             shape="rounded-pill"
                             (click)="sortByCreatedOnASC()"
                           >
-                            {{ t('Po datumu kreiranja (uzlazno)') }}
+                            {{ t("Po datumu kreiranja (uzlazno)") }}
                           </button>
                           <button
                             cButton
@@ -113,7 +113,7 @@
                             shape="rounded-pill"
                             (click)="sortByCreatedOnDESC()"
                           >
-                            {{ t('Po datumu kreiranja (silazno)') }}
+                            {{ t("Po datumu kreiranja (silazno)") }}
                           </button>
                         </c-col>
                       </c-row>
@@ -129,10 +129,10 @@
         <table cTable hover>
           <thead class="tableHeader">
             <tr>
-              <th scope="col">{{ t('Ime firme') }}</th>
-              <th scope="col">{{ t('PIB') }}</th>
-              <th scope="col">{{ t('Matični broj') }}</th>
-              <th scope="col">{{ t('Datum upisa') }}</th>
+              <th scope="col">{{ t("Ime firme") }}</th>
+              <th scope="col">{{ t("PIB") }}</th>
+              <th scope="col">{{ t("Matični broj") }}</th>
+              <th scope="col">{{ t("Datum upisa") }}</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -150,7 +150,7 @@
                   color="white"
                   shape="rounded-pill"
                 >
-                  edit
+                  {{ t("promeni") }}
                 </button>
               </td>
             </tr>
@@ -159,9 +159,9 @@
       </div>
       <c-pagination class="custom">
         <li cPageItem [disabled]="currentPage === 1">
-          <span cPageLink [routerLink] (click)="setPage(currentPage - 1)"
-            >{{ t('Previous') }}</span
-          >
+          <span cPageLink [routerLink] (click)="setPage(currentPage - 1)">{{
+            t("Previous")
+          }}</span>
         </li>
         <li
           *ngFor="
@@ -175,7 +175,9 @@
           }}</a>
         </li>
         <li cPageItem [disabled]="currentPage === totalPagesNumber">
-          <a cPageLink [routerLink] (click)="setPage(currentPage + 1)">{{ t('Next') }}</a>
+          <a cPageLink [routerLink] (click)="setPage(currentPage + 1)">{{
+            t("Next")
+          }}</a>
         </li>
       </c-pagination>
     </div>
@@ -193,7 +195,7 @@
         <button (click)="toggleAddRegUsernModal()" cButtonClose></button>
       </c-modal-header>
       <c-modal-body>
-        <p class="modalTitleText">{{ t('Podaci o trgovcu') }}</p>
+        <p class="modalTitleText">{{ t("Podaci o trgovcu") }}</p>
         <form
           cForm
           class="row g-3"
@@ -204,7 +206,7 @@
           <c-col [xs]="8">
             <div class="mb-3">
               <label cLabel for="regUserName" class="textInputField">
-                {{ t('Ime trgovca') }}
+                {{ t("Ime trgovca") }}
               </label>
               <input
                 required
@@ -217,7 +219,7 @@
             </div>
             <div class="mb-3">
               <label cLabel for="regUserAddress" class="textInputField">
-                {{ t('Adresa trgovca') }}
+                {{ t("Adresa trgovca") }}
               </label>
               <input
                 required
@@ -232,7 +234,7 @@
               <c-row>
                 <c-col>
                   <label cLabel for="regUserFirstName" class="textInputField">
-                    {{ t('Ime') }}
+                    {{ t("Ime") }}
                   </label>
                   <input
                     required
@@ -245,7 +247,7 @@
                 </c-col>
                 <c-col>
                   <label cLabel for="regUserLastName" class="textInputField">
-                    {{ t('Prezime') }}
+                    {{ t("Prezime") }}
                   </label>
                   <input
                     required
@@ -262,7 +264,7 @@
               <c-row>
                 <c-col>
                   <label cLabel for="regUserUsername" class="textInputField">
-                    {{ t('Korisničko ime') }}
+                    {{ t("Korisničko ime") }}
                   </label>
                   <input
                     required
@@ -276,7 +278,7 @@
                 </c-col>
                 <c-col>
                   <label cLabel for="regUserPassword" class="textInputField">
-                    {{ t('Lozinka') }}
+                    {{ t("Lozinka") }}
                   </label>
                   <input
                     minlength="7"
@@ -292,7 +294,7 @@
             </div>
             <div class="mb-3">
               <label cLabel for="regUserEmail" class="textInputField">
-                {{ t('E-mail') }}
+                {{ t("E-mail") }}
               </label>
               <input
                 required
@@ -307,7 +309,9 @@
           </c-col>
           <c-col [xs]="4">
             <div class="mb-3">
-              <label cLabel for="regUserPIB" class="textInputField">{{ t('PIB') }}</label>
+              <label cLabel for="regUserPIB" class="textInputField">{{
+                t("PIB")
+              }}</label>
               <input
                 required
                 minlength="9"
@@ -321,9 +325,9 @@
               />
             </div>
             <div class="mb-3">
-              <label cLabel for="regUserMB" class="textInputField"
-                >{{ t('Matični broj') }}</label
-              >
+              <label cLabel for="regUserMB" class="textInputField">{{
+                t("Matični broj")
+              }}</label>
               <input
                 required
                 minlength="8"
