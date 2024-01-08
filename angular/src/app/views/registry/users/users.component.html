@@ -279,7 +279,7 @@
               <label cLabel for="pib" class="textInputField">
                 {{ t("Operator") }}
               </label>
-            
+
               <input
                 cFormControl
                 formControlName="userOperator"
@@ -295,7 +295,7 @@
                 required
                 minlength="13"
                 maxlength="13"
-                pattern="[0-9]*"
+                pattern="^(0[1-9]|[1-2][0-9]|31(?!(?:0[2469]|11))|30(?!02))(0[1-9]|1[0-2])([09][0-9]{2})([0-8][0-9]|9[0-6])([0-9]{3})(\d)$"
                 cFormControl
                 formControlName="userJMBG"
                 type="text"

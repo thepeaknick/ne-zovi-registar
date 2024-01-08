@@ -217,13 +217,15 @@ export class UsersComponent implements OnInit {
   showAddUserModal() {
     // Dohvati sve operatere
     this.regUserService.getRegUsers(RoleType.Obveznik).subscribe({
-      next: (operators: RegUserDto[]) =>
-        {this.operators =
+      next: (operators: RegUserDto[]) => {
+        this.operators =
           operators instanceof HttpErrorResponse ? [] : operators;
 
-          const currentOperator = this.operators.find(operator => operator.name === this.currentUsername);
-          this.currentOperatorID = currentOperator?.id;
-        },
+        const currentOperator = this.operators.find(
+          (operator) => operator.name === this.currentUsername
+        );
+        this.currentOperatorID = currentOperator?.id;
+      },
       complete: () => {},
     });
 
@@ -245,25 +247,24 @@ export class UsersComponent implements OnInit {
   addUserWithNumbers() {
     this.isValidated = true;
 
-    this.userService
-      .addUser({
-        firstName: this.fields['userFirstName'].value,
-        lastName: this.fields['userLastName'].value,
-        jmbg: this.fields['userJMBG'].value,
-        phoneNumbers: [this.fields['userPhoneNumber'].value],
-        operatorId: this.currentOperatorID!,
-      })
-      .subscribe({
-        next: () => {
-          this.modalText = 'Uspešno dodat novi korisnik/broj';
-          this.isAddUserModalVisible = false;
-          this.toggleConfirmationModal();
-          // console.log('Korisnik je uspešno dodat u registar');
-        },
-        error: (error) => {
-          // console.log('Dodavanje korisnika u registar nije uspelo');
-        },
-      });
+    // this.userService
+    //   .addUser({
+    //     firstName: this.fields['userFirstName'].value,
+    //     lastName: this.fields['userLastName'].value,
+    //     jmbg: this.fields['userJMBG'].value,
+    //     phoneNumbers: [this.fields['userPhoneNumber'].value],
+    //     operatorId: this.currentOperatorID!,
+    //   })
+    //   .subscribe({
+    //     next: () => {
+    //       this.modalText = 'Uspešno dodat novi korisnik/broj';
+    //       this.isAddUserModalVisible = false;
+    //       this.toggleConfirmationModal();
+    //     },
+    //     error: (error) => {
+    //       // console.log('Dodavanje korisnika u registar nije uspelo');
+    //     },
+    //   });
   }
 
   editNumber(number: string) {
