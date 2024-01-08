@@ -29,8 +29,9 @@ internal sealed class AddUserCommandHandler : ICommandHandler<AddUserCommand, Li
         foreach (var phoneNumber in command.PhoneNumbers)
         {
             var user =
-                new Domain.Model.Domain.User(command.FirstName, command.LastName, phoneNumber)
+                new Domain.Model.Domain.User(command.FirstName, command.LastName)
                     .AddJmbg(command.Jmbg)
+                    .AddPhoneNumber(phoneNumber)
                     .AddOperator(command.OperatorId);
 
             await _userDataStore.AddAsync(user, cancellationToken);

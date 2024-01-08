@@ -1,6 +1,23 @@
-﻿using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
+﻿using NeZoviReg.Abstractions.Extensions;
+using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
+using NeZoviReg.Domain.Extensions;
 
 namespace NeZoviReg.Abstractions.Messaging.Domain.Queries.User;
 
+public record GetUserQuery : IQuery<UserDto>
+{
+    
+    
+    private string _phoneNumber;
 
-public record GetUserQuery(string PhoneNumber) : IQuery<UserDto>;
+    public required string PhoneNumber
+    {
+        get
+        {
+            _phoneNumber = _phoneNumber.RemoveSpaces();
+
+            return _phoneNumber.FormatPhoneNumber();
+        }
+        init { _phoneNumber = value; }
+    }
+}

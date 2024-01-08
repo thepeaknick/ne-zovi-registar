@@ -5,6 +5,7 @@ using NeZoviReg.Abstractions.Messaging.Domain.Commands.User;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
+using NeZoviReg.Domain.Extensions;
 using static NeZoviReg.Abstractions.Shared.Errors.RegErrors;
 
 namespace NeZoviReg.Application.Services.User;
@@ -39,10 +40,17 @@ public class ModifyUserCommandValidator : AbstractValidator<ModifyUserCommand>
         When(x => !string.IsNullOrEmpty(x.NewPhoneNumber), () =>
         {
             RuleFor(x => x.NewPhoneNumber)!
-                .MaximumLength<ModifyUserCommand, UserDto>(Domain.Model.Domain.User.PhoneNumberMaxLength, PhoneNumber.TooLong.Message)
-                .RegexFormat<ModifyUserCommand, UserDto>(@"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$", PhoneNumber.InvalidFormat.Message)
-                .MustAsync((phone, cancellationToken) => userDataStore.IsPhoneNumberUniqueAsync(phone, cancellationToken))
-                .WithMessage(x => PhoneNumber.AlreadyInUse(x.NewPhoneNumber!).Message);;
+                .MaximumLength<ModifyUserCommand, UserDto>(Domain.Model.Domain.User.PhoneNumberMaxLength,
+                    PhoneNumber.TooLong.Message)
+                .RegexFormat<ModifyUserCommand, UserDto>(Domain.Model.Domain.User.PhoneNumberRegex,
+                    PhoneNumber.InvalidFormat.Message)
+                .DependentRules(() =>
+                {
+                    RuleFor(x => x.NewPhoneNumber)
+                        .MustAsync((phone, cancellationToken) =>
+                            userDataStore.IsPhoneNumberUniqueAsync(phone.FormatPhoneNumber(), cancellationToken))
+                        .WithMessage(x => PhoneNumber.AlreadyInUse(x.NewPhoneNumber!).Message);
+                });
         });
 
         When(x => x.NewOperatorId.HasValue, () =>

@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NeZoviReg.Persistence.Ef;
 
@@ -18,9 +17,7 @@ namespace NeZoviReg.Migrations.Ef.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.4")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("NeZoviReg.Domain.Model.Auth.Permission", b =>
                 {
@@ -28,34 +25,30 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("ModifiedBy")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
-                    b.Property<byte[]>("Rowversion")
+                    b.Property<DateTime>("Rowversion")
                         .IsConcurrencyToken()
-                        .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasMaxLength(8)
-                        .HasColumnType("timestamp");
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
@@ -66,29 +59,33 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                         {
                             Id = 2,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 6, 16, 18, 42, 9, 746, DateTimeKind.Local).AddTicks(4203),
-                            Name = "RegUsersOnly"
+                            CreatedOn = new DateTime(2023, 8, 11, 17, 5, 9, 941, DateTimeKind.Local).AddTicks(6018),
+                            Name = "RegUsersOnly",
+                            Rowversion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 16,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 6, 16, 18, 42, 9, 746, DateTimeKind.Local).AddTicks(4242),
-                            Name = "Read"
+                            CreatedOn = new DateTime(2023, 8, 11, 17, 5, 9, 941, DateTimeKind.Local).AddTicks(6060),
+                            Name = "Read",
+                            Rowversion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 8,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 6, 16, 18, 42, 9, 746, DateTimeKind.Local).AddTicks(4243),
-                            Name = "Delete"
+                            CreatedOn = new DateTime(2023, 8, 11, 17, 5, 9, 941, DateTimeKind.Local).AddTicks(6062),
+                            Name = "Delete",
+                            Rowversion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 4,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 6, 16, 18, 42, 9, 746, DateTimeKind.Local).AddTicks(4245),
-                            Name = "Write"
+                            CreatedOn = new DateTime(2023, 8, 11, 17, 5, 9, 941, DateTimeKind.Local).AddTicks(6064),
+                            Name = "Write",
+                            Rowversion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -103,24 +100,22 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("ModifiedBy")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
-                    b.Property<byte[]>("Rowversion")
+                    b.Property<DateTime>("Rowversion")
                         .IsConcurrencyToken()
-                        .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasMaxLength(8)
-                        .HasColumnType("timestamp");
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("RegUserId", "RoleId");
 
@@ -134,7 +129,16 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                             RegUserId = 1,
                             RoleId = 1,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 6, 16, 18, 42, 9, 753, DateTimeKind.Local).AddTicks(4045)
+                            CreatedOn = new DateTime(2023, 8, 11, 17, 5, 9, 948, DateTimeKind.Local).AddTicks(8154),
+                            Rowversion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            RegUserId = 2,
+                            RoleId = 1,
+                            CreatedBy = "init",
+                            CreatedOn = new DateTime(2023, 8, 11, 17, 5, 9, 948, DateTimeKind.Local).AddTicks(8220),
+                            Rowversion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -144,34 +148,30 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("ModifiedBy")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
-                    b.Property<byte[]>("Rowversion")
+                    b.Property<DateTime>("Rowversion")
                         .IsConcurrencyToken()
-                        .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasMaxLength(8)
-                        .HasColumnType("timestamp");
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
@@ -182,22 +182,25 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                         {
                             Id = 1,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 6, 16, 18, 42, 9, 757, DateTimeKind.Local).AddTicks(1384),
-                            Name = "Admin"
+                            CreatedOn = new DateTime(2023, 8, 11, 17, 5, 9, 952, DateTimeKind.Local).AddTicks(4556),
+                            Name = "Admin",
+                            Rowversion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 3,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 6, 16, 18, 42, 9, 757, DateTimeKind.Local).AddTicks(1402),
-                            Name = "Obveznik"
+                            CreatedOn = new DateTime(2023, 8, 11, 17, 5, 9, 952, DateTimeKind.Local).AddTicks(4578),
+                            Name = "Obveznik",
+                            Rowversion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 6, 16, 18, 42, 9, 757, DateTimeKind.Local).AddTicks(1405),
-                            Name = "Trgovac"
+                            CreatedOn = new DateTime(2023, 8, 11, 17, 5, 9, 952, DateTimeKind.Local).AddTicks(4580),
+                            Name = "Trgovac",
+                            Rowversion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -212,24 +215,22 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("ModifiedBy")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
-                    b.Property<byte[]>("Rowversion")
+                    b.Property<DateTime>("Rowversion")
                         .IsConcurrencyToken()
-                        .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasMaxLength(8)
-                        .HasColumnType("timestamp");
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("RoleId", "PermissionId");
 
@@ -243,35 +244,40 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                             RoleId = 1,
                             PermissionId = 2,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 6, 16, 18, 42, 9, 757, DateTimeKind.Local).AddTicks(6957)
+                            CreatedOn = new DateTime(2023, 8, 11, 17, 5, 9, 952, DateTimeKind.Local).AddTicks(9501),
+                            Rowversion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             RoleId = 3,
                             PermissionId = 4,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 6, 16, 18, 42, 9, 757, DateTimeKind.Local).AddTicks(6972)
+                            CreatedOn = new DateTime(2023, 8, 11, 17, 5, 9, 952, DateTimeKind.Local).AddTicks(9516),
+                            Rowversion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             RoleId = 3,
                             PermissionId = 8,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 6, 16, 18, 42, 9, 757, DateTimeKind.Local).AddTicks(6974)
+                            CreatedOn = new DateTime(2023, 8, 11, 17, 5, 9, 952, DateTimeKind.Local).AddTicks(9518),
+                            Rowversion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             RoleId = 3,
                             PermissionId = 16,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 6, 16, 18, 42, 9, 757, DateTimeKind.Local).AddTicks(6975)
+                            CreatedOn = new DateTime(2023, 8, 11, 17, 5, 9, 952, DateTimeKind.Local).AddTicks(9519),
+                            Rowversion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             RoleId = 2,
                             PermissionId = 16,
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 6, 16, 18, 42, 9, 757, DateTimeKind.Local).AddTicks(6977)
+                            CreatedOn = new DateTime(2023, 8, 11, 17, 5, 9, 952, DateTimeKind.Local).AddTicks(9521),
+                            Rowversion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -281,89 +287,85 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("ForgotPasswordToken")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime?>("ForgotPasswordTokenExpirationTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<Guid>("GuidId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("ModifiedBy")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("RefreshToken")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime?>("RefreshTokenExpirationTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("RegNumber")
                         .IsRequired()
                         .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasColumnType("varchar(8)");
 
-                    b.Property<byte[]>("Rowversion")
+                    b.Property<DateTime>("Rowversion")
                         .IsConcurrencyToken()
-                        .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasMaxLength(8)
-                        .HasColumnType("timestamp");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("TaxNumber")
                         .IsRequired()
                         .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
+                        .HasColumnType("varchar(9)");
 
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -391,15 +393,33 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                             Address = "Palmotićeva 2",
                             CompanyName = "RATEL",
                             CreatedBy = "init",
-                            CreatedOn = new DateTime(2023, 6, 16, 18, 42, 9, 758, DateTimeKind.Local).AddTicks(2733),
-                            Email = "markobubulj.test@gmail.com",
+                            CreatedOn = new DateTime(2023, 8, 11, 17, 5, 9, 953, DateTimeKind.Local).AddTicks(3789),
+                            Email = "mail@mail.com",
                             FirstName = "Ime",
-                            GuidId = new Guid("39cf5d8d-ea80-4e9e-a561-1e2b348d895e"),
+                            GuidId = new Guid("094ef666-7793-4694-a4b9-d53015c1fbca"),
                             LastName = "Prezime",
                             Password = "dGVzdDEyMw==",
-                            RegNumber = "17606590",
-                            TaxNumber = "103986571",
+                            RegNumber = "00000000",
+                            Rowversion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TaxNumber = "000000000",
                             Username = "ratel"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "Palmotićeva 2",
+                            CompanyName = "RATEL2",
+                            CreatedBy = "init",
+                            CreatedOn = new DateTime(2023, 8, 11, 17, 5, 9, 953, DateTimeKind.Local).AddTicks(3816),
+                            Email = "mail2@mail.com",
+                            FirstName = "Ime",
+                            GuidId = new Guid("13f54b2d-f186-46ee-9af4-c45d2e9f76e6"),
+                            LastName = "Prezime",
+                            Password = "dGVzdDEyMw==",
+                            RegNumber = "11111111",
+                            Rowversion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TaxNumber = "111111111",
+                            Username = "ratel2"
                         });
                 });
 
@@ -409,37 +429,40 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<bool?>("Active")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Jmbg")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("ModifiedBy")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("OperatorId")
                         .HasColumnType("int");
@@ -447,21 +470,16 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
+                        .HasColumnType("varchar(25)");
 
-                    b.Property<byte[]>("Rowversion")
+                    b.Property<DateTime>("Rowversion")
                         .IsConcurrencyToken()
-                        .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasMaxLength(8)
-                        .HasColumnType("timestamp");
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("OperatorId");
-
-                    b.HasIndex("PhoneNumber")
-                        .IsUnique();
 
                     b.ToTable("User", (string)null);
                 });

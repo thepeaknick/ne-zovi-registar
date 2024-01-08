@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NeZoviReg.Abstractions.Extensions.Paging;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Domain.Model.Domain;
 
@@ -14,25 +15,30 @@ public class UserDataStore : IUserDataStore
     }
 
     public async Task<User?> GetByPhoneNumber(string phoneNumber, CancellationToken cancellationToken = default) =>
-        await _dbContext.Set<User>().FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber, cancellationToken);
+        await _dbContext.Set<User>().FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber && x.Active, cancellationToken);
 
     public async Task<bool> IsPhoneNumberUniqueAsync(string phoneNumber, CancellationToken cancellationToken = default)
         => !await _dbContext
             .Set<User>()
-            .AnyAsync(user => user.PhoneNumber == phoneNumber, cancellationToken);
+            .AnyAsync(user => (user.Active) && user.PhoneNumber == phoneNumber, cancellationToken);
 
-    public async Task<List<User>> GetAll(DateTime? after, CancellationToken cancellationToken = default)
-        => await _dbContext.Set<User>().Where(x => x.CreatedOn >= (after ?? DateTime.MinValue)).ToListAsync(cancellationToken);
+    public async Task<PagedList<User>> GetAll(DateTime? after, PageInfo pInfo,
+        CancellationToken cancellationToken = default)
+        => await _dbContext.Set<User>()
+            .Include(u => u.Operator)
+            .Where(x => x.CreatedOn >= (after ?? DateTime.MinValue))
+            .GetPagedAsync(pInfo.CurrentCursor, pInfo.PageSize, cancellationToken);
 
     public async Task AddAsync(User user, CancellationToken cancellationToken = default) =>
-       await _dbContext.Set<User>().AddAsync(user, cancellationToken);
+        await _dbContext.Set<User>().AddAsync(user, cancellationToken);
 
     public async Task BulkAddAsync(List<User> users, CancellationToken cancellationToken = default) =>
-            await _dbContext.Set<User>().BulkInsertAsync(users, cancellationToken);
+        await _dbContext.Set<User>().AddRangeAsync(users, cancellationToken);
+
+    public async Task BulkRemoveAsync(List<string> phoneNumbers, CancellationToken cancellationToken = default) =>
+        await _dbContext.Set<User>().Where(x =>  x.Active && phoneNumbers.Contains(x.PhoneNumber))
+            .ExecuteUpdateAsync(x => x.SetProperty(u => u.Active, false), cancellationToken);
 
     public void Update(User user) =>
         _dbContext.Set<User>().Update(user);
-
-    public void Remove(User user) =>
-        _dbContext.Set<User>().Remove(user);
 }

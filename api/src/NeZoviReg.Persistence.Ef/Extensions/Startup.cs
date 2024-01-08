@@ -19,9 +19,12 @@ public static class Startup
             .AddDbContext<NeZoviRegDataContext>(op =>
             {
                 op.ConfigureWarnings(x => x.Ignore(RelationalEventId.MultipleCollectionIncludeWarning));
-            op.UseSqlServer(configuration.GetConnectionString("SqlServerDatabase"))
-                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTrackingWithIdentityResolution);
-        })
+                op.UseMySql(configuration.GetConnectionString("MySqlDatabase"),
+                    ServerVersion.AutoDetect(configuration.GetConnectionString("MySqlDatabase")))
+                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTrackingWithIdentityResolution);
+                /*op.UseSqlServer(configuration.GetConnectionString("SqlServerDatabase"))
+                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTrackingWithIdentityResolution);*/
+            })
             .AddPersistenceServices(configuration);
     }
 

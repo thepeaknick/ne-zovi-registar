@@ -4,9 +4,11 @@ using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using NeZoviReg.Abstractions.Shared.Errors;
+using NeZoviReg.Abstractions.Shared.Model;
 using NeZoviReg.WebApi.Extensions.Middleware;
 using NeZoviReg.WebApi.Extensions.Options;
 using NeZoviReg.WebApi.Extensions.WebApi;
+using NeZoviReg.WebApi.Infrastructure;
 
 namespace NeZoviReg.WebApi.Extensions;
 
@@ -15,6 +17,7 @@ public static class Startup
     public static IServiceCollection ConfigureWebApi(this IServiceCollection services, IConfiguration configuration)
     {
         return services
+            .AddHttpContextAccessor()
             .AddEndpointsApiExplorer()
             .AddCors()
             .AddApiDocumentation()
@@ -34,21 +37,51 @@ public static class Startup
         builder.AddJsonFile("appsettings.json", false, reloadOnChange);
         if (environment != null)
             builder.AddJsonFile("appsettings." + environment.EnvironmentName + ".json", true, reloadOnChange);
-        return builder.AddJsonFile("appsettings.my.json", true, reloadOnChange);
+        return builder.AddJsonFile("appsettings.my.json", true, false);
     }
 
     private static IServiceCollection AddRateLimiter(this IServiceCollection services, IConfiguration configuration)
     {
-        var fixedWindowRateLimitOptions = new FixedWindowRateLimitOptions();
+        var fixedWindowRateLimitOptionsAnonymous = new FixedWindowRateLimitOptions();
         configuration
-            .GetSection(FixedWindowRateLimitOptions.SectionName)
-            .Bind(fixedWindowRateLimitOptions);
+            .GetSection(FixedWindowRateLimitOptions.SectionNameAnonymous)
+            .Bind(fixedWindowRateLimitOptionsAnonymous);
+        
+        var fixedWindowRateLimitOptionsAuthenticated = new FixedWindowRateLimitOptions();
+        configuration
+            .GetSection(FixedWindowRateLimitOptions.SectionNameAuthenticated)
+            .Bind(fixedWindowRateLimitOptionsAuthenticated);
 
         return services.AddRateLimiter(options =>
         {
-            options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
+            options.AddPolicy(Const.AnonymousLogin, httpContext =>
+            
+                RateLimitPartition.GetFixedWindowLimiter(httpContext.Connection.RemoteIpAddress?.ToString() ?? httpContext.Request.Headers.Host.ToString(),
+                    _ => new FixedWindowRateLimiterOptions
+                    {
+                        AutoReplenishment = true,
+                        PermitLimit = fixedWindowRateLimitOptionsAnonymous.PermitLimit,
+                        QueueLimit = fixedWindowRateLimitOptionsAnonymous.QueueLimit,
+                        QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                        Window = TimeSpan.FromSeconds(fixedWindowRateLimitOptionsAnonymous.WindowInSeconds)
+                    }));
+            
+            options.AddPolicy(Const.AuthenticatedLogin, httpContext =>
+            
+                
+                RateLimitPartition.GetFixedWindowLimiter(AppUser.GetUserName(httpContext.User.Identity) ?? httpContext.Request.Headers.Host.ToString(),
+                    _ => new FixedWindowRateLimiterOptions
+                    {
+                        AutoReplenishment = true,
+                        PermitLimit = fixedWindowRateLimitOptionsAuthenticated.PermitLimit,
+                        QueueLimit = fixedWindowRateLimitOptionsAuthenticated.QueueLimit,
+                        QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                        Window = TimeSpan.FromSeconds(fixedWindowRateLimitOptionsAuthenticated.WindowInSeconds)
+                    }));
+
+            /*options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
                 RateLimitPartition.GetFixedWindowLimiter(
-                    httpContext.Request.Headers.Host.ToString(),
+                    httpContext.Connection.RemoteIpAddress?.ToString() ?? httpContext.Request.Headers.Host.ToString(),
                     _ => new FixedWindowRateLimiterOptions
                     {
                         AutoReplenishment = true,
@@ -56,7 +89,7 @@ public static class Startup
                         QueueLimit = fixedWindowRateLimitOptions.QueueLimit,
                         QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
                         Window = TimeSpan.FromSeconds(fixedWindowRateLimitOptions.WindowInSeconds)
-                    }));
+                    }));*/
 
             options.OnRejected = async (context, cancellationToken) =>
             {

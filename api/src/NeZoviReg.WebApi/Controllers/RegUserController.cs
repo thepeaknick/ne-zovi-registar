@@ -5,9 +5,11 @@ using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
 using NeZoviReg.Auth.Authorization;
 using NeZoviReg.WebApi.Model.RegUser;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.RateLimiting;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 using NeZoviReg.Abstractions.Messaging.Domain.Queries.RegUser;
-using Microsoft.AspNetCore.Cors;
+using NeZoviReg.WebApi.Infrastructure;
 
 namespace NeZoviReg.WebApi.Controllers;
 
@@ -19,6 +21,29 @@ public class RegUserController : NeZoviRegBaseController
     { }
 
     /// <summary>
+    /// Registruj trgovca.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpPost("register-trader")]
+    [ProducesResponseType(typeof(RegUserDto), (int) HttpStatusCode.OK)]
+    [AllowAnonymous]
+    [EnableRateLimiting(Const.AnonymousLogin)]
+    public async Task<IActionResult> RegisterTrader([FromBody] RegisterTraderRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new CreateRegUserCommand(request.Name, request.Email, request.Address, request.RegNumber,
+                request.TaxNumber, request.FirstName, request.LastName,
+                request.UserName, request.Password, RoleType.Trgovac)
+            .AddAppUser(AppUser.UserName);
+
+        var result = await Sender.Send(command, cancellationToken);
+
+        return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
+    }
+    
+    /// <summary>
     /// Registruj novog korisnika registra.
     /// </summary>
     /// <param name="request"></param>
@@ -27,6 +52,7 @@ public class RegUserController : NeZoviRegBaseController
     [HttpPost("register")]
     [ProducesResponseType(typeof(RegUserDto), (int) HttpStatusCode.OK)]
     [HasPermission(PermissionType.RegUsersOnly)]
+    [EnableRateLimiting(Const.AuthenticatedLogin)]
     public async Task<IActionResult> RegisterRegUser([FromBody] RegisterRegUserRequest request,
         CancellationToken cancellationToken)
     {

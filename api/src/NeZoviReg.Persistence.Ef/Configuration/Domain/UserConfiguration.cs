@@ -30,12 +30,13 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.OperatorId)
             .IsRequired();
+        
+        builder.Property(x => x.Active)
+            .HasDefaultValue(true);
 
         builder.HasOne(kp => kp.Operator)
             .WithMany()
             .HasForeignKey(kp => kp.OperatorId)
             .OnDelete(DeleteBehavior.Cascade);
-        
-        builder.HasIndex(x => x.PhoneNumber).IsUnique();
     }
 }

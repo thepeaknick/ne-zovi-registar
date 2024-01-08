@@ -8,11 +8,8 @@ export class TranslocoHttpLoader implements TranslocoLoader {
 
   getTranslation(lang: string) {
     return this.http.get<Translation>(
-      // `http://81.208.220.88/assets/i18n/${lang}.json`
-      // `https://www.nezovi.rs/assets/i18n/${lang}.json`
-      `http://localhost:4200/assets/i18n/${lang}.json`
-      
-      // 'https://test.nezovi.rs/assets/i18n/lat.json'
+      `https://www.nezovi.rs/assets/i18n/${lang}.json`
+      // `http://localhost:4200/assets/i18n/${lang}.json`
     );
   }
 }

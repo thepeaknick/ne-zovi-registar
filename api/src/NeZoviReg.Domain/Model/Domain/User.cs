@@ -8,6 +8,7 @@ namespace NeZoviReg.Domain.Model.Domain;
 /// </summary>
 public class User : Entity
 {
+    public const string PhoneNumberRegex = "^381|06[0-9]{1}[0-9]{6,7}$";
     public const int FirstNameMaxLength = 100;
     public const int  LastNameMaxLength = 100;
     public const int  PhoneNumberMaxLength = 25;
@@ -18,19 +19,17 @@ public class User : Entity
         CreatedOn = DateTime.Now;
     }
 
-    public User(string firstName, string lastName, string phoneNumber)
+    public User(string firstName, string lastName)
     {
         FirstName = firstName;
         LastName = lastName;
-        PhoneNumber = phoneNumber;
     }
 
-    public User(int id, string firstName, string lastName, string phoneNumber)
+    public User(int id, string firstName, string lastName)
         : base(id)
     {
         FirstName = firstName;
         LastName = lastName;
-        PhoneNumber = phoneNumber;
     }
 
 
@@ -40,12 +39,14 @@ public class User : Entity
 
     public string PhoneNumber { get; private set; }
 
+    public bool Active { get; private set; } = true;
+
     public string FullName => $"Ime={FirstName}, Prezime={LastName}, Jmbg={Jmbg}, Broj telefona={PhoneNumber}.";
 
     private string _jmbg;
     public string Jmbg
     {
-        get => _jmbg.Decode();
+        get => _jmbg.Decrypt();
         private set => _jmbg = value;
     }
 
@@ -79,14 +80,14 @@ public class User : Entity
         if (jmbg == default)
             return this;
         
-        Jmbg = jmbg.Encode();
+        Jmbg = jmbg.Encrypt();
 
         return this;
     }
 
     public User AddPhoneNumber(string? phoneNumber)
     {
-        PhoneNumber = phoneNumber ?? PhoneNumber;
+        PhoneNumber = phoneNumber ?? PhoneNumber.FormatPhoneNumber();
 
         return this;
     }
@@ -97,6 +98,15 @@ public class User : Entity
 
         return this;
     }
+
+    public User Deactivate()
+    {
+        Active = false;
+
+        return this;
+    }
+
+    public bool IsActive => Active;
 
     public override string ToString() => $"{FullName}, {Jmbg}";
 }

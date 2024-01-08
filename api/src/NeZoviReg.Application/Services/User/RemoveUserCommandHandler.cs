@@ -32,7 +32,7 @@ internal sealed class RemoveUserCommandHandler : ICommandHandler<RemoveUserComma
             return Result.Failure<UserDto>(RegErrors.User.NotFound(command.PhoneNumber));
         }
 
-        _userDataStore.Remove(user);
+        _userDataStore.Update(user.Deactivate());
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 

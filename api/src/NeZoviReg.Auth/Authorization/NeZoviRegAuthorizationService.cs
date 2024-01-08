@@ -65,7 +65,6 @@ public class NeZoviRegAuthorizationService : DefaultAuthorizationService, INeZov
     {
         return await _cache.GetAsync(CacheKeyPrefix.RegUser, regUserId,
            async () => await _authDataStore.GetUserWithPermissionsAsync(regUserId, cancellationToken),
-           cancellationToken)
-            .ConfigureAwait(false);
+           cancellationToken).ConfigureAwait(false);
     }
 }

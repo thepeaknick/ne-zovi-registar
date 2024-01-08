@@ -2,7 +2,9 @@
 
 public class FixedWindowRateLimitOptions
 {
-    public static string SectionName = @"RateLimit:FixedWindow";
+    public static string SectionNameAnonymous = @"RateLimit:FixedWindowAnonymous";
+    
+    public static string SectionNameAuthenticated = @"RateLimit:FixedWindowAuthenticated";
 
     public int PermitLimit { get; init; }
 

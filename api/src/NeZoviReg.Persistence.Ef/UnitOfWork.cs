@@ -28,7 +28,8 @@ internal sealed class UnitOfWork : IUnitOfWork
         IEnumerable<EntityEntry<IAuditableEntity>> entries =
             _dbContext
                 .ChangeTracker
-                .Entries<IAuditableEntity>();
+                .Entries<IAuditableEntity>()
+                .ToList();
 
         foreach (EntityEntry<IAuditableEntity> entityEntry in entries)
         {
@@ -39,13 +40,14 @@ internal sealed class UnitOfWork : IUnitOfWork
                 //throw new InvalidOperationException($"User is mandatory for saving, appUser={user}.");
             }
 
-            if (entityEntry.State == EntityState.Added)
+            switch (entityEntry.State)
             {
-                entityEntry.Entity.AddCreation(user);
-            }
-            else if (entityEntry.State == EntityState.Modified)
-            {
-                entityEntry.Entity.AddModification(user);
+                case EntityState.Added:
+                    entityEntry.Entity.AddCreation(user);
+                    break;
+                case EntityState.Modified:
+                    entityEntry.Entity.AddModification(user);
+                    break;
             }
         }
     }
@@ -55,7 +57,8 @@ internal sealed class UnitOfWork : IUnitOfWork
         IEnumerable<EntityEntry<IEntity>> entries =
             _dbContext
                 .ChangeTracker
-                .Entries<IEntity>();
+                .Entries<IEntity>()
+                .ToList();
 
         foreach (EntityEntry<IEntity> entityEntry in entries)
         {
