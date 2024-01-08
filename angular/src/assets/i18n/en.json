@@ -2,6 +2,7 @@
   "Dobrodošli u registar": "Register „NE ZOVI“",
   "Nazad": "Back",
   "Prijavi se": "Sign in",
+  "Pokušavate da napustite stranicu": "You are trying to leave register „NE ZOVI“",
 
   "Registar NE ZOVI": "Register „NE ZOVI“",
   "Administrator": "Administrator",
@@ -122,5 +123,6 @@
   "Kontaktirajte nas": "Contact us",
   "Sign out": "Sign out",
 
-  "Previše pokušaja. Molimo vas pokušajte za 2 minut/a.": "Too many attempts. Please try in 2 minutes."
+  "Previše pokušaja. Molimo vas pokušajte za 2 minut/a.": "Too many attempts. Please try in 2 minutes.",
+  "Da li ste sigurni": "Are you sure?"
 }

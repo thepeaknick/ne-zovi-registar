@@ -16,9 +16,9 @@ export class PageHeaderComponent extends HeaderComponent {
 
   isLogin: boolean = false;
   isSearch: boolean = false;
+  isCyr: boolean = true;
 
   constructor(
-    private classToggler: ClassToggleService,
     private router: Router,
     private translocoService: TranslocoService
   ) {
@@ -27,9 +27,11 @@ export class PageHeaderComponent extends HeaderComponent {
 
   changeLanguage(lang: string) {
     this.translocoService.setActiveLang(lang);
+    this.isCyr = lang == 'cir' ? true : false;
   }
 
   ngOnInit() {
+    this.isCyr = this.translocoService.getActiveLang() == 'cir' ? true : false;
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
         if (this.router.url === '/login') {

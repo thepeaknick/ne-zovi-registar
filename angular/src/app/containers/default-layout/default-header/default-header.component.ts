@@ -17,17 +17,15 @@ import { TranslocoService } from '@ngneat/transloco';
 export class DefaultHeaderComponent extends HeaderComponent {
   @Input() sidebarId: string = 'sidebar';
   icons = { cilMenu };
+  isCyr: boolean = true;
 
   public newMessages = new Array(4);
   public newTasks = new Array(5);
   public newNotifications = new Array(5);
+
   @Input() currentUsername: string;
 
   constructor(
-    private classToggler: ClassToggleService,
-    private regUserService: RegUserService,
-    private router: Router,
-    private route: ActivatedRoute,
     public authenticationService: AuthenticationService,
     private translocoService: TranslocoService
   ) {
@@ -35,8 +33,8 @@ export class DefaultHeaderComponent extends HeaderComponent {
     this.currentUsername = AuthenticationService.CurrentUserName;
   }
 
-
   changeLanguage(lang: string) {
     this.translocoService.setActiveLang(lang);
+    this.isCyr = lang == 'cir' ? true : false;
   }
 }

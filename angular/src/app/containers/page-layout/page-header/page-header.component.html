@@ -5,6 +5,14 @@
         <c-col xs="3">
           <a class="header-brand" href="#">
             <img
+              *ngIf="isCyr"
+              src="/assets/brand/ratellogocyr.png"
+              alt=""
+              class="headerImage"
+              alt="Ratel Logo"
+            />
+            <img
+              *ngIf="!isCyr"
               src="/assets/brand/ratellogo.png"
               alt=""
               class="headerImage"
@@ -16,9 +24,6 @@
           <span>
             <h2>{{ t("Dobrodošli u registar") }}</h2>
           </span>
-          <!-- <button (click)="changeLanguage('en')">Engleski</button>
-          <button (click)="changeLanguage('lat')">Latinica</button>
-          <button (click)="changeLanguage('cir')">Ћирилица</button> -->
         </c-col>
         <c-col xs="3" class="loginlang">
           <c-dropdown variant="btn-group">
