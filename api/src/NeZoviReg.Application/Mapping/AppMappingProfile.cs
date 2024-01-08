@@ -22,7 +22,7 @@ public class AppMappingProfile : Profile
             .ForMember(d => d.OperatorGuid, o => o.MapFrom(s => s.Operator.GuidId));
 
         CreateMap<User, UserDetailsDto>()
-            .ConstructUsing(s => new UserDetailsDto(s.PhoneNumber, s.FirstName, s.LastName, s.Jmbg, s.OperatorId));
+            .ConstructUsing(s => new UserDetailsDto(s.PhoneNumber, s.FirstName, s.LastName, s.OperatorId));
 
         CreateMap<BulkUser, User>()
             .AfterMap((s,d,c) =>
