@@ -26,7 +26,8 @@ public class AddUserCommandValidator : AbstractValidator<AddUserCommand>
 
         RuleFor(x => x.Jmbg)
             .NotEmpty<AddUserCommand, string, List<UserDto>>(Jmbg.Empty.Message)
-            .MaximumLength<AddUserCommand, List<UserDto>>(Domain.Model.Domain.User.JmbgMaxLength, Jmbg.TooLong.Message);
+            .MaximumLength<AddUserCommand, List<UserDto>>(Domain.Model.Domain.User.JmbgMaxLength, Jmbg.TooLong.Message)
+            .RegexFormat<AddUserCommand, List<UserDto>>(Domain.Model.Domain.User.JmbgRegex, Jmbg.InvalidFormat.Message);
 
         RuleFor(x => x.OperatorId)
             .NotEmpty<AddUserCommand, int, List<UserDto>>(Operater.Empty.Message);

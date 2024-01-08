@@ -226,6 +226,10 @@ public static class RegErrors
         public static readonly Error TooLong = new(
             ErrorCode.TooLong,
             "JMBG je predugačko.");
+        
+        public static readonly Error InvalidFormat = new(
+            ErrorCode.InvalidFormat,
+            "Format JMBG-a nije ispravan.");
     }
 
     public static class PhoneNumber

@@ -40,7 +40,8 @@ public class AddUsersCommandValidator : AbstractValidator<AddUsersCommand>
 
             user.RuleFor(x => x.Jmbg)
                 .NotEmpty().WithMessage(Jmbg.Empty.Message)
-                .MaximumLength(Domain.Model.Domain.User.JmbgMaxLength).WithMessage(Jmbg.TooLong.Message);
+                .MaximumLength(Domain.Model.Domain.User.JmbgMaxLength).WithMessage(Jmbg.TooLong.Message)
+                .Matches(Domain.Model.Domain.User.JmbgRegex).WithMessage(Jmbg.InvalidFormat.Message);
 
             user.RuleFor(x => x.OperatorId)
                 .NotEmpty().WithMessage(Operater.Empty.Message);
@@ -48,8 +49,7 @@ public class AddUsersCommandValidator : AbstractValidator<AddUsersCommand>
             user.RuleFor(x => x.PhoneNumber)
                 .NotEmpty().WithMessage(PhoneNumber.Empty.Message)
                 .MaximumLength(Domain.Model.Domain.User.PhoneNumberMaxLength).WithMessage(PhoneNumber.TooLong.Message)
-                .Matches(Domain.Model.Domain.User.PhoneNumberRegex)
-                .WithMessage(PhoneNumber.InvalidFormat.Message)
+                .Matches(Domain.Model.Domain.User.PhoneNumberRegex).WithMessage(PhoneNumber.InvalidFormat.Message)
                 .DependentRules(() =>
                 {
                     user.RuleFor(x => x.PhoneNumber)

@@ -34,7 +34,8 @@ public class ModifyUserCommandValidator : AbstractValidator<ModifyUserCommand>
         When(x => !string.IsNullOrEmpty(x.Jmbg), () =>
         {
             RuleFor(x => x.Jmbg)!
-                .MaximumLength<ModifyUserCommand, UserDto>(Domain.Model.Domain.User.JmbgMaxLength, Jmbg.TooLong.Message);
+                .MaximumLength<ModifyUserCommand, UserDto>(Domain.Model.Domain.User.JmbgMaxLength, Jmbg.TooLong.Message)
+                .RegexFormat<ModifyUserCommand, UserDto>(Domain.Model.Domain.User.JmbgRegex, Jmbg.InvalidFormat.Message);
         });
 
         When(x => !string.IsNullOrEmpty(x.NewPhoneNumber), () =>
