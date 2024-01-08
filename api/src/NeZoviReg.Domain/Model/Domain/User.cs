@@ -46,7 +46,7 @@ public class User : Entity
     private string _jmbg;
     public string Jmbg
     {
-        get => _jmbg.Decrypt();
+        get => _jmbg;//.Decrypt();
         private set => _jmbg = value;
     }
 
