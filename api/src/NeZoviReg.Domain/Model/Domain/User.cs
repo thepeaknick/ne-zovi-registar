@@ -12,7 +12,7 @@ public class User : Entity
     public const int FirstNameMaxLength = 100;
     public const int  LastNameMaxLength = 100;
     public const int  PhoneNumberMaxLength = 25;
-    public const int  JmbgMaxLength = 50;
+    public const int  JmbgMaxLength = 13;
 
     public User()
     {
