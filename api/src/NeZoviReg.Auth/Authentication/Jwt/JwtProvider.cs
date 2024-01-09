@@ -23,7 +23,8 @@ internal sealed class JwtProvider : IJwtProvider
         _options = options.Value;
     }
 
-    public Task<TokenResult> GenerateTokenAsync(RegUser user, CancellationToken cancellationToken)
+    public Task<TokenResult> GenerateTokenAsync(RegUser user, int? expirationOffset = default,
+        CancellationToken cancellationToken = default)
     {
         var claims = new List<Claim>
         {
@@ -33,7 +34,7 @@ internal sealed class JwtProvider : IJwtProvider
 
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)),
-                                     SecurityAlgorithms.HmacSha256Signature);
+            SecurityAlgorithms.HmacSha256Signature);
 
         /*var permissions = await _authDataStore.GetUserPermissionsAsync(user.Id, cancellationToken);
 
@@ -48,7 +49,7 @@ internal sealed class JwtProvider : IJwtProvider
             _options.Audience,
             claims,
             null,
-            now.AddMinutes(_options.AccesTokenExpirationInMinutes),
+            now.AddMinutes(expirationOffset ?? _options.AccesTokenExpirationInMinutes),
             signingCredentials);
 
         var tokenValue = new JwtSecurityTokenHandler()
@@ -68,7 +69,8 @@ internal sealed class JwtProvider : IJwtProvider
         return Convert.ToBase64String(randomNumber);
     }
 
-    public async Task<RefreshTokenResult> RefreshTokenAsync(string accessToken, string refreshToken, CancellationToken cancellationToken)
+    public async Task<RefreshTokenResult> RefreshTokenAsync(string accessToken, string refreshToken,
+        CancellationToken cancellationToken)
     {
         var now = DateTime.Now;
 
@@ -84,7 +86,8 @@ internal sealed class JwtProvider : IJwtProvider
                       ?? throw new SecurityTokenException("Invalid token. Claims are wrong.");
 
         var regUser = await _regUserDataStore.GetByGuidId(appUser.Id, cancellationToken)
-                      ?? throw new SecurityTokenException($"Invalid token. RegUser with GuidId={appUser.Id} doesn't exist");
+                      ?? throw new SecurityTokenException(
+                          $"Invalid token. RegUser with GuidId={appUser.Id} doesn't exist");
 
         if (regUser.RefreshToken is null)
         {
@@ -93,12 +96,14 @@ internal sealed class JwtProvider : IJwtProvider
 
         if (regUser.RefreshToken != refreshToken || regUser.RefreshTokenExpirationTime < now)
         {
-            throw new RefreshTokenExpiredException($"Invalid token, RegUser.RefreshToken={regUser.RefreshToken} expired or wrong.");
+            throw new RefreshTokenExpiredException(
+                $"Invalid token, RegUser.RefreshToken={regUser.RefreshToken} expired or wrong.");
         }
 
-        var tokenResult = await GenerateTokenAsync(regUser, cancellationToken);
+        var tokenResult = await GenerateTokenAsync(regUser, cancellationToken:cancellationToken);
 
-        return new RefreshTokenResult(regUser, tokenResult.AccessToken, tokenResult.AccessTokenExpTime, tokenResult.RefreshToken);
+        return new RefreshTokenResult(regUser, tokenResult.AccessToken, tokenResult.AccessTokenExpTime,
+            tokenResult.RefreshToken);
     }
 
     private PrincipalWithToken DecodeJwtToken(string token)
@@ -117,7 +122,7 @@ internal sealed class JwtProvider : IJwtProvider
                 },
                 out var validatedToken);
 
-        return new (principal, validatedToken as JwtSecurityToken);
+        return new(principal, validatedToken as JwtSecurityToken);
     }
 
 

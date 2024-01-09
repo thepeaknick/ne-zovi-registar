@@ -4,10 +4,7 @@ using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using static NeZoviReg.Abstractions.Shared.Errors.RegErrors;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
-using NeZoviReg.Abstractions.Shared.Enums;
 using NeZoviReg.Abstractions.Shared.Errors;
-using NeZoviReg.Domain.Model.Auth.Enum;
-using RoleType = NeZoviReg.Abstractions.Shared.Model.Auth.Enum.RoleType;
 
 namespace NeZoviReg.Application.Services.RegUser;
 

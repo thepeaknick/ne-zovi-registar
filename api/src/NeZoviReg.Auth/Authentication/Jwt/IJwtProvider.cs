@@ -5,7 +5,15 @@ namespace NeZoviReg.Auth.Authentication.Jwt;
 
 public interface IJwtProvider
 {
-    Task<TokenResult> GenerateTokenAsync(RegUser user, CancellationToken cancellationToken);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="user"></param>
+    /// <param name="expirationOffset">expiration offset in minutes</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<TokenResult> GenerateTokenAsync(RegUser user, int? expirationOffset = default, CancellationToken cancellationToken = default);
+    
 
     Task<RefreshTokenResult> RefreshTokenAsync(string accessToken, string refreshToken, CancellationToken cancellationToken);
 }

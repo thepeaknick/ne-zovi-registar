@@ -6,9 +6,8 @@ public class ForgotPasswordOptions
 {
     public const string SectionName = "ForgotPassword";
     
-    [Required]
-    public string? EmailFrom { get; set; }
-
+    public int TokenExpirationInMinutes { get; init; } = 1440; //24 hours
+    
     [Required]
     public string? Subject { get; set; }
     

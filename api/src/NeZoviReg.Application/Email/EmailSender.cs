@@ -22,9 +22,11 @@ public class EmailSender :IEmailSender
     {
         if (!_options.EmailEnabled)
         {
-            _logger.LogDebug("EmailSender is disabled");
+            _logger.LogDebug("EmailSender is disabled.");
             return false;
         }
+
+        message.From = new MailAddress(_options.EmailFrom);
 
         LogMessage(message);
 
@@ -32,7 +34,7 @@ public class EmailSender :IEmailSender
 
         await client.SendMailAsync(message, cancellationToken);
 
-        _logger.LogDebug("Email sent");
+        _logger.LogDebug("Email sent.");
 
         return true;
 

@@ -22,7 +22,7 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginR
     public LoginCommandHandler(
         IRegUserDataStore regUserDataStore,
         IJwtProvider jwtProvider,
-        IUnitOfWork unitOfWork, 
+        IUnitOfWork unitOfWork,
         IPublisher publisher)
     {
         _regUserDataStore = regUserDataStore;
@@ -33,34 +33,35 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginR
 
     public async Task<Result<LoginResultDto>> Handle(LoginCommand command, CancellationToken cancellationToken)
     {
-        var regUser = await _regUserDataStore.GetByUsernameAndPassword(command.UserName, command.Password, cancellationToken);
+        var regUser =
+            await _regUserDataStore.GetByUsernameAndPassword(command.UserName, command.Password, cancellationToken);
 
         if (regUser is null)
         {
             Log.Information($"RegUser with UserName={command.UserName} does not exist.");
-            
+
             return Result.Failure<LoginResultDto>(RegErrors.RegUser.InvalidCredentials);
         }
 
-        var loginResult = await _jwtProvider.GenerateTokenAsync(regUser, cancellationToken);
+        var loginResult = await _jwtProvider.GenerateTokenAsync(regUser, cancellationToken: cancellationToken);
 
         regUser.WithRefreshToken(loginResult.RefreshToken.TokenString)
             .WithRefreshTokenExpTime(loginResult.RefreshToken.ExpireAt);
-        
+
         _regUserDataStore.Update(regUser);
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
-        
+
         await _publisher.Publish(new RegUserModifiedEvent
         {
             RegUserId = regUser.GuidId
         }, cancellationToken);
-        
+
         Log.Information($"RegUser with UserName={command.UserName} logged in.");
 
-        return new LoginResultDto(regUser.GuidId, 
-            loginResult.AccessToken, 
-            loginResult.AccessTokenExpTime, 
+        return new LoginResultDto(regUser.GuidId,
+            loginResult.AccessToken,
+            loginResult.AccessTokenExpTime,
             loginResult.RefreshToken.TokenString,
             loginResult.RefreshToken.ExpireAt);
     }

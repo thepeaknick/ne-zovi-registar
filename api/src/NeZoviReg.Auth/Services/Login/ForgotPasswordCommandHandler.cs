@@ -46,11 +46,11 @@ internal sealed class ForgotPasswordCommandHandler : ICommandHandler<ForgotPassC
             return Result.Failure<string>(RegErrors.RegUser.Unknown);
         }
         
-        var tokenResult = await _jwtProvider.GenerateTokenAsync(regUser, cancellationToken);
+        var tokenResult = await _jwtProvider.GenerateTokenAsync(regUser, _options.TokenExpirationInMinutes, cancellationToken);
 
         var htmlContent = await CreateEmailBody(tokenResult);
 
-        if (!await _emailSender.SendEmailAsync(_options.EmailFrom!, command.Email, _options.Subject!, htmlContent, true,
+        if (!await _emailSender.SendEmailAsync(command.Email, _options.Subject!, htmlContent, true,
                 cancellationToken)) 
             return Result.Failure<string>(RegErrors.RegUser.EmailNotSent);
         

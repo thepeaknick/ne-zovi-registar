@@ -5,7 +5,6 @@ namespace NeZoviReg.Abstractions.Email;
 public static class EmailExtensions
 {
     public static async Task<bool> SendEmailAsync(this IEmailSender sender, 
-        string emailFrom, 
         string emailTo, 
         string subject,
         string content, 
@@ -16,7 +15,6 @@ public static class EmailExtensions
         {
             Body = content,
             IsBodyHtml = isHtml,
-            From = new MailAddress(emailFrom),
             Subject = subject
         };
         

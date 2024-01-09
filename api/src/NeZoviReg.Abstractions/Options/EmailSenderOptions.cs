@@ -15,6 +15,9 @@ public class EmailSenderOptions
 
     [Required]
     public string EmailTo { get; set; }
+    
+    [Required]
+    public string EmailFrom { get; set; }
 
     public bool EnableSsl { get; set; }
 
