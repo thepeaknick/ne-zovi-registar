@@ -7,7 +7,7 @@ public static class Extensions
     
     public static string FormatPhoneNumber(this string phoneNumber)
     {
-        if (phoneNumber.StartsWith("06"))
+        if (phoneNumber.StartsWith("0"))
         {
             return phoneNumber.Substring(1, phoneNumber.Length - 1).Insert(0, SrbCode);
         }
