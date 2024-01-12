@@ -54,6 +54,8 @@ public class RegUser : Entity
 
     public string Username { get; private set; }
 
+    public DateTime? AccessTokenExpirationTime { get; private set; }
+    
     public string? RefreshToken { get; private set; }
 
     public DateTime? RefreshTokenExpirationTime { get; private set; }
@@ -149,6 +151,22 @@ public class RegUser : Entity
     public RegUser WithUserName(string? userName)
     {
         Username = userName ?? Username;
+
+        return this;
+    }
+    
+    public RegUser WithAccessTokenExpTime(DateTime? expTime)
+    {
+        AccessTokenExpirationTime = expTime ?? AccessTokenExpirationTime;
+
+        return this;
+    }
+
+    public bool IsAccessTokenValid => AccessTokenExpirationTime != default && DateTime.Now <= AccessTokenExpirationTime;
+    
+    public RegUser WithoutAccessTokenExpTime()
+    {
+        AccessTokenExpirationTime = default;
 
         return this;
     }

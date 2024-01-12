@@ -26,7 +26,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.Jmbg)
             .IsRequired()
-            .HasMaxLength(User.JmbgMaxLength);
+            .HasMaxLength(50);
 
         builder.Property(x => x.OperatorId)
             .IsRequired();

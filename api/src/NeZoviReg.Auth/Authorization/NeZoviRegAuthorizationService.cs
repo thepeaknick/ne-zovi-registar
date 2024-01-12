@@ -39,7 +39,7 @@ public class NeZoviRegAuthorizationService : DefaultAuthorizationService, INeZov
 
         if (!Guid.TryParse(regUserId, out var id))
         {
-            _logger.LogWarning($"ClaimsPrincipal.Claims.RegUser={regUserId} is not integer.");
+            _logger.LogWarning($"ClaimsPrincipal.Claims.RegUser={regUserId} is not Guid.");
 
             return false;
         }
@@ -58,7 +58,7 @@ public class NeZoviRegAuthorizationService : DefaultAuthorizationService, INeZov
             return (regUserWithPermissions.Permissions ?? new()).Any(permissionType => (permissionType & perm) == permissionType);
         }
 
-       return regUserWithPermissions.RegUser.RefreshToken is not null && WithPermission((PermissionType)enumPermission);
+       return regUserWithPermissions.RegUser.AccessTokenExpirationTime is not null && WithPermission((PermissionType)enumPermission);
     }
 
     private async Task<RegUserWithPermissions> GetCachedUserWithPermissions(Guid regUserId, CancellationToken cancellationToken = default)

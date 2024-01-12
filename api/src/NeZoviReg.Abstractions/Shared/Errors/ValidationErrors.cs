@@ -51,6 +51,10 @@ public static class RegErrors
         public static readonly Error InvalidCredentials = new(
             ErrorCode.InvalidCredentials,
             "Korisničko ime/lozinka nisu ispravni.");
+        
+        public static readonly Error ActiveSession = new(
+            ErrorCode.AlreadyInUse,
+            "Korisnik je već ulogovan. Prvo se izlogujte.");
 
         public static readonly Error IdentificatorEmpty = new(
             ErrorCode.Empty,

@@ -25,7 +25,7 @@ public class PermissionPolicyProvider : IAuthorizationPolicyProvider
                 .AddRequirements(new PermissionRequirement(permission))
                 .Build();
 
-            return Task.FromResult<AuthorizationPolicy>(policy);
+            return Task.FromResult(policy);
         }
 
         return FallbackPolicyProvider.GetPolicyAsync(policyName)!;

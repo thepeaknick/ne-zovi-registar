@@ -51,6 +51,8 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
             .IsRequired()
             .HasMaxLength(RegUser.PasswordMaxLength);
 
+        builder.Property(x => x.AccessTokenExpirationTime);
+        
         builder.Property(x => x.RefreshToken);
 
         builder.Property(x => x.RefreshTokenExpirationTime);

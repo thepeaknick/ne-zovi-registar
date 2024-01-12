@@ -37,7 +37,8 @@ internal sealed class LogoutCommandHandler : ICommandHandler<LogoutCommand, bool
             return Result.Failure<bool>(RegErrors.RegUser.Unknown);
         }
 
-        regUser.WithoutRefreshToken();
+        regUser.WithoutAccessTokenExpTime()
+            .WithoutRefreshToken();
 
         _regUserDataStore.Update(regUser);
 

@@ -42,10 +42,17 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginR
 
             return Result.Failure<LoginResultDto>(RegErrors.RegUser.InvalidCredentials);
         }
+        if (regUser.IsAccessTokenValid)
+        {
+            Log.Information($"RegUser with UserName={command.UserName} has an active session.");
+
+            return Result.Failure<LoginResultDto>(RegErrors.RegUser.ActiveSession);
+        }
 
         var loginResult = await _jwtProvider.GenerateTokenAsync(regUser, cancellationToken: cancellationToken);
 
-        regUser.WithRefreshToken(loginResult.RefreshToken.TokenString)
+        regUser.WithAccessTokenExpTime(loginResult.AccessTokenExpTime)
+            .WithRefreshToken(loginResult.RefreshToken.TokenString)
             .WithRefreshTokenExpTime(loginResult.RefreshToken.ExpireAt);
 
         _regUserDataStore.Update(regUser);
