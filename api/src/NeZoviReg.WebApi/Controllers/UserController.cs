@@ -165,8 +165,8 @@ public class UserController : NeZoviRegBaseController
     /// <returns></returns>
     [HttpGet("{phoneNumber:required}/details")]
     [ProducesResponseType(typeof(UserDetailsDto), (int)HttpStatusCode.OK)]
-    [AllowAnonymous]
-    [EnableRateLimiting(Const.AnonymousLogin)]
+    [HasPermission(PermissionType.RegUsersOnly)]
+    [EnableRateLimiting(Const.AuthenticatedLogin)]
     public async Task<IActionResult> GetUserDetails(string phoneNumber, CancellationToken cancellationToken)
     {
         var query = new GetUserDetailsQuery(phoneNumber);
