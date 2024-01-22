@@ -13,6 +13,7 @@
   "Lozinka": "Lozinka",
   "Zaboravili ste lozinku": "Zaboravili ste lozinku?",
   "NEISPRAVNO KORISNIČKO IME ILI LOZINKA": "NEISPRAVNO KORISNIČKO IME ILI LOZINKA",
+  "ULOGOVAN KORISNIK": "KORISNIK JE VEĆ ULOGOVAN, IZLOGUJTE SE, PA POKUŠAJTE PONOVO",
   "Registruj se": "Registruj se",
   "Zaboravljena lozinka": "Zaboravljena lozinka",
   "Unesite vašu e-mail adresu na koju će biti poslat": "Unesite vašu e-mail adresu na koju će biti poslat",
@@ -44,7 +45,7 @@
   "q4": "4. Koje mogućnosti nudi web aplikacija „NE ZOVI“?",
   "a4": "Aplikacija omogućava:<br /><br /> <strong>Upis ili ispis podataka</strong> - obavlja bez naknade obveznik upisa i ispisa koji sa korisnikom telefonskog broja ima zaključen ugovor o korišćenju javno dostupnih elektronskih komunikacionih usluga, na osnovu zahteva korisnika telefonskog broja.<br /><br /> <strong>Pretraga podataka</strong> - registrovani trgovca imaju mogućnost pretrage jednog ili više brojeva telefona i datuma njihovog upisa u Registru „NE ZOVI“<br /><br /> <strong>Pretraga podataka</strong> – Potrošači (bez registracije) imaju mogućnost pretrage pojedinačnog broja telefona koji je upisani u Registar „NE ZOVI“.",
   "q5": "5. Kome mogu da uputim prigovor",
-  "a5": "Za prigovore u slučaju neželjenog poziva je nadležno Ministarstvo unutrašnje i spoljne trgovine, Sektor za zaštitu potrošača, mail: zastita.potrosaca@must.gov.rs, telefon: 0800-103-104",
+  "a5": "Za prigovore u slučaju neželjenog poyiva je nadležno Ministarstvo unutrašnje i spolje trgovine, Sektor tržišne inspekcije, <a href=\"mailto:podnesiprijavu@must.gov.rs\">podnesiprijavu@must.gov.rs</a>, telefon: 011/362-88-00. Više detalja na stranici <a href=\"https://must.gov.rs/tekst/sr/407/sektor-trzisne-inspekcije.php\">https://must.gov.rs/tekst/sr/407/sektor-trzisne-inspekcije.php</a>",
   "q6": "6. Kome je namenjena tehnička podrška",
   "a6": "Tehnička podrška je namenjena Trgovcima i Obaveznicima upisa i ispisa za probleme oko pristupa Registru, mail: administrator@nezovi.rs",
 
@@ -71,7 +72,7 @@
   "Broj korisničkih brojeva": "Broj korisničkih brojeva",
   "Pregled": "Pregled",
   "Export data": "Export data",
-  "Top tri operatera": "Top tri operatera",
+  "Top tri operatora": "Top tri operatora",
 
   "Dodaj novog korisnika": "Dodaj novog korisnika",
   "Prikaz po strani": "Prikaz po strani",

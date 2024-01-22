@@ -145,6 +145,15 @@
               <td>
                 <button
                   cButton
+                  class="tableDeleteButton"
+                  (click)="deleteUser(item.guidId)"
+                  color="white"
+                  shape="rounded-pill"
+                >
+                  {{ t("obriši") }}
+                </button>
+                <button
+                  cButton
                   class="tableEditButton"
                   (click)="showEditUserDataModal(item.guidId)"
                   color="white"
@@ -157,6 +166,7 @@
           </tbody>
         </table>
       </div>
+
       <c-pagination class="custom">
         <li cPageItem [disabled]="currentPage === 1">
           <span cPageLink [routerLink] (click)="setPage(currentPage - 1)">{{

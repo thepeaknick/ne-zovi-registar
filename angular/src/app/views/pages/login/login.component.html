@@ -42,7 +42,7 @@
                   {{ t("Zaboravili ste lozinku") }}
                 </button>
                 <h2 *ngIf="showLoginErrorMessage" class="loginResultText red">
-                  {{ t("NEISPRAVNO KORISNIČKO IME ILI LOZINKA") }}
+                  {{ this.errorMassage }}
                 </h2>
               </form>
               <div class="recaptcha">

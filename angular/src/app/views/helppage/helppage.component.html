@@ -3,7 +3,7 @@
     <div class="faqForm">
       <c-row>
         <c-col xs="4">
-          <p class="titleText">{{ t('Najčešće postavljana pitanja') }}</p>
+          <p class="titleText">{{ t("Najčešće postavljana pitanja") }}</p>
           <p class="subtitleText"></p>
           <!-- <div class="faqImage"> -->
           <img src="../../../assets/images/faq.png" class="faqImage" />
@@ -19,12 +19,12 @@
                   cAccordionButton
                   [ngStyle]="vars"
                 >
-                  {{ t('q1') }}
+                  {{ t("q1") }}
                 </button>
               </ng-template>
               <ng-template cTemplateId="accordionBodyTemplate">
                 <div class="accordion-body">
-                  {{ t('a1') }}
+                  {{ t("a1") }}
                 </div>
               </ng-template>
             </c-accordion-item>
@@ -36,12 +36,12 @@
                   cAccordionButton
                   [ngStyle]="vars"
                 >
-                  {{ t('q2') }}
+                  {{ t("q2") }}
                 </button>
               </ng-template>
               <ng-template cTemplateId="accordionBodyTemplate">
                 <div class="accordion-body">
-                  {{ t('a2') }}
+                  {{ t("a2") }}
                 </div>
               </ng-template>
             </c-accordion-item>
@@ -53,12 +53,12 @@
                   cAccordionButton
                   [ngStyle]="vars"
                 >
-                  {{ t('q3') }}
+                  {{ t("q3") }}
                 </button>
               </ng-template>
               <ng-template cTemplateId="accordionBodyTemplate">
                 <div class="accordion-body">
-                  {{ t('a3') }}
+                  {{ t("a3") }}
                 </div>
               </ng-template>
             </c-accordion-item>
@@ -70,7 +70,7 @@
                   cAccordionButton
                   [ngStyle]="vars"
                 >
-                  {{ t('q4') }}
+                  {{ t("q4") }}
                 </button>
               </ng-template>
               <ng-template cTemplateId="accordionBodyTemplate">
@@ -87,13 +87,11 @@
                   cAccordionButton
                   [ngStyle]="vars"
                 >
-                  {{ t('q5') }}
+                  {{ t("q5") }}
                 </button>
               </ng-template>
               <ng-template cTemplateId="accordionBodyTemplate">
-                <div class="accordion-body">
-                  {{ t('a5') }}
-                </div>
+                <div class="accordion-body" [innerHTML]="t('a5')"></div>
               </ng-template>
             </c-accordion-item>
             <c-accordion-item #item5="cAccordionItem" [visible]="false">
@@ -104,12 +102,12 @@
                   cAccordionButton
                   [ngStyle]="vars"
                 >
-                  {{ t('q6') }}
+                  {{ t("q6") }}
                 </button>
               </ng-template>
               <ng-template cTemplateId="accordionBodyTemplate">
                 <div class="accordion-body">
-                  {{ t('a6') }}
+                  {{ t("a6") }}
                 </div>
               </ng-template>
             </c-accordion-item>

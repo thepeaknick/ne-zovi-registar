@@ -2,6 +2,7 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import {
   RegUserDetailsDto,
   RegUserDto,
@@ -30,6 +31,7 @@ export class MerchantsComponent {
   public modalText = '';
   public isAddReguserModalVisible = false;
   public isSuccessfulyRegisteredUserModalVisible = false;
+  public isSuccessfulyDeleted = false;
   public showFormError = false;
   public errorMessage = '';
 
@@ -135,6 +137,7 @@ export class MerchantsComponent {
   resetFields() {
     this.isValidated = false;
     this.regUserForm.reset();
+    this.isSuccessfulyDeleted = false;
     this.toggleConfirmationModal();
   }
 
@@ -265,6 +268,36 @@ export class MerchantsComponent {
     this.isEditing = false;
     this.regUserForm.reset();
     this.toggleAddRegUsernModal();
+  }
+
+  deleteUser(guidId: string) {
+    this.modalText = 'Uspešno ste obrisali trgovca';
+    this.regUserService.removeRegUser(guidId).subscribe({
+      next: (regUser: RegUserDto) => {
+        // console.log('Uspešno obrisan obveznik');
+        var currentPage = this.currentPage;
+        this.regUserService.getRegUsers(RoleType.Trgovac).subscribe({
+          next: (regUsers: RegUserDto[]) =>
+            (this.regUsers =
+              regUsers instanceof HttpErrorResponse ? [] : regUsers),
+          complete: () => {
+            this.totalPagesNumber =
+              this.regUsers.length % this.itemsPerPage === 0
+                ? Math.trunc(this.regUsers.length / this.itemsPerPage)
+                : Math.trunc(this.regUsers.length / this.itemsPerPage) + 1;
+            this.setPage(currentPage);
+            this.currentPage = currentPage;
+          },
+        });
+
+        this.modalText = 'Uspešno ste obrisali trgovca';
+        this.isSuccessfulyDeleted = true;
+        this.toggleConfirmationModal();
+      },
+      error: (error) => {
+        // console.log('Neuspešno obrisan obveznik');
+      },
+    });
   }
 
   showEditUserDataModal(guidId: string) {

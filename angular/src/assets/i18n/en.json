@@ -13,6 +13,7 @@
   "Lozinka": "Password",
   "Zaboravili ste lozinku": "Forgot password?",
   "NEISPRAVNO KORISNIČKO IME ILI LOZINKA": "INVALID USERNAME OR PASSWORD",
+  "ULOGOVAN KORISNIK": "USER IS ALREADY LOGGED IN, LOGOUT AND THEN TRY AGAIN",
   "Registruj se": "Sign up",
   "Zaboravljena lozinka": "Forgot password",
   "Unesite vašu e-mail adresu na koju će biti poslat": "Enter your e-mail address to which it will be sent",
@@ -44,7 +45,7 @@
   "q4": "4. What possibilities does the „NE ZOVI“ web application offer?",
   "a4": "The application enables:<br /><br /> <strong>Entry or printing of data</strong> - it is performed free of charge by the obligee who has a contract with the user of the telephone number on the use of publicly available electronic communication services, based on the request user's phone number.<br /><br /> <strong>Data search</strong> - registered merchants have the option of searching one or more phone numbers and the date of their entry in the „NE ZOVI“ Register<br /><br /> <strong>Data Search</strong> - Consumers (without registration) have the option of searching for an individual phone number entered in the „NE ZOVI“ Register.",
   "q5": "5. Who can I address a complaint to",
-  "a5": "For complaints regarding unwanted calls, the competent authority is the Ministry of Internal and External Trade, Consumer Protection Sector, email: zastita.potrosaca@must.gov.rs, phone: 0800-103-104",
+  "a5": "For complaints regarding unwanted calls, the competent authority is the Ministry of Internal and External Trade, Market Inspection Sector, <a href=\"mailto:podnesiprijavu@must.gov.rs\">podnesiprijavu@must.gov.rs</a>, phone: 011/362-88-00. For more details, visit page <a href=\"https://must.gov.rs/tekst/sr/407/sektor-trzisne-inspekcije.php\">https://must.gov.rs/tekst/sr/407/sektor-trzisne-inspekcije.php</a>",
   "q6": "6. Who is technical support intended for",
   "a6": "Technical support is intended for Merchants and Obligors of registration and deregistration issues related to Registry access, email: administrator@nezovi.rs",
 
@@ -71,7 +72,7 @@
   "Broj korisničkih brojeva": "Number of User Numbers",
   "Pregled": "Overview",
   "Export data": "Export data",
-  "Top tri operatera": "Top Three Operators",
+  "Top tri operatora": "Top Three Operators",
 
   "Dodaj novog korisnika": "Add New User",
   "Prikaz po strani": "Display per page",

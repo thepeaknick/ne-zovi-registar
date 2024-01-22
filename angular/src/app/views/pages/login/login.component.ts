@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/domain/services/authentication.service';
 import { first } from 'rxjs';
 import { RegUserDetailsDto, RoleType } from 'src/app/domain/model/schemas';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-login',
@@ -22,16 +23,18 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   error = '';
+  errorMassage = '';
 
   username = '';
   password = '';
 
   constructor(
+    private translocoService: TranslocoService,
     private regUserService: RegUserService,
     private router: Router,
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) {
     this.token = undefined;
   }
@@ -64,11 +67,11 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    console.log("captcha token : ", this.token )
+    console.log('captcha token : ', this.token);
 
     if (this.token == undefined) {
       this.showCaptchaMessage = true;
-      return
+      return;
     }
 
     this.loading = true;
@@ -112,6 +115,15 @@ export class LoginComponent implements OnInit {
           this.error = error;
           this.loading = false;
           if (error.status == 400) {
+            if (error.error.type == 'AlreadyInUse') {
+              this.errorMassage =
+                this.translocoService.translate('ULOGOVAN KORISNIK');
+              this.router.navigate(['/admin']);
+            } else {
+              this.errorMassage = this.translocoService.translate(
+                'NEISPRAVNO KORISNIČKO IME ILI LOZINKA'
+              );
+            }
             this.showLoginErrorMessage = true;
           }
         },

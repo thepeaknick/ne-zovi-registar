@@ -5,6 +5,7 @@ import {
   RecaptchaSettings,
 } from 'ng-recaptcha';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
+
 import {
   LocationStrategy,
   PathLocationStrategy,
@@ -164,7 +165,7 @@ const APP_CONTAINERS = [
         // siteKey: '6Lec_GkoAAAAAH-PoN7wtJDEKZW6902vqUDXqFqm', // Prod - IP adresa
         // siteKey: '6LeexqooAAAAAE7gLcZO2kCjRe3KEnuZqgxgN3mX', // nezovi.rs
         // siteKey: '6LcQFQkpAAAAAJRi8t8OaneNwwbuaQl_UVkPibSw' // http://81.208.220.88/
-        // siteKey: '6LfBpg0pAAAAAB33hZLAeV6a8vAd5zCGs_C9xmB1' //https://test.nezovi.rs/
+        // siteKey: '6LfBpg0pAAAAAB33hZLAeV6a8vAd5zCGs_C9xmB1', //https://test.nezovi.rs/
       } as RecaptchaSettings,
     },
     { provide: LocationStrategy, useClass: HashLocationStrategy },

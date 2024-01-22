@@ -204,12 +204,15 @@ c-modal-footer {
   align-items: center;
 }
 
-.tableEditButton {
+.tableEditButton,
+.tableDeleteButton {
   border-width: 1px;
   border-color: #95a7c4;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 950px) {
   c-row {
     display: block;
   }
@@ -229,7 +232,8 @@ c-modal-footer {
   .tableButton {
     margin: 2%;
   }
-  .tableEditButton {
+  .tableEditButton,
+  .tableDeleteButton {
     font-size: 2vw;
   }
 }

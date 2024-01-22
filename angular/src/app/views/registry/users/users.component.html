@@ -165,15 +165,28 @@
           }}</span>
         </li>
         <li
-          *ngFor="
-            let pages of [].constructor(totalPagesNumber);
-            let pageIndex = index
-          "
-          [ngClass]="{ active: currentPage - 1 === pageIndex }"
+          *ngIf="currentPage > 5 && totalPagesNumber > 10"
+          cPageItem
+          [disabled]="true"
         >
-          <a cPageLink [routerLink] (click)="setPage(pageIndex + 1)">{{
-            pageIndex + 1
-          }}</a>
+          <span cPageLink [routerLink] (click)="setPage(currentPage - 1)">
+            ...
+          </span>
+        </li>
+        <li
+          *ngFor="let pages of pagesArray; let pageIndex = index"
+          [ngClass]="{ active: currentPage === pages }"
+        >
+          <a cPageLink [routerLink] (click)="setPage(pages)">{{ pages }}</a>
+        </li>
+        <li
+          *ngIf="totalPagesNumber - currentPage > 5 && totalPagesNumber > 10"
+          cPageItem
+          [disabled]="true"
+        >
+          <span cPageLink [routerLink] (click)="setPage(currentPage - 1)">
+            ...
+          </span>
         </li>
         <li cPageItem [disabled]="currentPage === totalPagesNumber">
           <a cPageLink [routerLink] (click)="setPage(currentPage + 1)">{{

@@ -42,6 +42,7 @@ export class UsersComponent implements OnInit {
   public isAddUserModalVisible: boolean = false;
   public isSuccessfulyAddedUserModalVisible: boolean = false;
   public modalText = '';
+  public pagesArray: number[] = [];
 
   @Input() operators: RegUserDto[] = [];
 
@@ -176,16 +177,39 @@ export class UsersComponent implements OnInit {
         (page - 1) * this.itemsPerPage,
         page * this.itemsPerPage
       );
+      this.pagesToShow(this.currentPage, this.totalPagesNumber);
+    }
+  }
+
+  pagesToShow(currentPage: number, totalPagesNumber: number) {
+    console.log(totalPagesNumber);
+    console.log(currentPage);
+    if (totalPagesNumber < 10) {
+      // show stranice od 1 do 10 ili max
+      this.pagesArray = Array.from(
+        Array(Math.min(10, totalPagesNumber)),
+        (_, i) => i + 1
+      );
+    } else {
+      if (currentPage <= 5) {
+        this.pagesArray = Array.from(Array(10), (_, i) => i + 1);
+      } else if (totalPagesNumber - currentPage < 5) {
+        var increment = totalPagesNumber - 10 + 1;
+        this.pagesArray = Array.from(Array(10), (_, i) => i + increment);
+      } else {
+        var increment = currentPage - 4;
+        this.pagesArray = Array.from(Array(10), (_, i) => i + increment);
+      }
     }
   }
 
   setItemPerPage(num: number) {
     this.itemsPerPage = num;
-    this.setPage(this.currentPage);
     this.totalPagesNumber =
       this.users.items.length % this.itemsPerPage === 0
         ? Math.trunc(this.users.items.length / this.itemsPerPage)
         : Math.trunc(this.users.items.length / this.itemsPerPage) + 1;
+    this.setPage(this.currentPage);
   }
 
   // Sort
