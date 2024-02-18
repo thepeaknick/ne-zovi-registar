@@ -11,4 +11,12 @@ public class AprWebClientOptions : WebClientOptions
 
     public string? CertificateSerialNumber { get; set; }
 
+    public CredentialsOptions Credentials { get; set; } = new CredentialsOptions();
+}
+
+public class CredentialsOptions
+{
+    public string Username { get; set; } = string.Empty;
+
+    public string Password { get; set; } = string.Empty;
 }

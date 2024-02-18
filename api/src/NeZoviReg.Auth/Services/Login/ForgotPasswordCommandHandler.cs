@@ -26,7 +26,7 @@ internal sealed class ForgotPasswordCommandHandler : ICommandHandler<ForgotPassC
         IJwtProvider jwtProvider,
         IUnitOfWork unitOfWork,
         IEmailSender emailSender, 
-        IOptions<ForgotPasswordOptions> options)
+        IOptionsSnapshot<ForgotPasswordOptions> options)
     {
         _regUserDataStore = regUserDataStore;
         _jwtProvider = jwtProvider;

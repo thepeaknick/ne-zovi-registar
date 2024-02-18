@@ -13,7 +13,7 @@ internal sealed class SendEmailCommandHandler : ICommandHandler<SendEmailCommand
 {
     private readonly IEmailSender _emailSender;
     private readonly EmailSenderOptions _options;
-    public SendEmailCommandHandler(IEmailSender emailSender, IOptions<EmailSenderOptions> options)
+    public SendEmailCommandHandler(IEmailSender emailSender, IOptionsSnapshot<EmailSenderOptions> options)
     {
         _emailSender = emailSender;
         _options = options.Value;

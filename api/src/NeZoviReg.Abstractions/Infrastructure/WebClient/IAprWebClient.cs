@@ -4,6 +4,7 @@ namespace NeZoviReg.Abstractions.Infrastructure.WebClient;
 
 public interface IAprWebClient
 {
-    Task<List<AprBusinessEntity>> GetAprData(string regNumber, CancellationToken cancellationToken);
+    Task<List<AprBusinessEntity>> GetAprBusinessEntitiesAsync(string regNumber, CancellationToken cancellationToken = default);
 
+    Task<AprBusinessEntity> GetAprBusinessEntityAsync(string regNumber, CancellationToken cancellationToken = default);
 }

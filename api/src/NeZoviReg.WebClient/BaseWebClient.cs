@@ -9,7 +9,7 @@ public abstract class BaseWebClient
     protected readonly BasicHttpBinding HttpBinding;
     protected readonly EndpointAddress Endpoint;
 
-    protected BaseWebClient(IOptions<AprWebClientOptions> options)
+    protected BaseWebClient(IOptionsSnapshot<AprWebClientOptions> options)
     {
         HttpBinding = new BasicHttpBinding(BasicHttpSecurityMode.TransportWithMessageCredential);
         HttpBinding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Certificate;
