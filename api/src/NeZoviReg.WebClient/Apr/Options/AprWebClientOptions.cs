@@ -7,7 +7,7 @@ public class AprWebClientOptions : WebClientOptions
 {
     public const string SectionName = "WebClient:Apr";
     
-    public StoreLocation CertStore { get; set; } = StoreLocation.LocalMachine;
+    public StoreLocation CertStore { get; set; }
 
     public string? CertificateSerialNumber { get; set; }
 
@@ -16,7 +16,8 @@ public class AprWebClientOptions : WebClientOptions
 
 public class CredentialsOptions
 {
-    public string Username { get; set; } = string.Empty;
+    public const string SectionName = "WebClient:Apr:Credentials";
+    public string? Username { get; set; }
 
-    public string Password { get; set; } = string.Empty;
+    public string? Password { get; set; }
 }

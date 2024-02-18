@@ -10,7 +10,7 @@ using NeZoviReg.WebClient.PlService;
 
 namespace NeZoviReg.WebClient.Apr;
 
-public class AprSoapWebClient : BaseWebClient, IAprWebClient
+public class AprSoapWebClient : BaseSoapWebClient, IAprWebClient
 {
     private readonly ILogger<AprSoapWebClient> _logger;
     private readonly IMapper _mapper;

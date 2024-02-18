@@ -4,12 +4,12 @@ using NeZoviReg.WebClient.Apr.Options;
 
 namespace NeZoviReg.WebClient;
 
-public abstract class BaseWebClient
+public abstract class BaseSoapWebClient
 {
     protected readonly BasicHttpBinding HttpBinding;
     protected readonly EndpointAddress Endpoint;
 
-    protected BaseWebClient(IOptionsSnapshot<AprWebClientOptions> options)
+    protected BaseSoapWebClient(IOptionsSnapshot<AprWebClientOptions> options)
     {
         HttpBinding = new BasicHttpBinding(BasicHttpSecurityMode.TransportWithMessageCredential);
         HttpBinding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Certificate;

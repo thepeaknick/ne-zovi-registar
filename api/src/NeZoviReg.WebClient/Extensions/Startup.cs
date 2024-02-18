@@ -14,9 +14,12 @@ public static class WebClientExtensions
             .AddOptions<AprWebClientOptions>()
             .Bind(configuration.GetSection(AprWebClientOptions.SectionName))
             .Validate(x => !string.IsNullOrWhiteSpace(x.BaseUrl), $"BaseUrl not defined {nameof(AprWebClientOptions)}")
-            .Validate(x => !string.IsNullOrWhiteSpace(x.CertificateSerialNumber), $"Cert serial number not defined for {nameof(AprWebClientOptions)}")
-            .Validate(x => !string.IsNullOrWhiteSpace(x.Credentials.Username), $"Username not defined for {nameof(AprWebClientOptions)}.{nameof(AprWebClientOptions.Credentials)}")
-            .Validate(x => !string.IsNullOrWhiteSpace(x.Credentials.Password), $"Password not defined for {nameof(AprWebClientOptions)}.{nameof(AprWebClientOptions.Credentials)}");
+            .Validate(x => !string.IsNullOrWhiteSpace(x.CertificateSerialNumber), $"Cert serial number not defined for {nameof(AprWebClientOptions)}");
+        services
+            .AddOptions<CredentialsOptions>()
+            .Bind(configuration.GetSection(CredentialsOptions.SectionName))
+            .Validate(x => !string.IsNullOrWhiteSpace(x.Username), $"Username not defined for {nameof(AprWebClientOptions.Credentials)}")
+            .Validate(x => !string.IsNullOrWhiteSpace(x.Password), $"Password not defined for {nameof(AprWebClientOptions.Credentials)}");
 
         return services.AddScoped<IAprWebClient, AprSoapWebClient>();
     }
