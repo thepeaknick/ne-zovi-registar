@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using NeZoviReg.Application.Mapping;
+using NeZoviReg.WebClient.Apr;
 
 namespace NeZoviReg.Application.Extensions;
 
-public static class AppCoreAutoMapperExtension
+public static class WebClientAutoMapperExtension
 {
     public static Action<IMapperConfigurationExpression> AddMappingProfiles
     {
@@ -11,11 +12,10 @@ public static class AppCoreAutoMapperExtension
         {
             return c =>
             {
-                c.AddProfile<AppMappingProfile>();
+                c.AddProfile<AprNeZoviRegMappingProfile>();
                 // keep adding here
-
-            };
+            }; 
         }
-
+         
     }
 }

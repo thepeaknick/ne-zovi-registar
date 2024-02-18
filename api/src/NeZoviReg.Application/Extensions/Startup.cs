@@ -19,7 +19,6 @@ public static class Startup
             .AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>))
             .AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavior<,>))
             .AddValidatorsFromAssembly(typeof(Startup).Assembly)
-            .AddAutoMapper()
             .AddApplicationServices(configuration);
 
     }
@@ -37,17 +36,5 @@ public static class Startup
         services.AddTransient<IEmailSender, EmailSender>();
         
         return services;
-    }
-
-    private static IServiceCollection AddAutoMapper(this IServiceCollection services)
-    {
-        var config = new MapperConfiguration(c =>
-        {
-            AutoMapperExtension.AddApplicationProfile.Invoke(c);
-        });
-
-        return services
-            .AddSingleton<AutoMapper.IConfigurationProvider>(config)
-            .AddSingleton(config.CreateMapper());
     }
 }

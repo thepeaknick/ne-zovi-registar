@@ -1,11 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.5.2" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.2" />
@@ -16,14 +15,11 @@
     <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="7.0.0" />
     <PackageReference Include="Serilog" Version="2.10.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\NeZoviReg.Abstractions\NeZoviReg.Abstractions.csproj" PrivateAssets="All" />
     <ProjectReference Include="..\NeZoviReg.Domain\NeZoviReg.Domain.csproj" PrivateAssets="All" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Email\" />
-  </ItemGroup>
-
+  </ItemGroup>  
 </Project>
