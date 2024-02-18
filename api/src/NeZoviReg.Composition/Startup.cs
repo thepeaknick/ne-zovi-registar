@@ -5,7 +5,7 @@ using NeZoviReg.Abstractions.Extensions;
 using NeZoviReg.Application.Extensions;
 using NeZoviReg.Auth.Extensions;
 using NeZoviReg.Persistence.Ef.Extensions;
-using NeZoviReg.WebClient;
+using NeZoviReg.WebClient.Extensions;
 
 namespace NeZoviReg.Composition;
 

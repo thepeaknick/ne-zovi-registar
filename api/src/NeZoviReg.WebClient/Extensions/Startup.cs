@@ -4,7 +4,7 @@ using NeZoviReg.Abstractions.Infrastructure.WebClient;
 using NeZoviReg.WebClient.Apr;
 using NeZoviReg.WebClient.Apr.Options;
 
-namespace NeZoviReg.WebClient;
+namespace NeZoviReg.WebClient.Extensions;
 
 public static class WebClientExtensions
 {

@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using NeZoviReg.Abstractions.Infrastructure.WebClient;
-
 namespace NeZoviReg.WebClient.PlService
 {
     

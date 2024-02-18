@@ -6,3 +6,4 @@ api/.idea/.idea.NeZoviReg/.idea/indexLayout.xml
 api/.idea/.idea.NeZoviReg/.idea/vcs.xml
 api/.idea/config/applicationhost.config
 /api/src/NeZoviReg.Migrations.Ef/migrations.my.json
+api/.idea/

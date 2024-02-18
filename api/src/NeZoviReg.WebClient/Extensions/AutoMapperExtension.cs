@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using NeZoviReg.Application.Mapping;
 using NeZoviReg.WebClient.Apr;
 
-namespace NeZoviReg.Application.Extensions;
+namespace NeZoviReg.WebClient.Extensions;
 
 public static class WebClientAutoMapperExtension
 {

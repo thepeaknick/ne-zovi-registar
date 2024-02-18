@@ -10,29 +10,25 @@ using NeZoviReg.WebClient.PlService;
 
 namespace NeZoviReg.WebClient.Apr;
 
-public class AprSoapWebClient : IAprWebClient
+public class AprSoapWebClient : BaseWebClient, IAprWebClient
 {
     private readonly ILogger<AprSoapWebClient> _logger;
     private readonly IMapper _mapper;
-    private readonly BasicHttpBinding _httpBinding;
-    private readonly EndpointAddress _endpoint;
     private readonly AprWebClientOptions _options;
-    
+
     public AprSoapWebClient(IOptions<AprWebClientOptions> options, IMapper mapper, ILogger<AprSoapWebClient> logger)
+        : base(options)
     {
         _logger = logger;
         _mapper = mapper;
         _options = options.Value;
-        _httpBinding = new BasicHttpBinding(BasicHttpSecurityMode.TransportWithMessageCredential);
-        _httpBinding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Certificate;
-        _httpBinding.Security.Message.ClientCredentialType = BasicHttpMessageCredentialType.UserName;
-        _endpoint = new EndpointAddress(new Uri(_options.BaseUrl!));
     }
 
     public async Task<List<AprBusinessEntity>> GetAprData(string regNumber, CancellationToken cancellationToken)
     {
         await using var client = PlServiceClient();
-        var data = await client.PreuzmiPodatkeOPrivrednomSubjektuAsync(new PrivredniSubjektiUlazniPodaci()
+        
+        var data = await client.PreuzmiPodatkeOPrivrednomSubjektuAsync(new PrivredniSubjektiUlazniPodaci
         {
             privredniSubjekti = new PrivredniSubjekatMaticniBroj()
             {
@@ -45,7 +41,7 @@ public class AprSoapWebClient : IAprWebClient
 
     private PlServiceClient PlServiceClient()
     {
-        var client = new PlServiceClient(_httpBinding, _endpoint);
+        var client = new PlServiceClient(HttpBinding, Endpoint);
         client.ChannelFactory.Credentials.ClientCertificate.Certificate = GetCert();
         client.ChannelFactory.Credentials.UserName.UserName = "??";
         client.ChannelFactory.Credentials.UserName.Password = "??";
@@ -54,15 +50,13 @@ public class AprSoapWebClient : IAprWebClient
     }
     private X509Certificate2? GetCert()
     {
-        var serialNumber = _options.CertificateSerialNumber;
-        
-        _logger.LogInformation($"Using client certificate {serialNumber}");
+        _logger.LogInformation($"Using client certificate SN={_options.CertificateSerialNumber}");
 
-        var cert =  CertUtil.GetX5092BySerialNumber(_options.CertStore, serialNumber!);
+        var cert =  CertUtil.GetX5092BySerialNumber(_options.CertStore, _options.CertificateSerialNumber!);
 
         if (cert is null)
         {
-            _logger.LogError($"Certificate with {serialNumber} not found.");
+            _logger.LogError($"Certificate with SN={_options.CertificateSerialNumber} not found.");
         }
 
         return cert;
