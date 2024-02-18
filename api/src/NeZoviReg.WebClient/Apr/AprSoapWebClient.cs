@@ -72,13 +72,15 @@ public class AprSoapWebClient : BaseSoapWebClient, IAprWebClient
     
     private X509Certificate2? GetCert()
     {
-        _logger.LogInformation($"Using client certificate SN={_options.CertificateSerialNumber}");
-
-        var cert =  CertUtil.GetX5092BySerialNumber(_options.CertStore, _options.CertificateSerialNumber!);
+       var cert =  CertUtil.GetX5092BySerialNumber(_options.CertStore, _options.CertificateSerialNumber!);
 
         if (cert is null)
         {
             _logger.LogError($"Certificate with SN={_options.CertificateSerialNumber} not found.");
+        }
+        else
+        {
+            _logger.LogInformation($"Using client certificate SN={_options.CertificateSerialNumber}.");
         }
 
         return cert;
