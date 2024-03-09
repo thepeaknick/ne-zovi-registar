@@ -17,6 +17,7 @@ public class AprWebClientOptions : WebClientOptions
 public class CredentialsOptions
 {
     public const string SectionName = "WebClient:Apr:Credentials";
+    
     public string? Username { get; set; }
 
     public string? Password { get; set; }

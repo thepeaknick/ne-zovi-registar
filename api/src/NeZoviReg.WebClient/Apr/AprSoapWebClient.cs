@@ -1,5 +1,4 @@
 ﻿using System.Security.Cryptography.X509Certificates;
-using System.ServiceModel;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -10,6 +9,9 @@ using NeZoviReg.WebClient.PlService;
 
 namespace NeZoviReg.WebClient.Apr;
 
+/// <summary>
+/// APR service SOAP client decorator.
+/// </summary>
 public class AprSoapWebClient : BaseSoapWebClient, IAprWebClient
 {
     private readonly ILogger<AprSoapWebClient> _logger;
@@ -53,7 +55,6 @@ public class AprSoapWebClient : BaseSoapWebClient, IAprWebClient
 
         return _mapper.Map<AprBusinessEntity>(data.FirstOrDefault());
     }
-    
     private PlServiceClient PlServiceClient()
     {
         var client = new PlServiceClient(HttpBinding, Endpoint);
@@ -65,7 +66,11 @@ public class AprSoapWebClient : BaseSoapWebClient, IAprWebClient
     {
         _logger.LogInformation($"Setting up {nameof(PlServiceClient)} Credentials={_options.Credentials.Username}/{_options.Credentials.Password}");
         
-        client.ChannelFactory.Credentials.ClientCertificate.Certificate = GetCert();
+        //client.ClientCredentials.ServiceCertificate.Authentication.CertificateValidationMode =
+            //X509CertificateValidationMode.PeerTrust;
+        //client.ClientCredentials.ServiceCertificate.Authentication.TrustedStoreLocation = StoreLocation.LocalMachine;
+        
+        client.ChannelFactory.Credentials.ClientCertificate.Certificate = GetCert();    ;
         client.ChannelFactory.Credentials.UserName.UserName = _options.Credentials.Username;
         client.ChannelFactory.Credentials.UserName.Password = _options.Credentials.Password;
     }
