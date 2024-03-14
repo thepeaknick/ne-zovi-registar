@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel.Description;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -57,7 +58,7 @@ public class AprSoapWebClient : BaseSoapWebClient, IAprWebClient
     }
     private PlServiceClient PlServiceClient()
     {
-        var client = new PlServiceClient(HttpBinding, Endpoint);
+        var client = new PlServiceClient(CustomBinding, Endpoint);
         SetCredentials(client);
         return client;
     }
@@ -66,28 +67,7 @@ public class AprSoapWebClient : BaseSoapWebClient, IAprWebClient
     {
         _logger.LogInformation($"Setting up {nameof(PlServiceClient)} Credentials={_options.Credentials.Username}/{_options.Credentials.Password}");
         
-        //client.ClientCredentials.ServiceCertificate.Authentication.CertificateValidationMode =
-            //X509CertificateValidationMode.PeerTrust;
-        //client.ClientCredentials.ServiceCertificate.Authentication.TrustedStoreLocation = StoreLocation.LocalMachine;
-        
-        client.ChannelFactory.Credentials.ClientCertificate.Certificate = GetCert();    ;
-        client.ChannelFactory.Credentials.UserName.UserName = _options.Credentials.Username;
-        client.ChannelFactory.Credentials.UserName.Password = _options.Credentials.Password;
-    }
-    
-    private X509Certificate2? GetCert()
-    {
-       var cert =  CertUtil.GetX5092BySerialNumber(_options.CertStore, _options.CertificateSerialNumber!);
-
-        if (cert is null)
-        {
-            _logger.LogError($"Certificate with SN={_options.CertificateSerialNumber} not found.");
-        }
-        else
-        {
-            _logger.LogInformation($"Using client certificate SN={_options.CertificateSerialNumber}.");
-        }
-
-        return cert;
+        client.ClientCredentials.UserName.UserName = _options.Credentials.Username;
+        client.ClientCredentials.UserName.Password = _options.Credentials.Password;
     }
 }

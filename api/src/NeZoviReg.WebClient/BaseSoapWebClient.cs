@@ -1,4 +1,5 @@
 ﻿using System.ServiceModel;
+using System.ServiceModel.Channels;
 using Microsoft.Extensions.Options;
 using NeZoviReg.WebClient.Options;
 
@@ -6,11 +7,11 @@ namespace NeZoviReg.WebClient;
 
 /// <summary>
 /// Base SOAP Web client abstration designed for inheritance.
-/// Uses BasicHttpBinding as the only option
+/// Uses CustomBinding as the only option.
 /// </summary>
 public abstract class BaseSoapWebClient
 {
-    protected readonly BasicHttpBinding HttpBinding = new BasicHttpBinding();
+    protected readonly CustomBinding CustomBinding = new CustomBinding();
     protected EndpointAddress Endpoint = default!;
 
     protected BaseSoapWebClient(IOptionsSnapshot<WebClientOptions> options)
@@ -28,22 +29,28 @@ public abstract class BaseSoapWebClient
     protected virtual void SetBinding()
     {
         SetBindingSecurityMode();
-        SetBindingTransportClientCredentialType();
-        SetBindingMessageClientCredentialType();
+        SetBindingMessageEncoding();
+        SetBindingTransport();
     }
 
     protected virtual void SetBindingSecurityMode()
     {
-        HttpBinding.Security.Mode = BasicHttpSecurityMode.TransportWithMessageCredential;
+        var security = SecurityBindingElement.CreateUserNameOverTransportBindingElement();
+        security.IncludeTimestamp = false;
+        CustomBinding.Elements.Add(security);
     }
 
-    protected virtual void SetBindingTransportClientCredentialType()
+    protected virtual void SetBindingMessageEncoding()
     {
-        HttpBinding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Certificate;
+        CustomBinding.Elements.Add(new TextMessageEncodingBindingElement
+        {
+            MessageVersion = MessageVersion.Soap11,
+            WriteEncoding = System.Text.Encoding.UTF8
+        });
     }
 
-    protected virtual void SetBindingMessageClientCredentialType()
+    protected virtual void SetBindingTransport()
     {
-        HttpBinding.Security.Message.ClientCredentialType = BasicHttpMessageCredentialType.UserName;
+        CustomBinding.Elements.Add(new HttpsTransportBindingElement());
     }
 }
