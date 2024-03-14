@@ -40,7 +40,7 @@ internal sealed class CreateRegUserCommandHandler : ICommandHandler<CreateRegUse
 
     public async Task<Result<RegUserDto>> Handle(CreateRegUserCommand command, CancellationToken cancellationToken)
     {
-        await _aprWebClient.GetAprBusinessEntityAsync(command.RegNumber, cancellationToken);
+        //await _aprWebClient.GetAprBusinessEntityAsync(command.RegNumber, cancellationToken);
         
         var regUser = new Domain.Model.Domain.RegUser(command.CompanyName, command.UserName)
             .WithAddress(command.Address)
