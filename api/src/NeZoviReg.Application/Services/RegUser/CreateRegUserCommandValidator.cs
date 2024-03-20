@@ -94,7 +94,5 @@ public class CreateRegUserCommandValidator : AbstractValidator<CreateRegUserComm
         RuleFor(x => x.UserName).MustAsync(async (userName, cancellationToken) =>
                 !(await regUserDataStore.IsUsernameExistsAsync(userName, cancellationToken: cancellationToken)))
             .WithMessage(x => UserName.AlreadyInUse(x.UserName).Message);
-
-       
     }
 }
