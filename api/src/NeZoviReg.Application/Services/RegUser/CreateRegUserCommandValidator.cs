@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using NeZoviReg.Abstractions.Extensions;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
+using NeZoviReg.Abstractions.Infrastructure.WebClient;
 using static NeZoviReg.Abstractions.Shared.Errors.RegErrors;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
@@ -10,35 +11,59 @@ namespace NeZoviReg.Application.Services.RegUser;
 
 public class CreateRegUserCommandValidator : AbstractValidator<CreateRegUserCommand>
 {
-    public CreateRegUserCommandValidator(IRegUserDataStore regUserDataStore)
+    public CreateRegUserCommandValidator(IRegUserDataStore regUserDataStore, IAprWebClient aprWebClient)
     {
         RuleFor(x => x.CompanyName)
             .NotEmpty<CreateRegUserCommand, string, RegUserDto>(CompanyName.Empty.Message)
-            .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.CompanyNameMaxLength, CompanyName.TooLong.Message);
+            .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.CompanyNameMaxLength,
+                CompanyName.TooLong.Message);
 
         RuleFor(x => x.Email)!
             .NotEmpty<CreateRegUserCommand, string, RegUserDto>(RegErrors.Email.Empty.Message)
-            .RegexFormat<CreateRegUserCommand, RegUserDto>(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", RegErrors.Email.InvalidFormat.Message);
-        
+            .RegexFormat<CreateRegUserCommand, RegUserDto>(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$",
+                RegErrors.Email.InvalidFormat.Message);
+
         RuleFor(x => x.FirstName)
             .NotEmpty<CreateRegUserCommand, string, RegUserDto>(FirstName.Empty.Message)
-            .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.FirstNameMaxLength, FirstName.TooLong.Message);
+            .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.FirstNameMaxLength,
+                FirstName.TooLong.Message);
 
         RuleFor(x => x.LastName)
             .NotEmpty<CreateRegUserCommand, string, RegUserDto>(LastName.Empty.Message)
-            .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.LastNameMaxLength, LastName.TooLong.Message);
+            .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.LastNameMaxLength,
+                LastName.TooLong.Message);
 
         RuleFor(x => x.Address)
             .NotEmpty<CreateRegUserCommand, string, RegUserDto>(Address.Empty.Message)
-            .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.AddressMaxLength, Address.TooLong.Message);
+            .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.AddressMaxLength,
+                Address.TooLong.Message);
 
         RuleFor(x => x.RegNumber)
             .NotEmpty<CreateRegUserCommand, string, RegUserDto>(RegNumber.Empty.Message)
-            .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.RegNumberMaxLength, RegNumber.TooLong.Message);
+            .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.RegNumberMaxLength,
+                RegNumber.TooLong.Message)
+            .DependentRules(() =>
+            {
+                RuleFor(x => x).CustomAsync(async (x, ctx, cancellationToken) =>
+                {
+                    var regUser = await aprWebClient.GetAprBusinessEntityAsync(x.RegNumber, cancellationToken);
+
+                    if (regUser is null || regUser.RegNumber != ctx.InstanceToValidate.RegNumber
+                                        || regUser.FirstName != ctx.InstanceToValidate.FirstName
+                                        || regUser.LastName != ctx.InstanceToValidate.LastName
+                                        || regUser.CompanyName != ctx.InstanceToValidate.CompanyName
+                                        || regUser.TaxNumber != ctx.InstanceToValidate.TaxNumber)
+                    {
+                        ctx.AddFailure(RegErrors.RegUser.InvalidData.Message);
+                    }
+
+                });
+            });;
 
         RuleFor(x => x.TaxNumber)
             .NotEmpty<CreateRegUserCommand, string, RegUserDto>(TaxNumber.Empty.Message)
-            .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.TaxNumberMaxLength, TaxNumber.TooLong.Message);
+            .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.TaxNumberMaxLength,
+                TaxNumber.TooLong.Message);
 
         RuleFor(x => x.UserName)
             .NotEmpty<CreateRegUserCommand, string, RegUserDto>(UserName.Empty.Message)
@@ -49,11 +74,11 @@ public class CreateRegUserCommandValidator : AbstractValidator<CreateRegUserComm
             .NotEmpty<CreateRegUserCommand, string, RegUserDto>(Password.Empty.Message)
             .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.PasswordMaxLength,
                 Password.TooLong.Message);
-        
+
         RuleFor(x => x.Email).MustAsync(async (mail, cancellationToken) =>
                 !(await regUserDataStore.IsEmailExistsAsync(mail, cancellationToken: cancellationToken)))
             .WithMessage(x => RegErrors.Email.AlreadyInUse(x.Email).Message);
-        
+
         RuleFor(x => x.CompanyName).MustAsync(async (name, cancellationToken) =>
                 !(await regUserDataStore.IsCompanyNameExistsAsync(name, cancellationToken: cancellationToken)))
             .WithMessage(x => CompanyName.AlreadyInUse(x.CompanyName).Message);
@@ -69,5 +94,7 @@ public class CreateRegUserCommandValidator : AbstractValidator<CreateRegUserComm
         RuleFor(x => x.UserName).MustAsync(async (userName, cancellationToken) =>
                 !(await regUserDataStore.IsUsernameExistsAsync(userName, cancellationToken: cancellationToken)))
             .WithMessage(x => UserName.AlreadyInUse(x.UserName).Message);
+
+       
     }
 }

@@ -2,6 +2,7 @@
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Extensions;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
+using NeZoviReg.Abstractions.Infrastructure.WebClient;
 using static NeZoviReg.Abstractions.Shared.Errors.RegErrors;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
@@ -10,11 +11,32 @@ namespace NeZoviReg.Application.Services.RegUser;
 
 public class ModifyRegUserCommandValidator : AbstractValidator<ModifyRegUserCommand>
 {
-    public ModifyRegUserCommandValidator(IRegUserDataStore regUserDataStore)
+    public ModifyRegUserCommandValidator(IRegUserDataStore regUserDataStore, IAprWebClient aprWebClient)
     {
         RuleFor(x => x.RegUserId)
-            .NotEmpty<ModifyRegUserCommand, Guid, RegUserDto>(RegErrors.RegUser.IdentificatorEmpty.Message);
+            .NotEmpty<ModifyRegUserCommand, Guid, RegUserDto>(RegErrors.RegUser.IdentificatorEmpty.Message)
+            .DependentRules(() =>
+            {
+                RuleFor(x => x).CustomAsync(async (x, ctx, cancellationToken) =>
+                {
+                    var regUser = await regUserDataStore.GetByGuidId(x.RegUserId, cancellationToken);
+                    if (regUser is not null)
+                    {
+                        var regUserApr = await aprWebClient.GetAprBusinessEntityAsync(regUser.RegNumber, cancellationToken);
 
+                        if (regUserApr is null || (!string.IsNullOrEmpty(ctx.InstanceToValidate.RegNumber) && regUserApr.RegNumber != ctx.InstanceToValidate.RegNumber)
+                                               || (!string.IsNullOrEmpty(ctx.InstanceToValidate.FirstName) && regUserApr.FirstName != ctx.InstanceToValidate.FirstName)
+                                               || (!string.IsNullOrEmpty(ctx.InstanceToValidate.LastName) && regUserApr.LastName != ctx.InstanceToValidate.LastName)
+                                               || (!string.IsNullOrEmpty(ctx.InstanceToValidate.CompanyName) && regUserApr.CompanyName != ctx.InstanceToValidate.CompanyName)
+                                               || (!string.IsNullOrEmpty(ctx.InstanceToValidate.TaxNumber) && regUserApr.TaxNumber != ctx.InstanceToValidate.TaxNumber))
+                        {
+                            ctx.AddFailure(RegErrors.RegUser.InvalidData.Message);
+                        }
+                    }
+
+                });
+            });
+        
         When(x => !string.IsNullOrEmpty(x.CompanyName), () =>
         {
             RuleFor(x => x.CompanyName)!

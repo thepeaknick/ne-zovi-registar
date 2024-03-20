@@ -52,6 +52,10 @@ public static class RegErrors
             ErrorCode.InvalidCredentials,
             "Korisničko ime/lozinka nisu ispravni.");
         
+        public static readonly Error InvalidData = new(
+            ErrorCode.ValidationError,
+            "Podaci korisnika registra nisu validni. Proveri APR.");
+        
         public static readonly Error ActiveSession = new(
             ErrorCode.AlreadyInUse,
             "Korisnik je već ulogovan. Prvo se izlogujte.");

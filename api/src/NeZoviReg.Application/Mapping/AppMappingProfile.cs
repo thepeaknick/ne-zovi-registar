@@ -2,6 +2,7 @@
 using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
 using NeZoviReg.Abstractions.Shared.Model.Domain;
+using NeZoviReg.Abstractions.Shared.Model.Infrastructure;
 using NeZoviReg.Domain.Extensions;
 using NeZoviReg.Domain.Model.Domain;
 
@@ -13,7 +14,7 @@ public class AppMappingProfile : Profile
     {
         CreateMap<User, UserDto>()
             .ConstructUsing(s => new UserDto(s.PhoneNumber, s.ModifiedOn ?? s.CreatedOn));
-        
+
         CreateMap<User, UserInfoDto>()
             .ForMember(d => d.RegisteredOn, o => o.MapFrom(s => s.CreatedOn))
             .ForMember(d => d.Active, o => o.MapFrom(s => s.IsActive))
@@ -25,10 +26,7 @@ public class AppMappingProfile : Profile
             .ConstructUsing(s => new UserDetailsDto(s.PhoneNumber, s.FirstName, s.LastName, s.OperatorId));
 
         CreateMap<BulkUser, User>()
-            .AfterMap((s,d,c) =>
-            {
-                d.AddJmbg(s.Jmbg);
-            })
+            .AfterMap((s, d, c) => { d.AddJmbg(s.Jmbg); })
             .ForMember(d => d.PhoneNumber, o => o.MapFrom(s => s.PhoneNumber.FormatPhoneNumber()));
 
         CreateMap<RegUser, RegUserDto>()
@@ -38,5 +36,8 @@ public class AppMappingProfile : Profile
             .ConstructUsing(s => new RegUserDetailsDto(s.GuidId, s.FirstName, s.LastName, s.Email, s.CompanyName,
                 s.Address,
                 s.RegNumber, s.TaxNumber, s.Username, s.RegUserRoles.First().RoleId));
+
+        CreateMap<AprBusinessEntity, RegUserAprDetailsDto>()
+            .ConstructUsing(s => new RegUserAprDetailsDto(s.CompanyName, s.Address, s.RegNumber, s.TaxNumber, s.FirstName, s.LastName));
     }
 }

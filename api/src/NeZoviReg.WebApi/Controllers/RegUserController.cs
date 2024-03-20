@@ -149,6 +149,24 @@ public class RegUserController : NeZoviRegBaseController
     }
 
     /// <summary>
+    /// Detalji matičnog broja iz- APR-a.
+    /// </summary>
+    /// <param name="regNumber">Matični broj</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpGet("apr/{regNumber:required}")]
+    [ProducesResponseType(typeof(RegUserAprDetailsDto), (int) HttpStatusCode.OK)]
+    [HasPermission(PermissionType.RegUsersOnly)]
+    public async Task<IActionResult> GetRegUserByRegNumber(string regNumber, CancellationToken cancellationToken)
+    {
+        var command = new RegUserAprQuery(regNumber);
+
+        var result = await Sender.Send(command, cancellationToken);
+
+        return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
+    }
+    
+    /// <summary>
     /// Registrovane role korisnika registra.
     /// </summary>
     /// <param name="role"></param>
