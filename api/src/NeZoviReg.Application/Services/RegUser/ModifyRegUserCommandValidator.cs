@@ -25,8 +25,6 @@ public class ModifyRegUserCommandValidator : AbstractValidator<ModifyRegUserComm
                         var regUserApr = await aprWebClient.GetAprBusinessEntityAsync(regUser.RegNumber, cancellationToken);
 
                         if (regUserApr is null || (!string.IsNullOrEmpty(ctx.InstanceToValidate.RegNumber) && regUserApr.RegNumber != ctx.InstanceToValidate.RegNumber)
-                                               || (!string.IsNullOrEmpty(ctx.InstanceToValidate.FirstName) && regUserApr.FirstName != ctx.InstanceToValidate.FirstName)
-                                               || (!string.IsNullOrEmpty(ctx.InstanceToValidate.LastName) && regUserApr.LastName != ctx.InstanceToValidate.LastName)
                                                || (!string.IsNullOrEmpty(ctx.InstanceToValidate.CompanyName) && regUserApr.CompanyName != ctx.InstanceToValidate.CompanyName)
                                                || (!string.IsNullOrEmpty(ctx.InstanceToValidate.TaxNumber) && regUserApr.TaxNumber != ctx.InstanceToValidate.TaxNumber))
                         {

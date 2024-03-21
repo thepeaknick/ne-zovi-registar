@@ -48,9 +48,7 @@ public class CreateRegUserCommandValidator : AbstractValidator<CreateRegUserComm
                 {
                     var regUser = await aprWebClient.GetAprBusinessEntityAsync(x.RegNumber, cancellationToken);
 
-                    if (regUser is null || regUser.RegNumber != ctx.InstanceToValidate.RegNumber
-                                        || regUser.FirstName != ctx.InstanceToValidate.FirstName
-                                        || regUser.LastName != ctx.InstanceToValidate.LastName
+                    if (regUser is null || regUser.RegNumber != ctx.InstanceToValidate.RegNumber                                       
                                         || regUser.CompanyName != ctx.InstanceToValidate.CompanyName
                                         || regUser.TaxNumber != ctx.InstanceToValidate.TaxNumber)
                     {
