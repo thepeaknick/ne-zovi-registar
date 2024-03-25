@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using NeZoviReg.Domain.Model.Auth;
 using NeZoviReg.Domain.Model.Domain;
 
 namespace NeZoviReg.Persistence.Ef.Configuration.Domain;
@@ -73,6 +74,14 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
 
         builder.Navigation(n => n.RegUserRoles)
             .UsePropertyAccessMode(PropertyAccessMode.Field);
+        
+        builder.Navigation(n => n.UserAccounts)
+            .UsePropertyAccessMode(PropertyAccessMode.Field);
+
+        builder.HasMany(x => x.UserAccounts)
+            .WithOne()
+            .HasForeignKey(x => x.RegUserId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasData(Create(1, "RATEL", "mail@mail.com", "Palmotićeva 2", "00000000", "000000000", "Ime", "Prezime", "ratel", "test123"));
         

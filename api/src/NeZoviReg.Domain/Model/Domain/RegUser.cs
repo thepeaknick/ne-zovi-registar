@@ -52,7 +52,12 @@ public class RegUser : Entity
 
     public string FullName => $"Naziv={CompanyName}, Adresa={Address}, MatičniBroj={RegNumber}, Pib={TaxNumber}";
 
+    private readonly List<UserAccount> _userAccounts = new();
+    
+    public IReadOnlyCollection<UserAccount> UserAccounts => _userAccounts;
+    
     public string Username { get; private set; }
+    
 
     public DateTime? AccessTokenExpirationTime { get; private set; }
     
@@ -144,6 +149,7 @@ public class RegUser : Entity
             return this;
 
         Password = password.Encode();
+        
 
         return this;
     }
@@ -204,6 +210,16 @@ public class RegUser : Entity
     {
         ForgotPasswordTokenExpirationTime = expTime ?? ForgotPasswordTokenExpirationTime;
 
+        return this;
+    }
+
+    public RegUser AddUserAccount(UserAccount userAccount)
+    {
+        var existing = _userAccounts.FirstOrDefault(x => x.Id == userAccount.Id);
+        if (existing is null)
+        {
+            _userAccounts.Add(userAccount);
+        }
         return this;
     }
 
