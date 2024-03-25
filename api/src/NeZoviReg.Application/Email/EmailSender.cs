@@ -26,7 +26,7 @@ public class EmailSender :IEmailSender
             return false;
         }
 
-        message.From = new MailAddress(_options.EmailFrom);
+        message.From = new MailAddress(_options.EmailFrom, _options.DisplayNameFrom);
 
         LogMessage(message);
 
