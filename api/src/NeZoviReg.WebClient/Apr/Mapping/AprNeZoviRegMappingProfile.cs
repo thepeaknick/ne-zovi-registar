@@ -44,6 +44,13 @@ public class AprNeZoviRegMappingProfile : Profile
                     s.grupa.FirstOrDefault(x => x.id == "1017")?.podatak.FirstOrDefault(p => p.naziv == "PIB")
                         ?.vrednost);
             })
+            .ForMember(d => d.Email, o =>
+            {
+                o.Condition(s => s.grupa.Any());
+                o.MapFrom((s, _) =>
+                    s.grupa.FirstOrDefault(x => x.id == "1013")?.podatak.FirstOrDefault(p => p.naziv == "EMailAdresa")
+                        ?.vrednost);
+            })
             .ForMember(d => d.TheAddress, o =>
             {
                 o.Condition(s => s.grupa.Any());
