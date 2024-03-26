@@ -38,6 +38,6 @@ public class AppMappingProfile : Profile
                 s.RegNumber, s.TaxNumber, s.Username, s.RegUserRoles.First().RoleId));
 
         CreateMap<AprBusinessEntity, RegUserAprDetailsDto>()
-            .ConstructUsing(s => new RegUserAprDetailsDto(s.CompanyName, s.Address, s.RegNumber, s.TaxNumber, s.FirstName, s.LastName));
+            .ConstructUsing(s => new RegUserAprDetailsDto(s.CompanyName, s.Address, s.Email, s.RegNumber, s.TaxNumber, s.FirstName, s.LastName));
     }
 }
