@@ -11,6 +11,8 @@ public sealed class AprBusinessEntity
     public Address TheAddress { get; set; }
 
     public string RegNumber { get; set; }
+    
+    public string Email { get; set; }
 
     public string TaxNumber { get; set; }
 

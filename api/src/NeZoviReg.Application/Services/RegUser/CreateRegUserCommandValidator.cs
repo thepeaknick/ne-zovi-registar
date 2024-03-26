@@ -50,7 +50,8 @@ public class CreateRegUserCommandValidator : AbstractValidator<CreateRegUserComm
 
                     if (regUser is null || regUser.RegNumber != ctx.InstanceToValidate.RegNumber                                       
                                         || regUser.CompanyName != ctx.InstanceToValidate.CompanyName
-                                        || regUser.TaxNumber != ctx.InstanceToValidate.TaxNumber)
+                                        || regUser.TaxNumber != ctx.InstanceToValidate.TaxNumber
+                                        || regUser.Email != ctx.InstanceToValidate.Email)
                     {
                         ctx.AddFailure(RegErrors.RegUser.InvalidData.Message);
                     }
