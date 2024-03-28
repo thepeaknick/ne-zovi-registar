@@ -1,6 +1,6 @@
 ﻿namespace NeZoviReg.Abstractions.Shared.Model.Infrastructure;
 
-public sealed class AprBusinessEntity
+public class AprBusinessEntity
 {
     public string FirstName { get; set; }
 

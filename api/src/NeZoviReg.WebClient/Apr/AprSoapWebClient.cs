@@ -91,7 +91,7 @@ public class AprSoapWebClient : BaseSoapWebClient, IAprWebClient
                 return (aprData, tip);
             //aktivan
             case PrivredniSubjekatMaticniBrojTip.Item6 //Sports. udruzenja
-                when aprData?.grupa.FirstOrDefault(y => y.id == "11")?.podatak.FirstOrDefault(p => p.naziv == "IdentifikatorStatusa")?.vrednost == "2":
+                when aprData?.grupa.FirstOrDefault(y => y.id == "111")?.podatak.FirstOrDefault(p => p.naziv == "IdentifikatorStatusa")?.vrednost == "2":
                 return (aprData, tip);
             //aktivan uvek (nema status identifikator)
             case PrivredniSubjekatMaticniBrojTip.Item4: //Stec. masa
