@@ -7,8 +7,11 @@ namespace NeZoviReg.Domain.Model.Auth;
 
 public class UserAccount : Entity
 {
-    public const int UsernameMaxLength = 255;
+    public static UserAccount New => new UserAccount();
     
+    public const int UsernameMaxLength = 255;
+    public const int PasswordMaxLength = 255;
+
     public int RegUserId { get; private set; }
     public string Username { get; private set; }
     

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using NeZoviReg.WebClient.Apr;
+using NeZoviReg.WebClient.Apr.Mapping;
 
 namespace NeZoviReg.WebClient.Extensions;
 

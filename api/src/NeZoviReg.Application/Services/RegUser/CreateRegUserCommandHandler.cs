@@ -10,6 +10,7 @@ using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 using NeZoviReg.Abstractions.Options;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
+using NeZoviReg.Domain.Model.Auth;
 using Serilog;
 
 namespace NeZoviReg.Application.Services.RegUser;
@@ -49,7 +50,8 @@ internal sealed class CreateRegUserCommandHandler : ICommandHandler<CreateRegUse
             .WithTaxNumber(command.TaxNumber)
             .WithName(command.FirstName, command.LastName)
             .WithPassword(command.Password)
-            .WithRole((int) command.Role);
+            .WithRole((int) command.Role)
+            .WithUserAccount(UserAccount.New.WithUserName(command.UserName).WithPassword(command.Password));
 
         await _regUserDataStore.Add(regUser, cancellationToken);
 

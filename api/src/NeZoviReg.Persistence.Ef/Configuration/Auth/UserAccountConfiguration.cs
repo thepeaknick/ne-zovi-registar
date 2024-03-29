@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NeZoviReg.Domain.Model.Auth;
-using NeZoviReg.Domain.Model.Domain;
 
 namespace NeZoviReg.Persistence.Ef.Configuration.Auth;
 
@@ -15,11 +14,11 @@ public class UserAccountConfiguration : IEntityTypeConfiguration<UserAccount>
 
         builder.Property(x => x.Username)
             .IsRequired()
-            .HasMaxLength(RegUser.UsernameMaxLength);
+            .HasMaxLength(UserAccount.UsernameMaxLength);
 
         builder.Property(x => x.Password)
             .IsRequired()
-            .HasMaxLength(RegUser.PasswordMaxLength);
+            .HasMaxLength(UserAccount.PasswordMaxLength);
         
         builder.Property(x => x.RegUserId)
             .IsRequired();

@@ -213,13 +213,11 @@ public class RegUser : Entity
         return this;
     }
 
-    public RegUser AddUserAccount(UserAccount userAccount)
+    public RegUser WithUserAccount(UserAccount userAccount)
     {
         var existing = _userAccounts.FirstOrDefault(x => x.Id == userAccount.Id);
-        if (existing is null)
-        {
-            _userAccounts.Add(userAccount);
-        }
+        existing?.DeleteMe();
+        _userAccounts.Add(userAccount);
         return this;
     }
 

@@ -16,6 +16,7 @@ public class AprSoapWebClient : BaseSoapWebClient, IAprWebClient
     private readonly ILogger<AprSoapWebClient> _logger;
     private readonly IMapper _mapper;
     private readonly AprWebClientOptions _options;
+    private readonly PlServiceClient _client;
 
     public AprSoapWebClient(IOptionsSnapshot<AprWebClientOptions> options, IMapper mapper,
         ILogger<AprSoapWebClient> logger)
@@ -24,40 +25,81 @@ public class AprSoapWebClient : BaseSoapWebClient, IAprWebClient
         _logger = logger;
         _mapper = mapper;
         _options = options.Value;
+        _client = PlServiceClient();
     }
-
-    public async Task<List<AprBusinessEntity>> GetAprBusinessEntitiesAsync(string regNumber,
-        CancellationToken cancellationToken = default)
-    {
-        await using var client = PlServiceClient();
-
-        var data = await client.PreuzmiPodatkeOPrivrednomSubjektuAsync(new PrivredniSubjektiUlazniPodaci
-        {
-            privredniSubjekti = new PrivredniSubjekatMaticniBroj()
-            {
-                maticniBroj = regNumber,
-                tip = PrivredniSubjekatMaticniBrojTip.Item1
-            }
-        });
-
-        return _mapper.Map<List<AprBusinessEntity>>(data);
-    }
+   
 
     public async Task<AprBusinessEntity?> GetAprBusinessEntityAsync(string regNumber,
         CancellationToken cancellationToken = default)
     {
-        await using var client = PlServiceClient();
+        var aprData = await GetAprData(regNumber, PrivredniSubjekatMaticniBrojTip.Item1); //DOO
 
-        var data = await client.PreuzmiPodatkeOPrivrednomSubjektuAsync(new PrivredniSubjektiUlazniPodaci
+        aprData ??= await GetAprData(regNumber, PrivredniSubjekatMaticniBrojTip.Item2); //Preduzetnici
+
+        aprData ??= await GetAprData(regNumber, PrivredniSubjekatMaticniBrojTip.Item3); //Udruzenje
+        
+        aprData ??= await GetAprData(regNumber, PrivredniSubjekatMaticniBrojTip.Item4); //Stec. masa
+        
+        aprData ??= await GetAprData(regNumber, PrivredniSubjekatMaticniBrojTip.Item5); //Fondacija
+        
+        aprData ??= await GetAprData(regNumber, PrivredniSubjekatMaticniBrojTip.Item6); //Sport. udruz.
+        
+        aprData ??= await GetAprData(regNumber, PrivredniSubjekatMaticniBrojTip.Item7); //Komora
+        
+        return _mapper.Map<AprBusinessEntity?>(aprData);
+    }
+
+    private async Task<(PrivredniSubjekat? AprData, PrivredniSubjekatMaticniBrojTip Tip)?> GetAprData(string regNumber, PrivredniSubjekatMaticniBrojTip tip)
+    {
+        PrivredniSubjekat[] data;
+        try
         {
-            privredniSubjekti = new PrivredniSubjekatMaticniBroj
+            data = await _client.PreuzmiPodatkeOPrivrednomSubjektuAsync(new PrivredniSubjektiUlazniPodaci
             {
-                tip = PrivredniSubjekatMaticniBrojTip.Item1,
-                maticniBroj = regNumber
-            }
-        });
+                privredniSubjekti = new PrivredniSubjekatMaticniBroj
+                {
+                    tip = tip,
+                    maticniBroj = regNumber
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            _logger.LogInformation($"MaticniBroj={regNumber};Tip={tip} ne postoji u APR-u");
+            return default;
+        }
 
-        return _mapper.Map<AprBusinessEntity?>(data.FirstOrDefault());
+        var aprData = data?.FirstOrDefault();
+        
+        switch (tip)
+        {
+            //aktivan
+            case PrivredniSubjekatMaticniBrojTip.Item1 //DOO
+                when aprData?.grupa.FirstOrDefault(y => y.id == "1002")?.podatak.FirstOrDefault(p => p.naziv == "IdentifikatorStatusa")?.vrednost == "2":
+                return (aprData, tip);
+            //aktivan
+            case PrivredniSubjekatMaticniBrojTip.Item2 //Preduzetnik
+                when aprData?.grupa.FirstOrDefault(y => y.id == "1042")?.podatak.FirstOrDefault(p => p.naziv == "IdentifikatorStatusa")?.vrednost == "3":
+                return (aprData, tip);
+            //aktivan
+            case PrivredniSubjekatMaticniBrojTip.Item3 //Udruzenje
+                when aprData?.grupa.FirstOrDefault(y => y.id == "57")?.podatak.FirstOrDefault(p => p.naziv == "IdentifikatorStatusa")?.vrednost == "2":
+                return (aprData, tip);
+            //aktivan
+            case PrivredniSubjekatMaticniBrojTip.Item5 //Fondacija
+                when aprData?.grupa.FirstOrDefault(y => y.id == "81")?.podatak.FirstOrDefault(p => p.naziv == "IdentifikatorStatusa")?.vrednost == "2":
+                return (aprData, tip);
+            //aktivan
+            case PrivredniSubjekatMaticniBrojTip.Item6 //Sports. udruzenja
+                when aprData?.grupa.FirstOrDefault(y => y.id == "111")?.podatak.FirstOrDefault(p => p.naziv == "IdentifikatorStatusa")?.vrednost == "2":
+                return (aprData, tip);
+            //aktivan uvek (nema status identifikator)
+            case PrivredniSubjekatMaticniBrojTip.Item4: //Stec. masa
+            case PrivredniSubjekatMaticniBrojTip.Item7: //Komora
+                return (aprData, tip);
+            default:
+                return default;
+        }
     }
 
     private PlServiceClient PlServiceClient()

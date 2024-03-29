@@ -8,6 +8,7 @@ using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Events;
+using NeZoviReg.Domain.Model.Auth;
 using Serilog;
 
 namespace NeZoviReg.Application.Services.RegUser;
@@ -48,7 +49,8 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
             .WithTaxNumber(command.TaxNumber)
             .WithName(command.FirstName, command.LastName)
             .WithUserName(command.UserName)
-            .WithRole(command.Role);
+            .WithRole(command.Role)
+            .WithUserAccount(UserAccount.New.WithUserName(command.UserName));;
 
         _regUserDataStore.Update(regUser);
 
