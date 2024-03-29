@@ -46,12 +46,12 @@ public class CreateRegUserCommandValidator : AbstractValidator<CreateRegUserComm
             {
                 RuleFor(x => x).CustomAsync(async (x, ctx, cancellationToken) =>
                 {
-                    var regUser = await aprWebClient.GetAprBusinessEntityAsync(x.RegNumber, cancellationToken);
+                    var regAprUser = await aprWebClient.GetAprBusinessEntityAsync(x.RegNumber, cancellationToken);
 
-                    if (regUser is null || regUser.RegNumber != ctx.InstanceToValidate.RegNumber                                       
-                                        || regUser.CompanyName != ctx.InstanceToValidate.CompanyName
-                                        || regUser.TaxNumber != ctx.InstanceToValidate.TaxNumber
-                                        || regUser.Email != ctx.InstanceToValidate.Email)
+                    if (regAprUser is null || regAprUser.RegNumber != ctx.InstanceToValidate.RegNumber                                       
+                                        || regAprUser.CompanyName != ctx.InstanceToValidate.CompanyName
+                                        || regAprUser.TaxNumber != ctx.InstanceToValidate.TaxNumber
+                                        || (!string.IsNullOrEmpty(regAprUser.Email) && regAprUser.Email != ctx.InstanceToValidate.Email))
                     {
                         ctx.AddFailure(RegErrors.RegUser.InvalidData.Message);
                     }

@@ -27,7 +27,7 @@ public class ModifyRegUserCommandValidator : AbstractValidator<ModifyRegUserComm
                         if (regUserApr is null || (!string.IsNullOrEmpty(ctx.InstanceToValidate.RegNumber) && regUserApr.RegNumber != ctx.InstanceToValidate.RegNumber)
                                                || (!string.IsNullOrEmpty(ctx.InstanceToValidate.CompanyName) && regUserApr.CompanyName != ctx.InstanceToValidate.CompanyName)
                                                || (!string.IsNullOrEmpty(ctx.InstanceToValidate.TaxNumber) && regUserApr.TaxNumber != ctx.InstanceToValidate.TaxNumber)
-                                               || (!string.IsNullOrEmpty(ctx.InstanceToValidate.Email) && regUserApr.Email != ctx.InstanceToValidate.Email))
+                                               || (!string.IsNullOrEmpty(ctx.InstanceToValidate.Email) && !string.IsNullOrEmpty(regUserApr.Email) && regUserApr.Email != ctx.InstanceToValidate.Email))
                         {
                             ctx.AddFailure(RegErrors.RegUser.InvalidData.Message);
                         }
