@@ -43,7 +43,7 @@ public abstract class Entity : IEntity, IEquatable<Entity>
         ModifiedBy = user;
     }
 
-    public void DeleteMe()
+    public void Delete()
     {
         Deleted = true;
     }

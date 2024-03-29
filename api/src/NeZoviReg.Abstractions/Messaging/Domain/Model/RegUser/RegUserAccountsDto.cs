@@ -10,7 +10,7 @@ public sealed record RegUserAccountsDto
     /// <summary>
     /// Guid ID korisnika registra
     /// </summary>
-    public required Guid GuidId { get; init; }
+    public required Guid RegUserId { get; init; }
 
 
     /// <summary>

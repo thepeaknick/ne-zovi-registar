@@ -19,5 +19,5 @@ public interface IAuditableEntity
 
     void AddModification(string user);
 
-    void DeleteMe();
+    void Delete();
 }

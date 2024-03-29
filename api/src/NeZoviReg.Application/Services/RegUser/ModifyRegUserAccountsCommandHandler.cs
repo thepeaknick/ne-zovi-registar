@@ -5,6 +5,7 @@ using NeZoviReg.Abstractions.Infrastructure.DataStores.Auth;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
+using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Events;
@@ -45,12 +46,9 @@ internal sealed class ModifyRegUserAccountsCommandHandler : ICommandHandler<Modi
         }
 
         var userAccounts = await _userAccountDataStore.GetUserAccounts(regUser.Id, cancellationToken);
-        userAccounts.ForEach(x => x.DeleteMe());
-        userAccounts.AddRange(command.Accounts.Select(x => new UserAccount()
-            .WithUserName(x.Username)
-            .WithPassword(x.Password)
-            .WithRegUserId(regUser.Id)));
 
+        ModifyUserAccounts(userAccounts, regUser.Id, command.Accounts);
+        
         await _userAccountDataStore.AddOrUpdateUserAccounts(userAccounts, cancellationToken);
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
@@ -63,5 +61,16 @@ internal sealed class ModifyRegUserAccountsCommandHandler : ICommandHandler<Modi
         Log.Information($"RegUser with RegUserId={command.RegUserId} modified.");
 
         return Result.Success(true);
+    }
+
+
+    private void ModifyUserAccounts(List<UserAccount> accounts, int regUserId, List<UserAccountData> newAccounts)
+    {
+        accounts.ForEach(x => x.Delete());
+        
+        accounts.AddRange(newAccounts.Select(x => new UserAccount()
+            .WithUserName(x.Username)
+            .WithPassword(x.Password)
+            .WithRegUserId(regUserId)));
     }
 }

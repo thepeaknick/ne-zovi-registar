@@ -60,7 +60,7 @@ public abstract class EnumerationEntity<TEnum> : IEquatable<EnumerationEntity<TE
         ModifiedBy = user;
     }
 
-    public void DeleteMe()
+    public void Delete()
     {
         Deleted = true;
     }

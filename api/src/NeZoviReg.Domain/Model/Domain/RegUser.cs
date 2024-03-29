@@ -53,14 +53,14 @@ public class RegUser : Entity
     public string FullName => $"Naziv={CompanyName}, Adresa={Address}, MatičniBroj={RegNumber}, Pib={TaxNumber}";
 
     private readonly List<UserAccount> _userAccounts = new();
-    
+
     public IReadOnlyCollection<UserAccount> UserAccounts => _userAccounts;
-    
+
     public string Username { get; private set; }
-    
+
 
     public DateTime? AccessTokenExpirationTime { get; private set; }
-    
+
     public string? RefreshToken { get; private set; }
 
     public DateTime? RefreshTokenExpirationTime { get; private set; }
@@ -149,7 +149,7 @@ public class RegUser : Entity
             return this;
 
         Password = password.Encode();
-        
+
 
         return this;
     }
@@ -160,7 +160,7 @@ public class RegUser : Entity
 
         return this;
     }
-    
+
     public RegUser WithAccessTokenExpTime(DateTime? expTime)
     {
         AccessTokenExpirationTime = expTime ?? AccessTokenExpirationTime;
@@ -169,7 +169,7 @@ public class RegUser : Entity
     }
 
     public bool IsAccessTokenValid => AccessTokenExpirationTime != default && DateTime.Now <= AccessTokenExpirationTime;
-    
+
     public RegUser WithoutAccessTokenExpTime()
     {
         AccessTokenExpirationTime = default;
@@ -216,8 +216,11 @@ public class RegUser : Entity
     public RegUser WithUserAccount(UserAccount userAccount)
     {
         var existing = _userAccounts.FirstOrDefault(x => x.Id == userAccount.Id);
-        existing?.DeleteMe();
+
+        existing?.Delete();
+
         _userAccounts.Add(userAccount);
+
         return this;
     }
 
@@ -227,7 +230,7 @@ public class RegUser : Entity
                      .Where(r => !roleIds?.Contains(r.RoleId) ?? false)
                      .ToList())
         {
-            regUserRole.PrepareForDelete();
+            regUserRole.Delete();
         }
 
         foreach (var roleId in (roleIds ??= new List<int>())
@@ -246,8 +249,9 @@ public class RegUser : Entity
 
         foreach (var regUserRole in RegUserRoles)
         {
-            regUserRole.PrepareForDelete();
+            regUserRole.Delete();
         }
+
         _regUserRoles.Add(RegUserRole.Create(Id, roleId.Value));
 
         return this;

@@ -39,6 +39,7 @@ public class AppMappingProfile : Profile
                 s.RegNumber, s.TaxNumber, s.Username, s.RegUserRoles.First().RoleId));
 
         CreateMap<RegUser, RegUserAccountsDto>()
+            .ForMember(d => d.RegUserId, o => o.MapFrom(s => s.GuidId))
             .ForMember(d => d.Accounts, o => o.MapFrom(s => s.UserAccounts));
 
         CreateMap<UserAccount, UserAccountData>()

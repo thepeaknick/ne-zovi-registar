@@ -22,9 +22,4 @@ public class RegUserRole : Entity
     {
         return new RegUserRole(regUserId, roleId);
     }
-
-    public void PrepareForDelete()
-    {
-       DeleteMe();
-    }
 }
