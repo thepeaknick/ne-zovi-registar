@@ -1,4 +1,5 @@
 ﻿using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
+using NeZoviReg.Domain.Model.Auth;
 using NeZoviReg.Domain.Model.Domain;
 
 namespace NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
@@ -22,6 +23,8 @@ public interface IRegUserDataStore
     Task<RegUser?> GetById(int regUserId, CancellationToken cancellationToken = default);
 
     Task<RegUser?> GetByGuidId(Guid regUserId, CancellationToken cancellationToken = default);
+
+    Task<RegUser?> GetWithAccountsByGuidId(Guid regUserId, CancellationToken cancellationToken = default);
 
     Task<List<RegUser>> GetByRole(RoleType role, CancellationToken cancellationToken = default);
 

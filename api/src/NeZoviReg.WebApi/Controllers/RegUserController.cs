@@ -141,9 +141,9 @@ public class RegUserController : NeZoviRegBaseController
     [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
     public async Task<IActionResult> GetRegUser(Guid regUserId, CancellationToken cancellationToken)
     {
-        var command = new RegUserQuery(regUserId);
+        var query = new RegUserQuery(regUserId);
 
-        var result = await Sender.Send(command, cancellationToken);
+        var result = await Sender.Send(query, cancellationToken);
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
@@ -159,9 +159,9 @@ public class RegUserController : NeZoviRegBaseController
     [HasPermission(PermissionType.RegUsersOnly)]
     public async Task<IActionResult> GetRegUserByRegNumber(string regNumber, CancellationToken cancellationToken)
     {
-        var command = new RegUserAprQuery(regNumber);
+        var query = new RegUserAprQuery(regNumber);
 
-        var result = await Sender.Send(command, cancellationToken);
+        var result = await Sender.Send(query, cancellationToken);
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
@@ -177,9 +177,27 @@ public class RegUserController : NeZoviRegBaseController
     [HasPermission(PermissionType.RegUsersOnly | PermissionType.Write)]
     public async Task<IActionResult> GetRegUsers(int role, CancellationToken cancellationToken)
     {
-        var command = new RegUsersQuery((RoleType) role);
+        var query = new RegUsersQuery((RoleType) role);
 
-        var result = await Sender.Send(command, cancellationToken);
+        var result = await Sender.Send(query, cancellationToken);
+
+        return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
+    }
+    
+    /// <summary>
+    /// Spisak korisničkih naloga korisnika registra.
+    /// </summary>
+    /// <param name="regUserId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpGet("accounts/{regUserId:required}")]
+    [ProducesResponseType(typeof(RegUserAccountsDto), (int) HttpStatusCode.OK)]
+    [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
+    public async Task<IActionResult> GetRegUserAccounts(Guid regUserId, CancellationToken cancellationToken)
+    {
+        var query = new RegUserAccountsQuery(regUserId);
+
+        var result = await Sender.Send(query, cancellationToken);
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }

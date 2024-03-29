@@ -4,6 +4,7 @@ using NeZoviReg.Abstractions.Messaging.Domain.Model.User;
 using NeZoviReg.Abstractions.Shared.Model.Domain;
 using NeZoviReg.Abstractions.Shared.Model.Infrastructure;
 using NeZoviReg.Domain.Extensions;
+using NeZoviReg.Domain.Model.Auth;
 using NeZoviReg.Domain.Model.Domain;
 
 namespace NeZoviReg.Application.Mapping;
@@ -36,6 +37,12 @@ public class AppMappingProfile : Profile
             .ConstructUsing(s => new RegUserDetailsDto(s.GuidId, s.FirstName, s.LastName, s.Email, s.CompanyName,
                 s.Address,
                 s.RegNumber, s.TaxNumber, s.Username, s.RegUserRoles.First().RoleId));
+
+        CreateMap<RegUser, RegUserAccountsDto>()
+            .ForMember(d => d.Accounts, o => o.MapFrom(s => s.UserAccounts));
+        
+        CreateMap<UserAccount, UserAccountDto>()
+            .ConstructUsing(s => new UserAccountDto(s.RegUserId, s.Username, s.Password));
 
         CreateMap<AprBusinessEntity, RegUserAprDetailsDto>()
             .ConstructUsing(s => new RegUserAprDetailsDto(s.CompanyName, s.Address, s.Email, s.RegNumber, s.TaxNumber, s.FirstName, s.LastName));
