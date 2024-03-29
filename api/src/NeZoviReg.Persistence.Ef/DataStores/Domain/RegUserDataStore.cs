@@ -55,7 +55,6 @@ public class RegUserDataStore : IRegUserDataStore
     public async Task<RegUser?> GetByGuidId(Guid regUserId, CancellationToken cancellationToken = default) =>
         await _dbContext.Set<RegUser>()
             .Include(u => u.RegUserRoles)
-            .Include(u => u.UserAccounts)
             .SingleOrDefaultAsync(x => x.GuidId == regUserId, cancellationToken);
     
     public async Task<RegUser?> GetWithAccountsByGuidId(Guid regUserId, CancellationToken cancellationToken = default) =>

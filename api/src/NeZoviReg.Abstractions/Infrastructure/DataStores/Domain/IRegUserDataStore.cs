@@ -1,5 +1,4 @@
 ﻿using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
-using NeZoviReg.Domain.Model.Auth;
 using NeZoviReg.Domain.Model.Domain;
 
 namespace NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;

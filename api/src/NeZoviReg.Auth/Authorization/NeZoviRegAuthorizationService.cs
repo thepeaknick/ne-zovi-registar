@@ -36,6 +36,10 @@ public class NeZoviRegAuthorizationService : DefaultAuthorizationService, INeZov
         var regUserId = user
             .Claims
             .SingleOrDefault(x => x.Type == CustomClaims.RegUserId)?.Value;
+        
+        var userName =  user
+            .Claims
+            .SingleOrDefault(x => x.Type == CustomClaims.RegUserName)?.Value;
 
         if (!Guid.TryParse(regUserId, out var id))
         {

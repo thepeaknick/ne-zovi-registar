@@ -1,7 +1,7 @@
 ﻿namespace NeZoviReg.WebApi.Model.RegUser;
 
 /// <summary>
-/// Zahtev za promenu lozinke.
+/// Zahtev za izmenu lozinke.
 /// </summary>
 /// <param name="Password">Stara lozinka.</param>
 /// <param name="NewPassword">Nova lozinka.</param>

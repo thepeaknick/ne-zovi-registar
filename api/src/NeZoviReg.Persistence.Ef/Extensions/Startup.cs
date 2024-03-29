@@ -41,6 +41,7 @@ public static class Startup
     {
         return services.AddScoped<IAuthDataStore, AuthDataStore>()
                 .AddScoped<IRegUserDataStore, RegUserDataStore>()
+                .AddScoped<IUserAccountDataStore, UserAccountDataStore>()
                 .AddScoped<IUserDataStore, UserDataStore>();
 
     }

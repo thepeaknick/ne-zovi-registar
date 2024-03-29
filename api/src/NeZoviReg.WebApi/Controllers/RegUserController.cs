@@ -201,6 +201,27 @@ public class RegUserController : NeZoviRegBaseController
 
         return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
     }
+    
+    /// <summary>
+    /// Izmeni korisničke naloga postojećeg korisnika registra.
+    /// </summary>
+    /// <param name="regUserId">Guid identifikator korisnika registra</param>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpPatch("accounts/{regUserId:required}")]
+    [ProducesResponseType(typeof(bool), (int) HttpStatusCode.OK)]
+    [HasPermission(PermissionType.RegUsersOnly)]
+    public async Task<IActionResult> ModifyRegUserAccounts(Guid regUserId, [FromBody] ModifyRegUserAccountsRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new ModifyRegUserAccountsCommand(regUserId, request.Accounts)
+            .AddAppUser(AppUser.UserName);
+
+        var result = await Sender.Send(command, cancellationToken);
+
+        return result.IsFailure ? HandleFailure(result) : Ok(result.Value);
+    }
 
     /// <summary>
     /// Korisnik registra. Pošalji mejl.

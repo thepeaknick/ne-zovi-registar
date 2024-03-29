@@ -52,6 +52,13 @@ public class UserAccount : Entity
         return this;
     }
     
+    public UserAccount WithRegUserId(int regUserId)
+    {
+        RegUserId = regUserId;
+
+        return this;
+    }
+    
     public UserAccount WithAccessTokenExpTime(DateTime? expTime)
     {
         AccessTokenExpirationTime = expTime ?? AccessTokenExpirationTime;

@@ -40,9 +40,9 @@ public class AppMappingProfile : Profile
 
         CreateMap<RegUser, RegUserAccountsDto>()
             .ForMember(d => d.Accounts, o => o.MapFrom(s => s.UserAccounts));
-        
-        CreateMap<UserAccount, UserAccountDto>()
-            .ConstructUsing(s => new UserAccountDto(s.RegUserId, s.Username, s.Password));
+
+        CreateMap<UserAccount, UserAccountData>()
+            .ConstructUsing(s => new UserAccountData(s.Username, s.Password));
 
         CreateMap<AprBusinessEntity, RegUserAprDetailsDto>()
             .ConstructUsing(s => new RegUserAprDetailsDto(s.CompanyName, s.Address, s.Email, s.RegNumber, s.TaxNumber, s.FirstName, s.LastName));

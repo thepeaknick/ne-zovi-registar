@@ -16,5 +16,5 @@ public sealed record RegUserAccountsDto
     /// <summary>
     /// Lista korisničkih naloga
     /// </summary>
-    public required List<UserAccountDto> Accounts { get; init; }
+    public required List<UserAccountData> Accounts { get; init; }
 }

@@ -6,10 +6,6 @@ namespace NeZoviReg.Abstractions.Shared.Model.Auth;
 
 public class RegUserWithPermissions
 {
-    public RegUserWithPermissions()
-    {
-    }
-
     public RegUser RegUser { get; init; }
 
     public List<PermissionType>? Permissions  { get; init; }
