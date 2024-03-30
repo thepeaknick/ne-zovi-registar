@@ -22,6 +22,9 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
 
         builder.Navigation(n => n.RegUserRoles)
             .UsePropertyAccessMode(PropertyAccessMode.Field);
+        
+        builder.Navigation(n => n.UserAccountRoles)
+            .UsePropertyAccessMode(PropertyAccessMode.Field);
 
         builder.Navigation(n => n.Permissions)
             .UsePropertyAccessMode(PropertyAccessMode.Field);
@@ -34,11 +37,6 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
     {
         var roles = Role.GetValues();
 
-        return roles.Select(r =>
-        {
-            var role = new Role(r.Id, r.Name);
-            role.AddCreation();
-            return role;
-        }).ToList();
+        return roles.Select(r => Role.Create(r.Id, r.Name)).ToList();
     }
 }

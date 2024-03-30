@@ -6,6 +6,8 @@ internal sealed class TableNames
     
     internal static string UserAccounts => "UserAccount";
     
+    internal static string UserAccountsRoles => "UserAccountRole";
+    
     internal static string RegUsersRoles => "RegUserRole";
     
     internal static string Roles => "Role";

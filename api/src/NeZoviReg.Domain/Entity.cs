@@ -11,12 +11,7 @@ public abstract class Entity : IEntity, IEquatable<Entity>
     {
     }
 
-    protected Entity(int id)
-    {
-        Id = id;
-    }
-
-    public int Id { get; private set; }
+    public int Id { get; protected set; }
 
     public string CreatedBy { get; private set; } = string.Empty;
 
@@ -27,7 +22,7 @@ public abstract class Entity : IEntity, IEquatable<Entity>
     public DateTime? ModifiedOn { get; private set; }
 
     public bool Deleted { get; private set; }
-
+    
     //byte[] for SQL SERVER
    public /*byte[]*/DateTime Rowversion { get; private set; }
 

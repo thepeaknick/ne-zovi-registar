@@ -1,5 +1,5 @@
-﻿using NeZoviReg.Domain.Extensions;
-using NeZoviReg.Domain.Model.Domain;
+﻿using System.Dynamic;
+using NeZoviReg.Domain.Extensions;
 
 #pragma warning disable CS8618
 
@@ -8,6 +8,16 @@ namespace NeZoviReg.Domain.Model.Auth;
 public class UserAccount : Entity
 {
     public static UserAccount New => new UserAccount();
+
+    public static UserAccount Create(int id, string username, string password)
+    {
+        var userAccount = new UserAccount {Id = id}
+            .WithUserName(username)
+            .WithPassword(password);
+        userAccount.AddCreation();
+
+        return userAccount;
+    }
     
     public const int UsernameMaxLength = 255;
     public const int PasswordMaxLength = 255;
@@ -32,6 +42,9 @@ public class UserAccount : Entity
     public string? ForgotPasswordToken { get; private set; }
 
     public DateTime? ForgotPasswordTokenExpirationTime { get; private set; }
+    
+    private readonly List<UserAccountRole> _userAccountRoles = new();
+    public IReadOnlyCollection<UserAccountRole> UserAccountRoles => _userAccountRoles;
     
     
     public UserAccount WithPassword(string? password)

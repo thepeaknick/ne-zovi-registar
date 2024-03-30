@@ -20,24 +20,29 @@ public class RegUser : Entity
     public const int UsernameMaxLength = 255;
     public const int EmailMaxLength = 50;
 
-    public RegUser()
-        : base()
+    public static RegUser Create(string companyName, string userName)
     {
+        return new RegUser
+            {
+                GuidId = Guid.NewGuid()
+            }
+            .WithCompanyName(companyName)
+            .WithUserName(userName);
     }
 
-    public RegUser(string companyName, string userName)
-    {
-        CompanyName = companyName;
-        Username = userName;
-        GuidId = Guid.NewGuid();
-    }
 
-    public RegUser(int id, string companyName, string userName)
-        : base(id)
+    public static RegUser Create(int id, string companyName, string userName)
     {
-        CompanyName = companyName;
-        Username = userName;
-        GuidId = Guid.NewGuid();
+        var regUser =  new RegUser
+            {
+                Id = id
+            }
+            .WithCompanyName(companyName)
+            .WithUserName(userName);
+        
+        regUser.AddCreation();
+
+        return regUser;
     }
 
     public Guid GuidId { get; private set; }

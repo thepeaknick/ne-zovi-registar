@@ -15,10 +15,6 @@ public class RegUserRoleConfiguration : IEntityTypeConfiguration<RegUserRole>
 
         builder.ConfigureEntity(false);
 
-        builder.HasOne(sc => sc.RegUser)
-            .WithMany(s => s.RegUserRoles)
-            .HasForeignKey(sc => sc.RegUserId);
-
 
         builder.HasOne(sc => sc.Role)
             .WithMany(s => s.RegUserRoles)

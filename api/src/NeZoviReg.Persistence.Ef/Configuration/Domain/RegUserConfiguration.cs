@@ -91,16 +91,12 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
 
     private static RegUser Create(int id, string companyName, string email, string address, string regNumber, string taxNumber, string firstName, string lastName, string userName, string password)
     {
-        var regUser = new RegUser(id, companyName, userName)
+        return RegUser.Create(id, companyName, userName)
             .WithAddress(address)
             .WithEmail(email)
             .WithRegNumber(regNumber)
             .WithTaxNumber(taxNumber)
             .WithName(firstName, lastName)
             .WithPassword(password);
-
-        regUser.AddCreation();
-
-        return regUser;
     }
 }

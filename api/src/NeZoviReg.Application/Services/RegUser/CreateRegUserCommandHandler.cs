@@ -41,9 +41,7 @@ internal sealed class CreateRegUserCommandHandler : ICommandHandler<CreateRegUse
 
     public async Task<Result<RegUserDto>> Handle(CreateRegUserCommand command, CancellationToken cancellationToken)
     {
-        
-        
-        var regUser = new Domain.Model.Domain.RegUser(command.CompanyName, command.UserName)
+        var regUser = Domain.Model.Domain.RegUser.Create(command.CompanyName, command.UserName)
             .WithAddress(command.Address)
             .WithEmail(command.Email)
             .WithRegNumber(command.RegNumber)

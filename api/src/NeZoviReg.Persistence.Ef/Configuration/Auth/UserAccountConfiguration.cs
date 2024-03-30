@@ -34,5 +34,17 @@ public class UserAccountConfiguration : IEntityTypeConfiguration<UserAccount>
         builder.Property(x => x.ForgotPasswordTokenExpirationTime);
 
         builder.HasIndex(x => x.Username).IsUnique();
+        
+        builder.Navigation(n => n.UserAccountRoles)
+            .UsePropertyAccessMode(PropertyAccessMode.Field);
+        
+        builder.HasData(Create(1, 1, "ratel", "test123"));
+        builder.HasData(Create(2, 2, "ratel2", "test123"));
+    }
+    
+    private static UserAccount Create(int id, int regUserId, string userName, string password)
+    {
+        return  UserAccount.Create(id, userName, password)
+            .WithRegUserId(regUserId);
     }
 }

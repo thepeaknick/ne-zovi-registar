@@ -4,17 +4,29 @@ namespace NeZoviReg.Domain.Model.Auth;
 
 public sealed class Role : EnumerationEntity<Role>
 {
-    public static readonly Role Admin = new ((int)RoleType.Admin, RoleType.Admin.ToString());
-    public static readonly Role Obveznik = new ((int)RoleType.Obveznik, RoleType.Obveznik.ToString());
-    public static readonly Role Trgovac = new ((int)RoleType.Trgovac, RoleType.Trgovac.ToString());
+    public static readonly Role Admin = new((int) RoleType.Admin, RoleType.Admin.ToString());
+    public static readonly Role Obveznik = new((int) RoleType.Obveznik, RoleType.Obveznik.ToString());
+    public static readonly Role Trgovac = new((int) RoleType.Trgovac, RoleType.Trgovac.ToString());
 
-    public Role(int id, string name):
+    public Role(int id, string name) :
         base(id, name)
     {
     }
 
+    public static Role Create(int id, string name)
+    {
+        var role = new Role(id, name);
+
+        role.AddCreation();
+
+        return role;
+    }
+
     private readonly List<RegUserRole> _regUserRoles = new();
     public IReadOnlyCollection<RegUserRole> RegUserRoles => _regUserRoles;
+
+    private readonly List<UserAccountRole> _userAccountRoles = new();
+    public IReadOnlyCollection<UserAccountRole> UserAccountRoles => _userAccountRoles;
 
     private readonly List<Permission> _permissions = new();
     public IReadOnlyCollection<Permission> Permissions => _permissions;
