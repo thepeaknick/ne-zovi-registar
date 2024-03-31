@@ -79,8 +79,7 @@ public class RegUserController : NeZoviRegBaseController
         CancellationToken cancellationToken)
     {
         var command = new ModifyRegUserCommand(AppUser.Id, request.Name, request.Email, request.Address,
-                request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
-                request.UserName, (int?)request.Role)
+                request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,(int?)request.Role)
             .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);
@@ -102,8 +101,7 @@ public class RegUserController : NeZoviRegBaseController
         CancellationToken cancellationToken)
     {
         var command = new ModifyRegUserCommand(regUserId, request.Name, request.Email, request.Address,
-                request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,
-                request.UserName, (int?)request.Role)
+                request.RegNumber, request.TaxNumber, request.FirstName, request.LastName, (int?)request.Role)
             .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);

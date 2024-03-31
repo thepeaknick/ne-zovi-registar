@@ -10,6 +10,6 @@ public class LogoutCommandValidator : AbstractValidator<LogoutCommand>
     public LogoutCommandValidator()
     {
         RuleFor(x => x.GuidId)
-            .NotEmpty<LogoutCommand, Guid, bool>(RegUser.NotLoggedIn.Message);
+            .NotEmpty<LogoutCommand, Guid, bool>(UserAccount.NotLoggedIn.Message);
     }
 }

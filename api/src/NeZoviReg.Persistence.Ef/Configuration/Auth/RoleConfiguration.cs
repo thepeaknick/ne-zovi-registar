@@ -22,9 +22,6 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
 
         builder.Navigation(n => n.RegUserRoles)
             .UsePropertyAccessMode(PropertyAccessMode.Field);
-        
-        builder.Navigation(n => n.UserAccountRoles)
-            .UsePropertyAccessMode(PropertyAccessMode.Field);
 
         builder.Navigation(n => n.Permissions)
             .UsePropertyAccessMode(PropertyAccessMode.Field);

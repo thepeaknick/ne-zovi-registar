@@ -23,11 +23,6 @@ public class PermissionConfiguration : IEntityTypeConfiguration<Permission>
     {
         var permissions = Permission.GetValues();
 
-        return permissions.Select(r =>
-        {
-            var permission = new Permission(r.Id, r.Name);
-            permission.AddCreation();
-            return permission;
-        }).ToList();
+        return permissions.Select(r => Permission.Create(r.Id, r.Name)).ToList();
     }
 }

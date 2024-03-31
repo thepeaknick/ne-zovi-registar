@@ -20,12 +20,11 @@ public class RegUser : Entity
     public const int UsernameMaxLength = 255;
     public const int EmailMaxLength = 50;
 
+    public static RegUser New => new RegUser {GuidId = Guid.NewGuid()};
+    
     public static RegUser Create(string companyName, string userName)
     {
-        return new RegUser
-            {
-                GuidId = Guid.NewGuid()
-            }
+        return New
             .WithCompanyName(companyName)
             .WithUserName(userName);
     }
@@ -33,16 +32,21 @@ public class RegUser : Entity
 
     public static RegUser Create(int id, string companyName, string userName)
     {
-        var regUser =  new RegUser
-            {
-                Id = id
-            }
+        var regUser = New
+            .WithId(id)
             .WithCompanyName(companyName)
             .WithUserName(userName);
         
         regUser.AddCreation();
 
         return regUser;
+    }
+
+    protected override RegUser WithId(int id)
+    {
+        Id = id;
+
+        return this;
     }
 
     public Guid GuidId { get; private set; }
@@ -241,7 +245,7 @@ public class RegUser : Entity
         foreach (var roleId in (roleIds ??= new List<int>())
                  .Where(roleId => RegUserRoles.All(r => r.RoleId != roleId)))
         {
-            _regUserRoles.Add(RegUserRole.Create(Id, roleId));
+            _regUserRoles.Add(RegUserRole.New(Id, roleId));
         }
 
         return this;
@@ -257,7 +261,7 @@ public class RegUser : Entity
             regUserRole.Delete();
         }
 
-        _regUserRoles.Add(RegUserRole.Create(Id, roleId.Value));
+        _regUserRoles.Add(RegUserRole.New(Id, roleId.Value));
 
         return this;
     }

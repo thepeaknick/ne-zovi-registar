@@ -19,7 +19,7 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
         builder.Property(x => x.CompanyName)
             .IsRequired()
             .HasMaxLength(RegUser.CompanyNameMaxLength);
-        
+
         builder.Property(x => x.Email)
             .IsRequired()
             .HasMaxLength(RegUser.EmailMaxLength);
@@ -53,17 +53,17 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
             .HasMaxLength(RegUser.PasswordMaxLength);
 
         builder.Property(x => x.AccessTokenExpirationTime);
-        
+
         builder.Property(x => x.RefreshToken);
 
         builder.Property(x => x.RefreshTokenExpirationTime);
-        
+
         builder.Property(x => x.ForgotPasswordToken);
 
         builder.Property(x => x.ForgotPasswordTokenExpirationTime);
 
         builder.HasIndex(x => x.CompanyName).IsUnique();
-        
+
         builder.HasIndex(x => x.Email).IsUnique();
 
         builder.HasIndex(x => x.RegNumber).IsUnique();
@@ -74,22 +74,24 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
 
         builder.Navigation(n => n.RegUserRoles)
             .UsePropertyAccessMode(PropertyAccessMode.Field);
-        
+
         builder.Navigation(n => n.UserAccounts)
             .UsePropertyAccessMode(PropertyAccessMode.Field);
 
         builder.HasMany(x => x.UserAccounts)
-            .WithOne()
+            .WithOne(x => x.RegUser)
             .HasForeignKey(x => x.RegUserId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasData(Create(1, "RATEL", "mail@mail.com", "Palmotićeva 2", "00000000", "000000000", "Ime", "Prezime", "ratel", "test123"));
-        
-        builder.HasData(Create(2, "RATEL2", "mail2@mail.com", "Palmotićeva 2", "11111111", "111111111", "Ime", "Prezime", "ratel2", "test123"));
+        builder.HasData(Create(1, "RATEL", "mail@mail.com", "Palmotićeva 2", "00000000", "000000000", "Ime", "Prezime",
+            "ratel", "test123"));
 
+        builder.HasData(Create(2, "RATEL2", "mail2@mail.com", "Palmotićeva 2", "11111111", "111111111", "Ime",
+            "Prezime", "ratel2", "test123"));
     }
 
-    private static RegUser Create(int id, string companyName, string email, string address, string regNumber, string taxNumber, string firstName, string lastName, string userName, string password)
+    private static RegUser Create(int id, string companyName, string email, string address, string regNumber,
+        string taxNumber, string firstName, string lastName, string userName, string password)
     {
         return RegUser.Create(id, companyName, userName)
             .WithAddress(address)

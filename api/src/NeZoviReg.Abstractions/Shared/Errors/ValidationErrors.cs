@@ -77,6 +77,57 @@ public static class RegErrors
             "Email nije poslat.");
     }
 
+    public static class UserAccount
+    {
+        public static readonly Func<dynamic, Error> NotFound = ident => new Error(
+            ErrorCode.NotFound,
+            $"Korisnik '{ident}' nije pronađen.");
+
+        public static readonly Error Unknown = new Error(
+            ErrorCode.Unknown,
+            "Korisnik nije pronađen.");
+
+        public static readonly Error RoleUnknown = new Error(
+            ErrorCode.Unknown,
+            "Tražena rola nije pronađena.");
+        
+        public static readonly Error AdminRoleForbidden = new Error(
+            ErrorCode.Forbidden,
+            "Admin rola nije dozvoljena.");
+
+        public static readonly Func<RoleType, Error> RoleNotFound = role => new Error(
+            ErrorCode.NotFound,
+            $"{role} nije pronađen.");
+
+        public static readonly Func<string, Error> RolesNotFound = role => new Error(
+            ErrorCode.NotFound,
+            $"Pripadnici '{role}' role nisu pronađeni.");
+
+        public static readonly Error InvalidCredentials = new(
+            ErrorCode.InvalidCredentials,
+            "Korisničko ime/lozinka nisu ispravni.");
+        
+        public static readonly Error ActiveSession = new(
+            ErrorCode.AlreadyInUse,
+            "Korisnik je već ulogovan. Prvo se izlogujte.");
+
+        public static readonly Error IdentificatorEmpty = new(
+            ErrorCode.Empty,
+            "Identifikator korisnika je prazan.");
+
+        public static readonly Error NotRegistered = new(
+            ErrorCode.NotFound,
+            "Korisnik nije registrovan.");
+
+        public static readonly Error NotLoggedIn = new(
+            ErrorCode.Empty,
+            "Ulogujte se u sistem.");
+
+        public static readonly Error EmailNotSent = new(
+            ErrorCode.InternalServerError,
+            "Email nije poslat.");
+    }
+    
     public static class Operater
     {
         public static readonly Error Empty = new(

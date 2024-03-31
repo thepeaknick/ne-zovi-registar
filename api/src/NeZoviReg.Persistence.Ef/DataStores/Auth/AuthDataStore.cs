@@ -16,7 +16,7 @@ public class AuthDataStore : IAuthDataStore
         _dbContext = context;
     }
 
-    public async Task<RegUserWithPermissions> GetUserWithPermissionsAsync(Guid regUserId,
+    public async Task<UserAccountWithPermissions> GetUserWithPermissionsAsync(Guid userAccountGuidId,
         CancellationToken cancellationToken)
     {
         /*var roles = await _dbContext.Set<RegUser>()
@@ -33,18 +33,19 @@ public class AuthDataStore : IAuthDataStore
             .Select(p => p.Name)
             .ToList();*/
 
-        var regUser = await _dbContext.Set<RegUser>()
-            .Include(ru => ru.UserAccounts)
-            .Include(ru => ru.RegUserRoles)
-            .ThenInclude(ru => ru.Role)
+        var userAccount = await _dbContext.Set<UserAccount>()
+            .Include(account => account.RegUser)
+            .ThenInclude(ru => ru.RegUserRoles)
+            .ThenInclude(rur => rur.Role)
             .ThenInclude(r => r.Permissions)
             //.AsSplitQuery()
-            .Where(ru => ru.GuidId == regUserId)
+            .Where(account => account.GuidId == userAccountGuidId)
             .SingleAsync(cancellationToken);
 
-        return new RegUserWithPermissions
+        return new UserAccountWithPermissions
         {
-            RegUser = regUser, Permissions = regUser.RegUserRoles.Select(r => r)
+            UserAccount = userAccount,
+            Permissions = userAccount.RegUser.RegUserRoles.Select(r => r)
                 .SelectMany(r => r.Role.Permissions)
                 .Select(p => (PermissionType) p.Id)
                 .ToList()

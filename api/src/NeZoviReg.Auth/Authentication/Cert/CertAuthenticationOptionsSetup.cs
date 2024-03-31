@@ -25,7 +25,7 @@ public class NeZoviRegCertAuthenticationOptionsSetup : IPostConfigureOptions<Cer
                 {
                     var claims = new List<Claim>
                     {
-                        new(CustomClaims.RegUserId, regUser.GuidId.ToString())
+                        new(CustomClaims.UserId, regUser.GuidId.ToString())
                     };
 
                     context.Principal = new ClaimsPrincipal(new ClaimsIdentity(claims, context.Scheme.Name));

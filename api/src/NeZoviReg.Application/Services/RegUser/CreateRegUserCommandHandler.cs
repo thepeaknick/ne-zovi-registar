@@ -49,7 +49,9 @@ internal sealed class CreateRegUserCommandHandler : ICommandHandler<CreateRegUse
             .WithName(command.FirstName, command.LastName)
             .WithPassword(command.Password)
             .WithRole((int) command.Role)
-            .WithUserAccount(UserAccount.New.WithUserName(command.UserName).WithPassword(command.Password));
+            .WithUserAccount(Domain.Model.Auth.UserAccount.New
+                .WithUserName(command.UserName)
+                .WithPassword(command.Password));
 
         await _regUserDataStore.Add(regUser, cancellationToken);
 

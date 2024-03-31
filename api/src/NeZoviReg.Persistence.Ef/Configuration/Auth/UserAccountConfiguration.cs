@@ -12,6 +12,9 @@ public class UserAccountConfiguration : IEntityTypeConfiguration<UserAccount>
 
         builder.ConfigureEntity();
 
+        builder.Property(x => x.GuidId)
+            .IsRequired();
+        
         builder.Property(x => x.Username)
             .IsRequired()
             .HasMaxLength(UserAccount.UsernameMaxLength);
@@ -35,14 +38,11 @@ public class UserAccountConfiguration : IEntityTypeConfiguration<UserAccount>
 
         builder.HasIndex(x => x.Username).IsUnique();
         
-        builder.Navigation(n => n.UserAccountRoles)
-            .UsePropertyAccessMode(PropertyAccessMode.Field);
-        
-        builder.HasData(Create(1, 1, "ratel", "test123"));
-        builder.HasData(Create(2, 2, "ratel2", "test123"));
+        builder.HasData(Create(1, 1, "ratel", "test123", "mail@mail.com"));
+        builder.HasData(Create(2, 2, "ratel2", "test123", "mail@mail.com"));
     }
     
-    private static UserAccount Create(int id, int regUserId, string userName, string password)
+    private static UserAccount Create(int id, int regUserId, string userName, string password, string email)
     {
         return  UserAccount.Create(id, userName, password)
             .WithRegUserId(regUserId);

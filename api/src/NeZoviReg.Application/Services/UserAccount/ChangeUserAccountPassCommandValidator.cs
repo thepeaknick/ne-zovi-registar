@@ -4,18 +4,18 @@ using static NeZoviReg.Abstractions.Shared.Errors.RegErrors;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 using NeZoviReg.Abstractions.Shared.Errors;
 
-namespace NeZoviReg.Application.Services.RegUser;
+namespace NeZoviReg.Application.Services.UserAccount;
 
-public class ChangeRegUserPassCommandValidator : AbstractValidator<ChangePassCommand>
+public class ChangeUserAccountPassCommandValidator : AbstractValidator<ChangePassCommand>
 {
-    public ChangeRegUserPassCommandValidator()
+    public ChangeUserAccountPassCommandValidator()
     {
         RuleFor(x => x.UserName)
-            .NotEmpty<ChangePassCommand, string, bool>(RegErrors.RegUser.NotLoggedIn.Message);
+            .NotEmpty<ChangePassCommand, string, bool>(RegErrors.UserAccount.NotLoggedIn.Message);
 
         RuleFor(x => x.NewPassword)
             .NotEmpty<ChangePassCommand, string, bool>(Password.Empty.Message)
-            .MaximumLength<ChangePassCommand, bool>(Domain.Model.Domain.RegUser.PasswordMaxLength,
+            .MaximumLength<ChangePassCommand, bool>(Domain.Model.Auth.UserAccount.PasswordMaxLength,
                 Password.TooLong.Message);
     }
 }

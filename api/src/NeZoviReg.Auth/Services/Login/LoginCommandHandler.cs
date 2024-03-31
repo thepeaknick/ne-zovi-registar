@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using NeZoviReg.Abstractions.Infrastructure.DataStores;
+using NeZoviReg.Abstractions.Infrastructure.DataStores.Auth;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Auth.Commands;
@@ -14,18 +15,18 @@ namespace NeZoviReg.Auth.Services.Login;
 
 internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginResultDto>
 {
-    private readonly IRegUserDataStore _regUserDataStore;
+    private readonly IUserAccountDataStore _userAccountDataStore;
     private readonly IJwtProvider _jwtProvider;
     private readonly IPublisher _publisher;
     private readonly IUnitOfWork _unitOfWork;
 
     public LoginCommandHandler(
-        IRegUserDataStore regUserDataStore,
+        IUserAccountDataStore userAccountDataStore,
         IJwtProvider jwtProvider,
         IUnitOfWork unitOfWork,
         IPublisher publisher)
     {
-        _regUserDataStore = regUserDataStore;
+        _userAccountDataStore = userAccountDataStore;
         _jwtProvider = jwtProvider;
         _unitOfWork = unitOfWork;
         _publisher = publisher;
@@ -33,40 +34,40 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginR
 
     public async Task<Result<LoginResultDto>> Handle(LoginCommand command, CancellationToken cancellationToken)
     {
-        var regUser =
-            await _regUserDataStore.GetByUsernameAndPassword(command.UserName, command.Password, cancellationToken);
+        var userAccount =
+            await _userAccountDataStore.GetByUsernameAndPassword(command.UserName, command.Password, cancellationToken);
 
-        if (regUser is null)
+        if (userAccount is null)
         {
             Log.Information($"RegUser with UserName={command.UserName} does not exist.");
 
-            return Result.Failure<LoginResultDto>(RegErrors.RegUser.InvalidCredentials);
+            return Result.Failure<LoginResultDto>(RegErrors.UserAccount.InvalidCredentials);
         }
-        if (regUser.IsAccessTokenValid)
+        if (userAccount.IsAccessTokenValid)
         {
             Log.Information($"RegUser with UserName={command.UserName} has an active session.");
 
-            return Result.Failure<LoginResultDto>(RegErrors.RegUser.ActiveSession);
+            return Result.Failure<LoginResultDto>(RegErrors.UserAccount.ActiveSession);
         }
 
-        var loginResult = await _jwtProvider.GenerateTokenAsync(regUser, cancellationToken: cancellationToken);
+        var loginResult = await _jwtProvider.GenerateTokenAsync(userAccount, cancellationToken: cancellationToken);
 
-        regUser.WithAccessTokenExpTime(loginResult.AccessTokenExpTime)
+        userAccount.WithAccessTokenExpTime(loginResult.AccessTokenExpTime)
             .WithRefreshToken(loginResult.RefreshToken.TokenString)
             .WithRefreshTokenExpTime(loginResult.RefreshToken.ExpireAt);
 
-        _regUserDataStore.Update(regUser);
+        _userAccountDataStore.Update(userAccount);
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 
-        await _publisher.Publish(new RegUserModifiedEvent
+        await _publisher.Publish(new UserAccountModifiedEvent
         {
-            RegUserId = regUser.GuidId
+            UserAccountId = userAccount.GuidId
         }, cancellationToken);
 
         Log.Information($"RegUser with UserName={command.UserName} logged in.");
 
-        return new LoginResultDto(regUser.GuidId,
+        return new LoginResultDto(userAccount.GuidId,
             loginResult.AccessToken,
             loginResult.AccessTokenExpTime,
             loginResult.RefreshToken.TokenString,

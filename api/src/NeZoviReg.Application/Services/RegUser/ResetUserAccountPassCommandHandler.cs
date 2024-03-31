@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using NeZoviReg.Abstractions.Infrastructure.DataStores;
+using NeZoviReg.Abstractions.Infrastructure.DataStores.Auth;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
@@ -10,50 +11,50 @@ using Serilog;
 
 namespace NeZoviReg.Application.Services.RegUser;
 
-internal sealed class ResetRegUserPassCommandHandler : ICommandHandler<ResetPassCommand, bool>
+internal sealed class ResetUserAccountPassCommandHandler : ICommandHandler<ResetPassCommand, bool>
 {
-    private readonly IRegUserDataStore _regUserDataStore;
+    private readonly IUserAccountDataStore _userAccountDataStore;
     private readonly IPublisher _publisher;
     private readonly IUnitOfWork _unitOfWork;
 
-    public ResetRegUserPassCommandHandler(IRegUserDataStore regUserDataStore,
+    public ResetUserAccountPassCommandHandler(IUserAccountDataStore userAccountDataStore,
         IPublisher publisher,
         IUnitOfWork unitOfWork)
     {
-        _regUserDataStore = regUserDataStore;
+        _userAccountDataStore = userAccountDataStore;
         _publisher = publisher;
         _unitOfWork = unitOfWork;
     }
 
     public async Task<Result<bool>> Handle(ResetPassCommand command, CancellationToken cancellationToken)
     {
-        var regUser = await _regUserDataStore.GetByEmail(command.Email, cancellationToken);
+        var userAccount = await _userAccountDataStore.GetByEmail(command.Email, cancellationToken);
 
-        if (regUser is null)
+        if (userAccount is null)
         {
-            Log.Information($"RegUser with Email={command.Email} does not exist.");
+            Log.Information($"UserAccount with Email={command.Email} does not exist.");
 
             return Result.Failure<bool>(RegErrors.RegUser.Unknown);
         }
         
-        if (regUser.ForgotPasswordToken != command.Token
-            || regUser.ForgotPasswordTokenExpirationTime < DateTime.Now)
+        if (userAccount.ForgotPasswordToken != command.Token
+            || userAccount.ForgotPasswordTokenExpirationTime < DateTime.Now)
         {
             return Result.Failure<bool>(RegErrors.Token.ForgotPasswordTokenExpiredOrNotValid);
         }
         
-        regUser.WithPassword(command.Password);
+        userAccount.WithPassword(command.Password);
 
-        _regUserDataStore.Update(regUser);
+        _userAccountDataStore.Update(userAccount);
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 
-        await _publisher.Publish(new RegUserModifiedEvent
+        await _publisher.Publish(new UserAccountModifiedEvent
         {
-            RegUserId = regUser.GuidId
+            UserAccountId = userAccount.GuidId
         }, cancellationToken);
 
-        Log.Information($"RegUser with Email={command.Email} reset password.");
+        Log.Information($"UserAccount with Email={command.Email} reset password successfully.");
         
         return true;
     }

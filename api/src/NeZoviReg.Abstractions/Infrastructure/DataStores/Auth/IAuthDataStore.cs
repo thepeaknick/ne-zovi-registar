@@ -6,7 +6,7 @@ namespace NeZoviReg.Abstractions.Infrastructure.DataStores.Auth;
 
 public interface IAuthDataStore
 {
-    Task<RegUserWithPermissions> GetUserWithPermissionsAsync(Guid regUserId, CancellationToken cancellationToken);
+    Task<UserAccountWithPermissions> GetUserWithPermissionsAsync(Guid userAccountGuidId, CancellationToken cancellationToken);
 
     Task<List<Role>> GetRolesAsync(CancellationToken cancellationToken);
 

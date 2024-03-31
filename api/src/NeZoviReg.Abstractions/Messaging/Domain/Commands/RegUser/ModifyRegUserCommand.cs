@@ -11,6 +11,5 @@ public record ModifyRegUserCommand
         string? TaxNumber = default,
         string? FirstName = default,
         string? LastName = default,
-        string? UserName = default,
         int? Role = default)
     : BaseCommand<RegUserDto>;

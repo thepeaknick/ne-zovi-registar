@@ -25,9 +25,6 @@ public sealed class Role : EnumerationEntity<Role>
     private readonly List<RegUserRole> _regUserRoles = new();
     public IReadOnlyCollection<RegUserRole> RegUserRoles => _regUserRoles;
 
-    private readonly List<UserAccountRole> _userAccountRoles = new();
-    public IReadOnlyCollection<UserAccountRole> UserAccountRoles => _userAccountRoles;
-
     private readonly List<Permission> _permissions = new();
     public IReadOnlyCollection<Permission> Permissions => _permissions;
 }

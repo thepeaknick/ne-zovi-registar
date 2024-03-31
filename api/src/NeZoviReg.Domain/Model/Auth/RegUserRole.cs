@@ -5,10 +5,19 @@ namespace NeZoviReg.Domain.Model.Auth;
 
 public class RegUserRole : Entity
 {
-    public RegUserRole(int regUserId, int roleId)
+    public static RegUserRole Create(int regUserId, int roleId)
     {
-        RoleId = roleId;
-        RegUserId = regUserId;
+        var rp =  new RegUserRole {RoleId = roleId, RegUserId = regUserId};
+        rp.AddCreation();
+        
+        return rp;
+    }
+    
+    public static RegUserRole New(int regUserId, int roleId)
+    {
+        var rp =  new RegUserRole {RoleId = roleId, RegUserId = regUserId};
+       
+        return rp;
     }
 
     public int RoleId { get; private set; }
@@ -16,10 +25,5 @@ public class RegUserRole : Entity
 
     public int RegUserId { get; private set; }
     public RegUser RegUser { get; private set; }
-
-
-    public static RegUserRole Create(int regUserId, int roleId)
-    {
-        return new RegUserRole(regUserId, roleId);
-    }
+    
 }

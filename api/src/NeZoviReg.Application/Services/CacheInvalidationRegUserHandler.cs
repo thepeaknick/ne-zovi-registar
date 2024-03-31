@@ -6,7 +6,7 @@ using NeZoviReg.Abstractions.Shared.Events;
 namespace NeZoviReg.Application.Services;
 
 internal class CacheInvalidationRegUserHandler :
-    INotificationHandler<RegUserModifiedEvent>,
+    INotificationHandler<UserAccountModifiedEvent>,
     INotificationHandler<RegUserDeletedEvent>
 {
     private readonly ICacheService _cacheService;
@@ -18,11 +18,11 @@ internal class CacheInvalidationRegUserHandler :
         _logger = logger;
     }
 
-    public Task Handle(RegUserModifiedEvent notification, CancellationToken cancellationToken)
+    public Task Handle(UserAccountModifiedEvent notification, CancellationToken cancellationToken)
     {
-        _logger.LogInformation($"RegUserModifiedEvent RegUserId={notification.RegUserId} published.");
+        _logger.LogInformation($"RegUserModifiedEvent RegUserId={notification.UserAccountId} published.");
         
-        return HandleInternal(notification.RegUserId, cancellationToken);
+        return HandleInternal(notification.UserAccountId, cancellationToken);
     }
     public Task Handle(RegUserDeletedEvent notification, CancellationToken cancellationToken)
     {
@@ -33,6 +33,6 @@ internal class CacheInvalidationRegUserHandler :
 
     private async Task HandleInternal(Guid regUserId, CancellationToken cancellationToken)
     {
-        await _cacheService.RemoveAsync($"{CacheKeyPrefix.RegUser}{regUserId}", cancellationToken);
+        await _cacheService.RemoveAsync($"{CacheKeyPrefix.UserAccount}{regUserId}", cancellationToken);
     }
 }

@@ -1,12 +1,13 @@
 ﻿using NeZoviReg.Abstractions.Shared.Model.Auth.Enum;
-using NeZoviReg.Domain.Model.Domain;
+using NeZoviReg.Domain.Model.Auth;
+
 #pragma warning disable CS8618
 
 namespace NeZoviReg.Abstractions.Shared.Model.Auth;
 
-public class RegUserWithPermissions
+public class UserAccountWithPermissions
 {
-    public RegUser RegUser { get; init; }
+    public UserAccount UserAccount { get; init; }
 
     public List<PermissionType>? Permissions  { get; init; }
 }

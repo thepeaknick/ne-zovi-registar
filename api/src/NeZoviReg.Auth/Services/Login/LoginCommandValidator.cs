@@ -11,11 +11,11 @@ public class LoginCommandValidator : AbstractValidator<LoginCommand>
     public LoginCommandValidator()
     {
         RuleFor(x => x.UserName)
-            .NotEmpty<LoginCommand, string, LoginResultDto>(RegUser.InvalidCredentials.Message)
-            .MaximumLength<LoginCommand, LoginResultDto>(Domain.Model.Domain.RegUser.UsernameMaxLength, UserName.TooLong.Message);
+            .NotEmpty<LoginCommand, string, LoginResultDto>(UserAccount.InvalidCredentials.Message)
+            .MaximumLength<LoginCommand, LoginResultDto>(Domain.Model.Auth.UserAccount.UsernameMaxLength, UserName.TooLong.Message);
 
         RuleFor(x => x.Password)
-            .NotEmpty<LoginCommand, string, LoginResultDto>(RegUser.InvalidCredentials.Message)
-            .MaximumLength<LoginCommand, LoginResultDto>(Domain.Model.Domain.RegUser.PasswordMaxLength, Password.TooLong.Message);
+            .NotEmpty<LoginCommand, string, LoginResultDto>(UserAccount.InvalidCredentials.Message)
+            .MaximumLength<LoginCommand, LoginResultDto>(Domain.Model.Auth.UserAccount.PasswordMaxLength, Password.TooLong.Message);
     }
 }

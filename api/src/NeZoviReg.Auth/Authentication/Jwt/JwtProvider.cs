@@ -4,10 +4,12 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using NeZoviReg.Abstractions.Infrastructure.DataStores.Auth;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Shared.Model;
 using NeZoviReg.Abstractions.Shared.Model.Auth;
 using NeZoviReg.Auth.Exceptions;
+using NeZoviReg.Domain.Model.Auth;
 using RegUser = NeZoviReg.Domain.Model.Domain.RegUser;
 
 namespace NeZoviReg.Auth.Authentication.Jwt;
@@ -15,21 +17,20 @@ namespace NeZoviReg.Auth.Authentication.Jwt;
 internal sealed class JwtProvider : IJwtProvider
 {
     private readonly JwtOptions _options;
-    private readonly IRegUserDataStore _regUserDataStore;
+    private readonly IUserAccountDataStore _userAccountDataStore;
 
-    public JwtProvider(IOptions<JwtOptions> options, IRegUserDataStore regUserDataStore)
+    public JwtProvider(IOptions<JwtOptions> options, IUserAccountDataStore userAccountDataStore)
     {
-        _regUserDataStore = regUserDataStore;
+        _userAccountDataStore = userAccountDataStore;
         _options = options.Value;
     }
 
-    public Task<TokenResult> GenerateTokenAsync(RegUser user, int? expirationOffset = default,
-        CancellationToken cancellationToken = default)
+    public Task<TokenResult> GenerateTokenAsync(UserAccount userAccount, int? expirationOffset = default, CancellationToken cancellationToken = default)
     {
         var claims = new List<Claim>
         {
-            new(CustomClaims.RegUserId, user.GuidId.ToString()),
-            new(CustomClaims.RegUserName, user.Username)
+            new(CustomClaims.UserId, userAccount.GuidId.ToString()),
+            new(CustomClaims.UserName, userAccount.Username)
         };
 
         var signingCredentials = new SigningCredentials(
@@ -85,24 +86,24 @@ internal sealed class JwtProvider : IJwtProvider
         var appUser = AppUser.GetUser(pandt.Principal)
                       ?? throw new SecurityTokenException("Invalid token. Claims are wrong.");
 
-        var regUser = await _regUserDataStore.GetByGuidId(appUser.Id, cancellationToken)
+        var userAccount = await _userAccountDataStore.GetByGuidId(appUser.Id, cancellationToken)
                       ?? throw new SecurityTokenException(
-                          $"Invalid token. RegUser with GuidId={appUser.Id} doesn't exist");
+                          $"Invalid token. User with Id={appUser.Id} doesn't exist");
 
-        if (regUser.RefreshToken is null)
+        if (userAccount.RefreshToken is null)
         {
             throw new RefreshTokenEmptyException("Invalid token, RegUser.RefreshToken is empty.");
         }
 
-        if (regUser.RefreshToken != refreshToken || regUser.RefreshTokenExpirationTime < now)
+        if (userAccount.RefreshToken != refreshToken || userAccount.RefreshTokenExpirationTime < now)
         {
             throw new RefreshTokenExpiredException(
-                $"Invalid token, RegUser.RefreshToken={regUser.RefreshToken} expired or wrong.");
+                $"Invalid token, RegUser.RefreshToken={userAccount.RefreshToken} expired or wrong.");
         }
 
-        var tokenResult = await GenerateTokenAsync(regUser, cancellationToken:cancellationToken);
+        var tokenResult = await GenerateTokenAsync(userAccount, cancellationToken:cancellationToken);
 
-        return new RefreshTokenResult(regUser, tokenResult.AccessToken, tokenResult.AccessTokenExpTime,
+        return new RefreshTokenResult(userAccount, tokenResult.AccessToken, tokenResult.AccessTokenExpTime,
             tokenResult.RefreshToken);
     }
 

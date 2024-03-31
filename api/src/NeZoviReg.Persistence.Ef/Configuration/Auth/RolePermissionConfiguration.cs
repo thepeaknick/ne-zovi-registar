@@ -26,9 +26,6 @@ public class RolePermissionConfiguration : IEntityTypeConfiguration<RolePermissi
 
     private static RolePermission Create(RoleType role, PermissionType permission)
     {
-        var rp = new RolePermission((int)role, (int)permission);
-        rp.AddCreation();
-
-        return rp;
+        return RolePermission.Create((int)role, (int)permission);
     }
 }

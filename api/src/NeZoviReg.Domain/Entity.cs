@@ -22,6 +22,13 @@ public abstract class Entity : IEntity, IEquatable<Entity>
     public DateTime? ModifiedOn { get; private set; }
 
     public bool Deleted { get; private set; }
+
+    protected virtual Entity WithId(int id)
+    {
+        Id = id;
+
+        return this;
+    }
     
     //byte[] for SQL SERVER
    public /*byte[]*/DateTime Rowversion { get; private set; }

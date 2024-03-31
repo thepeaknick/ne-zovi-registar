@@ -1,5 +1,6 @@
 ﻿using System.Dynamic;
 using NeZoviReg.Domain.Extensions;
+using NeZoviReg.Domain.Model.Domain;
 
 #pragma warning disable CS8618
 
@@ -7,24 +8,31 @@ namespace NeZoviReg.Domain.Model.Auth;
 
 public class UserAccount : Entity
 {
-    public static UserAccount New => new UserAccount();
+    public const int UsernameMaxLength = 255;
+    public const int PasswordMaxLength = 255;
+    public const int EmailMaxLength = 50;
+
+    public static UserAccount New => new UserAccount {GuidId = Guid.NewGuid()};
 
     public static UserAccount Create(int id, string username, string password)
     {
-        var userAccount = new UserAccount {Id = id}
+        var userAccount = New
+            .WithId(id)
             .WithUserName(username)
             .WithPassword(password);
         userAccount.AddCreation();
 
         return userAccount;
     }
-    
-    public const int UsernameMaxLength = 255;
-    public const int PasswordMaxLength = 255;
+
+
+    public Guid GuidId { get; private set; }
 
     public int RegUserId { get; private set; }
-    public string Username { get; private set; }
     
+    public RegUser RegUser { get; private set; }
+    public string Username { get; private set; }
+
     private string _password;
 
     public string Password
@@ -34,7 +42,7 @@ public class UserAccount : Entity
     }
 
     public DateTime? AccessTokenExpirationTime { get; private set; }
-    
+
     public string? RefreshToken { get; private set; }
 
     public DateTime? RefreshTokenExpirationTime { get; private set; }
@@ -42,18 +50,21 @@ public class UserAccount : Entity
     public string? ForgotPasswordToken { get; private set; }
 
     public DateTime? ForgotPasswordTokenExpirationTime { get; private set; }
-    
-    private readonly List<UserAccountRole> _userAccountRoles = new();
-    public IReadOnlyCollection<UserAccountRole> UserAccountRoles => _userAccountRoles;
-    
-    
+
+    protected override UserAccount WithId(int id)
+    {
+        Id = id;
+
+        return this;
+    }
+
     public UserAccount WithPassword(string? password)
     {
         if (password == default)
             return this;
 
         Password = password.Encode();
-        
+
 
         return this;
     }
@@ -64,14 +75,14 @@ public class UserAccount : Entity
 
         return this;
     }
-    
+
     public UserAccount WithRegUserId(int regUserId)
     {
         RegUserId = regUserId;
 
         return this;
     }
-    
+
     public UserAccount WithAccessTokenExpTime(DateTime? expTime)
     {
         AccessTokenExpirationTime = expTime ?? AccessTokenExpirationTime;
@@ -80,7 +91,7 @@ public class UserAccount : Entity
     }
 
     public bool IsAccessTokenValid => AccessTokenExpirationTime != default && DateTime.Now <= AccessTokenExpirationTime;
-    
+
     public UserAccount WithoutAccessTokenExpTime()
     {
         AccessTokenExpirationTime = default;

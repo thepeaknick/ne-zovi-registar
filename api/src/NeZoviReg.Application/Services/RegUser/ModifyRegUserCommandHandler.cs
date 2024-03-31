@@ -48,16 +48,15 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
             .WithRegNumber(command.RegNumber)
             .WithTaxNumber(command.TaxNumber)
             .WithName(command.FirstName, command.LastName)
-            .WithUserName(command.UserName)
             .WithRole(command.Role);
 
         _regUserDataStore.Update(regUser);
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 
-        await _publisher.Publish(new RegUserModifiedEvent
+        await _publisher.Publish(new UserAccountModifiedEvent
         {
-            RegUserId = regUser.GuidId
+            UserAccountId = regUser.GuidId
         }, cancellationToken);
         
         Log.Information($"RegUser with RegUserId={command.RegUserId} modified.");

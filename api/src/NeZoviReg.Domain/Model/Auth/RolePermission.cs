@@ -1,11 +1,14 @@
-﻿namespace NeZoviReg.Domain.Model.Auth;
+﻿using System.Dynamic;
+
+namespace NeZoviReg.Domain.Model.Auth;
 
 public class RolePermission : Entity
 {
-    public RolePermission(int roleId, int permissionId)
+    public static RolePermission Create(int roleId, int permissionId)
     {
-        RoleId = roleId;
-        PermissionId = permissionId;
+        var rp =  new RolePermission {RoleId = roleId, PermissionId = permissionId};
+        rp.AddCreation();
+        return rp;
     }
 
     public int RoleId { get; private set; }

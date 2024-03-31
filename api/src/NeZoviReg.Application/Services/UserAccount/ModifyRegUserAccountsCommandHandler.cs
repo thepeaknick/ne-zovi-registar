@@ -9,10 +9,9 @@ using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 using NeZoviReg.Abstractions.Shared;
 using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Events;
-using NeZoviReg.Domain.Model.Auth;
 using Serilog;
 
-namespace NeZoviReg.Application.Services.RegUser;
+namespace NeZoviReg.Application.Services.UserAccount;
 
 internal sealed class ModifyRegUserAccountsCommandHandler : ICommandHandler<ModifyRegUserAccountsCommand, bool>
 {
@@ -53,9 +52,9 @@ internal sealed class ModifyRegUserAccountsCommandHandler : ICommandHandler<Modi
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 
-        await _publisher.Publish(new RegUserModifiedEvent
+        await _publisher.Publish(new UserAccountModifiedEvent
         {
-            RegUserId = regUser.GuidId
+            UserAccountId = regUser.GuidId
         }, cancellationToken);
 
         Log.Information($"RegUser with RegUserId={command.RegUserId} modified.");
@@ -64,11 +63,11 @@ internal sealed class ModifyRegUserAccountsCommandHandler : ICommandHandler<Modi
     }
 
 
-    private void ModifyUserAccounts(List<UserAccount> accounts, int regUserId, List<UserAccountData> newAccounts)
+    private void ModifyUserAccounts(List<Domain.Model.Auth.UserAccount> accounts, int regUserId, List<UserAccountData> newAccounts)
     {
         accounts.ForEach(x => x.Delete());
         
-        accounts.AddRange(newAccounts.Select(x => new UserAccount()
+        accounts.AddRange(newAccounts.Select(x => new Domain.Model.Auth.UserAccount()
             .WithUserName(x.Username)
             .WithPassword(x.Password)
             .WithRegUserId(regUserId)));
