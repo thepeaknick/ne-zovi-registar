@@ -78,7 +78,7 @@ public class RegUserController : NeZoviRegBaseController
     public async Task<IActionResult> ModifyRegUser([FromBody] ModifyRegUserRequest request,
         CancellationToken cancellationToken)
     {
-        var command = new ModifyRegUserCommand(AppUser.Id, request.Name, request.Email, request.Address,
+        var command = new ModifyRegUserCommand(AppUser.RegUserId, request.Name, request.Email, request.Address,
                 request.RegNumber, request.TaxNumber, request.FirstName, request.LastName,(int?)request.Role)
             .AddAppUser(AppUser.UserName);
 

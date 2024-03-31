@@ -13,28 +13,30 @@ public class UserAccountDataStore : IUserAccountDataStore
     {
         _dbContext = dbcontext;
     }
-    
-   public async Task<List<UserAccount>> GetUserAccounts(int regUserId, CancellationToken cancellationToken) =>
+
+    public async Task<List<UserAccount>> GetUserAccounts(int regUserId, CancellationToken cancellationToken) =>
         await _dbContext.Set<UserAccount>().Where(x => x.RegUserId == regUserId).ToListAsync(cancellationToken);
 
-    public async Task AddOrUpdateUserAccounts(List<UserAccount> userAccounts, CancellationToken cancellationToken = default)=>
+    public async Task AddOrUpdateUserAccounts(List<UserAccount> userAccounts,
+        CancellationToken cancellationToken = default) =>
         await _dbContext.Set<UserAccount>().AddRangeAsync(userAccounts, cancellationToken);
-    
+
     public async Task<UserAccount?> GetByUsernameAndPassword(string username, string password,
         CancellationToken cancellationToken = default) =>
         await _dbContext.Set<UserAccount>()
+            .Include(u => u.RegUser)
             .SingleOrDefaultAsync(x => x.Username == username && x.Password == password.Encode(), cancellationToken);
-    
+
     public async Task<UserAccount?> GetByEmail(string email, CancellationToken cancellationToken = default) =>
         await _dbContext.Set<UserAccount>()
             .Include(u => u.RegUser)
             .SingleOrDefaultAsync(x => x.RegUser.Email == email, cancellationToken);
 
-    
+
     public async Task<UserAccount?> GetByGuidId(Guid guidId, CancellationToken cancellationToken = default) =>
         await _dbContext.Set<UserAccount>()
             .SingleOrDefaultAsync(x => x.GuidId == guidId, cancellationToken);
-    
+
     public async Task Add(UserAccount userAccount, CancellationToken cancellationToken = default) =>
         await _dbContext.Set<UserAccount>().AddAsync(userAccount, cancellationToken);
 
@@ -43,5 +45,4 @@ public class UserAccountDataStore : IUserAccountDataStore
 
     public void Remove(UserAccount userAccount) =>
         _dbContext.Set<UserAccount>().Remove(userAccount);
-
 }

@@ -30,6 +30,7 @@ internal sealed class JwtProvider : IJwtProvider
         var claims = new List<Claim>
         {
             new(CustomClaims.UserId, userAccount.GuidId.ToString()),
+            new(CustomClaims.RegUserId, userAccount.RegUser.GuidId.ToString()),
             new(CustomClaims.UserName, userAccount.Username)
         };
 
@@ -86,9 +87,9 @@ internal sealed class JwtProvider : IJwtProvider
         var appUser = AppUser.GetUser(pandt.Principal)
                       ?? throw new SecurityTokenException("Invalid token. Claims are wrong.");
 
-        var userAccount = await _userAccountDataStore.GetByGuidId(appUser.Id, cancellationToken)
+        var userAccount = await _userAccountDataStore.GetByGuidId(appUser.UserAccountId, cancellationToken)
                       ?? throw new SecurityTokenException(
-                          $"Invalid token. User with Id={appUser.Id} doesn't exist");
+                          $"Invalid token. User with Id={appUser.UserAccountId} doesn't exist");
 
         if (userAccount.RefreshToken is null)
         {
