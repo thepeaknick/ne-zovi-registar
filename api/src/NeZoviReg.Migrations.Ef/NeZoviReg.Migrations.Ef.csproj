@@ -41,7 +41,8 @@
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </Content>
     <None Remove="Sql\DataMigrations\MigrateUserAccountData.sql" />
-    <Content Include="Sql\DataMigrations\MigrateUserAccountData.sql">
+    <None Remove="Sql\DataMigrations\MigrateRegUserAccountData.sql" />
+    <Content Include="Sql\DataMigrations\MigrateRegUserAccountData.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>    
   </ItemGroup>  

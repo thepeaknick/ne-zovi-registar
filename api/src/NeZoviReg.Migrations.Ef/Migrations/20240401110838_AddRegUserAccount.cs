@@ -88,7 +88,7 @@ namespace NeZoviReg.Migrations.Ef.Migrations
                 unique: true);
             
 
-            migrationBuilder.RunFile("DataMigrations/MigrateUserAccountData.sql");
+            migrationBuilder.RunFile("DataMigrations/MigrateRegUserAccountData.sql");
             
             
             migrationBuilder.DropIndex(
