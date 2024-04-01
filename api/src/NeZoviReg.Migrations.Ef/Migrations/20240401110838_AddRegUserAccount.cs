@@ -133,8 +133,8 @@ namespace NeZoviReg.Migrations.Ef.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "Jmbg",
                 table: "User",
-                type: "varchar(13)",
-                maxLength: 13,
+                type: "varchar(50)",
+                maxLength: 50,
                 nullable: false,
                 oldClrType: typeof(string),
                 oldType: "varchar(50)",
