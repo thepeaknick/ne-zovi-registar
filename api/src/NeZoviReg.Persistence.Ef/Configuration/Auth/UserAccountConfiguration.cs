@@ -4,11 +4,11 @@ using NeZoviReg.Domain.Model.Auth;
 
 namespace NeZoviReg.Persistence.Ef.Configuration.Auth;
 
-public class UserAccountConfiguration : IEntityTypeConfiguration<UserAccount>
+public class UserAccountConfiguration : IEntityTypeConfiguration<RegUserAccount>
 {
-    public void Configure(EntityTypeBuilder<UserAccount> builder)
+    public void Configure(EntityTypeBuilder<RegUserAccount> builder)
     {
-        builder.ToTable(TableNames.UserAccounts);
+        builder.ToTable(TableNames.RegUserAccounts);
 
         builder.ConfigureEntity();
 
@@ -17,11 +17,11 @@ public class UserAccountConfiguration : IEntityTypeConfiguration<UserAccount>
         
         builder.Property(x => x.Username)
             .IsRequired()
-            .HasMaxLength(UserAccount.UsernameMaxLength);
+            .HasMaxLength(RegUserAccount.UsernameMaxLength);
 
         builder.Property(x => x.Password)
             .IsRequired()
-            .HasMaxLength(UserAccount.PasswordMaxLength);
+            .HasMaxLength(RegUserAccount.PasswordMaxLength);
         
         builder.Property(x => x.RegUserId)
             .IsRequired();
@@ -42,9 +42,9 @@ public class UserAccountConfiguration : IEntityTypeConfiguration<UserAccount>
         builder.HasData(Create(2, 2, "ratel2", "test123", "mail@mail.com"));
     }
     
-    private static UserAccount Create(int id, int regUserId, string userName, string password, string email)
+    private static RegUserAccount Create(int id, int regUserId, string userName, string password, string email)
     {
-        return  UserAccount.Create(id, userName, password)
+        return  RegUserAccount.Create(id, userName, password)
             .WithRegUserId(regUserId);
     }
 }

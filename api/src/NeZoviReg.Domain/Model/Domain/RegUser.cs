@@ -57,9 +57,9 @@ public class RegUser : Entity
 
     public string FullName => $"Naziv={CompanyName}, Adresa={Address}, MatičniBroj={RegNumber}, Pib={TaxNumber}";
 
-    private readonly List<UserAccount> _userAccounts = new();
+    private readonly List<RegUserAccount> _userAccounts = new();
 
-    public IReadOnlyCollection<UserAccount> UserAccounts => _userAccounts;
+    public IReadOnlyCollection<RegUserAccount> UserAccounts => _userAccounts;
     
     public string Address { get; private set; }
 
@@ -127,13 +127,13 @@ public class RegUser : Entity
         return this;
     }
 
-    public RegUser WithUserAccount(UserAccount userAccount)
+    public RegUser WithUserAccount(RegUserAccount regUserAccount)
     {
-        var existing = _userAccounts.FirstOrDefault(x => x.Id == userAccount.Id);
+        var existing = _userAccounts.FirstOrDefault(x => x.Id == regUserAccount.Id);
 
         existing?.Delete();
 
-        _userAccounts.Add(userAccount);
+        _userAccounts.Add(regUserAccount);
 
         return this;
     }

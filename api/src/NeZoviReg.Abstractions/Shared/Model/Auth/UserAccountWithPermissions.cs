@@ -13,9 +13,9 @@ public class UserAccountWithPermissions
 
     public List<PermissionType>? Permissions  { get; init; }
     
-    public UserAccount UserAccount(Guid userAccountId)
+    public RegUserAccount UserAccount(Guid userAccountId)
     {
-        var userAccount =  RegUser?.UserAccounts.FirstOrDefault(x => x.GuidId == userAccountId) ?? NeZoviReg.Domain.Model.Auth.UserAccount.New;
+        var userAccount =  RegUser?.UserAccounts.FirstOrDefault(x => x.GuidId == userAccountId) ?? NeZoviReg.Domain.Model.Auth.RegUserAccount.New;
 
         return userAccount;
     }

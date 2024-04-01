@@ -14,44 +14,44 @@ public class UserAccountDataStore : IUserAccountDataStore
         _dbContext = dbcontext;
     }
 
-    public async Task<List<UserAccount>> GetUserAccounts(int regUserId, CancellationToken cancellationToken) =>
-        await _dbContext.Set<UserAccount>()
+    public async Task<List<RegUserAccount>> GetUserAccounts(int regUserId, CancellationToken cancellationToken) =>
+        await _dbContext.Set<RegUserAccount>()
             .Where(x => x.RegUserId == regUserId).ToListAsync(cancellationToken);
 
-    public async Task AddOrUpdateUserAccounts(List<UserAccount> userAccounts,
+    public async Task AddOrUpdateUserAccounts(List<RegUserAccount> userAccounts,
         CancellationToken cancellationToken = default) =>
-        await _dbContext.Set<UserAccount>()
+        await _dbContext.Set<RegUserAccount>()
             .AddRangeAsync(userAccounts, cancellationToken);
 
-    public async Task<UserAccount?> GetByUsernameAndPassword(string username, string password,
+    public async Task<RegUserAccount?> GetByUsernameAndPassword(string username, string password,
         CancellationToken cancellationToken = default) =>
-        await _dbContext.Set<UserAccount>()
+        await _dbContext.Set<RegUserAccount>()
             .Include(u => u.RegUser)
             .SingleOrDefaultAsync(x => x.Username == username && x.Password == password.Encode(), cancellationToken);
 
-    public async Task<UserAccount?> GetByEmail(string email, CancellationToken cancellationToken = default) =>
-        await _dbContext.Set<UserAccount>()
+    public async Task<RegUserAccount?> GetByEmail(string email, CancellationToken cancellationToken = default) =>
+        await _dbContext.Set<RegUserAccount>()
             .Include(u => u.RegUser)
             .SingleOrDefaultAsync(x => x.RegUser.Email == email, cancellationToken);
 
 
-    public async Task<UserAccount?> GetByGuidId(Guid guidId, CancellationToken cancellationToken = default) =>
-        await _dbContext.Set<UserAccount>()
+    public async Task<RegUserAccount?> GetByGuidId(Guid guidId, CancellationToken cancellationToken = default) =>
+        await _dbContext.Set<RegUserAccount>()
             .Include(x => x.RegUser)
             .SingleOrDefaultAsync(x => x.GuidId == guidId, cancellationToken);
 
     public async Task<bool> IsUsernameExistsAsync(string username, Guid? excludeId = default,
         CancellationToken cancellationToken = default)
-        => await _dbContext.Set<UserAccount>()
+        => await _dbContext.Set<RegUserAccount>()
             .AnyAsync(regUser => regUser.Username == username && (excludeId == default || regUser.GuidId != excludeId),
                 cancellationToken);
 
-    public async Task Add(UserAccount userAccount, CancellationToken cancellationToken = default) =>
-        await _dbContext.Set<UserAccount>().AddAsync(userAccount, cancellationToken);
+    public async Task Add(RegUserAccount regUserAccount, CancellationToken cancellationToken = default) =>
+        await _dbContext.Set<RegUserAccount>().AddAsync(regUserAccount, cancellationToken);
 
-    public void Update(UserAccount userAccount) =>
-        _dbContext.Set<UserAccount>().Update(userAccount);
+    public void Update(RegUserAccount regUserAccount) =>
+        _dbContext.Set<RegUserAccount>().Update(regUserAccount);
 
-    public void Remove(UserAccount userAccount) =>
-        _dbContext.Set<UserAccount>().Remove(userAccount);
+    public void Remove(RegUserAccount regUserAccount) =>
+        _dbContext.Set<RegUserAccount>().Remove(regUserAccount);
 }

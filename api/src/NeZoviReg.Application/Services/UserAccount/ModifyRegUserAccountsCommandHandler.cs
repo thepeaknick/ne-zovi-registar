@@ -63,11 +63,11 @@ internal sealed class ModifyRegUserAccountsCommandHandler : ICommandHandler<Modi
     }
 
 
-    private void ModifyUserAccounts(List<Domain.Model.Auth.UserAccount> accounts, int regUserId, List<UserAccountData> newAccounts)
+    private void ModifyUserAccounts(List<Domain.Model.Auth.RegUserAccount> accounts, int regUserId, List<UserAccountData> newAccounts)
     {
         accounts.ForEach(x => x.Delete());
         
-        accounts.AddRange(newAccounts.Select(x => Domain.Model.Auth.UserAccount.New
+        accounts.AddRange(newAccounts.Select(x => Domain.Model.Auth.RegUserAccount.New
             .WithUserName(x.Username)
             .WithPassword(x.Password)
             .WithRegUserId(regUserId)));

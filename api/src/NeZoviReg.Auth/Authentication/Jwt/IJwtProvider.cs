@@ -9,11 +9,11 @@ public interface IJwtProvider
     /// <summary>
     /// Generate access token.
     /// </summary>
-    /// <param name="userAccount"></param>
+    /// <param name="regUserAccount"></param>
     /// <param name="expirationOffset">expiration offset in minutes</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<TokenResult> GenerateTokenAsync(UserAccount userAccount, int? expirationOffset = default, CancellationToken cancellationToken = default);
+    Task<TokenResult> GenerateTokenAsync(RegUserAccount regUserAccount, int? expirationOffset = default, CancellationToken cancellationToken = default);
     
 
     /// <summary>

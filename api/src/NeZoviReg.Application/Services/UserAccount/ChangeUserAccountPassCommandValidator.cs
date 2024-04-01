@@ -15,7 +15,7 @@ public class ChangeUserAccountPassCommandValidator : AbstractValidator<ChangePas
 
         RuleFor(x => x.NewPassword)
             .NotEmpty<ChangePassCommand, string, bool>(Password.Empty.Message)
-            .MaximumLength<ChangePassCommand, bool>(Domain.Model.Auth.UserAccount.PasswordMaxLength,
+            .MaximumLength<ChangePassCommand, bool>(Domain.Model.Auth.RegUserAccount.PasswordMaxLength,
                 Password.TooLong.Message);
     }
 }

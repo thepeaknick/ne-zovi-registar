@@ -6,15 +6,15 @@ using NeZoviReg.Domain.Model.Domain;
 
 namespace NeZoviReg.Domain.Model.Auth;
 
-public class UserAccount : Entity
+public class RegUserAccount : Entity
 {
     public const int UsernameMaxLength = 255;
     public const int PasswordMaxLength = 255;
     public const int EmailMaxLength = 50;
 
-    public static UserAccount New => new UserAccount {GuidId = Guid.NewGuid()};
+    public static RegUserAccount New => new RegUserAccount {GuidId = Guid.NewGuid()};
 
-    public static UserAccount Create(int id, string username, string password)
+    public static RegUserAccount Create(int id, string username, string password)
     {
         var userAccount = New
             .WithId(id)
@@ -51,14 +51,14 @@ public class UserAccount : Entity
 
     public DateTime? ForgotPasswordTokenExpirationTime { get; private set; }
 
-    protected override UserAccount WithId(int id)
+    protected override RegUserAccount WithId(int id)
     {
         Id = id;
 
         return this;
     }
 
-    public UserAccount WithPassword(string? password)
+    public RegUserAccount WithPassword(string? password)
     {
         if (password == default)
             return this;
@@ -69,21 +69,21 @@ public class UserAccount : Entity
         return this;
     }
 
-    public UserAccount WithUserName(string? userName)
+    public RegUserAccount WithUserName(string? userName)
     {
         Username = userName ?? Username;
 
         return this;
     }
 
-    public UserAccount WithRegUserId(int regUserId)
+    public RegUserAccount WithRegUserId(int regUserId)
     {
         RegUserId = regUserId;
 
         return this;
     }
 
-    public UserAccount WithAccessTokenExpTime(DateTime? expTime)
+    public RegUserAccount WithAccessTokenExpTime(DateTime? expTime)
     {
         AccessTokenExpirationTime = expTime ?? AccessTokenExpirationTime;
 
@@ -92,21 +92,21 @@ public class UserAccount : Entity
 
     public bool IsAccessTokenValid => AccessTokenExpirationTime != default && DateTime.Now <= AccessTokenExpirationTime;
 
-    public UserAccount WithoutAccessTokenExpTime()
+    public RegUserAccount WithoutAccessTokenExpTime()
     {
         AccessTokenExpirationTime = default;
 
         return this;
     }
 
-    public UserAccount WithRefreshToken(string? refreshToken)
+    public RegUserAccount WithRefreshToken(string? refreshToken)
     {
         RefreshToken = refreshToken ?? RefreshToken;
 
         return this;
     }
 
-    public UserAccount WithoutRefreshToken()
+    public RegUserAccount WithoutRefreshToken()
     {
         RefreshToken = default;
         RefreshTokenExpirationTime = default;
@@ -114,21 +114,21 @@ public class UserAccount : Entity
         return this;
     }
 
-    public UserAccount WithRefreshTokenExpTime(DateTime? expTime)
+    public RegUserAccount WithRefreshTokenExpTime(DateTime? expTime)
     {
         RefreshTokenExpirationTime = expTime ?? RefreshTokenExpirationTime;
 
         return this;
     }
 
-    public UserAccount WithForgotPasswordToken(string? token)
+    public RegUserAccount WithForgotPasswordToken(string? token)
     {
         ForgotPasswordToken = token ?? ForgotPasswordToken;
 
         return this;
     }
 
-    public UserAccount WithForgotPasswordTokenExpTime(DateTime? expTime)
+    public RegUserAccount WithForgotPasswordTokenExpTime(DateTime? expTime)
     {
         ForgotPasswordTokenExpirationTime = expTime ?? ForgotPasswordTokenExpirationTime;
 

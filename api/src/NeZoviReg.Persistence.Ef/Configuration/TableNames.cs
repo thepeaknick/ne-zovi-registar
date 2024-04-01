@@ -4,9 +4,7 @@ internal sealed class TableNames
 {
     internal static string RegUsers => "RegUser";
     
-    internal static string UserAccounts => "UserAccount";
-    
-    internal static string UserAccountsRoles => "UserAccountRole";
+    internal static string RegUserAccounts => "RegUserAccount";
     
     internal static string RegUsersRoles => "RegUserRole";
     

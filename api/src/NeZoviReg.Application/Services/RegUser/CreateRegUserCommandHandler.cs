@@ -50,7 +50,7 @@ internal sealed class CreateRegUserCommandHandler : ICommandHandler<CreateRegUse
             .WithTaxNumber(command.TaxNumber)
             .WithName(command.FirstName, command.LastName)
             .WithRole((int) command.Role)
-            .WithUserAccount(Domain.Model.Auth.UserAccount.New
+            .WithUserAccount(Domain.Model.Auth.RegUserAccount.New
                 .WithUserName(command.UserName)
                 .WithPassword(command.Password));
 

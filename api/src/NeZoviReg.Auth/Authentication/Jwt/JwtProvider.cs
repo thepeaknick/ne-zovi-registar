@@ -25,13 +25,13 @@ internal sealed class JwtProvider : IJwtProvider
         _options = options.Value;
     }
 
-    public Task<TokenResult> GenerateTokenAsync(UserAccount userAccount, int? expirationOffset = default, CancellationToken cancellationToken = default)
+    public Task<TokenResult> GenerateTokenAsync(RegUserAccount regUserAccount, int? expirationOffset = default, CancellationToken cancellationToken = default)
     {
         var claims = new List<Claim>
         {
-            new(CustomClaims.UserId, userAccount.GuidId.ToString()),
-            new(CustomClaims.RegUserId, userAccount.RegUser.GuidId.ToString()),
-            new(CustomClaims.UserName, userAccount.Username)
+            new(CustomClaims.UserId, regUserAccount.GuidId.ToString()),
+            new(CustomClaims.RegUserId, regUserAccount.RegUser.GuidId.ToString()),
+            new(CustomClaims.UserName, regUserAccount.Username)
         };
 
         var signingCredentials = new SigningCredentials(

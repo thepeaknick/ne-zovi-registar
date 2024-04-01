@@ -20,11 +20,11 @@ public class ModifyRegUserAccountsCommandValidator : AbstractValidator<ModifyReg
         {
             ua.RuleFor(x => x.Username)
                 .NotEmpty().WithMessage(UserName.Empty.Message)
-                .MaximumLength(Domain.Model.Auth.UserAccount.UsernameMaxLength).WithMessage(UserName.TooLong.Message);
+                .MaximumLength(Domain.Model.Auth.RegUserAccount.UsernameMaxLength).WithMessage(UserName.TooLong.Message);
             
             ua.RuleFor(x => x.Password)
                 .NotEmpty().WithMessage(Password.Empty.Message)
-                .MaximumLength(Domain.Model.Auth.UserAccount.PasswordMaxLength).WithMessage(Password.TooLong.Message);
+                .MaximumLength(Domain.Model.Auth.RegUserAccount.PasswordMaxLength).WithMessage(Password.TooLong.Message);
             
             ua.RuleFor(x => x.Username).MustAsync(async (userName, cancellationToken) =>
                     !(await userAccountDataStore.IsUsernameExistsAsync(userName, cancellationToken: cancellationToken)))
