@@ -14,6 +14,8 @@ public interface IUserAccountDataStore
     
     Task<UserAccount?> GetByEmail(string email, CancellationToken cancellationToken = default);
     
+    Task<bool> IsUsernameExistsAsync(string username, Guid? excludeId = default, CancellationToken cancellationToken = default);
+    
     Task Add(UserAccount userAccount, CancellationToken cancellationToken = default);
 
     void Remove(UserAccount userAccount);

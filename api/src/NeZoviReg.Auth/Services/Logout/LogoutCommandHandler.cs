@@ -45,9 +45,9 @@ internal sealed class LogoutCommandHandler : ICommandHandler<LogoutCommand, bool
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 
-        await _publisher.Publish(new UserAccountModifiedEvent
+        await _publisher.Publish(new RegUserModifiedEvent
         {
-            UserAccountId = userAccount.GuidId
+            RegUserId = userAccount.RegUser.GuidId
         }, cancellationToken);
 
         Log.Information($"UserAccount with GuidId={command.GuidId} logged out.");

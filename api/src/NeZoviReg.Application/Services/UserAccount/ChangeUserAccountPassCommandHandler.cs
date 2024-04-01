@@ -42,11 +42,6 @@ internal sealed class ChangeUserAccountPassCommandHandler : ICommandHandler<Chan
         _userAccountDataStore.Update(userAccount);
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
-
-        await _publisher.Publish(new UserAccountModifiedEvent
-        {
-            UserAccountId = userAccount.GuidId
-        }, cancellationToken);
         
         Log.Information($"UserAccount with UserName={command.UserName} password changed.");
         

@@ -6,7 +6,7 @@ using NeZoviReg.Abstractions.Shared.Events;
 namespace NeZoviReg.Application.Services;
 
 internal class CacheInvalidationRegUserHandler :
-    INotificationHandler<UserAccountModifiedEvent>,
+    INotificationHandler<RegUserModifiedEvent>,
     INotificationHandler<RegUserDeletedEvent>
 {
     private readonly ICacheService _cacheService;
@@ -18,21 +18,21 @@ internal class CacheInvalidationRegUserHandler :
         _logger = logger;
     }
 
-    public Task Handle(UserAccountModifiedEvent notification, CancellationToken cancellationToken)
+    public async Task Handle(RegUserModifiedEvent notification, CancellationToken cancellationToken)
     {
-        _logger.LogInformation($"RegUserModifiedEvent RegUserId={notification.UserAccountId} published.");
+        _logger.LogInformation($"RegUserModifiedEvent RegUserId={notification.RegUserId} published.");
         
-        return HandleInternal(notification.UserAccountId, cancellationToken);
+        await HandleInternal(notification.RegUserId, cancellationToken);
     }
-    public Task Handle(RegUserDeletedEvent notification, CancellationToken cancellationToken)
+    public async Task Handle(RegUserDeletedEvent notification, CancellationToken cancellationToken)
     {
         _logger.LogInformation($"RegUserDeletedEvent RegUserId={notification.RegUserId} published.");
         
-        return HandleInternal(notification.RegUserId, cancellationToken);
+        await HandleInternal(notification.RegUserId, cancellationToken);
     }
 
     private async Task HandleInternal(Guid regUserId, CancellationToken cancellationToken)
     {
-        await _cacheService.RemoveAsync($"{CacheKeyPrefix.UserAccount}{regUserId}", cancellationToken);
+        await _cacheService.RemoveAsync($"{CacheKeyPrefix.RegUser}{regUserId}", cancellationToken);
     }
 }

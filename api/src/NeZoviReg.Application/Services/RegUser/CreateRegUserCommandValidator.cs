@@ -64,16 +64,6 @@ public class CreateRegUserCommandValidator : AbstractValidator<CreateRegUserComm
             .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.TaxNumberMaxLength,
                 TaxNumber.TooLong.Message);
 
-        RuleFor(x => x.UserName)
-            .NotEmpty<CreateRegUserCommand, string, RegUserDto>(UserName.Empty.Message)
-            .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.UsernameMaxLength,
-                UserName.TooLong.Message);
-
-        RuleFor(x => x.Password)
-            .NotEmpty<CreateRegUserCommand, string, RegUserDto>(Password.Empty.Message)
-            .MaximumLength<CreateRegUserCommand, RegUserDto>(Domain.Model.Domain.RegUser.PasswordMaxLength,
-                Password.TooLong.Message);
-
         RuleFor(x => x.Email).MustAsync(async (mail, cancellationToken) =>
                 !(await regUserDataStore.IsEmailExistsAsync(mail, cancellationToken: cancellationToken)))
             .WithMessage(x => RegErrors.Email.AlreadyInUse(x.Email).Message);
@@ -89,9 +79,5 @@ public class CreateRegUserCommandValidator : AbstractValidator<CreateRegUserComm
         RuleFor(x => x.TaxNumber).MustAsync(async (taxNumb, cancellationToken) =>
                 !(await regUserDataStore.IsTaxNumberExistsAsync(taxNumb, cancellationToken: cancellationToken)))
             .WithMessage(x => TaxNumber.AlreadyInUse(x.TaxNumber).Message);
-
-        RuleFor(x => x.UserName).MustAsync(async (userName, cancellationToken) =>
-                !(await regUserDataStore.IsUsernameExistsAsync(userName, cancellationToken: cancellationToken)))
-            .WithMessage(x => UserName.AlreadyInUse(x.UserName).Message);
     }
 }

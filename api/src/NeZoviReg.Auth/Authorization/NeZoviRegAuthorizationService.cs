@@ -36,10 +36,21 @@ public class NeZoviRegAuthorizationService : DefaultAuthorizationService, INeZov
         var userAccountId = user
             .Claims
             .SingleOrDefault(x => x.Type == CustomClaims.UserId)?.Value;
+        
+        var regUsrId = user
+            .Claims
+            .SingleOrDefault(x => x.Type == CustomClaims.RegUserId)?.Value;
 
-        if (!Guid.TryParse(userAccountId, out var id))
+        if (!Guid.TryParse(userAccountId, out var userId))
         {
             _logger.LogWarning($"ClaimsPrincipal.Claims.UserAccountId={userAccountId} is not Guid.");
+
+            return false;
+        }
+        
+        if (!Guid.TryParse(regUsrId, out var regUserId))
+        {
+            _logger.LogWarning($"ClaimsPrincipal.Claims.RegUserId={regUsrId} is not Guid.");
 
             return false;
         }
@@ -51,20 +62,20 @@ public class NeZoviRegAuthorizationService : DefaultAuthorizationService, INeZov
             return false;
         }
 
-        var userAccountWithPermissions = await GetCachedUserWithPermissions(id, cancellationToken);
+        var userAccountWithPermissions = await GetCachedUserWithPermissions(regUserId, cancellationToken);
 
         bool WithPermission(PermissionType perm)
         {
             return (userAccountWithPermissions.Permissions ?? new()).Any(permissionType => (permissionType & perm) == permissionType);
         }
 
-       return userAccountWithPermissions.UserAccount.AccessTokenExpirationTime is not null && WithPermission((PermissionType)enumPermission);
+       return userAccountWithPermissions.UserAccount(userId).AccessTokenExpirationTime is not null && WithPermission((PermissionType)enumPermission);
     }
 
-    private async Task<UserAccountWithPermissions> GetCachedUserWithPermissions(Guid userAccountGuidId, CancellationToken cancellationToken = default)
+    private async Task<UserAccountWithPermissions> GetCachedUserWithPermissions(Guid regUserId, CancellationToken cancellationToken = default)
     {
-        return await _cache.GetAsync(CacheKeyPrefix.UserAccount, userAccountGuidId,
-           async () => await _authDataStore.GetUserWithPermissionsAsync(userAccountGuidId, cancellationToken),
+        return await _cache.GetAsync(CacheKeyPrefix.RegUser, regUserId,
+           async () => await _authDataStore.GetUserWithPermissionsAsync(regUserId, cancellationToken),
            cancellationToken).ConfigureAwait(false);
     }
 }

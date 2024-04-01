@@ -49,11 +49,6 @@ internal sealed class ResetUserAccountPassCommandHandler : ICommandHandler<Reset
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 
-        await _publisher.Publish(new UserAccountModifiedEvent
-        {
-            UserAccountId = userAccount.GuidId
-        }, cancellationToken);
-
         Log.Information($"UserAccount with Email={command.Email} reset password successfully.");
         
         return true;

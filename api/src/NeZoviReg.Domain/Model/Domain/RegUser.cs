@@ -16,26 +16,22 @@ public class RegUser : Entity
     public const int AddressMaxLength = 100;
     public const int RegNumberMaxLength = 8;
     public const int TaxNumberMaxLength = 9;
-    public const int PasswordMaxLength = 255;
-    public const int UsernameMaxLength = 255;
     public const int EmailMaxLength = 50;
 
     public static RegUser New => new RegUser {GuidId = Guid.NewGuid()};
     
-    public static RegUser Create(string companyName, string userName)
+    public static RegUser Create(string companyName)
     {
         return New
-            .WithCompanyName(companyName)
-            .WithUserName(userName);
+            .WithCompanyName(companyName);
     }
 
 
-    public static RegUser Create(int id, string companyName, string userName)
+    public static RegUser Create(int id, string companyName)
     {
         var regUser = New
             .WithId(id)
-            .WithCompanyName(companyName)
-            .WithUserName(userName);
+            .WithCompanyName(companyName);
         
         regUser.AddCreation();
 
@@ -64,28 +60,7 @@ public class RegUser : Entity
     private readonly List<UserAccount> _userAccounts = new();
 
     public IReadOnlyCollection<UserAccount> UserAccounts => _userAccounts;
-
-    public string Username { get; private set; }
-
-
-    public DateTime? AccessTokenExpirationTime { get; private set; }
-
-    public string? RefreshToken { get; private set; }
-
-    public DateTime? RefreshTokenExpirationTime { get; private set; }
-
-    public string? ForgotPasswordToken { get; private set; }
-
-    public DateTime? ForgotPasswordTokenExpirationTime { get; private set; }
-
-    private string _password;
-
-    public string Password
-    {
-        get => _password.Decode();
-        private set => _password = value;
-    }
-
+    
     public string Address { get; private set; }
 
     public string RegNumber { get; private set; }
@@ -148,76 +123,6 @@ public class RegUser : Entity
     public RegUser WithCompanyName(string? name)
     {
         CompanyName = name ?? CompanyName;
-
-        return this;
-    }
-
-    public RegUser WithPassword(string? password)
-    {
-        if (password == default)
-            return this;
-
-        Password = password.Encode();
-
-
-        return this;
-    }
-
-    public RegUser WithUserName(string? userName)
-    {
-        Username = userName ?? Username;
-
-        return this;
-    }
-
-    public RegUser WithAccessTokenExpTime(DateTime? expTime)
-    {
-        AccessTokenExpirationTime = expTime ?? AccessTokenExpirationTime;
-
-        return this;
-    }
-
-    public bool IsAccessTokenValid => AccessTokenExpirationTime != default && DateTime.Now <= AccessTokenExpirationTime;
-
-    public RegUser WithoutAccessTokenExpTime()
-    {
-        AccessTokenExpirationTime = default;
-
-        return this;
-    }
-
-    public RegUser WithRefreshToken(string? refreshToken)
-    {
-        RefreshToken = refreshToken ?? RefreshToken;
-
-        return this;
-    }
-
-    public RegUser WithoutRefreshToken()
-    {
-        RefreshToken = default;
-        RefreshTokenExpirationTime = default;
-
-        return this;
-    }
-
-    public RegUser WithRefreshTokenExpTime(DateTime? expTime)
-    {
-        RefreshTokenExpirationTime = expTime ?? RefreshTokenExpirationTime;
-
-        return this;
-    }
-
-    public RegUser WithForgotPasswordToken(string? token)
-    {
-        ForgotPasswordToken = token ?? ForgotPasswordToken;
-
-        return this;
-    }
-
-    public RegUser WithForgotPasswordTokenExpTime(DateTime? expTime)
-    {
-        ForgotPasswordTokenExpirationTime = expTime ?? ForgotPasswordTokenExpirationTime;
 
         return this;
     }

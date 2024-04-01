@@ -1,4 +1,6 @@
-﻿namespace NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
+﻿using NeZoviReg.Abstractions.Messaging.Domain.Model.UserAccount;
+
+namespace NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 
 /// <summary>
 /// Spisak korisničkih naloga korisnika registra.

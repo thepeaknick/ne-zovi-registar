@@ -4,11 +4,11 @@ using static NeZoviReg.Abstractions.Shared.Errors.RegErrors;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 using NeZoviReg.Abstractions.Shared.Errors;
 
-namespace NeZoviReg.Application.Services.RegUser;
+namespace NeZoviReg.Application.Services.UserAccount;
 
-public class ResetRegUserPassCommandValidator : AbstractValidator<ResetPassCommand>
+public class ResetUserAccountPassCommandValidator : AbstractValidator<ResetPassCommand>
 {
-    public ResetRegUserPassCommandValidator()
+    public ResetUserAccountPassCommandValidator()
     {
         RuleFor(x => x.Email)!
             .NotEmpty<ResetPassCommand, string, bool>(RegErrors.Email.Empty.Message)

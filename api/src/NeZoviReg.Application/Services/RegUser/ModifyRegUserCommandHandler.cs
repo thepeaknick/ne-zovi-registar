@@ -54,9 +54,9 @@ internal sealed class ModifyRegUserCommandHandler : ICommandHandler<ModifyRegUse
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 
-        await _publisher.Publish(new UserAccountModifiedEvent
+        await _publisher.Publish(new RegUserModifiedEvent
         {
-            UserAccountId = regUser.GuidId
+            RegUserId = regUser.GuidId
         }, cancellationToken);
         
         Log.Information($"RegUser with RegUserId={command.RegUserId} modified.");

@@ -38,13 +38,6 @@ public class RegUserDataStore : IRegUserDataStore
             .AnyAsync(regUser => regUser.CompanyName == name && (excludeId == default || regUser.GuidId != excludeId),
                 cancellationToken);
 
-    public async Task<bool> IsUsernameExistsAsync(string username, Guid? excludeId = default,
-        CancellationToken cancellationToken = default)
-        => await _dbContext
-            .Set<RegUser>()
-            .AnyAsync(regUser => regUser.Username == username && (excludeId == default || regUser.GuidId != excludeId),
-                cancellationToken);
-
     public async Task<bool> IsEmailExistsAsync(string email, Guid? excludeId = default,
         CancellationToken cancellationToken = default)
         => await _dbContext
@@ -56,7 +49,11 @@ public class RegUserDataStore : IRegUserDataStore
         await _dbContext.Set<RegUser>()
             .Include(u => u.RegUserRoles)
             .SingleOrDefaultAsync(x => x.GuidId == regUserId, cancellationToken);
-    
+
+    public async Task<bool> Exists(Guid regUserId, CancellationToken cancellationToken = default) =>
+    await _dbContext.Set<RegUser>()
+        .SingleOrDefaultAsync(x => x.GuidId == regUserId, cancellationToken) != default;
+
     public async Task<RegUser?> GetWithAccountsByGuidId(Guid regUserId, CancellationToken cancellationToken = default) =>
         await _dbContext.Set<RegUser>()
             .Include(u => u.UserAccounts)
@@ -66,11 +63,6 @@ public class RegUserDataStore : IRegUserDataStore
         await _dbContext.Set<RegUser>()
             .Include(u => u.RegUserRoles)
             .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
-
-    public async Task<RegUser?> GetByUsernameAndPassword(string username, string password,
-        CancellationToken cancellationToken = default) =>
-        await _dbContext.Set<RegUser>()
-            .SingleOrDefaultAsync(x => x.Username == username && x.Password == password.Encode(), cancellationToken);
 
     public async Task<RegUser?> GetByEmail(string email, CancellationToken cancellationToken = default) =>
         await _dbContext.Set<RegUser>()

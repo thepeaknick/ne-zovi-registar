@@ -39,6 +39,10 @@
     <Content Update="appsettings.Testing.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
+    <None Remove="Sql\DataMigrations\MigrateUserAccountData.sql" />
+    <Content Include="Sql\DataMigrations\MigrateUserAccountData.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>    
   </ItemGroup>  
   

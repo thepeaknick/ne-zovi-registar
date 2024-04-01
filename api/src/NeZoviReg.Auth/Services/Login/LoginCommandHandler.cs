@@ -60,9 +60,9 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginR
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 
-        await _publisher.Publish(new UserAccountModifiedEvent
+        await _publisher.Publish(new RegUserModifiedEvent
         {
-            UserAccountId = userAccount.GuidId
+            RegUserId = userAccount.RegUser.GuidId
         }, cancellationToken);
 
         Log.Information($"RegUser with UserName={command.UserName} logged in.");

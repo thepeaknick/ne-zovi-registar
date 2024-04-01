@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NeZoviReg.Domain.Model.Auth;
 using NeZoviReg.Domain.Model.Domain;
 
 namespace NeZoviReg.Persistence.Ef.Configuration.Domain;
@@ -44,24 +43,6 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
             .IsRequired()
             .HasMaxLength(RegUser.LastNameMaxLength);
 
-        builder.Property(x => x.Username)
-            .IsRequired()
-            .HasMaxLength(RegUser.UsernameMaxLength);
-
-        builder.Property(x => x.Password)
-            .IsRequired()
-            .HasMaxLength(RegUser.PasswordMaxLength);
-
-        builder.Property(x => x.AccessTokenExpirationTime);
-
-        builder.Property(x => x.RefreshToken);
-
-        builder.Property(x => x.RefreshTokenExpirationTime);
-
-        builder.Property(x => x.ForgotPasswordToken);
-
-        builder.Property(x => x.ForgotPasswordTokenExpirationTime);
-
         builder.HasIndex(x => x.CompanyName).IsUnique();
 
         builder.HasIndex(x => x.Email).IsUnique();
@@ -69,8 +50,6 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
         builder.HasIndex(x => x.RegNumber).IsUnique();
 
         builder.HasIndex(x => x.TaxNumber).IsUnique();
-
-        builder.HasIndex(x => x.Username).IsUnique();
 
         builder.Navigation(n => n.RegUserRoles)
             .UsePropertyAccessMode(PropertyAccessMode.Field);
@@ -83,22 +62,20 @@ public class RegUserConfiguration : IEntityTypeConfiguration<RegUser>
             .HasForeignKey(x => x.RegUserId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasData(Create(1, "RATEL", "mail@mail.com", "Palmotićeva 2", "00000000", "000000000", "Ime", "Prezime",
-            "ratel", "test123"));
+        builder.HasData(Create(1, "RATEL", "mail@mail.com", "Palmotićeva 2", "00000000", "000000000", "Ime", "Prezime"));
 
         builder.HasData(Create(2, "RATEL2", "mail2@mail.com", "Palmotićeva 2", "11111111", "111111111", "Ime",
-            "Prezime", "ratel2", "test123"));
+            "Prezime"));
     }
 
     private static RegUser Create(int id, string companyName, string email, string address, string regNumber,
-        string taxNumber, string firstName, string lastName, string userName, string password)
+        string taxNumber, string firstName, string lastName)
     {
-        return RegUser.Create(id, companyName, userName)
+        return RegUser.Create(id, companyName)
             .WithAddress(address)
             .WithEmail(email)
             .WithRegNumber(regNumber)
             .WithTaxNumber(taxNumber)
-            .WithName(firstName, lastName)
-            .WithPassword(password);
+            .WithName(firstName, lastName);
     }
 }

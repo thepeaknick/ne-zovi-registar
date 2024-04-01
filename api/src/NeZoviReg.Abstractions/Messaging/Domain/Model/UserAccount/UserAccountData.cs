@@ -1,4 +1,4 @@
-﻿namespace NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
+﻿namespace NeZoviReg.Abstractions.Messaging.Domain.Model.UserAccount;
 
 /// <summary>
 /// Korisnički nalog korisnika registra.
