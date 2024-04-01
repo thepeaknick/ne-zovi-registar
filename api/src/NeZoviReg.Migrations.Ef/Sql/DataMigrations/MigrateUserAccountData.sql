@@ -1,4 +1,4 @@
-INSERT INTO `nezovireg`.`useraccount`
+INSERT INTO `nezovireg`.`reguseraccount`
 (
     `GuidId`,
     `RegUserId`,

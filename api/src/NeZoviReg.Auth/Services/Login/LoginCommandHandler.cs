@@ -41,13 +41,13 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginR
         {
             Log.Information($"RegUser with UserName={command.UserName} does not exist.");
 
-            return Result.Failure<LoginResultDto>(RegErrors.UserAccount.InvalidCredentials);
+            return Result.Failure<LoginResultDto>(RegErrors.RegUserAccount.InvalidCredentials);
         }
         if (userAccount.IsAccessTokenValid)
         {
             Log.Information($"RegUser with UserName={command.UserName} has an active session.");
 
-            return Result.Failure<LoginResultDto>(RegErrors.UserAccount.ActiveSession);
+            return Result.Failure<LoginResultDto>(RegErrors.RegUserAccount.ActiveSession);
         }
 
         var loginResult = await _jwtProvider.GenerateTokenAsync(userAccount, cancellationToken: cancellationToken);

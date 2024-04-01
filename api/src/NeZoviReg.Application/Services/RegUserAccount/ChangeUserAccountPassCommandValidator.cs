@@ -4,14 +4,14 @@ using static NeZoviReg.Abstractions.Shared.Errors.RegErrors;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 using NeZoviReg.Abstractions.Shared.Errors;
 
-namespace NeZoviReg.Application.Services.UserAccount;
+namespace NeZoviReg.Application.Services.RegUserAccount;
 
 public class ChangeUserAccountPassCommandValidator : AbstractValidator<ChangePassCommand>
 {
     public ChangeUserAccountPassCommandValidator()
     {
         RuleFor(x => x.UserName)
-            .NotEmpty<ChangePassCommand, string, bool>(RegErrors.UserAccount.NotLoggedIn.Message);
+            .NotEmpty<ChangePassCommand, string, bool>(RegErrors.RegUserAccount.NotLoggedIn.Message);
 
         RuleFor(x => x.NewPassword)
             .NotEmpty<ChangePassCommand, string, bool>(Password.Empty.Message)

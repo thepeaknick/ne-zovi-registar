@@ -16,7 +16,7 @@ public class AuthDataStore : IAuthDataStore
         _dbContext = context;
     }
 
-    public async Task<UserAccountWithPermissions> GetUserWithPermissionsAsync(Guid userAccountGuidId,
+    public async Task<RegUserWithPermissions> GetUserWithPermissionsAsync(Guid userAccountGuidId,
         CancellationToken cancellationToken)
     {
         var regUser = await _dbContext.Set<RegUser>()
@@ -28,7 +28,7 @@ public class AuthDataStore : IAuthDataStore
             .Where(x => x.GuidId == userAccountGuidId)
             .SingleAsync(cancellationToken);
 
-        return new UserAccountWithPermissions
+        return new RegUserWithPermissions
         {
             RegUser = regUser,
             Permissions = regUser.RegUserRoles.Select(r => r)

@@ -8,7 +8,7 @@ using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Events;
 using Serilog;
 
-namespace NeZoviReg.Application.Services.UserAccount;
+namespace NeZoviReg.Application.Services.RegUserAccount;
 
 internal sealed class ChangeUserAccountPassCommandHandler : ICommandHandler<ChangePassCommand, bool>
 {
@@ -33,7 +33,7 @@ internal sealed class ChangeUserAccountPassCommandHandler : ICommandHandler<Chan
         {
             Log.Information($"UserAccount with UserName={command.UserName} does not exist.");
             
-            return Result.Failure<bool>(RegErrors.UserAccount.InvalidCredentials);
+            return Result.Failure<bool>(RegErrors.RegUserAccount.InvalidCredentials);
         }
         
         userAccount.WithoutRefreshToken()

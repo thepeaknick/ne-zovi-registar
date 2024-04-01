@@ -9,7 +9,7 @@ using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.UserAccount;
 using NeZoviReg.Abstractions.Shared.Errors;
 
-namespace NeZoviReg.Application.Services.UserAccount;
+namespace NeZoviReg.Application.Services.RegUserAccount;
 
 public class ModifyRegUserAccountsCommandValidator : AbstractValidator<ModifyRegUserAccountsCommand>
 {

@@ -4,7 +4,7 @@ using static NeZoviReg.Abstractions.Shared.Errors.RegErrors;
 using NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 using NeZoviReg.Abstractions.Shared.Errors;
 
-namespace NeZoviReg.Application.Services.UserAccount;
+namespace NeZoviReg.Application.Services.RegUserAccount;
 
 public class ResetUserAccountPassCommandValidator : AbstractValidator<ResetPassCommand>
 {

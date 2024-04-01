@@ -11,7 +11,7 @@ using NeZoviReg.Abstractions.Shared.Errors;
 using NeZoviReg.Abstractions.Shared.Events;
 using Serilog;
 
-namespace NeZoviReg.Application.Services.UserAccount;
+namespace NeZoviReg.Application.Services.RegUserAccount;
 
 internal sealed class ModifyRegUserAccountsCommandHandler : ICommandHandler<ModifyRegUserAccountsCommand, bool>
 {

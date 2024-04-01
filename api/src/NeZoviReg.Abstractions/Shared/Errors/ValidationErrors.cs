@@ -77,7 +77,7 @@ public static class RegErrors
             "Email nije poslat.");
     }
 
-    public static class UserAccount
+    public static class RegUserAccount
     {
         public static readonly Func<dynamic, Error> NotFound = ident => new Error(
             ErrorCode.NotFound,

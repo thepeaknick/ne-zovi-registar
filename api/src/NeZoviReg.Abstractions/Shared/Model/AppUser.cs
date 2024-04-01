@@ -6,15 +6,15 @@ namespace NeZoviReg.Abstractions.Shared.Model;
 
 public class AppUser
 {
-    public Guid UserAccountId { get; set; }
+    public Guid RegUserAccountId { get; set; }
     
     public Guid RegUserId { get; set; }
 
     public string UserName { get; set; }
 
-    public AppUser(Guid userAccountId, string userName, Guid regUserId)
+    public AppUser(Guid regUserAccountId, string userName, Guid regUserId)
     {
-        UserAccountId = userAccountId;
+        RegUserAccountId = regUserAccountId;
         UserName = userName;
         RegUserId = regUserId;
     }
@@ -23,8 +23,9 @@ public class AppUser
 
     public static AppUser GetUser(ClaimsPrincipal principal)
     {
-        if (!Guid.TryParse(principal.Claims.FirstOrDefault(x => x.Type == CustomClaims.UserId)?.Value,
-                out Guid userId) || !Guid.TryParse(principal.Claims.FirstOrDefault(x => x.Type == CustomClaims.RegUserId)?.Value,
+        if (!Guid.TryParse(principal.Claims.FirstOrDefault(x => x.Type == CustomClaims.RegUserAccountId)?.Value,
+                out Guid userId) 
+            || !Guid.TryParse(principal.Claims.FirstOrDefault(x => x.Type == CustomClaims.RegUserId)?.Value,
                 out Guid regUserId))
             return AppUser.Default;
 

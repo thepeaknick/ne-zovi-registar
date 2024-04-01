@@ -50,7 +50,7 @@ public class AccountController : NeZoviRegBaseController
     [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
     public async Task<IActionResult> LogoutRegUser(CancellationToken cancellationToken)
     {
-        var command = new LogoutCommand(AppUser.UserAccountId);
+        var command = new LogoutCommand(AppUser.RegUserAccountId);
 
         var result = await Sender.Send(command, cancellationToken);
 

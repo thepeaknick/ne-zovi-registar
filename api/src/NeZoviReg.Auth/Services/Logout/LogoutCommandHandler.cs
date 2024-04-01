@@ -35,7 +35,7 @@ internal sealed class LogoutCommandHandler : ICommandHandler<LogoutCommand, bool
         {
             Log.Information($"UserAccount with GuidId={command.GuidId} does not exist.");
             
-            return Result.Failure<bool>(RegErrors.UserAccount.Unknown);
+            return Result.Failure<bool>(RegErrors.RegUserAccount.Unknown);
         }
 
         userAccount.WithoutAccessTokenExpTime()
