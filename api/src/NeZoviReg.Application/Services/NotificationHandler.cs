@@ -24,7 +24,7 @@ internal class NotificationHandler : INotificationHandler<RegUserCreatedEvent>
 
     public async Task Handle(RegUserCreatedEvent notification, CancellationToken cancellationToken)
     {
-        _logger.LogInformation($"RegUserCreatedEvent Email={notification.Email} published.");
+        _logger.LogInformation($"RegUserCreatedEvent Name={notification.CompanyName} published.");
         
         var result = await _emailSender.SendEmailAsync(_options.EmailTo,
             $"Trgovac: {notification.CompanyName} je registrovan.",

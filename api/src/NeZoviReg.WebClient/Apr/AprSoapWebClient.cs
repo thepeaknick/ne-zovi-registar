@@ -65,12 +65,14 @@ public class AprSoapWebClient : BaseSoapWebClient, IAprWebClient
         }
         catch (Exception e)
         {
-            _logger.LogInformation($"MaticniBroj={regNumber};Tip={tip} ne postoji u APR-u");
+            _logger.LogInformation($"RegNumber={regNumber};Type={tip} doesn't exist in APR.");
             return default;
         }
 
-        var aprData = data?.FirstOrDefault();
+        _logger.LogInformation($"RegNumber={regNumber};Type={tip} found in APR.");
         
+        var aprData = data?.FirstOrDefault();
+       
         switch (tip)
         {
             //aktivan
