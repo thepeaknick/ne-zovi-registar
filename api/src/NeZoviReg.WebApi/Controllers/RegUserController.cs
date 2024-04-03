@@ -154,7 +154,8 @@ public class RegUserController : NeZoviRegBaseController
     /// <returns></returns>
     [HttpGet("apr/{regNumber:required}")]
     [ProducesResponseType(typeof(RegUserAprDetailsDto), (int) HttpStatusCode.OK)]
-    [HasPermission(PermissionType.RegUsersOnly)]
+    [AllowAnonymous]
+    [EnableRateLimiting(Const.AnonymousLogin)]
     public async Task<IActionResult> GetRegUserByRegNumber(string regNumber, CancellationToken cancellationToken)
     {
         var query = new RegUserAprQuery(regNumber);
