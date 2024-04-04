@@ -43,11 +43,10 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginR
 
             return Result.Failure<LoginResultDto>(RegErrors.RegUserAccount.InvalidCredentials);
         }
+
         if (userAccount.IsAccessTokenValid)
         {
-            Log.Information($"RegUser with UserName={command.UserName} has an active session.");
-
-            return Result.Failure<LoginResultDto>(RegErrors.RegUserAccount.ActiveSession);
+            Log.Information($"RegUser with UserName={command.UserName} has an active session. Logging out...");
         }
 
         var loginResult = await _jwtProvider.GenerateTokenAsync(userAccount, cancellationToken: cancellationToken);
