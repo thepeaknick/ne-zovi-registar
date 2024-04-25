@@ -66,7 +66,8 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginR
 
         Log.Information($"RegUser with UserName={command.UserName} logged in.");
 
-        return new LoginResultDto(userAccount.GuidId,
+        return new LoginResultDto(userAccount.RegUser.GuidId,
+            userAccount.GuidId,
             loginResult.AccessToken,
             loginResult.AccessTokenExpTime,
             loginResult.RefreshToken.TokenString,
