@@ -62,13 +62,21 @@ internal sealed class UnitOfWork : IUnitOfWork
 
         foreach (EntityEntry<IEntity> entityEntry in entries)
         {
-            if (entityEntry.Entity.New)
+            if (entityEntry.Entity is {New: true, Deleted: true})
+            {
+                entityEntry.State = EntityState.Deleted;
+            }
+            else if (entityEntry.Entity.New)
             {
                 entityEntry.State = EntityState.Added;
             }
-            if (entityEntry.Entity.Deleted)
+            else if (entityEntry.Entity.Deleted)
             {
                 entityEntry.State = EntityState.Deleted;
+            }
+            else
+            {
+                entityEntry.State = EntityState.Modified;
             }
         }
     }

@@ -15,18 +15,18 @@ namespace NeZoviReg.Auth.Services.Login;
 
 internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginResultDto>
 {
-    private readonly IUserAccountDataStore _userAccountDataStore;
+    private readonly IRegUserAccountDataStore _regUserAccountDataStore;
     private readonly IJwtProvider _jwtProvider;
     private readonly IPublisher _publisher;
     private readonly IUnitOfWork _unitOfWork;
 
     public LoginCommandHandler(
-        IUserAccountDataStore userAccountDataStore,
+        IRegUserAccountDataStore regUserAccountDataStore,
         IJwtProvider jwtProvider,
         IUnitOfWork unitOfWork,
         IPublisher publisher)
     {
-        _userAccountDataStore = userAccountDataStore;
+        _regUserAccountDataStore = regUserAccountDataStore;
         _jwtProvider = jwtProvider;
         _unitOfWork = unitOfWork;
         _publisher = publisher;
@@ -35,7 +35,7 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginR
     public async Task<Result<LoginResultDto>> Handle(LoginCommand command, CancellationToken cancellationToken)
     {
         var userAccount =
-            await _userAccountDataStore.GetByUsernameAndPassword(command.UserName, command.Password, cancellationToken);
+            await _regUserAccountDataStore.GetByUsernameAndPassword(command.UserName, command.Password, cancellationToken);
 
         if (userAccount is null)
         {
@@ -55,7 +55,7 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, LoginR
             .WithRefreshToken(loginResult.RefreshToken.TokenString)
             .WithRefreshTokenExpTime(loginResult.RefreshToken.ExpireAt);
 
-        _userAccountDataStore.Update(userAccount);
+        _regUserAccountDataStore.Update(userAccount);
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 

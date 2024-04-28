@@ -11,6 +11,8 @@ public class RegUserAccount : Entity
     public const int UsernameMaxLength = 255;
     public const int PasswordMaxLength = 255;
     public const int EmailMaxLength = 50;
+    public const int FirstNameMaxLength = 100;
+    public const int LastNameMaxLength = 100;
 
     public static RegUserAccount New => new RegUserAccount {GuidId = Guid.NewGuid()};
 
@@ -32,6 +34,10 @@ public class RegUserAccount : Entity
     
     public RegUser RegUser { get; private set; }
     public string Username { get; private set; }
+    
+    public string FirstName { get; private set; }
+
+    public string LastName { get; private set; }
 
     private string _password;
 
@@ -72,6 +78,20 @@ public class RegUserAccount : Entity
     public RegUserAccount WithUserName(string? userName)
     {
         Username = userName ?? Username;
+
+        return this;
+    }
+    
+    public RegUserAccount WithFirstName(string? firstName)
+    {
+        FirstName = firstName ?? FirstName;
+
+        return this;
+    }
+
+    public RegUserAccount WithLastName(string? lastName)
+    {
+        LastName = lastName ?? LastName;
 
         return this;
     }
@@ -133,5 +153,13 @@ public class RegUserAccount : Entity
         ForgotPasswordTokenExpirationTime = expTime ?? ForgotPasswordTokenExpirationTime;
 
         return this;
+    }
+    
+    public RegUserAccount Clone()
+    {
+        var newAcc = (RegUserAccount)this.MemberwiseClone();
+        newAcc.Id = 0;
+
+        return newAcc;
     }
 }

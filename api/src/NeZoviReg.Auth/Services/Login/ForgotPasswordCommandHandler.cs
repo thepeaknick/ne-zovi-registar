@@ -16,20 +16,20 @@ namespace NeZoviReg.Auth.Services.Login;
 
 internal sealed class ForgotPasswordCommandHandler : ICommandHandler<ForgotPassCommand, string>
 {
-    private readonly IUserAccountDataStore _userAccountDataStore;
+    private readonly IRegUserAccountDataStore _regUserAccountDataStore;
     private readonly IJwtProvider _jwtProvider;
     private readonly IEmailSender _emailSender;
     private readonly IUnitOfWork _unitOfWork;
     private readonly ForgotPasswordOptions _options;
 
     public ForgotPasswordCommandHandler(
-        IUserAccountDataStore userAccountDataStore,
+        IRegUserAccountDataStore regUserAccountDataStore,
         IJwtProvider jwtProvider,
         IUnitOfWork unitOfWork,
         IEmailSender emailSender, 
         IOptionsSnapshot<ForgotPasswordOptions> options)
     {
-        _userAccountDataStore = userAccountDataStore;
+        _regUserAccountDataStore = regUserAccountDataStore;
         _jwtProvider = jwtProvider;
         _unitOfWork = unitOfWork;
         _emailSender = emailSender;
@@ -38,7 +38,7 @@ internal sealed class ForgotPasswordCommandHandler : ICommandHandler<ForgotPassC
 
     public async Task<Result<string>> Handle(ForgotPassCommand command, CancellationToken cancellationToken)
     {
-        var userAccount = await _userAccountDataStore.GetByEmail(command.Email, cancellationToken);
+        var userAccount = await _regUserAccountDataStore.GetByEmail(command.Email, cancellationToken);
 
         if (userAccount is null)
         {
@@ -58,7 +58,7 @@ internal sealed class ForgotPasswordCommandHandler : ICommandHandler<ForgotPassC
         userAccount.WithForgotPasswordToken(tokenResult.AccessToken)
             .WithForgotPasswordTokenExpTime(tokenResult.AccessTokenExpTime);
 
-        _userAccountDataStore.Update(userAccount);
+        _regUserAccountDataStore.Update(userAccount);
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 

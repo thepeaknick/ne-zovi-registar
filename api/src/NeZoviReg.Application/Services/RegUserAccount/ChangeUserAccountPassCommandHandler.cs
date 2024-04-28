@@ -12,22 +12,22 @@ namespace NeZoviReg.Application.Services.RegUserAccount;
 
 internal sealed class ChangeUserAccountPassCommandHandler : ICommandHandler<ChangePassCommand, bool>
 {
-    private readonly IUserAccountDataStore _userAccountDataStore;
+    private readonly IRegUserAccountDataStore _regUserAccountDataStore;
     private readonly IPublisher _publisher;
     private readonly IUnitOfWork _unitOfWork;
 
-    public ChangeUserAccountPassCommandHandler(IUserAccountDataStore userAccountDataStore,
+    public ChangeUserAccountPassCommandHandler(IRegUserAccountDataStore regUserAccountDataStore,
         IPublisher publisher,
         IUnitOfWork unitOfWork)
     {
-        _userAccountDataStore = userAccountDataStore;
+        _regUserAccountDataStore = regUserAccountDataStore;
         _publisher = publisher;
         _unitOfWork = unitOfWork;
     }
 
     public async Task<Result<bool>> Handle(ChangePassCommand command, CancellationToken cancellationToken)
     {
-        var userAccount = await _userAccountDataStore.GetByUsernameAndPassword(command.UserName, command.Password, cancellationToken);
+        var userAccount = await _regUserAccountDataStore.GetByUsernameAndPassword(command.UserName, command.Password, cancellationToken);
 
         if (userAccount is null)
         {
@@ -39,7 +39,7 @@ internal sealed class ChangeUserAccountPassCommandHandler : ICommandHandler<Chan
         userAccount.WithoutRefreshToken()
                .WithPassword(command.NewPassword);
 
-        _userAccountDataStore.Update(userAccount);
+        _regUserAccountDataStore.Update(userAccount);
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
         

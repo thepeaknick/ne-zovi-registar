@@ -2,9 +2,11 @@
 
 namespace NeZoviReg.Abstractions.Infrastructure.DataStores.Auth;
 
-public interface IUserAccountDataStore
+public interface IRegUserAccountDataStore
 {
     Task<List<RegUserAccount>> GetUserAccounts(int regUserId, CancellationToken cancellationToken);
+    
+    Task<List<RegUserAccount>> GetUserAccounts(Guid regUserGuid, CancellationToken cancellationToken);
     
     Task<RegUserAccount?> GetByGuidId(Guid guidId, CancellationToken cancellationToken = default);
     

@@ -13,16 +13,16 @@ namespace NeZoviReg.Auth.Services.Token;
 
 internal sealed class RefreshTokenCommandHandler : ICommandHandler<RefreshTokenCommand, RefreshTokenResultDto>
 {
-    private readonly IUserAccountDataStore _userAccountDataStore;
+    private readonly IRegUserAccountDataStore _regUserAccountDataStore;
     private readonly IJwtProvider _jwtProvider;
     private readonly IUnitOfWork _unitOfWork;
     
     public RefreshTokenCommandHandler(
-        IUserAccountDataStore userAccountDataStore,
+        IRegUserAccountDataStore regUserAccountDataStore,
         IJwtProvider jwtProvider,
         IUnitOfWork unitOfWork)
     {
-        _userAccountDataStore = userAccountDataStore;
+        _regUserAccountDataStore = regUserAccountDataStore;
         _jwtProvider = jwtProvider;
         _unitOfWork = unitOfWork;
     }
@@ -43,7 +43,7 @@ internal sealed class RefreshTokenCommandHandler : ICommandHandler<RefreshTokenC
         userAccount.WithRefreshToken(refrehTokenResult.RefreshToken.TokenString)
             .WithRefreshTokenExpTime(refrehTokenResult.RefreshToken.ExpireAt);
 
-        _userAccountDataStore.Update(userAccount);
+        _regUserAccountDataStore.Update(userAccount);
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 

@@ -8,6 +8,7 @@ using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.RateLimiting;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
+using NeZoviReg.Abstractions.Messaging.Domain.Model.UserAccount;
 using NeZoviReg.Abstractions.Messaging.Domain.Queries.RegUser;
 using NeZoviReg.WebApi.Infrastructure;
 
@@ -190,11 +191,11 @@ public class RegUserController : NeZoviRegBaseController
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet("accounts/{regUserId:required}")]
-    [ProducesResponseType(typeof(RegUserAccountsDto), (int) HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(List<UserAccountData>), (int) HttpStatusCode.OK)]
     [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
     public async Task<IActionResult> GetRegUserAccounts(Guid regUserId, CancellationToken cancellationToken)
     {
-        var query = new RegUserAccountsQuery(regUserId);
+        var query = new RegUserAccountsQuery(regUserId, AppUser.UserName);
 
         var result = await Sender.Send(query, cancellationToken);
 
@@ -210,11 +211,11 @@ public class RegUserController : NeZoviRegBaseController
     /// <returns></returns>
     [HttpPatch("accounts/{regUserId:required}")]
     [ProducesResponseType(typeof(bool), (int) HttpStatusCode.OK)]
-    [HasPermission(PermissionType.RegUsersOnly)]
+    [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
     public async Task<IActionResult> ModifyRegUserAccounts(Guid regUserId, [FromBody] ModifyRegUserAccountsRequest request,
         CancellationToken cancellationToken)
     {
-        var command = new ModifyRegUserAccountsCommand(regUserId, request.Accounts)
+        var command = new ModifyRegUserAccountsCommand(regUserId, AppUser.UserName, request.Accounts)
             .AddAppUser(AppUser.UserName);
 
         var result = await Sender.Send(command, cancellationToken);

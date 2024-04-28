@@ -13,24 +13,19 @@ namespace NeZoviReg.Application.Services.RegUserAccount;
 
 public class ModifyRegUserAccountsCommandValidator : AbstractValidator<ModifyRegUserAccountsCommand>
 {
-    
-    public ModifyRegUserAccountsCommandValidator(IUserAccountDataStore userAccountDataStore)
+    public ModifyRegUserAccountsCommandValidator()
     {
         RuleForEach(x => x.Accounts).ChildRules(ua =>
         {
             ua.RuleFor(x => x.Username)
                 .NotEmpty().WithMessage(UserName.Empty.Message)
-                .MaximumLength(Domain.Model.Auth.RegUserAccount.UsernameMaxLength).WithMessage(UserName.TooLong.Message);
-            
+                .MaximumLength(Domain.Model.Auth.RegUserAccount.UsernameMaxLength)
+                .WithMessage(UserName.TooLong.Message);
+
             ua.RuleFor(x => x.Password)
                 .NotEmpty().WithMessage(Password.Empty.Message)
-                .MaximumLength(Domain.Model.Auth.RegUserAccount.PasswordMaxLength).WithMessage(Password.TooLong.Message);
-            
-            ua.RuleFor(x => x.Username).MustAsync(async (userName, cancellationToken) =>
-                    !(await userAccountDataStore.IsUsernameExistsAsync(userName, cancellationToken: cancellationToken)))
-                .WithMessage(x => UserName.AlreadyInUse(x.Username).Message);
-            
+                .MaximumLength(Domain.Model.Auth.RegUserAccount.PasswordMaxLength)
+                .WithMessage(Password.TooLong.Message);
         });
-       
     }
 }

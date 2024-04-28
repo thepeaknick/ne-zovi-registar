@@ -39,14 +39,11 @@ public class AppMappingProfile : Profile
                 s.Address,
                 s.RegNumber, s.TaxNumber, s.RegUserRoles.First().RoleId));
 
-        CreateMap<RegUser, RegUserAccountsDto>()
-            .ForMember(d => d.RegUserId, o => o.MapFrom(s => s.GuidId))
-            .ForMember(d => d.Accounts, o => o.MapFrom(s => s.UserAccounts));
-
         CreateMap<RegUserAccount, UserAccountData>()
-            .ConstructUsing(s => new UserAccountData(s.Username, s.Password));
+            .ConstructUsing(s => new UserAccountData(s.Username, s.Password, s.FirstName, s.LastName));
 
         CreateMap<AprBusinessEntity, RegUserAprDetailsDto>()
-            .ConstructUsing(s => new RegUserAprDetailsDto(s.CompanyName, s.Address, s.Email, s.RegNumber, s.TaxNumber, s.FirstName, s.LastName));
+            .ConstructUsing(s => new RegUserAprDetailsDto(s.CompanyName, s.Address, s.Email, s.RegNumber, s.TaxNumber,
+                s.FirstName, s.LastName));
     }
 }

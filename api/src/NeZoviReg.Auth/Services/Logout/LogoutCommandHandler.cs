@@ -12,23 +12,23 @@ namespace NeZoviReg.Auth.Services.Logout;
 
 internal sealed class LogoutCommandHandler : ICommandHandler<LogoutCommand, bool>
 {
-    private readonly IUserAccountDataStore _userAccountDataStore;
+    private readonly IRegUserAccountDataStore _regUserAccountDataStore;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IPublisher _publisher;
 
     public LogoutCommandHandler(
-        IUserAccountDataStore userAccountDataStore,
+        IRegUserAccountDataStore regUserAccountDataStore,
         IUnitOfWork unitOfWork,
         IPublisher publisher)
     {
-        _userAccountDataStore = userAccountDataStore;
+        _regUserAccountDataStore = regUserAccountDataStore;
         _unitOfWork = unitOfWork;
         _publisher = publisher;
     }
 
     public async Task<Result<bool>> Handle(LogoutCommand command, CancellationToken cancellationToken)
     {
-        var userAccount = await _userAccountDataStore.GetByGuidId(command.GuidId, cancellationToken);
+        var userAccount = await _regUserAccountDataStore.GetByGuidId(command.GuidId, cancellationToken);
 
         if (userAccount is null)
         {
@@ -40,7 +40,7 @@ internal sealed class LogoutCommandHandler : ICommandHandler<LogoutCommand, bool
         userAccount.WithoutAccessTokenExpTime()
             .WithoutRefreshToken();
 
-        _userAccountDataStore.Update(userAccount);
+        _regUserAccountDataStore.Update(userAccount);
 
         await _unitOfWork.SaveChangesAsync(command.AppUser, cancellationToken);
 

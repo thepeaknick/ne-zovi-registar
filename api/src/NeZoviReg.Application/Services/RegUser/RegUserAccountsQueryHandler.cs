@@ -1,30 +1,28 @@
 ﻿using AutoMapper;
+using NeZoviReg.Abstractions.Infrastructure.DataStores.Auth;
 using NeZoviReg.Abstractions.Infrastructure.DataStores.Domain;
 using NeZoviReg.Abstractions.Messaging;
-using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
+using NeZoviReg.Abstractions.Messaging.Domain.Model.UserAccount;
 using NeZoviReg.Abstractions.Messaging.Domain.Queries.RegUser;
 using NeZoviReg.Abstractions.Shared;
-using NeZoviReg.Abstractions.Shared.Errors;
 
 namespace NeZoviReg.Application.Services.RegUser;
 
-internal sealed class RegUserAccontsQueryHandler : IQueryHandler<RegUserAccountsQuery, RegUserAccountsDto>
+internal sealed class RegUserAccontsQueryHandler : IQueryHandler<RegUserAccountsQuery, List<UserAccountData>>
 {
-    private readonly IRegUserDataStore _regUserDataStore;
+    private readonly IRegUserAccountDataStore _regRegUserDataStore;
     private readonly IMapper _mapper;
 
-    public RegUserAccontsQueryHandler(IRegUserDataStore regUserDataStore, IMapper mapper)
+    public RegUserAccontsQueryHandler(IRegUserAccountDataStore regRegUserDataStore, IMapper mapper)
     {
-        _regUserDataStore = regUserDataStore;
+        _regRegUserDataStore = regRegUserDataStore;
         _mapper = mapper;
     }
 
-    public async Task<Result<RegUserAccountsDto>> Handle(RegUserAccountsQuery query, CancellationToken cancellationToken)
+    public async Task<Result<List<UserAccountData>>> Handle(RegUserAccountsQuery query, CancellationToken cancellationToken)
     {
-        var user = await _regUserDataStore.GetWithAccountsByGuidId(query.RegUserId, cancellationToken);
+        var accounts = await _regRegUserDataStore.GetUserAccounts(query.RegUserId, cancellationToken);
 
-        return user is not null
-            ? _mapper.Map<RegUserAccountsDto>(user)
-            : Result.Failure<RegUserAccountsDto>(RegErrors.RegUser.NotFound(query.RegUserId));
+       return _mapper.Map<List<UserAccountData>>(accounts);
     }
 }

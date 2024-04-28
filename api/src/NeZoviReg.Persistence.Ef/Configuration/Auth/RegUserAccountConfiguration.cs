@@ -4,7 +4,7 @@ using NeZoviReg.Domain.Model.Auth;
 
 namespace NeZoviReg.Persistence.Ef.Configuration.Auth;
 
-public class UserAccountConfiguration : IEntityTypeConfiguration<RegUserAccount>
+public class RegUserAccountConfiguration : IEntityTypeConfiguration<RegUserAccount>
 {
     public void Configure(EntityTypeBuilder<RegUserAccount> builder)
     {
@@ -38,13 +38,23 @@ public class UserAccountConfiguration : IEntityTypeConfiguration<RegUserAccount>
 
         builder.HasIndex(x => x.Username).IsUnique();
         
-        builder.HasData(Create(1, 1, "ratel", "test123", "mail@mail.com"));
-        builder.HasData(Create(2, 2, "ratel2", "test123", "mail@mail.com"));
+        builder.Property(x => x.FirstName)
+            .IsRequired(false)
+            .HasMaxLength(RegUserAccount.FirstNameMaxLength);
+
+        builder.Property(x => x.LastName)
+            .IsRequired(false)
+            .HasMaxLength(RegUserAccount.LastNameMaxLength);
+        
+        builder.HasData(Create(1, 1, "ratel", "test123", "admin", "ratel"));
+        builder.HasData(Create(2, 2, "ratel2", "test123", "admin", "ratel"));
     }
     
-    private static RegUserAccount Create(int id, int regUserId, string userName, string password, string email)
+    private static RegUserAccount Create(int id, int regUserId, string userName, string password, string firstName, string lastName)
     {
-        return  RegUserAccount.Create(id, userName, password)
-            .WithRegUserId(regUserId);
+        return RegUserAccount.Create(id, userName, password)
+            .WithRegUserId(regUserId)
+            .WithFirstName(firstName)
+            .WithLastName(lastName);
     }
 }

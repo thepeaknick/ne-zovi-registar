@@ -17,11 +17,11 @@ namespace NeZoviReg.Auth.Authentication.Jwt;
 internal sealed class JwtProvider : IJwtProvider
 {
     private readonly JwtOptions _options;
-    private readonly IUserAccountDataStore _userAccountDataStore;
+    private readonly IRegUserAccountDataStore _regUserAccountDataStore;
 
-    public JwtProvider(IOptions<JwtOptions> options, IUserAccountDataStore userAccountDataStore)
+    public JwtProvider(IOptions<JwtOptions> options, IRegUserAccountDataStore regUserAccountDataStore)
     {
-        _userAccountDataStore = userAccountDataStore;
+        _regUserAccountDataStore = regUserAccountDataStore;
         _options = options.Value;
     }
 
@@ -87,7 +87,7 @@ internal sealed class JwtProvider : IJwtProvider
         var appUser = AppUser.GetUser(pandt.Principal)
                       ?? throw new SecurityTokenException("Invalid token. Claims are wrong.");
 
-        var userAccount = await _userAccountDataStore.GetByGuidId(appUser.RegUserAccountId, cancellationToken)
+        var userAccount = await _regUserAccountDataStore.GetByGuidId(appUser.RegUserAccountId, cancellationToken)
                       ?? throw new SecurityTokenException(
                           $"Invalid token. RegUserAccount with GuidId={appUser.RegUserAccountId} doesn't exist");
 

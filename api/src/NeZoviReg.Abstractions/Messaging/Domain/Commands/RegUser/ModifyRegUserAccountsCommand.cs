@@ -2,4 +2,4 @@
 
 namespace NeZoviReg.Abstractions.Messaging.Domain.Commands.RegUser;
 
-public record ModifyRegUserAccountsCommand(Guid RegUserId, List<UserAccountData> Accounts) : BaseCommand<bool>;
+public record ModifyRegUserAccountsCommand(Guid RegUserId, string CurrentUsername, List<UserAccountData> Accounts) : BaseCommand<bool>;
