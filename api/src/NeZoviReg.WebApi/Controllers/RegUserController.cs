@@ -8,7 +8,6 @@ using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.RateLimiting;
 using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
-using NeZoviReg.Abstractions.Messaging.Domain.Model.UserAccount;
 using NeZoviReg.Abstractions.Messaging.Domain.Queries.RegUser;
 using NeZoviReg.WebApi.Infrastructure;
 
@@ -191,7 +190,7 @@ public class RegUserController : NeZoviRegBaseController
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet("accounts/{regUserId:required}")]
-    [ProducesResponseType(typeof(List<UserAccountData>), (int) HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(RegUserAccountsDto), (int) HttpStatusCode.OK)]
     [HasPermission(PermissionType.RegUsersOnly | PermissionType.Read)]
     public async Task<IActionResult> GetRegUserAccounts(Guid regUserId, CancellationToken cancellationToken)
     {

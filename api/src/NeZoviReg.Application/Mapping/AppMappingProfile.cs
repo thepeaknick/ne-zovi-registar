@@ -39,6 +39,10 @@ public class AppMappingProfile : Profile
                 s.Address,
                 s.RegNumber, s.TaxNumber, s.RegUserRoles.First().RoleId));
 
+        CreateMap<RegUser, RegUserAccountsDto>()
+            .ForMember(d => d.Accounts, o => o.MapFrom(s => s.UserAccounts));
+
+        
         CreateMap<RegUserAccount, UserAccountData>()
             .ConstructUsing(s => new UserAccountData(s.Username, s.Password, s.FirstName, s.LastName));
 

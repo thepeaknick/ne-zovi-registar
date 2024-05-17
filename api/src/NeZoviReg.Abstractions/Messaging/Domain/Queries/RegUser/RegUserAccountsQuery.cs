@@ -1,5 +1,5 @@
-﻿using NeZoviReg.Abstractions.Messaging.Domain.Model.UserAccount;
+﻿using NeZoviReg.Abstractions.Messaging.Domain.Model.RegUser;
 
 namespace NeZoviReg.Abstractions.Messaging.Domain.Queries.RegUser;
 
-public record RegUserAccountsQuery(Guid RegUserId, string CurrentUsername) : IQuery<List<UserAccountData>>;
+public record RegUserAccountsQuery(Guid RegUserId, string CurrentUsername) : IQuery<RegUserAccountsDto>;
