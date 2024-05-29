@@ -10,7 +10,7 @@ public class User : Entity
 {
     //^3816[0-9]{1}[0-9]{6,7}$|^381[1-3]{1}[0-9]{1}[0-9]{6,7}$|^06[0-9]{1}[0-9]{6,7}$|^0[1-3]{1}[0-9]{1}[0-9]{6,7}$
     public const string PhoneNumberRegex = "^3816[0-9]{1}|^381[1-3]{1}[0-9]{1}|^06[0-9]{1}|^0[1-3]{1}[0-9]{1}[0-9]{6,7}$"; 
-    public const string JmbgRegex = "^(0[1-9]|[1-2][0-9]|31(?!(?:0[2469]|11))|30(?!02))(0[1-9]|1[0-2])([09][0-9]{2})([0-8][0-9]|9[0-6])([0-9]{3})(\\d)$";
+    public const string JmbgRegex = "^(0[1-9]|[1-2][0-9]|31(?!(?:0[2469]|11))|30(?!02))(0[1-9]|1[0-2])([09][0-9]{2})([0-8][0-9]|9[0-9])([0-9]{3})(\d)$";
     public const int FirstNameMaxLength = 100;
     public const int  LastNameMaxLength = 100;
     public const int  PhoneNumberMaxLength = 25;
