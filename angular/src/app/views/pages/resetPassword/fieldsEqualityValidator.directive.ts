@@ -1,5 +1,10 @@
 import { Directive } from '@angular/core';
-import { NG_VALIDATORS, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
+import {
+  NG_VALIDATORS,
+  Validator,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
 import { validateFieldsEquality } from './fieldsEqualityValidator';
 
 @Directive({
@@ -11,11 +16,9 @@ import { validateFieldsEquality } from './fieldsEqualityValidator';
       multi: true,
     },
   ],
-}) 
-
+})
 export class FieldsEqualityValidatorDirective implements Validator {
   validate(control: AbstractControl): ValidationErrors | null {
-      console.log('bsldbalsdbalsbdas');
-      return validateFieldsEquality()(control);
+    return validateFieldsEquality()(control);
   }
 }

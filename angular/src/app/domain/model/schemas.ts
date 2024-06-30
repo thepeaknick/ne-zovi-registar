@@ -25,6 +25,7 @@ export interface LoginRequest {
 
 export interface LoginResultDto {
   regUserId: string;
+  userAccountGuidId: string;
   accessToken: string;
   accessTokenExpTime: string; // "format": "date-time"
   refreshToken: string;
@@ -86,6 +87,26 @@ export interface RegUserDto {
   guidId: string;
   name: string;
   id: number;
+}
+
+export interface RegUserAccountDto {
+  firstName: string;
+  lastName: string;
+  username: string;
+  password: string;
+}
+
+export interface RegUserAccountArrayDto {
+  accounts: RegUserAccountDto[];
+}
+
+export interface RegUserAPRDetailsDto {
+  companyName: string;
+  address: string;
+  regNumber: string;
+  taxNumber: string;
+  firstName: string;
+  lastName: string;
 }
 
 export interface RegUserDetailsDto {

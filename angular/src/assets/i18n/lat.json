@@ -55,7 +55,12 @@
   "NEUSPEŠNO PROMENJENA LOZINKA": "NEUSPEŠNO PROMENJENA LOZINKA",
   "Promena lozinke i korisničkog imena": "Promena lozinke i korisničkog imena",
   "Uspešno ste promenili lozinku": "Uspešno ste promenili lozinku!",
+  "Azurirani podaci korisnika": "Uspešno ste promenili podatke o korisniku",
   "NAZAD": "NAZAD",
+
+  "Korisnički nalozi": "Korisnički nalozi",
+  "Sačuvaj": "Sačuvaj",
+  "Dodaj": "Dodaj",
 
   "Pošaljite nam poruku": "Pošaljite nam poruku",
   "Pošaljite nam poruku i očekujte odgovor u roku od 24h": "Pošaljite nam poruku i očekujte odgovor u roku od 24h",
@@ -92,6 +97,7 @@
   "Operator": "Operator",
   "Dodaj korisnika": "Dodaj korisnika",
   "Cancel": "Odustani",
+  "Fetch": "Dohvati podatke",
   "U redu": "U redu",
 
   "Dodaj novog obveznika": "Dodaj novog obveznika",

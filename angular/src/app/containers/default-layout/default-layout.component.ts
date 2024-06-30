@@ -94,15 +94,12 @@ export class DefaultLayoutComponent implements OnInit {
   }
 
   private updateNavItemsWithTranslations(language: string): void {
-    console.log('Lang ', this.transloco.getActiveLang());
     this.navItems = this.navItems.map((navItem) => {
-      console.log('navItem ', navItem);
       navItem.name = this.transloco.translate(
         navItem.name ?? '',
         undefined,
         language
       );
-      console.log('navItem1 ', this.transloco.translate(navItem.name ?? ''));
       return navItem;
     });
   }

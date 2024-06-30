@@ -146,11 +146,9 @@ export class UsersComponent implements OnInit {
           .reverse()
           .forEach((user, index, object) => {
             if (user.active == false) {
-              console.log(user);
-              console.log(index);
               users.items.splice(object.length - 1 - index, 1);
             } else {
-              console.log(user);
+              // console.log(user);
             }
           });
         this.users =
@@ -182,8 +180,6 @@ export class UsersComponent implements OnInit {
   }
 
   pagesToShow(currentPage: number, totalPagesNumber: number) {
-    console.log(totalPagesNumber);
-    console.log(currentPage);
     if (totalPagesNumber < 10) {
       // show stranice od 1 do 10 ili max
       this.pagesArray = Array.from(
@@ -270,25 +266,6 @@ export class UsersComponent implements OnInit {
 
   addUserWithNumbers() {
     this.isValidated = true;
-
-    // this.userService
-    //   .addUser({
-    //     firstName: this.fields['userFirstName'].value,
-    //     lastName: this.fields['userLastName'].value,
-    //     jmbg: this.fields['userJMBG'].value,
-    //     phoneNumbers: [this.fields['userPhoneNumber'].value],
-    //     operatorId: this.currentOperatorID!,
-    //   })
-    //   .subscribe({
-    //     next: () => {
-    //       this.modalText = 'Uspešno dodat novi korisnik/broj';
-    //       this.isAddUserModalVisible = false;
-    //       this.toggleConfirmationModal();
-    //     },
-    //     error: (error) => {
-    //       // console.log('Dodavanje korisnika u registar nije uspelo');
-    //     },
-    //   });
   }
 
   editNumber(number: string) {
@@ -301,12 +278,8 @@ export class UsersComponent implements OnInit {
     };
 
     this.userService.modifyUser(number, modifiedUser).subscribe({
-      next: () => {
-        // console.log('Podaci o korisniku su promenjeni uspesno');
-      },
-      error: (error) => {
-        // console.log('Neuspesno promenjeni podaci o korisniku');
-      },
+      next: () => {},
+      error: (error) => {},
     });
   }
 
@@ -323,9 +296,7 @@ export class UsersComponent implements OnInit {
         this.modalText = 'Uspešno obrisan korisnik';
         this.toggleConfirmationModal();
       },
-      error: (error) => {
-        // console.log('Neuspesno promenjeni podaci o obvezniku');
-      },
+      error: (error) => {},
     });
   }
 

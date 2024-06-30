@@ -20,10 +20,30 @@
             >
               {{ t("Moj profil") }}
             </label>
+            <input
+              class="btn-check"
+              formControlName="radio1"
+              type="radio"
+              value="sideMenuSecond"
+            />
+            <label
+              (click)="setRadioValue('sideMenuSecond')"
+              cButton
+              cFormCheckLabel
+              class="settingsMainFormItem"
+              color="secondary"
+              variant="outline"
+            >
+              {{ t("Korisnički nalozi") }}
+            </label>
           </c-button-group>
         </form>
       </c-col>
-      <c-col xs="7" class="settingsInfoForm">
+      <c-col
+        xs="7"
+        class="settingsMyProfileForm"
+        *ngIf="menuItemSelected == 'sideMenuFirst'"
+      >
         <div class="myProfileHeader">
           <p>{{ t("Moj profil") }}</p>
         </div>
@@ -95,6 +115,102 @@
           <p class="descriptionSubtitleText"></p>
         </form>
       </c-col>
+
+      <c-col
+        xs="7"
+        class="settingsUserAccountsForm"
+        *ngIf="menuItemSelected == 'sideMenuSecond'"
+      >
+        <div class="myProfileHeader">
+          <p>{{ t("Korisnički nalozi") }}</p>
+        </div>
+        <form novalidate cForm [formGroup]="userAccountsForm">
+          <table cTable hover>
+            <thead class="tableHeader">
+              <tr>
+                <th scope="col">{{ t("Ime") }}</th>
+                <th scope="col">{{ t("Prezime") }}</th>
+                <th scope="col">{{ t("Korisničko ime") }}</th>
+                <th scope="col">{{ t("Lozinka") }}</th>
+              </tr>
+            </thead>
+
+            <tbody class="tableContent">
+              <tr
+                formArrayName="accounts"
+                *ngFor="
+                  let item of userAccountsForm.get('accounts')?.value;
+                  let i = index;
+                  trackBy: customTrackBy
+                "
+              >
+                <span [formGroupName]="i" style="display: contents">
+                  <td>
+                    <input
+                      cFormControl
+                      placeholder="{{ t('Ime') }}"
+                      formControlName="firstName"
+                      id="firstName{{ i }}"
+                      [ngModel]="item.firstName"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      cFormControl
+                      placeholder="{{ t('Prezime') }}"
+                      formControlName="lastName"
+                      id="lastName{{ i }}"
+                      [ngModel]="item.lastName"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      cFormControl
+                      placeholder="{{ t('Korisničko ime') }}"
+                      formControlName="username"
+                      id="username{{ i }}"
+                      [ngModel]="item.username"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      cFormControl
+                      placeholder="xxxxxxxxx"
+                      formControlName="password"
+                      id="password{{ i }}"
+                      [ngModel]="item.password"
+                    />
+                  </td>
+                  <td>
+                    <button
+                      cButton
+                      class="tableDeleteButton"
+                      (click)="deleteUserAccount(i)"
+                      color="white"
+                      shape="rounded-pill"
+                    >
+                      <svg [cIcon]="icons.cilTrash" class="sidebarIcon"></svg>
+                    </button>
+                  </td>
+                </span>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+        <input
+          cButton
+          class="submitButton"
+          type="submit"
+          value="{{ t('Sačuvaj') }}"
+          (click)="saveRegUserAccounts()"
+        />
+        <input
+          cButton
+          class="submitButton leftmargin10"
+          value="{{ t('Dodaj') }}"
+          (click)="addUserAccount()"
+        />
+      </c-col>
     </c-row>
 
     <c-modal
@@ -125,6 +241,34 @@
           type="submit"
           [value]="t('NAZAD')"
           (click)="resetFields()"
+        />
+      </c-modal-footer>
+    </c-modal>
+
+    <c-modal
+      alignment="center"
+      id="confirmAccountChanged"
+      [visible]="isSuccessfulyAccountUpdatedModalVisible"
+      backdrop="static"
+    >
+      <c-modal-header>
+        <button (click)="hideModalAndRedirect()" cButtonClose></button>
+      </c-modal-header>
+
+      <c-modal-body>
+        <img src="/assets/images/exclamationmark.png" class="modalImage" />
+        <p cModalTitle class="modalTitle">
+          {{ t("Azurirani podaci korisnika") }}
+        </p>
+        <p class="modalSubtitle"></p>
+      </c-modal-body>
+      <c-modal-footer>
+        <input
+          cButton
+          class="modalSubmitButton"
+          type="submit"
+          [value]="t('U redu')"
+          (click)="hideModalAndRedirect()"
         />
       </c-modal-footer>
     </c-modal>

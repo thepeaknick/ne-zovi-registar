@@ -3,7 +3,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RegUserDto, RoleType } from 'src/app/domain/model/schemas';
+import {
+  RegUserAPRDetailsDto,
+  RegUserDto,
+  RoleType,
+} from 'src/app/domain/model/schemas';
 import { RegUserService } from 'src/app/domain/services/reguser.service';
 
 @Component({
@@ -12,7 +16,6 @@ import { RegUserService } from 'src/app/domain/services/reguser.service';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignUpComponent implements OnInit {
-
   @Input() token: string | undefined;
   @Input() showCaptchaMessage: boolean = false;
 
@@ -74,7 +77,7 @@ export class SignUpComponent implements OnInit {
 
     if (this.token == undefined) {
       this.showCaptchaMessage = true;
-      return
+      return;
     }
 
     this.regUserService
@@ -104,7 +107,29 @@ export class SignUpComponent implements OnInit {
           );
         },
         complete: () => {
-          console.log('Successfuly registered user complete callback');
+          // console.log('Successfuly registered user complete callback');
+        },
+      });
+  }
+
+  fetchCompanyFromAPR() {
+    this.regUserService
+      .fetchCompanyData(this.fields['regUserMB'].value)
+      .subscribe({
+        next: (regUser: RegUserAPRDetailsDto) => {
+          console.debug('Uspešno dohvaćeni podaci iz APR');
+          console.debug(regUser);
+          this.regUserForm.patchValue({
+            regUserName: regUser.companyName,
+            regUserAddress: regUser.address,
+            regUserMB: regUser.regNumber,
+            regUserPIB: regUser.taxNumber,
+            regUserFirstName: regUser.firstName,
+            regUserLastName: regUser.lastName,
+          });
+        },
+        error: (error) => {
+          console.debug('Neuspešno dohvaćeni podaci iz APR');
         },
       });
   }

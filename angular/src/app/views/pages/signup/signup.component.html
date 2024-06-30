@@ -20,6 +20,8 @@
                       {{ t("Ime trgovca") }}
                     </label>
                     <input
+                      readonly
+                      class="readOnlyInput"
                       required
                       cFormControl
                       formControlName="regUserName"
@@ -33,6 +35,8 @@
                       {{ t("Adresa trgovca") }}
                     </label>
                     <input
+                      readonly
+                      class="readOnlyInput"
                       required
                       cFormControl
                       formControlName="regUserAddress"
@@ -62,6 +66,8 @@
                       </c-col>
                       <c-col>
                         <label
+                          readonly
+                          class="readOnlyInput"
                           cLabel
                           for="regUserLastName"
                           class="textInputField"
@@ -140,6 +146,8 @@
                       t("PIB")
                     }}</label>
                     <input
+                      readonly
+                      class="readOnlyInput"
                       required
                       minlength="9"
                       maxlength="9"
@@ -167,6 +175,13 @@
                       placeholder="xxxxxxxxx"
                     />
                   </div>
+                  <input
+                    cButtonClose
+                    class="fetchButton"
+                    type="submit"
+                    [value]="t('Fetch')"
+                    (click)="fetchCompanyFromAPR()"
+                  />
                 </c-col>
               </form>
               <div class="recaptcha">

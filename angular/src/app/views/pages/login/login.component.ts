@@ -67,13 +67,10 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    console.log('captcha token : ', this.token);
-
     if (this.token == undefined) {
       this.showCaptchaMessage = true;
       return;
     }
-
     this.loading = true;
     this.authenticationService
       .login(this.fields['username'].value, this.fields['password'].value)
@@ -86,7 +83,6 @@ export class LoginComponent implements OnInit {
           if (returnUrl === '/') {
             let user: RegUserDetailsDto | null =
               AuthenticationService.CurrentUser;
-            // console.log(JSON.stringify(user));
 
             if (user) {
               switch (user.role) {

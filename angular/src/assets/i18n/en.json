@@ -55,7 +55,12 @@
   "NEUSPEŠNO PROMENJENA LOZINKA": "UNSUCCESSFUL PASSWORD CHANGE",
   "Promena lozinke i korisničkog imena": "Password and Username Change",
   "Uspešno ste promenili lozinku": "You have successfully changed your password!",
+  "Azurirani podaci korisnika": "User data successfully updated",
   "NAZAD": "DONE",
+
+  "Korisnički nalozi": "User accounts",
+  "Sačuvaj": "Save",
+  "Dodaj": "Add",
 
   "Pošaljite nam poruku": "Send us a message",
   "Pošaljite nam poruku i očekujte odgovor u roku od 24h": "Send us a message and expect a response within 24h",
@@ -92,6 +97,7 @@
   "Operator": "Operator",
   "Dodaj korisnika": "Add User",
   "Cancel": "Cancel",
+  "Fetch": "Fetch data",
   "U redu": "OK",
 
   "Dodaj novog obveznika": "Add New Obligee",

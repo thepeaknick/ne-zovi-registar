@@ -116,6 +116,7 @@ const APP_CONTAINERS = [
     FieldsEqualityValidatorDirective,
   ],
   imports: [
+    ReactiveFormsModule,
     RecaptchaModule,
     RecaptchaFormsModule,
     HttpClientModule,

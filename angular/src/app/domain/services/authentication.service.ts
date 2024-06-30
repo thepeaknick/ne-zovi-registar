@@ -31,6 +31,7 @@ export class AuthenticationService extends BaseService {
           // set token don't bother with user
           AuthenticationService.Token = loginResult;
           this.startRefreshTokenTimer();
+
           return this.http
             .get<RegUserDetailsDto>(
               `${this.config.apiUrl}${this.config.apiRegUserDetailsUrl}/${loginResult.regUserId}`

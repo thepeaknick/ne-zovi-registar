@@ -170,7 +170,6 @@ export class RegUsersComponent implements OnInit {
             next: (regUsers: RegUserDto[]) => {
               this.regUsers =
                 regUsers instanceof HttpErrorResponse ? [] : regUsers;
-              console.log('piuq');
             },
             complete: () => {
               this.totalPagesNumber =
@@ -273,7 +272,6 @@ export class RegUsersComponent implements OnInit {
     this.modalText = 'Uspešno ste obrisali obveznika';
     this.regUserService.removeRegUser(guidId).subscribe({
       next: (regUser: RegUserDto) => {
-        // console.log('Uspešno obrisan obveznik');
         var currentPage = this.currentPage;
         this.regUserService.getRegUsers(RoleType.Obveznik).subscribe({
           next: (regUsers: RegUserDto[]) =>
@@ -293,9 +291,7 @@ export class RegUsersComponent implements OnInit {
         this.isSuccessfulyDeleted = true;
         this.toggleConfirmationModal();
       },
-      error: (error) => {
-        // console.log('Neuspešno obrisan obveznik');
-      },
+      error: (error) => {},
     });
   }
 

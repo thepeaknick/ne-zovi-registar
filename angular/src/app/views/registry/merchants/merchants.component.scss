@@ -106,7 +106,8 @@ c-modal-body {
   margin: 2%;
 }
 
-.cancelButton {
+.cancelButton,
+.fetchButton {
   width: 188px;
   height: 50px;
   background: #e4e9f0;
@@ -290,4 +291,8 @@ c-pagination li {
 
 .btnRow {
   justify-content: flex-end;
+}
+
+.readOnlyInput {
+  background-color: #e8e8e8;
 }

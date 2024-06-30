@@ -55,7 +55,7 @@ export class SearchComponent {
             this.showSearchMessage = true;
             this.showErrorMessage = false;
           }
-          console.log("error: ", error.error);
+          // console.log("error: ", error.error);
         },
       });
     } else {
@@ -63,26 +63,5 @@ export class SearchComponent {
     }
   }
 
-  ngOnInit() {
-    // this.userService.getUser('0641234567').subscribe((value: any) => {
-    // this.userService.getUser('0641323236').subscribe((value: any) => {
-    //   this.phoneNumber = value;
-    // });
-    /*
-    let after: Date = new Date();
-    after.setMonth(3);
-    
-    this.userService
-      .allUsers(after)
-      .subscribe(users => this.users = users);
-    */
-    /*
-    let response = this.userService
-      .getUser('0652015766')
-      .subscribe({
-        next: pn => { this.phoneNumber = pn; },
-        error: err => { this.phoneNumber = 'unknown'; }
-      });
-      */
-  }
+  ngOnInit() {}
 }

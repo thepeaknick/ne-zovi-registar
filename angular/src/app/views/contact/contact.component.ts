@@ -40,7 +40,6 @@ export class ContactComponent {
     let phoneNumber: string = this.messageForm.controls['inputPhone'].value;
     let content: string = this.messageForm.controls['inputMessage'].value;
 
-    // console.log(content);
     this.regUserService
       .sendEmail({
         firstName,
@@ -51,7 +50,6 @@ export class ContactComponent {
         content,
       })
       .subscribe((answer: any) => {
-        // console.log(answer);
         this.formSubmitted = true;
         this.messageForm.reset();
       });

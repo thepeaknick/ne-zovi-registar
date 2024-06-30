@@ -219,6 +219,8 @@
                 {{ t("Ime trgovca") }}
               </label>
               <input
+                readonly
+                class="readOnlyInput"
                 required
                 cFormControl
                 formControlName="regUserName"
@@ -232,6 +234,8 @@
                 {{ t("Adresa trgovca") }}
               </label>
               <input
+                readonly
+                class="readOnlyInput"
                 required
                 cFormControl
                 formControlName="regUserAddress"
@@ -323,6 +327,8 @@
                 t("PIB")
               }}</label>
               <input
+                readonly
+                class="readOnlyInput"
                 required
                 minlength="9"
                 maxlength="9"
@@ -350,6 +356,13 @@
                 placeholder="xxxxxxxxx"
               />
             </div>
+            <input
+              cButtonClose
+              class="fetchButton"
+              type="submit"
+              [value]="t('Fetch')"
+              (click)="fetchCompanyFromAPR()"
+            />
           </c-col>
           <c-col [xs]="12">
             <span *ngIf="showFormError" class="red">{{ errorMessage }}</span>

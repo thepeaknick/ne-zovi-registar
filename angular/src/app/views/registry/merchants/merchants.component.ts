@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import {
   RegUserDetailsDto,
+  RegUserAPRDetailsDto,
   RegUserDto,
   RoleType,
   UserDto,
@@ -245,7 +246,29 @@ export class MerchantsComponent {
           }
         },
         complete: () => {
-          console.log('Successfuly registered user complete callback');
+          // console.log('Successfuly registered user complete callback');
+        },
+      });
+  }
+
+  fetchCompanyFromAPR() {
+    this.regUserService
+      .fetchCompanyData(this.fields['regUserMB'].value)
+      .subscribe({
+        next: (regUser: RegUserAPRDetailsDto) => {
+          console.debug('Uspešno dohvaćeni podaci iz APR');
+          console.debug(regUser);
+          this.regUserForm.patchValue({
+            regUserName: regUser.companyName,
+            regUserAddress: regUser.address,
+            regUserMB: regUser.regNumber,
+            regUserPIB: regUser.taxNumber,
+            regUserFirstName: regUser.firstName,
+            regUserLastName: regUser.lastName,
+          });
+        },
+        error: (error) => {
+          console.debug('Neuspešno dohvaćeni podaci iz APR');
         },
       });
   }
