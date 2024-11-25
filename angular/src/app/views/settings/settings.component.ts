@@ -135,10 +135,21 @@ export class SettingsComponent {
   }
 
   saveRegUserAccounts() {
+    this.regUserAccounts.accounts.forEach((key: any, val: any) => {
+      this.userAccountsForm.value.accounts.forEach(
+        (key_form: any, val_form: any) => {
+          if (key_form.password != '' && key_form.username == key.username) {
+            key.password = key_form.password;
+          }
+        }
+      );
+    });
+    console.log(this.regUserAccounts);
     this.regUserService
       .saveRegUserAccounts(
         this.currentUserRegUserID,
-        this.userAccountsForm.value
+        this.regUserAccounts
+        // this.userAccountsForm.value
       )
       .subscribe({
         next: (answer: string) => {
