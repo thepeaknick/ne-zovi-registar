@@ -144,7 +144,6 @@ export class SettingsComponent {
         }
       );
     });
-    console.log(this.regUserAccounts);
     this.regUserService
       .saveRegUserAccounts(
         this.currentUserRegUserID,
