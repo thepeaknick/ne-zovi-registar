@@ -13,6 +13,7 @@ import { RegUserService } from 'src/app/domain/services/reguser.service';
 import { RegUserDto, UserDtoPagedList } from '../../../domain/model/schemas';
 import * as XLSX from 'xlsx';
 import { BooleanInput } from '@angular/cdk/coercion';
+import { AddUserRequest } from '../../../domain/model/schemas';
 import { CurrentUser } from 'src/app/domain/model/current-user';
 
 @Component({
@@ -266,6 +267,26 @@ export class UsersComponent implements OnInit {
 
   addUserWithNumbers() {
     this.isValidated = true;
+
+    if (!this.allFieldsValidated()) {
+      return;
+    }
+
+    this.userService
+      .addUser({
+        firstName: this.fields['userFirstName'].value,
+        lastName: this.fields['userLastName'].value,
+        jmbg: this.fields['userJMBG'].value,
+        phoneNumbers: [this.fields['userPhoneNumber'].value],
+        operatorId: this.currentOperatorID as number,
+      })
+      .subscribe({
+        next: () => {
+          this.modalText = 'Uspešno dodat korisnik';
+          this.toggleAddUserModal();
+          this.toggleConfirmationModal();
+        },
+      });
   }
 
   editNumber(number: string) {
@@ -303,5 +324,18 @@ export class UsersComponent implements OnInit {
   toggleConfirmationModal() {
     this.isSuccessfulyAddedUserModalVisible =
       !this.isSuccessfulyAddedUserModalVisible;
+  }
+
+  allFieldsValidated(): Boolean {
+    if (
+      this.fields['userFirstName'].valid &&
+      this.fields['userLastName'].valid &&
+      this.fields['userJMBG'].valid &&
+      this.fields['userPhoneNumber'].valid
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

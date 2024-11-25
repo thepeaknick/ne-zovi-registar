@@ -95,13 +95,13 @@ export class SettingsComponent {
   initItems(): FormGroup[] {
     var formArray: FormGroup[] = [];
     this.regUserAccounts.accounts.forEach((key: any, val: any) => {
-      console.log(key);
+      // console.log(key);
       formArray.push(
         this.formBuilder.group({
           firstName: key.firstName,
           lastName: key.lastName,
           username: key.username,
-          password: key.password,
+          password: '',
         })
       );
     });

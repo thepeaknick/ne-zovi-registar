@@ -1,5 +1,5 @@
 {
-  "apiUrl": "https://testapi.nezovi.rs/v1",
+  "apiUrl": "https://api.nezovi.rs/v1",
   "apiLoginUrl": "/account/login",
   "apiLogoutUrl": "/account/logout",
   "apiResetPasswordUrl": "/account/resetpassword",
