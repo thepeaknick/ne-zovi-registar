@@ -131,7 +131,21 @@ export class SettingsComponent {
 
   deleteUserAccount(id: number) {
     const accounts = this.userAccountsForm.get('accounts') as FormArray;
+    const usernameToRemove = accounts.value[id].username;
     accounts.removeAt(id);
+    // var indexToRemove;
+    console.log(usernameToRemove);
+    this.regUserAccounts.accounts = this.regUserAccounts.accounts.filter(
+      (item) => item.username !== usernameToRemove
+    );
+    console.log(this.regUserAccounts.accounts);
+    // this.regUserAccounts.accounts.forEach((key: any, val: any) => {
+    //   console.log(val);
+    //   if (key.username == usernameToRemove) {
+    //     indexToRemove = val;
+    //   }
+    // });
+    // this.regUserAccounts.accounts.removeAt(indexToRemove);
   }
 
   saveRegUserAccounts() {
