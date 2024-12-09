@@ -95,7 +95,6 @@ export class SettingsComponent {
   initItems(): FormGroup[] {
     var formArray: FormGroup[] = [];
     this.regUserAccounts.accounts.forEach((key: any, val: any) => {
-      // console.log(key);
       formArray.push(
         this.formBuilder.group({
           firstName: key.firstName,
@@ -133,27 +132,25 @@ export class SettingsComponent {
     const accounts = this.userAccountsForm.get('accounts') as FormArray;
     const usernameToRemove = accounts.value[id].username;
     accounts.removeAt(id);
-    // var indexToRemove;
-    console.log(usernameToRemove);
+
     this.regUserAccounts.accounts = this.regUserAccounts.accounts.filter(
       (item) => item.username !== usernameToRemove
     );
-    console.log(this.regUserAccounts.accounts);
-    // this.regUserAccounts.accounts.forEach((key: any, val: any) => {
-    //   console.log(val);
-    //   if (key.username == usernameToRemove) {
-    //     indexToRemove = val;
-    //   }
-    // });
-    // this.regUserAccounts.accounts.removeAt(indexToRemove);
   }
 
   saveRegUserAccounts() {
     this.regUserAccounts.accounts.forEach((key: any, val: any) => {
       this.userAccountsForm.value.accounts.forEach(
         (key_form: any, val_form: any) => {
+          // changing password
           if (key_form.password != '' && key_form.username == key.username) {
             key.password = key_form.password;
+          }
+          var isPresent = this.regUserAccounts.accounts.some(function (el) {
+            return el.username === key_form.username;
+          });
+          if (!isPresent) {
+            this.regUserAccounts.accounts.push(key_form);
           }
         }
       );
