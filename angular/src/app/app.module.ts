@@ -162,9 +162,9 @@ const APP_CONTAINERS = [
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: {
-        siteKey: '6LdNNmQmAAAAAKEU4pIxQ33-eNhyyGeZ1_CT2IO6', // Localhost
+        // siteKey: '6LdNNmQmAAAAAKEU4pIxQ33-eNhyyGeZ1_CT2IO6', // Localhost
         // siteKey: '6Lec_GkoAAAAAH-PoN7wtJDEKZW6902vqUDXqFqm', // Prod - IP adresa
-        // siteKey: '6LeexqooAAAAAE7gLcZO2kCjRe3KEnuZqgxgN3mX', // nezovi.rs
+        siteKey: '6LeexqooAAAAAE7gLcZO2kCjRe3KEnuZqgxgN3mX', // nezovi.rs
         // siteKey: '6LcQFQkpAAAAAJRi8t8OaneNwwbuaQl_UVkPibSw' // http://81.208.220.88/
         // siteKey: '6LfBpg0pAAAAAB33hZLAeV6a8vAd5zCGs_C9xmB1', //https://test.nezovi.rs/
       } as RecaptchaSettings,
